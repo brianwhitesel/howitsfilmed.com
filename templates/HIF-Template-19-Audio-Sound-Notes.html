@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio &amp; Sound Notes — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #FAFAFA; --bg2: #FFFFFF; --bg3: #F2F2F2; --bg4: #EBEBEB;
+  --border: #E0E0E0; --border2: #D0D0D0;
+  --accent: #FF3333; --accent2: #CC2020;
+  --text: #1A1A1A; --text2: #555555; --text3: #999999;
+  --logo-ink: #1a1a1a; --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A; --bg2: #212121; --bg3: #2a2a2a; --bg4: #2f2f2f;
+  --border: #252525; --border2: #2e2e2e;
+  --accent: #FF3333; --accent2: #CC2020;
+  --text: #FFFFFF; --text2: #9a9490; --text3: #5a5650;
+  --logo-ink: #FFFFFF; --logo-bg: #1A1A1A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; min-height: 100vh; }
+.toolbar {
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 6px 48px; display: flex; align-items: center; gap: 8px;
+}
+.toolbar-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border); color: var(--text2);
+  font-family: var(--font-ui); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; padding: 5px 12px; cursor: pointer;
+  border-radius: 2px; transition: all 0.15s; white-space: nowrap;
+}
+.toolbar-btn.save-btn { border-color: var(--accent2); color: var(--accent); }
+.toolbar-btn.save-btn:hover { background: rgba(255,51,51,0.08); }
+.theme-toggle {
+  margin-left: auto; background: transparent; border: 1px solid var(--border);
+  color: var(--text2); font-size: 14px; padding: 4px 10px; cursor: pointer;
+  border-radius: 2px; transition: all 0.15s; line-height: 1;
+  font-family: var(--font-ui, sans-serif);
+}
+.theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+[data-theme="dark"] .theme-icon::before { content: "\2600"; }
+[data-theme="light"] .theme-icon::before { content: "\1F319"; }
+.accent-rule { height: 2px; background: linear-gradient(90deg, var(--accent) 0%, transparent 60%); }
+.page-wrap { max-width: 960px; margin: 0 auto; padding: 32px 48px 64px; }
+.doc-header { display: flex; align-items: flex-start; gap: 32px; margin-bottom: 28px; flex-wrap: wrap; }
+.doc-titles { flex: 1; min-width: 200px; }
+.doc-title { font-family: var(--font-head); font-size: 38px; line-height: 1; color: var(--text); letter-spacing: 0.02em; margin-bottom: 2px; }
+.doc-subtitle { font-size: 10px; letter-spacing: 0.15em; color: var(--text3); text-transform: uppercase; }
+.meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; flex: 2; min-width: 280px; }
+.meta-field { display: flex; flex-direction: column; gap: 3px; }
+.meta-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); }
+.meta-input {
+  background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+  font-family: var(--font-ui); font-size: 12px; padding: 5px 8px;
+  border-radius: 2px; outline: none; width: 100%;
+}
+.meta-input:focus { border-color: var(--accent2); }
+.section-panel {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 4px;
+  padding: 24px; margin-bottom: 24px;
+}
+.section-badge {
+  display: inline-block; background: var(--accent); color: #fff;
+  font-family: var(--font-head); font-size: 13px; letter-spacing: 0.12em;
+  padding: 2px 10px; border-radius: 2px; margin-bottom: 16px;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-grid-full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); }
+.field input, .field select, .field textarea {
+  background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+  font-family: var(--font-ui); font-size: 12px; padding: 6px 8px;
+  border-radius: 2px; outline: none; width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent2); }
+.field textarea { resize: vertical; min-height: 64px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 10px; }
+table { width: 100%; border-collapse: collapse; min-width: 500px; }
+thead tr { background: var(--bg3); }
+th {
+  padding: 7px 9px; text-align: left; font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text3); font-weight: 600;
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+td { padding: 5px 7px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+.td-input {
+  background: transparent; border: 1px solid transparent; color: var(--text);
+  font-family: var(--font-ui); font-size: 11px; padding: 3px 5px;
+  border-radius: 2px; width: 100%; outline: none; min-width: 60px;
+}
+.td-input:focus { background: var(--bg3); border-color: var(--border2); }
+.td-select {
+  background: transparent; border: 1px solid transparent; color: var(--text);
+  font-family: var(--font-ui); font-size: 11px; padding: 3px 4px;
+  border-radius: 2px; outline: none; cursor: pointer; width: 100%;
+}
+.td-select:focus { background: var(--bg3); border-color: var(--border2); }
+.td-check { cursor: pointer; width: 16px; height: 16px; accent-color: var(--accent); }
+.del-btn {
+  background: transparent; border: none; color: var(--text3); cursor: pointer;
+  font-size: 15px; padding: 2px 5px; border-radius: 2px; transition: all 0.15s;
+}
+.del-btn:hover { color: var(--accent); background: rgba(255,51,51,0.08); }
+.add-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px dashed var(--border2); background: transparent;
+  color: var(--text3); font-family: var(--font-ui); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; padding: 6px 14px; cursor: pointer;
+  border-radius: 2px; transition: all 0.15s;
+}
+.add-btn:hover { border-color: var(--accent2); color: var(--accent); }
+.badge-open { background: #ffecec; color: #cc2020; }
+.badge-resolved { background: #E3FFEC; color: #20A860; }
+.badge-na { background: var(--bg4); color: var(--text3); }
+[data-theme="dark"] .badge-open { background: #2a0000; color: #ff6666; }
+[data-theme="dark"] .badge-resolved { background: #0a2a14; color: #40cc70; }
+.status-badge { display: inline-block; padding: 2px 7px; border-radius: 2px; font-size: 10px; font-weight: 600; }
+.post-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.deliver-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 16px; }
+.page-footer {
+  margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+@media (max-width: 600px) {
+  .page-wrap { padding: 16px; }
+  .toolbar { padding: 6px 16px; }
+  .meta-grid, .form-grid, .post-grid, .deliver-grid { grid-template-columns: 1fr; }
+  .doc-header { flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button class="toolbar-btn save-btn" onclick="saveFile()">&#8595; Save File</button>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+<div class="accent-rule"></div>
+<div class="page-wrap">
+  <div class="doc-header">
+    <div>
+      <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+        <style>.logo-ink{fill:var(--logo-ink,#1a1a1a)}.logo-dot{fill:#f33}.logo-bg-counter{fill:var(--logo-bg,#fafafa)}</style>
+        <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+        <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+        <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+        <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+        <g>
+          <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+          <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+          <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+          <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+          <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+          <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+          <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+          <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+          <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+          <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+          <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+          <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+          <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+          <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="doc-titles">
+      <div class="doc-title">Audio &amp; Sound Notes</div>
+      <div class="doc-subtitle">Production Document</div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-field"><label class="meta-label">Project</label><input class="meta-input" type="text" placeholder="Project name"></div>
+      <div class="meta-field"><label class="meta-label">Sound Mixer / Recordist</label><input class="meta-input" type="text" placeholder="Name"></div>
+      <div class="meta-field"><label class="meta-label">Date</label><input class="meta-input" type="text" placeholder="YYYY-MM-DD"></div>
+      <div class="meta-field"><label class="meta-label">Location</label><input class="meta-input" type="text" placeholder="Shoot location"></div>
+    </div>
+  </div>
+
+  <!-- Section 1: Recorder Settings -->
+  <div class="section-panel">
+    <div class="section-badge">1 — RECORDER SETTINGS</div>
+    <div class="form-grid">
+      <div class="field"><label>Device / Model</label><input type="text" placeholder="e.g. Sound Devices MixPre-10T"></div>
+      <div class="field"><label>Sample Rate</label><select><option>48kHz</option><option>44.1kHz</option><option>88.2kHz</option><option>96kHz</option></select></div>
+      <div class="field"><label>Bit Depth</label><select><option>24-bit</option><option>16-bit</option><option>32-bit Float</option></select></div>
+      <div class="field"><label># Channels</label><input type="number" min="1" max="32" placeholder="8"></div>
+      <div class="field"><label>Timecode Source</label><select><option>Internal</option><option>External</option><option>Jam Sync</option></select></div>
+      <div class="field"><label>File Format</label><select><option>BWAV</option><option>WAV</option><option>MP3</option><option>AAC</option><option>FLAC</option></select></div>
+      <div class="field"><label>Record Mode</label><select><option>Normal</option><option>Pre-Record</option><option>Dual-System</option></select></div>
+      <div class="field form-grid-full"><label>Notes</label><input type="text" placeholder="Additional recorder notes"></div>
+    </div>
+  </div>
+
+  <!-- Section 2: Mic Channel Assignments -->
+  <div class="section-panel">
+    <div class="section-badge">2 — MIC CHANNEL ASSIGNMENTS</div>
+    <div class="table-wrap">
+      <table id="ch-table">
+        <thead>
+          <tr>
+            <th>Channel</th><th>Mic Type</th><th>Placement / Subject</th><th>Gain</th><th>48V</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="ch-body"></tbody>
+      </table>
+    </div>
+    <button class="add-btn" onclick="addChannel()">+ Add Channel</button>
+  </div>
+
+  <!-- Section 3: Room Tone Log -->
+  <div class="section-panel">
+    <div class="section-badge">3 — ROOM TONE LOG</div>
+    <div class="table-wrap">
+      <table id="rt-table">
+        <thead>
+          <tr><th>Location / Room</th><th>Time Recorded</th><th>Duration</th><th>Notes</th><th></th></tr>
+        </thead>
+        <tbody id="rt-body"></tbody>
+      </table>
+    </div>
+    <button class="add-btn" onclick="addRoomTone()">+ Add Entry</button>
+  </div>
+
+  <!-- Section 4: Problem Scenes -->
+  <div class="section-panel">
+    <div class="section-badge">4 — PROBLEM SCENES</div>
+    <div class="table-wrap">
+      <table id="prob-table">
+        <thead>
+          <tr><th>Scene / Shot</th><th>Audio Issue</th><th>Resolution / Fix</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody id="prob-body"></tbody>
+      </table>
+    </div>
+    <button class="add-btn" onclick="addProblem()">+ Add Issue</button>
+  </div>
+
+  <!-- Section 5: Post Audio Notes -->
+  <div class="section-panel">
+    <div class="section-badge">5 — POST AUDIO NOTES</div>
+    <div class="post-grid">
+      <div class="field"><label>Music Cues</label><textarea placeholder="Music cues, timing notes..."></textarea></div>
+      <div class="field"><label>SFX Notes</label><textarea placeholder="Sound effects needed..."></textarea></div>
+      <div class="field"><label>Mixing Notes</label><textarea placeholder="Mixing direction, EQ notes..."></textarea></div>
+      <div class="field"><label>Deliverable Notes</label><textarea placeholder="Delivery specs, client requirements..."></textarea></div>
+    </div>
+    <div style="margin-top:16px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">DELIVERABLE FORMATS</div>
+    <div class="deliver-grid">
+      <div class="field"><label>Stereo Mix</label><input type="text" placeholder="e.g. 48kHz / 24-bit WAV"></div>
+      <div class="field"><label>5.1 Mix</label><input type="text" placeholder="e.g. 48kHz / 24-bit WAV"></div>
+      <div class="field"><label>Stems</label><input type="text" placeholder="e.g. Dia / Music / SFX"></div>
+      <div class="field"><label>Sample Rate</label><input type="text" placeholder="48kHz"></div>
+      <div class="field"><label>Bit Depth</label><input type="text" placeholder="24-bit"></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:0.1em;"><span style="color:var(--accent);">How It's Filmed</span> — howitsfilmed.com</div>
+    <div style="font-size:10px;color:var(--text3);">AUDIO &amp; SOUND NOTES &nbsp;·&nbsp; howitsfilmed.com</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+
+var chCount = 0;
+
+function addChannel(num) {
+  chCount++;
+  var n = num || chCount;
+  var tbody = document.getElementById('ch-body');
+  var tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td style="text-align:center;color:var(--text2);font-weight:600;width:40px">' + n + '</td>' +
+    '<td><select class="td-select">' +
+      '<option>Lav</option><option>Boom Shotgun</option><option>Hypercard</option>' +
+      '<option>Cardioid</option><option>Handheld</option><option>Boundary</option><option>DI Box</option>' +
+    '</select></td>' +
+    '<td><input class="td-input" type="text" placeholder="Subject/placement"></td>' +
+    '<td><input class="td-input" type="text" placeholder="-18 dBFS" style="min-width:70px"></td>' +
+    '<td style="text-align:center"><input type="checkbox" class="td-check"></td>' +
+    '<td><input class="td-input" type="text" placeholder="Notes"></td>' +
+    '<td><button class="del-btn" onclick="this.closest('tr').remove()">&#215;</button></td>';
+  tbody.appendChild(tr);
+}
+
+function addRoomTone() {
+  var tbody = document.getElementById('rt-body');
+  var tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td><input class="td-input" type="text" placeholder="Location name"></td>' +
+    '<td><input class="td-input" type="text" placeholder="HH:MM:SS"></td>' +
+    '<td><input class="td-input" type="text" placeholder="0:60"></td>' +
+    '<td><input class="td-input" type="text" placeholder="Notes"></td>' +
+    '<td><button class="del-btn" onclick="this.closest('tr').remove()">&#215;</button></td>';
+  tbody.appendChild(tr);
+}
+
+function addProblem() {
+  var tbody = document.getElementById('prob-body');
+  var tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td><input class="td-input" type="text" placeholder="Scene/Shot ref"></td>' +
+    '<td><input class="td-input" type="text" placeholder="Describe issue"></td>' +
+    '<td><input class="td-input" type="text" placeholder="Fix or workaround"></td>' +
+    '<td><select class="td-select prob-status" onchange="updateProbStatus(this)">' +
+      '<option value="Open">Open</option>' +
+      '<option value="Resolved">Resolved</option>' +
+      '<option value="N/A">N/A</option>' +
+    '</select></td>' +
+    '<td><button class="del-btn" onclick="this.closest('tr').remove()">&#215;</button></td>';
+  tbody.appendChild(tr);
+  updateProbStatus(tr.querySelector('.prob-status'));
+}
+
+function updateProbStatus(sel) {
+  var map = { 'Open': 'badge-open', 'Resolved': 'badge-resolved', 'N/A': 'badge-na' };
+  sel.className = 'td-select prob-status status-badge ' + (map[sel.value] || 'badge-na');
+}
+
+// Pre-populate channels 1-8
+for (var i = 1; i <= 8; i++) addChannel(i);
+// Pre-populate 3 room tone rows
+for (var j = 0; j < 3; j++) addRoomTone();
+
+function saveFile() {
+  var doctype = '<!DOCTYPE html>';
+  var clone = document.documentElement.cloneNode(true);
+  var liveInputs = Array.from(document.querySelectorAll('input, select, textarea'));
+  var cloneInputs = Array.from(clone.querySelectorAll('input, select, textarea'));
+  liveInputs.forEach(function(live, i) {
+    var cl = cloneInputs[i];
+    if (!cl) return;
+    if (live.type === 'checkbox') {
+      if (live.checked) cl.setAttribute('checked', 'checked');
+      else cl.removeAttribute('checked');
+    } else if (live.tagName === 'SELECT') {
+      Array.from(cl.options).forEach(function(opt, j) {
+        if (live.options[j] && live.options[j].selected) opt.setAttribute('selected', 'selected');
+        else opt.removeAttribute('selected');
+      });
+    } else if (live.tagName === 'TEXTAREA') {
+      cl.textContent = live.value;
+    } else {
+      cl.setAttribute('value', live.value);
+    }
+  });
+  var toolbarEl = clone.querySelector('.toolbar');
+  if (toolbarEl) toolbarEl.remove();
+  var html = doctype + '\n' + clone.outerHTML;
+  var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'HIF-Audio-Sound-Notes.html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

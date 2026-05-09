@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Library — How It's Filmed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #191919;
+      --surface3: #222222;
+      --accent: #FF3333;
+      --accent-dim: rgba(255,51,51,0.12);
+      --text: #fafafa;
+      --text-muted: #888888;
+      --text-dim: #555555;
+      --border: #222222;
+      --border2: #2a2a2a;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ── WHOP BANNER ── */
+    .whop-banner {
+      background: linear-gradient(90deg, #1a1a1a 0%, #1f1416 100%);
+      border-bottom: 1px solid #2a1a1a;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 12px;
+      color: #bbb;
+      letter-spacing: 0.02em;
+    }
+    .whop-banner strong { color: var(--accent); font-weight: 600; }
+
+    /* ── STICKY HEADER ── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      height: 64px;
+    }
+
+    /* Logo */
+    .logo-wrap { flex-shrink: 0; display: flex; align-items: center; }
+    .logo-svg { height: 34px; width: auto; }
+    .logo-ink  { fill: #fafafa; }
+    .logo-dot  { fill: #FF3333; }
+    .logo-none { fill: none; }
+    .logo-bg-counter { fill: #1a1a1a; }
+
+    /* Search */
+    .search-wrap { flex: 1; min-width: 0; }
+    .search-input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 9px 14px 9px 38px;
+      outline: none;
+      transition: border-color 0.15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7' stroke='%23666' stroke-width='2'/%3E%3Cpath d='m16.5 16.5 4 4' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+    }
+    .search-input::placeholder { color: var(--text-dim); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Badge */
+    .badge-count {
+      flex-shrink: 0;
+      background: var(--accent-dim);
+      border: 1px solid rgba(255,51,51,0.25);
+      color: var(--accent);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    /* ── CATEGORY FILTER BAR ── */
+    .filter-bar-wrap {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filter-bar-wrap::-webkit-scrollbar { display: none; }
+    .filter-bar {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 20px;
+      white-space: nowrap;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: #444; color: var(--text); }
+    .filter-btn.active {
+      color: #fff;
+      border-color: transparent;
+    }
+    .filter-btn[data-cat="all"].active        { background: #333; color: #fff; }
+    .filter-btn[data-cat="pre-production"].active    { background: #1d3a6e; border-color: #3B82F6; color: #93c5fd; }
+    .filter-btn[data-cat="on-set"].active            { background: #4a2000; border-color: #F97316; color: #fdba74; }
+    .filter-btn[data-cat="post-production"].active   { background: #2d1b69; border-color: #A855F7; color: #d8b4fe; }
+    .filter-btn[data-cat="client-business"].active   { background: #0d3330; border-color: #14B8A6; color: #5eead4; }
+    .filter-btn[data-cat="gear-equipment"].active    { background: #3d2f00; border-color: #EAB308; color: #fde68a; }
+    .filter-btn[data-cat="social-delivery"].active   { background: #4a0d2e; border-color: #EC4899; color: #f9a8d4; }
+    .filter-btn[data-cat="finance-planning"].active  { background: #0f3320; border-color: #22C55E; color: #86efac; }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    /* Results meta */
+    .results-meta {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+      min-height: 18px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-muted);
+    }
+    .empty-state svg { margin-bottom: 16px; opacity: 0.3; }
+    .empty-state p { font-size: 15px; }
+
+    /* ── TEMPLATE GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { border-color: #333; transform: translateY(-1px); }
+    .card.coming-soon { opacity: 0.55; }
+    .card.coming-soon:hover { transform: none; }
+
+    /* Accent stripe */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .card:hover::before { opacity: 1; }
+    .card[data-cat="pre-production"]::before    { background: #3B82F6; }
+    .card[data-cat="on-set"]::before            { background: #F97316; }
+    .card[data-cat="post-production"]::before   { background: #A855F7; }
+    .card[data-cat="client-business"]::before   { background: #14B8A6; }
+    .card[data-cat="gear-equipment"]::before    { background: #EAB308; }
+    .card[data-cat="social-delivery"]::before   { background: #EC4899; }
+    .card[data-cat="finance-planning"]::before  { background: #22C55E; }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .card-num {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .card-pill {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+    [data-cat="pre-production"]  .card-pill { background: #1d3a6e; color: #93c5fd; }
+    [data-cat="on-set"]          .card-pill { background: #4a2000; color: #fdba74; }
+    [data-cat="post-production"] .card-pill { background: #2d1b69; color: #d8b4fe; }
+    [data-cat="client-business"] .card-pill { background: #0d3330; color: #5eead4; }
+    [data-cat="gear-equipment"]  .card-pill { background: #3d2f00; color: #fde68a; }
+    [data-cat="social-delivery"] .card-pill { background: #4a0d2e; color: #f9a8d4; }
+    [data-cat="finance-planning"] .card-pill { background: #0f3320; color: #86efac; }
+
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      flex: 1;
+    }
+    .card-footer {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .btn-open {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 7px 16px;
+      border-radius: 6px;
+      transition: background 0.15s, opacity 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-open:hover { background: #e02020; }
+    .btn-open:active { opacity: 0.85; }
+
+    .coming-soon-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--surface3);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE HEADER ── */
+    @media (max-width: 640px) {
+      .header-inner { height: 56px; gap: 12px; }
+      .logo-svg { height: 26px; }
+      .badge-count { display: none; }
+      .search-input { font-size: 13px; padding: 8px 12px 8px 34px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WHOP MEMBER BANNER -->
+  <div class="whop-banner">
+    You're viewing this as part of your <strong>How It's Filmed</strong> membership. Welcome.
+  </div>
+
+  <!-- STICKY HEADER -->
+  <header class="header">
+    <div class="header-inner">
+
+      <!-- HIF Logo (extracted from brand SVG, viewBox 15 22 640 268) -->
+      <div class="logo-wrap">
+        <svg class="logo-svg" viewBox="15 22 640 268" xmlns="http://www.w3.org/2000/svg" aria-label="How It's Filmed">
+          <!-- Red dot -->
+          <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+          <!-- Bottom-right bracket -->
+          <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+          <!-- Top-left bracket -->
+          <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+          <!-- "O" counter bg shape -->
+          <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+          <!-- HOW IT'S FILMED text paths -->
+          <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+          <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+          <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+          <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+          <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+          <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+          <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+          <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+          <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+          <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+          <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+          <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+          <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+        </svg>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <input
+          class="search-input"
+          type="search"
+          id="searchInput"
+          placeholder="Search templates…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <!-- Badge -->
+      <div class="badge-count">50 Templates</div>
+    </div>
+  </header>
+
+  <!-- CATEGORY FILTER BAR -->
+  <div class="filter-bar-wrap">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="pre-production">Pre-Production</button>
+      <button class="filter-btn" data-cat="on-set">On-Set</button>
+      <button class="filter-btn" data-cat="post-production">Post-Production</button>
+      <button class="filter-btn" data-cat="client-business">Client &amp; Business</button>
+      <button class="filter-btn" data-cat="gear-equipment">Gear &amp; Equipment</button>
+      <button class="filter-btn" data-cat="social-delivery">Social &amp; Delivery</button>
+      <button class="filter-btn" data-cat="finance-planning">Finance &amp; Planning</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="results-meta" id="resultsMeta"></div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="empty-state" id="emptyState">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
+        <path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M8 11h6M11 8v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <p>No templates match your search.</p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    How It's Filmed &nbsp;·&nbsp; <a href="https://howitsfilmed.com" target="_blank">howitsfilmed.com</a> &nbsp;·&nbsp; Template Library
+  </footer>
+
+  <script>
+    // ── TEMPLATE DATA ──────────────────────────────────────────────────
+    // file paths are relative from /app/ → Templates/ is one level up
+    const TEMPLATES = [
+      // PRE-PRODUCTION
+      { num:'01', name:'Shot List',                 cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-01-Shot-List.html',                    exists:true,  desc:'Plan every shot before you roll camera.' },
+      { num:'05', name:'Mood Board',                cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-05-Mood-Board.html',                   exists:true,  desc:'Set the visual tone and style direction for your project.' },
+      { num:'09', name:'Production Schedule',        cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-09-Production-Schedule.html',           exists:true,  desc:'Map out your full shoot timeline day by day.' },
+      { num:'15', name:'Pre-Production Checklist',   cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-15-Pre-Production-Checklist.html',      exists:true,  desc:'Nothing gets missed before the cameras start rolling.' },
+      { num:'31', name:'Script Breakdown Sheet',     cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-31.html',                              exists:true,  desc:'Break down your script by scene, cast, and crew needs.' },
+      { num:'35', name:'Storyboard Notes',           cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-35.html',                              exists:true,  desc:'Capture your visual plan shot by shot before production.' },
+      { num:'40', name:'Client Creative Brief',      cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-40.html',                              exists:true,  desc:'Lock in the creative direction with your client upfront.' },
+      { num:'43', name:'Brand Video Brief',          cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-43.html',                              exists:true,  desc:'Define brand tone, style, and messaging before production.' },
+      { num:'44', name:'Project Kickoff Checklist',  cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-44.html',                              exists:true,  desc:'Start every new project on the right foot.' },
+      { num:'46', name:'Interview Prep Sheet',       cat:'pre-production',   label:'Pre-Production',   file:'../templates/HIF-Template-46.html',                              exists:true,  desc:'Prepare questions and logistics for on-camera interviews.' },
+
+      // ON-SET
+      { num:'02', name:'Call Sheet',                 cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-02-Call-Sheet.html',                   exists:true,  desc:'Keep your crew and talent aligned on shoot day.' },
+      { num:'06', name:'Location Scout',             cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-06-Location-Scout.html',               exists:true,  desc:'Document and compare potential shoot locations.' },
+      { num:'07', name:'Talent Release',             cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-07-Talent-Release.html',               exists:true,  desc:'Get signed releases from everyone who appears on camera.' },
+      { num:'08', name:'Equipment Checklist',        cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-08-Equipment-Checklist.html',          exists:true,  desc:'Pack and verify every piece of gear before the shoot.' },
+      { num:'14', name:'Interview Shot Guide',       cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-14-Interview-Shot-Guide.html',         exists:true,  desc:'Standardize your interview setups and camera angles.' },
+      { num:'17', name:'BTS Photo Log',              cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-17-BTS-Photo-Log.html',                exists:true,  desc:'Track behind-the-scenes content captured during production.' },
+      { num:'19', name:'Audio Sound Notes',          cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-19-Audio-Sound-Notes.html',            exists:true,  desc:'Log sound sources, levels, and issues during production.' },
+      { num:'21', name:'Talent Release Form',        cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-21.html',                              exists:true,  desc:'Alternate talent release format for on-camera subjects.' },
+      { num:'22', name:'Location Scout Log',         cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-22.html',                              exists:true,  desc:'Log and evaluate potential shooting locations in detail.' },
+      { num:'26', name:'Call Sheet (v2)',             cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-26.html',                              exists:true,  desc:'Updated call sheet with expanded crew and timing fields.' },
+      { num:'32', name:'Continuity Log',             cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-32.html',                              exists:true,  desc:'Ensure visual consistency across every scene and take.' },
+      { num:'33', name:'Camera Report',              cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-33.html',                              exists:true,  desc:'Document camera settings, media, and footage per roll.' },
+      { num:'34', name:'Sound Report',               cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-34.html',                              exists:true,  desc:'Track all audio recording details for post-production.' },
+      { num:'37', name:'Drone & Aerial Log',         cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-37.html',                              exists:true,  desc:'Record drone flights, altitude, battery, and shot details.' },
+      { num:'39', name:'Multi-Camera Setup Sheet',   cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-39.html',                              exists:true,  desc:'Coordinate camera angles and roles across a multi-cam rig.' },
+      { num:'50', name:'Production Day Debrief',     cat:'on-set',           label:'On-Set',           file:'../templates/HIF-Template-50.html',                              exists:true,  desc:'Wrap each shoot day with a structured review and recap.' },
+
+      // POST-PRODUCTION
+      { num:'12', name:'Color Grade Notes',          cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-12-Color-Grade-Notes.html',            exists:true,  desc:'Communicate your look and grade direction clearly.' },
+      { num:'18', name:'Post-Production Timeline',   cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-18-Post-Production-Timeline.html',     exists:true,  desc:'Schedule edit, review, and delivery milestones.' },
+      { num:'27', name:'Delivery Checklist',         cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-27.html',                              exists:true,  desc:'Ensure every deliverable is export-ready and on spec.' },
+      { num:'28', name:'Project Wrap Report',        cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-28.html',                              exists:true,  desc:'Document project outcomes, wins, and lessons learned.' },
+      { num:'36', name:'VFX Shot List',              cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-36.html',                              exists:true,  desc:'Track every visual effects shot through to completion.' },
+      { num:'42', name:'Asset Delivery Manifest',    cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-42.html',                              exists:true,  desc:'Itemize all files and assets delivered to the client.' },
+      { num:'47', name:'Color Palette Reference',    cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-47.html',                              exists:true,  desc:'Define the color language and look of your project.' },
+      { num:'49', name:'Subtitle & Caption Log',     cat:'post-production',  label:'Post-Production',  file:'../templates/HIF-Template-49.html',                              exists:true,  desc:'Manage subtitles, captions, and localization notes.' },
+
+      // CLIENT & BUSINESS
+      { num:'03', name:'Client Proposal',            cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-03-Client-Proposal.html',             exists:true,  desc:'Win the project with a professional, branded proposal.' },
+      { num:'04', name:'Invoice',                    cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-04-Invoice.html',                     exists:true,  desc:'Get paid on time with a clean, professional invoice.' },
+      { num:'10', name:'Client Onboarding',          cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-10-Client-Onboarding.html',           exists:true,  desc:'Set expectations and start the client relationship right.' },
+      { num:'13', name:'Service Agreement',          cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-13-Service-Agreement.html',           exists:true,  desc:'Protect yourself with a clear, professional contract.' },
+      { num:'23', name:'Client Revision Tracker',    cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-23.html',                              exists:true,  desc:'Log client feedback and manage revision rounds cleanly.' },
+      { num:'30', name:'Invoice (v2)',               cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-30.html',                              exists:true,  desc:'Updated invoice format with expanded line items.' },
+      { num:'41', name:'Testimonial Request',        cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-41.html',                              exists:true,  desc:'Make it easy for happy clients to leave a great review.' },
+      { num:'48', name:'End-of-Year Business Review',cat:'client-business',  label:'Client & Business', file:'../templates/HIF-Template-48.html',                              exists:true,  desc:'Reflect on your business performance and set next-year goals.' },
+
+      // GEAR & EQUIPMENT
+      { num:'20', name:'Gear Rental Tracker',        cat:'gear-equipment',   label:'Gear & Equipment', file:'../templates/HIF-Template-20-Gear-Rental-Tracker.html',          exists:true,  desc:'Track rented gear, day rates, and return dates.' },
+      { num:'24', name:'Footage Ingestion Log',      cat:'gear-equipment',   label:'Gear & Equipment', file:'../templates/HIF-Template-24.html',                              exists:true,  desc:'Organize and log all footage as it comes off camera cards.' },
+      { num:'38', name:'Crew Rate Card',             cat:'gear-equipment',   label:'Gear & Equipment', file:'../templates/HIF-Template-38.html',                              exists:true,  desc:'Standardize day rates and packages for your crew.' },
+
+      // SOCIAL & DELIVERY
+      { num:'16', name:'Social Cut Planner',         cat:'social-delivery',  label:'Social & Delivery', file:'../templates/HIF-Template-16-Social-Cut-Planner.html',         exists:true,  desc:'Plan social edits by platform, format, and cut duration.' },
+      { num:'29', name:'Social Caption Bank',        cat:'social-delivery',  label:'Social & Delivery', file:'../templates/HIF-Template-29.html',                             exists:true,  desc:'Write and store captions that are ready to post.' },
+
+      // FINANCE & PLANNING
+      { num:'11', name:'Budget Tracker',             cat:'finance-planning', label:'Finance & Planning', file:'../templates/HIF-Template-11-Budget-Tracker.html',            exists:true,  desc:'Track every dollar in and out of your production budget.' },
+      { num:'25', name:'Music & Licensing Tracker',  cat:'finance-planning', label:'Finance & Planning', file:'../templates/HIF-Template-25.html',                           exists:true,  desc:'Manage music rights and licenses across all projects.' },
+      { num:'45', name:'Licensing & Rights Tracker', cat:'finance-planning', label:'Finance & Planning', file:'../templates/HIF-Template-45.html',                           exists:true,  desc:'Track usage rights for footage, music, and talent.' },
+    ];
+
+    // ── STATE ─────────────────────────────────────────────────────────
+    let activeCategory = 'all';
+    let searchQuery = '';
+
+    // ── RENDER ────────────────────────────────────────────────────────
+    function renderGrid() {
+      const q = searchQuery.toLowerCase().trim();
+      const filtered = TEMPLATES.filter(t => {
+        const matchCat = activeCategory === 'all' || t.cat === activeCategory;
+        const matchSearch = !q ||
+          t.name.toLowerCase().includes(q) ||
+          t.label.toLowerCase().includes(q) ||
+          t.desc.toLowerCase().includes(q) ||
+          t.num.includes(q);
+        return matchCat && matchSearch;
+      });
+
+      const grid = document.getElementById('grid');
+      const empty = document.getElementById('emptyState');
+      const meta = document.getElementById('resultsMeta');
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        meta.textContent = '';
+        return;
+      }
+
+      empty.style.display = 'none';
+
+      const existing = filtered.filter(t => t.exists).length;
+      const soon = filtered.filter(t => !t.exists).length;
+      let metaText = `${filtered.length} template${filtered.length !== 1 ? 's' : ''}`;
+      if (soon > 0) metaText += ` — ${soon} coming soon`;
+      meta.textContent = metaText;
+
+      grid.innerHTML = filtered.map(t => `
+        <div class="card ${t.exists ? '' : 'coming-soon'}" data-cat="${t.cat}">
+          <div class="card-top">
+            <span class="card-num">No.${t.num}</span>
+            <span class="card-pill">${t.label}</span>
+          </div>
+          <div class="card-name">${t.name}</div>
+          <div class="card-desc">${t.desc}</div>
+          <div class="card-footer">
+            ${t.exists
+              ? `<a class="btn-open" href="${t.file}" target="_blank" rel="noopener">Open Template ↗</a>`
+              : `<span class="btn-open" style="background:#2a2a2a;color:#666;cursor:default;">Open Template</span>
+                 <span class="coming-soon-tag">Coming Soon</span>`
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ── EVENTS ────────────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.cat;
+        renderGrid();
+      });
+    });
+
+    document.getElementById('searchInput').addEventListener('input', e => {
+      searchQuery = e.target.value;
+      renderGrid();
+    });
+
+    // ── INIT ──────────────────────────────────────────────────────────
+    renderGrid();
+  </script>
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Location Scout Form — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+  --green: #4caf7d; --red: #e05252; --yellow: #e0b44e;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; line-height: 1.5; }
+
+  .top-rule { height: 3px; background: linear-gradient(90deg, var(--accent), transparent 70%); }
+
+  /* HEADER */
+  .hdr { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 28px 44px; display: grid; grid-template-columns: 1fr auto; gap: 32px; }
+  .brand { font-size: 10px; letter-spacing: 0.22em; color: var(--accent); font-family: var(--font-head); font-weight: 600; text-transform: uppercase; }
+  .title { font-family: var(--font-head); font-size: 34px; font-weight: 400; margin-top: 4px; }
+  .subtitle { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+  .hdr-meta { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .hm { display: flex; gap: 10px; align-items: center; justify-content: flex-end; }
+  .hml { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); }
+  .hmv { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; text-align: right; width: 150px; padding: 2px 0; }
+  .hmv:focus { border-bottom-color: var(--accent); }
+
+  /* BODY */
+  .body { padding: 32px 44px 48px; display: flex; flex-direction: column; gap: 28px; }
+
+  /* SECTION */
+  .sec { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .sec-hd { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 10px 18px; display: flex; align-items: center; gap: 10px; }
+  .sec-icon { font-size: 14px; }
+  .sec-title { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text2); }
+  .sec-body { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+
+  /* FIELDS */
+  .field-grid { display: grid; gap: 14px; }
+  .field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .field-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .fl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); }
+  .fv { background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; padding: 9px 12px; outline: none; border-radius: 2px; width: 100%; }
+  .fv:focus { border-color: var(--accent2); }
+  .fv::placeholder { color: var(--text3); }
+  .fv.textarea { min-height: 72px; resize: vertical; line-height: 1.6; }
+
+  /* RATING STARS */
+  .star-row { display: flex; gap: 4px; }
+  .star { font-size: 18px; cursor: pointer; color: var(--text3); transition: color 0.1s; }
+  .star.lit { color: var(--accent); }
+
+  /* YES/NO/NA TOGGLE */
+  .yn-group { display: flex; gap: 4px; }
+  .yn-btn { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; padding: 5px 12px; cursor: pointer; border-radius: 2px; transition: all 0.15s; }
+  .yn-btn:hover { border-color: var(--accent2); }
+  .yn-btn.yes.active { background: rgba(76,175,125,0.15); border-color: var(--green); color: var(--green); }
+  .yn-btn.no.active { background: rgba(224,82,82,0.1); border-color: var(--red); color: var(--red); }
+  .yn-btn.na.active { background: rgba(255,51,51,0.1); border-color: var(--accent2); color: var(--accent); }
+
+  /* LIGHTING TABLE */
+  .light-table { width: 100%; border-collapse: collapse; }
+  .light-table th { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  .light-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .light-table tr:last-child td { border-bottom: none; }
+  .period-badge { font-size: 10px; font-weight: 600; color: var(--text2); }
+  .light-ta { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; width: 100%; }
+  .light-ta::placeholder { color: var(--text3); }
+
+  /* PHOTO PLACEHOLDERS */
+  .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .photo-slot {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .photo-slot:hover { border-color: var(--accent2); }
+  .photo-slot input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .photo-slot img.preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .photo-icon { font-size: 22px; opacity: 0.3; }
+  .photo-label-text { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(13,13,13,0.9); padding: 5px 8px; }
+  .photo-caption input { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 10px; outline: none; width: 100%; }
+  .photo-caption input::placeholder { color: var(--text3); }
+
+  /* OVERALL RATING */
+  .rating-row { display: flex; align-items: center; justify-content: space-between; padding: 18px; border-top: 1px solid var(--border); }
+  .rating-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text2); }
+  .rating-stars { display: flex; gap: 6px; }
+  .big-star { font-size: 28px; cursor: pointer; color: var(--text3); transition: color 0.1s; }
+  .big-star.lit { color: var(--accent); }
+
+  /* FOOTER */
+  .footer { padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .footer-brand { font-size: 10px; color: var(--text3); }
+  .footer-brand span { color: var(--accent); }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .top-rule { background: #FF3333; }
+    .hdr { background: #f8f8f8; border-bottom: 2px solid #1a1a1a; }
+    .brand { color: #FF3333; } .title { color: #1a1a1a; }
+    .hmv { color: #1a1a1a; border-bottom-color: #ccc; }
+    .sec { background: #fff; border-color: #ddd; }
+    .sec-hd { background: #f5f5f5; border-bottom-color: #ddd; }
+    .fv { background: #f9f9f9; border-color: #ddd; color: #1a1a1a; }
+    .light-table th { background: #f0f0f0; color: #888; } .light-table td { border-color: #eee; }
+    .light-ta { color: #1a1a1a; }
+    .star.lit, .big-star.lit { color: #FF3333; }
+    .yn-btn { background: #fff; border-color: #ddd; color: #555; }
+    .yn-btn.yes.active { background: #e8f5ee; border-color: #4caf7d; color: #2a7a4f; }
+    .yn-btn.no.active { background: #fdf0f0; border-color: #e05252; color: #c0392b; }
+    .photo-slot { background: #f0f0f0; border-color: #ddd; }
+    .photo-label-text { color: #aaa; }
+    .footer-brand span { color: #FF3333; } .footer-brand { color: #999; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .hdr { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+    .hdr-meta { align-items: flex-start; }
+    .hmv { text-align: left; }
+    .body { padding: 16px 16px 32px; }
+    .field-grid.cols-2 { grid-template-columns: 1fr; }
+    .field-grid.cols-3 { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .sec-body { overflow-x: auto; }
+    .light-table { min-width: 480px; }
+    .footer { flex-direction: column; gap: 8px; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="hif-mini-toolbar">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+<div class="top-rule"></div>
+<div class="hdr">
+  <div>
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="title">Location Scout Report</div>
+    <div class="subtitle">Production Document</div>
+  </div>
+  <div class="hdr-meta">
+    <div class="hm"><span class="hml">Project</span><input class="hmv" type="text" placeholder="Project Title"></div>
+    <div class="hm"><span class="hml">Scout Date</span><input class="hmv" type="text" placeholder="MM/DD/YYYY"></div>
+    <div class="hm"><span class="hml">Scouted By</span><input class="hmv" type="text" placeholder="Your Name"></div>
+    <div class="hm"><span class="hml">Location #</span><input class="hmv" type="text" placeholder="LOC-01"></div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- BASIC INFO -->
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-icon">📍</span><span class="sec-title">Location Information</span></div>
+    <div class="sec-body">
+      <div class="field-grid cols-2">
+        <div class="field"><div class="fl">Location Name</div><input class="fv" type="text" placeholder="Rooftop Studio / Coffee Shop / Industrial Warehouse"></div>
+        <div class="field"><div class="fl">Location Type</div><select class="fv"><option value="">Select type...</option><option>Interior — Studio</option><option>Interior — Office</option><option>Interior — Residential</option><option>Interior — Commercial</option><option>Exterior — Urban</option><option>Exterior — Nature</option><option>Exterior — Rooftop</option><option>Mixed Interior/Exterior</option></select></div>
+      </div>
+      <div class="field"><div class="fl">Full Address</div><input class="fv" type="text" placeholder="123 Main Street, Suite 400, Los Angeles, CA 90001"></div>
+      <div class="field-grid cols-3">
+        <div class="field"><div class="fl">City / State</div><input class="fv" type="text" placeholder="Los Angeles, CA"></div>
+        <div class="field"><div class="fl">GPS Coordinates</div><input class="fv" type="text" placeholder="34.0522° N, 118.2437° W"></div>
+        <div class="field"><div class="fl">Google Maps Link</div><input class="fv" type="text" placeholder="maps.google.com/..."></div>
+      </div>
+      <div class="field-grid cols-2">
+        <div class="field"><div class="fl">Property Owner / Manager</div><input class="fv" type="text" placeholder="Name"></div>
+        <div class="field"><div class="fl">Contact / Phone</div><input class="fv" type="text" placeholder="(555) 000-0000"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESS & LOGISTICS -->
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-icon">🚗</span><span class="sec-title">Access &amp; Logistics</span></div>
+    <div class="sec-body">
+      <div class="field-grid cols-2">
+        <div class="field">
+          <div class="fl">Parking Available?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no" onclick="toggleYN(this)">No</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">Limited</button>
+          </div>
+        </div>
+        <div class="field"><div class="fl">Parking Details</div><input class="fv" type="text" placeholder="Lot behind building / Street parking / Permit required"></div>
+      </div>
+      <div class="field-grid cols-2">
+        <div class="field">
+          <div class="fl">Equipment Load-In Access?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no" onclick="toggleYN(this)">No</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">Via Elevator</button>
+          </div>
+        </div>
+        <div class="field"><div class="fl">Load-In Details</div><input class="fv" type="text" placeholder="Freight elevator at rear. Max weight 500 lbs."></div>
+      </div>
+      <div class="field-grid cols-2">
+        <div class="field">
+          <div class="fl">Permit Required?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no active" onclick="toggleYN(this)">No</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">TBD</button>
+          </div>
+        </div>
+        <div class="field"><div class="fl">Permit / Contact Info</div><input class="fv" type="text" placeholder="Film permit office number or permit ID if applicable"></div>
+      </div>
+      <div class="field-grid cols-3">
+        <div class="field">
+          <div class="fl">Power Access?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no" onclick="toggleYN(this)">No</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">Limited</button>
+          </div>
+        </div>
+        <div class="field"><div class="fl">Outlets / Amperage</div><input class="fv" type="text" placeholder="Standard 120V outlets, 20A circuit"></div>
+        <div class="field"><div class="fl">Generator Needed?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no active" onclick="toggleYN(this)">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="field-grid cols-2">
+        <div class="field">
+          <div class="fl">Restrooms on Site?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes active" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no" onclick="toggleYN(this)">No</button>
+          </div>
+        </div>
+        <div class="field">
+          <div class="fl">Cell Signal?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes active" onclick="toggleYN(this)">Strong</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">Weak</button>
+            <button class="yn-btn no" onclick="toggleYN(this)">None</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTING CONDITIONS -->
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-icon">☀️</span><span class="sec-title">Lighting Conditions</span></div>
+    <div class="sec-body" style="padding:0;">
+      <table class="light-table">
+        <thead>
+          <tr>
+            <th style="width:100px">Time of Day</th>
+            <th>Natural Light Description</th>
+            <th style="width:100px">Rating</th>
+            <th>Challenges / Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="period-badge">🌅 Morning</span></td>
+            <td><input class="light-ta" type="text" placeholder="Describe direction, quality, window coverage, shadows..."></td>
+            <td>
+              <div class="star-row">
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+              </div>
+            </td>
+            <td><input class="light-ta" type="text" placeholder="Any issues to address?"></td>
+          </tr>
+          <tr>
+            <td><span class="period-badge">🌤 Midday</span></td>
+            <td><input class="light-ta" type="text" placeholder="Describe direction, quality, window coverage, shadows..."></td>
+            <td>
+              <div class="star-row">
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+              </div>
+            </td>
+            <td><input class="light-ta" type="text" placeholder="Any issues to address?"></td>
+          </tr>
+          <tr>
+            <td><span class="period-badge">🌇 Afternoon</span></td>
+            <td><input class="light-ta" type="text" placeholder="Golden hour potential? Direction of sun?"></td>
+            <td>
+              <div class="star-row">
+                <span class="star lit" onclick="rateStar(this)">★</span>
+                <span class="star lit" onclick="rateStar(this)">★</span>
+                <span class="star lit" onclick="rateStar(this)">★</span>
+                <span class="star lit" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+              </div>
+            </td>
+            <td><input class="light-ta" type="text" placeholder="Any issues to address?"></td>
+          </tr>
+          <tr>
+            <td><span class="period-badge">🌆 Evening</span></td>
+            <td><input class="light-ta" type="text" placeholder="Practical lights? Ambient? Darkness level?"></td>
+            <td>
+              <div class="star-row">
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+                <span class="star" onclick="rateStar(this)">★</span>
+              </div>
+            </td>
+            <td><input class="light-ta" type="text" placeholder="Any issues to address?"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SOUND / AMBIENT -->
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-icon">🎙</span><span class="sec-title">Sound &amp; Ambient Conditions</span></div>
+    <div class="sec-body">
+      <div class="field-grid cols-3">
+        <div class="field">
+          <div class="fl">Noise Level</div>
+          <select class="fv">
+            <option value="">Select...</option>
+            <option>Very Quiet</option>
+            <option>Acceptable</option>
+            <option>Moderate (manageable)</option>
+            <option>Loud (may be issue)</option>
+            <option>Very Loud (problematic)</option>
+          </select>
+        </div>
+        <div class="field"><div class="fl">HVAC / AC Noise?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes — Loud</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">Mild</button>
+            <button class="yn-btn no active" onclick="toggleYN(this)">None</button>
+          </div>
+        </div>
+        <div class="field"><div class="fl">Can HVAC Be Shut Off?</div>
+          <div class="yn-group">
+            <button class="yn-btn yes" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn no" onclick="toggleYN(this)">No</button>
+            <button class="yn-btn na" onclick="toggleYN(this)">TBD</button>
+          </div>
+        </div>
+      </div>
+      <div class="field"><div class="fl">Sound Environment Notes</div><textarea class="fv textarea" placeholder="Describe ambient sounds: traffic, neighboring businesses, construction, echoing surfaces, etc."></textarea></div>
+    </div>
+  </div>
+
+  <!-- PHOTO DOCUMENTATION -->
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-icon">📷</span><span class="sec-title">Photo Documentation</span></div>
+    <div class="sec-body">
+      <div class="photo-grid">
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Overview</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Wide overview shot"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Lighting A</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Primary lighting angle"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Lighting B</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Secondary lighting angle"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Access / Entry</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Load-in route / parking"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Detail / Feature</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Interesting element / texture"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Issue / Note</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Problem area to flag"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Angle C</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Additional angle"></div>
+        </div>
+        <div class="photo-slot">
+          <span class="photo-icon">📷</span><span class="photo-label-text">Angle D</span>
+          <input type="file" accept="image/*" onchange="prevPhoto(this)">
+          <div class="photo-caption"><input type="text" placeholder="Additional angle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERALL NOTES + RATING -->
+  <div class="sec">
+    <div class="sec-hd"><span class="sec-icon">📝</span><span class="sec-title">Scout Notes &amp; Recommendation</span></div>
+    <div class="sec-body">
+      <div class="field"><div class="fl">General Notes</div><textarea class="fv textarea" style="min-height:100px" placeholder="Overall impressions, standout features, concerns, recommendations for the shoot day. Include anything that would help the crew prepare."></textarea></div>
+      <div class="field-grid cols-2">
+        <div class="field">
+          <div class="fl">Recommended Shoot Window</div>
+          <input class="fv" type="text" placeholder="e.g., Afternoons 2–5 PM for best light">
+        </div>
+        <div class="field">
+          <div class="fl">Backup Location Considered?</div>
+          <input class="fv" type="text" placeholder="Name any backup if this falls through">
+        </div>
+      </div>
+    </div>
+    <div class="rating-row">
+      <div>
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);margin-bottom:6px;">Overall Location Rating</div>
+        <div class="rating-stars">
+          <span class="big-star" onclick="rateBig(this)">★</span>
+          <span class="big-star" onclick="rateBig(this)">★</span>
+          <span class="big-star" onclick="rateBig(this)">★</span>
+          <span class="big-star" onclick="rateBig(this)">★</span>
+          <span class="big-star" onclick="rateBig(this)">★</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);margin-bottom:6px;">Use This Location?</div>
+        <div class="yn-group">
+          <button class="yn-btn yes" onclick="toggleYN(this)" style="font-size:12px;padding:8px 20px;">✓ Yes</button>
+          <button class="yn-btn no" onclick="toggleYN(this)" style="font-size:12px;padding:8px 20px;">✗ No</button>
+          <button class="yn-btn na" onclick="toggleYN(this)" style="font-size:12px;padding:8px 20px;">Maybe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand"><span>How It's Filmed</span> · howitsfilmed.com</div>
+    <div style="font-size:10px;color:var(--text3)">Location Scout Report · Internal Use</div>
+  </div>
+
+</div>
+
+<script>
+function toggleYN(btn) {
+  const group = btn.closest('.yn-group');
+  group.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function rateStar(star) {
+  const row = star.closest('.star-row');
+  const stars = row.querySelectorAll('.star');
+  const idx = [...stars].indexOf(star);
+  stars.forEach((s, i) => s.classList.toggle('lit', i <= idx));
+}
+function rateBig(star) {
+  const row = star.closest('.rating-stars');
+  const stars = row.querySelectorAll('.big-star');
+  const idx = [...stars].indexOf(star);
+  stars.forEach((s, i) => s.classList.toggle('lit', i <= idx));
+}
+function prevPhoto(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const slot = input.closest('.photo-slot');
+      let img = slot.querySelector('img.preview');
+      if (!img) { img = document.createElement('img'); img.className = 'preview'; slot.insertBefore(img, slot.querySelector('.photo-caption')); }
+      img.src = e.target.result;
+      slot.querySelector('.photo-icon') && (slot.querySelector('.photo-icon').style.display = 'none');
+      slot.querySelector('.photo-label-text') && (slot.querySelector('.photo-label-text').style.display = 'none');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>

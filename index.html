@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It's Filmed — Film Like a Pro. Post Like One Too.</title>
+  <meta name="description" content="Filmmaking education for creators who refuse to choose between cinematic quality and social media consistency. Templates, courses, and systems from working filmmakers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ──────────────────────────────────────────
+       ROOT & RESET
+    ────────────────────────────────────────── */
+    :root {
+      --red: #FF3333;
+      --red-dark: #cc2222;
+      --red-glow: rgba(255,51,51,0.15);
+      --red-subtle: rgba(255,51,51,0.08);
+      --bg: #0a0a0c;
+      --bg2: #111114;
+      --bg3: #161619;
+      --surface: rgba(255,255,255,0.04);
+      --surface2: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.13);
+      --text: #f0f0f0;
+      --dim: #999;
+      --muted: #555;
+      --white: #ffffff;
+      --font-display: 'Bebas Neue', 'Impact', sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max: 1100px;
+      --transition: 0.2s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ──────────────────────────────────────────
+       NAV
+    ────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(10,10,12,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin: 0 auto;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dim);
+      letter-spacing: 0.03em;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--red);
+      color: var(--white) !important;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background var(--transition) !important;
+      flex-shrink: 0;
+    }
+
+    .nav-cta:hover { background: var(--red-dark) !important; }
+
+    /* ──────────────────────────────────────────
+       HERO
+    ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Cinematic background texture */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(255,51,51,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 20% 70%, rgba(255,255,255,0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Film grain overlay */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .hero-eyebrow-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dim);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 10vw, 132px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .hero-headline .red { color: var(--red); }
+
+    .hero-subheadline {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 68px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--dim);
+      margin-bottom: 32px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--dim);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      padding: 13px 26px;
+      border-radius: 7px;
+      border: 1px solid var(--border2);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--dim);
+      background: var(--surface);
+    }
+
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .proof-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .proof-badge-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .proof-badge-text .proof-num {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .proof-badge-text .proof-label {
+      font-size: 11px;
+      color: var(--dim);
+    }
+
+    .proof-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    /* ──────────────────────────────────────────
+       PROOF STRIP
+    ────────────────────────────────────────── */
+    .proof-strip {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--dim);
+    }
+
+    .strip-item .strip-num {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .strip-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    /* ──────────────────────────────────────────
+       SECTION COMMONS
+    ────────────────────────────────────────── */
+    .section {
+      padding: 96px 40px;
+    }
+
+    .section-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--dim);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ──────────────────────────────────────────
+       THE PROBLEM SECTION
+    ────────────────────────────────────────── */
+    .problem-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .problem-left {}
+
+    .problem-quote {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+
+    .problem-quote .strikethrough {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .problem-body {
+      font-size: 16px;
+      color: var(--dim);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .problem-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .problem-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+    }
+
+    .problem-card.right-card {
+      border-left: 3px solid var(--red);
+    }
+
+    .problem-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .problem-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .problem-card p {
+      font-size: 13px;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    /* ──────────────────────────────────────────
+       OFFERS SECTION
+    ────────────────────────────────────────── */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 52px;
+    }
+
+    .offer-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--red);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .offer-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-3px);
+    }
+
+    .offer-card:hover::before { opacity: 1; }
+
+    .offer-num {
+      font-family: var(--font-display);
+      font-size: 52px;
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .offer-icon {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .offer-card h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.0;
+    }
+
+    .offer-card p {
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .offer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 0.02em;
+      transition: gap var(--transition);
+    }
+
+    .offer-link:hover { gap: 10px; }
+
+    /* ──────────────────────────────────────────
+       TEMPLATES SECTION
+    ────────────────────────────────────────── */
+    .templates-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .templates-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .templates-header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .templates-count {
+      font-size: 13px;
+      color: var(--dim);
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .template-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--transition), background var(--transition);
+      cursor: pointer;
+    }
+
+    .template-card:hover {
+      border-color: var(--border2);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .template-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .template-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: var(--red-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .template-num {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .template-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .template-card p {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+
+    .template-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .template-format {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .template-get {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    .templates-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ──────────────────────────────────────────
+       METHODOLOGY SECTION
+    ────────────────────────────────────────── */
+    .method-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .method-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .method-left {}
+
+    .method-steps {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .method-step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .method-step:last-child { border-bottom: none; }
+
+    .method-step-num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--red);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 44px;
+      padding-top: 2px;
+    }
+
+    .method-step-body {}
+
+    .method-step-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .method-step-body p {
+      font-size: 13px;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    .method-right {
+      padding-top: 80px;
+    }
+
+    .frame-display {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .frame-header {
+      background: var(--red);
+      padding: 18px 24px;
+    }
+
+    .frame-header .frame-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 4px;
+    }
+
+    .frame-header h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .frame-letters {
+      padding: 0;
+    }
+
+    .frame-letter-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+
+    .frame-letter-row:last-child { border-bottom: none; }
+    .frame-letter-row:hover { background: var(--surface); }
+
+    .frame-letter-char {
+      font-family: var(--font-display);
+      font-size: 42px;
+      color: var(--red);
+      width: 52px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .frame-letter-info {}
+
+    .frame-letter-word {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .frame-letter-desc {
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    /* ──────────────────────────────────────────
+       ABOUT SECTION
+    ────────────────────────────────────────── */
+    .about-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 52px;
+    }
+
+    .founder-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .founder-top {
+      padding: 28px 28px 20px;
+    }
+
+    .founder-name-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .founder-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--red-subtle);
+      border: 2px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--red);
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .founder-id {}
+
+    .founder-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .founder-role {
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    .founder-bio {
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.7;
+    }
+
+    .founder-stats {
+      border-top: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .founder-stat {}
+
+    .founder-stat .fs-num {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .founder-stat .fs-label {
+      font-size: 11px;
+      color: var(--dim);
+    }
+
+    /* ──────────────────────────────────────────
+       FINAL CTA
+    ────────────────────────────────────────── */
+    .cta-section {
+      padding: 100px 40px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(255,51,51,0.1) 0%, transparent 60%);
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cta-headline {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 74px);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: var(--dim);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ──────────────────────────────────────────
+       FOOTER
+    ────────────────────────────────────────── */
+    .footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 40px 40px;
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-brand-mark {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--dim);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-legal {
+      font-size: 12px;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    /* ──────────────────────────────────────────
+       INSTAGRAM HANDLE BADGE
+    ────────────────────────────────────────── */
+    .ig-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      padding: 5px 12px 5px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dim);
+      transition: border-color var(--transition);
+    }
+
+    .ig-badge:hover { border-color: var(--dim); }
+
+    .ig-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* ──────────────────────────────────────────
+       RESPONSIVE
+    ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 64px; }
+      .section { padding: 64px 24px; }
+      .proof-strip { padding: 16px 24px; gap: 20px; }
+      .problem-grid,
+      .method-layout,
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .method-right { padding-top: 0; }
+      .templates-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .templates-header-right { align-items: flex-start; }
+      .offers-grid { grid-template-columns: 1fr; }
+      .templates-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+      .cta-section { padding: 72px 24px; }
+      .footer { padding: 32px 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-headline { font-size: 52px; }
+      .templates-grid { grid-template-columns: 1fr; }
+      .hero-social-proof { gap: 16px; }
+      .proof-strip { gap: 16px; }
+      .cta-buttons { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ──────────────────── NAV ──────────────────── -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <!-- HIF Logo Mark SVG (simplified) -->
+      <svg class="nav-logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" fill="#FF3333" opacity="0.15" stroke="#FF3333" stroke-width="1.5"/>
+        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#FF3333" letter-spacing="1">HIF</text>
+      </svg>
+      HOW IT'S FILMED
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#templates">Templates</a></li>
+      <li><a href="#course">The Course</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener">@howitsfilmed</a></li>
+    </ul>
+
+    <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="nav-links" style="margin:0;">
+      <li style="list-style:none;"><a href="https://whop.com/howitsfilmed" class="nav-cta">Get the Templates</a></li>
+    </a>
+  </nav>
+
+
+  <!-- ──────────────────── HERO ──────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span class="hero-eyebrow-text">Filmmaking Education · 170K Followers · @howitsfilmed</span>
+      </div>
+
+      <h1 class="hero-headline">
+        FILM LIKE<br>A <span class="red">PRO.</span>
+      </h1>
+      <h2 class="hero-subheadline">POST LIKE ONE TOO.</h2>
+
+      <p class="hero-sub">
+        The filmmaking education brand for creators who refuse to choose between cinematic quality and social media consistency. Built by working filmmakers. Proven at scale.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-primary">
+          Get the Templates →
+        </a>
+        <a href="#course" class="btn-secondary">
+          See the Course
+        </a>
+      </div>
+
+      <div class="hero-social-proof">
+        <div class="proof-badge">
+          <div class="proof-badge-icon">📸</div>
+          <div class="proof-badge-text">
+            <div class="proof-num">170K+</div>
+            <div class="proof-label">Instagram Followers</div>
+          </div>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-badge">
+          <div class="proof-badge-icon">📋</div>
+          <div class="proof-badge-text">
+            <div class="proof-num">30</div>
+            <div class="proof-label">Pro Templates</div>
+          </div>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-badge">
+          <div class="proof-badge-icon">🎬</div>
+          <div class="proof-badge-text">
+            <div class="proof-num">5+ Yrs</div>
+            <div class="proof-label">Professional Filmmaking</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── PROOF STRIP ──────────────────── -->
+  <div class="proof-strip">
+    <div class="strip-item">
+      <span class="strip-num">170K</span>
+      <span>Instagram filmmakers</span>
+    </div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">
+      <span class="strip-num">30</span>
+      <span>professional templates</span>
+    </div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">
+      <span class="strip-num">1</span>
+      <span>filmmaking system that covers it all</span>
+    </div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">
+      <span>built by working filmmakers</span>
+    </div>
+    <div class="strip-dot"></div>
+    <a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener" class="ig-badge">
+      <span class="ig-dot"></span>
+      @howitsfilmed
+    </a>
+  </div>
+
+
+  <!-- ──────────────────── THE PROBLEM ──────────────────── -->
+  <section class="section problem-section">
+    <div class="section-inner">
+      <div class="problem-grid">
+
+        <div class="problem-left">
+          <div class="section-label">The Gear Focus Fallacy</div>
+          <div class="problem-quote">
+            Better gear doesn't fix your footage.<br>
+            <span class="strikethrough">A better camera</span><br>
+            A better system does.
+          </div>
+          <p class="problem-body">
+            Most filmmakers believe the next upgrade will close the gap between what they shoot and what they see from creators they admire. So they save, spend, and their footage still looks flat. <strong>The problem was never the gear.</strong>
+          </p>
+          <p class="problem-body">
+            HIF is built around a different premise: the creators who produce cinematic work consistently don't have better cameras. They have a better system — for how they think before they shoot, how they execute on location, and how they run a content operation over time.
+          </p>
+        </div>
+
+        <div class="problem-right">
+          <div class="problem-card right-card">
+            <div class="problem-card-label">The wrong path</div>
+            <h4>Gear upgrades → still flat footage</h4>
+            <p>New camera, same results. The gap isn't in your equipment — it's in your framework. No amount of spending fixes a missing system.</p>
+          </div>
+          <div class="problem-card right-card">
+            <div class="problem-card-label">The missing piece</div>
+            <h4>Technical skills without operational knowledge</h4>
+            <p>You can shoot beautifully in a controlled setup and still have no idea how to turn it into a consistent social media presence. Most filmmaking education stops at the shot.</p>
+          </div>
+          <div class="problem-card right-card">
+            <div class="problem-card-label">What HIF fixes</div>
+            <h4>Preparation + technique + operations = the full system</h4>
+            <p>Three layers, built in sequence. Mental framework first. Filmmaking craft second. Social media operations third. Together, they're nearly impossible to compete with.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── WHAT HIF OFFERS ──────────────────── -->
+  <section class="section" id="course">
+    <div class="section-inner">
+      <div class="section-label">What HIF Offers</div>
+      <h2 class="section-heading">THREE WAYS TO<br>LEVEL UP.</h2>
+      <p class="section-sub">Templates, a course, and a community — all built around the same methodology. You don't need more gear. You need a system.</p>
+
+      <div class="offers-grid">
+
+        <div class="offer-card">
+          <div class="offer-num">01</div>
+          <div class="offer-icon">📋</div>
+          <h3>FILMMAKING TEMPLATES</h3>
+          <p>30 professional templates built from real on-set systems: shot lists, call sheets, client proposals, mood boards, color grade notes, budget trackers, and more. The artifacts of a working filmmaking operation — made available to you.</p>
+          <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="offer-link">
+            Browse the template store →
+          </a>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-num">02</div>
+          <div class="offer-icon">🎬</div>
+          <h3>THE CINEMATIC SYSTEM</h3>
+          <p>A beginner filmmaking course built around the FRAME Method and Visual Depth Architecture. Five modules. One framework. From flat, amateur footage to cinematic quality — without buying new gear. This is where the full HIF methodology lives.</p>
+          <a href="#course-detail" class="offer-link">
+            See the course →
+          </a>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-num">03</div>
+          <div class="offer-icon">📸</div>
+          <h3>@HOWITSFILMED</h3>
+          <p>170K filmmakers, cinematographers, and creators who followed because they want to make better-looking video. Free filmmaking education, technique breakdowns, and behind-the-scenes from the people who teach it. Follow to stay current.</p>
+          <a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener" class="offer-link">
+            Follow on Instagram →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── TEMPLATES ──────────────────── -->
+  <section class="section templates-section" id="templates">
+    <div class="section-inner">
+      <div class="templates-header">
+        <div>
+          <div class="section-label">The Template Store</div>
+          <h2 class="section-heading">30 PROFESSIONAL<br>FILMMAKING TEMPLATES.</h2>
+        </div>
+        <div class="templates-header-right">
+          <span class="templates-count">Showing 6 of 30</span>
+          <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-secondary" style="font-size:13px; padding:9px 18px;">See all 30 →</a>
+        </div>
+      </div>
+
+      <div class="templates-grid">
+
+        <div class="template-card">
+          <div class="template-card-top">
+            <span class="template-tag">Pre-Production</span>
+            <span class="template-num">#01</span>
+          </div>
+          <h4>Shot List</h4>
+          <p>A professional shot list template built for fast on-location execution. Organize every shot, angle, and setup before you arrive — so you're not figuring it out on the clock.</p>
+          <div class="template-card-footer">
+            <span class="template-format">HTML · Printable</span>
+            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="template-card-top">
+            <span class="template-tag">Production</span>
+            <span class="template-num">#02</span>
+          </div>
+          <h4>Call Sheet</h4>
+          <p>Everything your crew needs to know, in one clean document. Crew contacts, schedule, location, equipment, and shoot notes — formatted for a professional production day.</p>
+          <div class="template-card-footer">
+            <span class="template-format">HTML · Printable</span>
+            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="template-card-top">
+            <span class="template-tag">Client</span>
+            <span class="template-num">#03</span>
+          </div>
+          <h4>Client Proposal</h4>
+          <p>Close more projects with a proposal that looks as professional as your work. Scope, deliverables, timeline, pricing, and terms — all in one polished document.</p>
+          <div class="template-card-footer">
+            <span class="template-format">HTML · Printable</span>
+            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="template-card-top">
+            <span class="template-tag">Creative</span>
+            <span class="template-num">#05</span>
+          </div>
+          <h4>Mood Board</h4>
+          <p>Present your creative vision to clients before a single shot is taken. Reference images, color palettes, tone notes, and visual direction — organized for the pitch meeting.</p>
+          <div class="template-card-footer">
+            <span class="template-format">HTML · Printable</span>
+            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="template-card-top">
+            <span class="template-tag">Finance</span>
+            <span class="template-num">#11</span>
+          </div>
+          <h4>Budget Tracker</h4>
+          <p>Know your numbers before, during, and after every project. Track gear costs, talent, location fees, and post-production expenses against your quoted budget — in real time.</p>
+          <div class="template-card-footer">
+            <span class="template-format">HTML · Printable</span>
+            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="template-card-top">
+            <span class="template-tag">Post</span>
+            <span class="template-num">#12</span>
+          </div>
+          <h4>Color Grade Notes</h4>
+          <p>Document your color grade decisions shot by shot. LUT selections, correction notes, reference stills, and delivery specs — the notes that make consistency possible across a full project.</p>
+          <div class="template-card-footer">
+            <span class="template-format">HTML · Printable</span>
+            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="templates-cta-row">
+        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-primary">
+          See all 30 templates on Whop →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── METHODOLOGY ──────────────────── -->
+  <section class="section method-section" id="course-detail">
+    <div class="section-inner">
+      <div class="method-layout">
+
+        <div class="method-left">
+          <div class="section-label">The Cinematic System</div>
+          <h2 class="section-heading">THE SYSTEM<br>BEHIND THE<br>SHOT.</h2>
+          <p class="section-sub" style="margin-bottom: 0;">HIF's course teaches three interconnected tiers — not a list of techniques. A methodology that works together.</p>
+
+          <div class="method-steps">
+            <div class="method-step">
+              <div class="method-step-num">01</div>
+              <div class="method-step-body">
+                <h4>The Preparation System</h4>
+                <p>Before any camera is touched, learn how to think about a shoot. Pre-visualize shots, build the mental checklist that makes execution automatic, and develop the discipline that separates creators who show up ready from those who figure it out on arrival.</p>
+              </div>
+            </div>
+            <div class="method-step">
+              <div class="method-step-num">02</div>
+              <div class="method-step-body">
+                <h4>Technical Filmmaking Skills</h4>
+                <p>Camera, lighting, composition, color, audio — built for real-world, run-and-gun conditions. Not studio theory. How to get the cinematic shot when there's no time to overthink it.</p>
+              </div>
+            </div>
+            <div class="method-step">
+              <div class="method-step-num">03</div>
+              <div class="method-step-body">
+                <h4>Social Media Operations</h4>
+                <p>What separates HIF from every other filmmaking educator. How to build a posting cadence, adapt cinematic content across platforms, and think about growth as a long-term operation — not a series of viral gambles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="method-right">
+          <div class="frame-display">
+            <div class="frame-header">
+              <div class="frame-label">The Core Framework</div>
+              <h3>THE FRAME METHOD</h3>
+            </div>
+            <div class="frame-letters">
+              <div class="frame-letter-row">
+                <div class="frame-letter-char">F</div>
+                <div class="frame-letter-info">
+                  <div class="frame-letter-word">Foundation</div>
+                  <div class="frame-letter-desc">Manual camera settings — exposure, aperture, shutter, ISO. The non-negotiable starting point.</div>
+                </div>
+              </div>
+              <div class="frame-letter-row">
+                <div class="frame-letter-char">R</div>
+                <div class="frame-letter-info">
+                  <div class="frame-letter-word">Radiance</div>
+                  <div class="frame-letter-desc">Lighting — how to shape, control, and use light to create depth and cinematic quality in any environment.</div>
+                </div>
+              </div>
+              <div class="frame-letter-row">
+                <div class="frame-letter-char">A</div>
+                <div class="frame-letter-info">
+                  <div class="frame-letter-word">Angles</div>
+                  <div class="frame-letter-desc">Composition and camera movement — how to frame shots with intention under real production pressure.</div>
+                </div>
+              </div>
+              <div class="frame-letter-row">
+                <div class="frame-letter-char">M</div>
+                <div class="frame-letter-info">
+                  <div class="frame-letter-word">Mastery</div>
+                  <div class="frame-letter-desc">Color grading — the difference between flat and finished. Practical, not academic.</div>
+                </div>
+              </div>
+              <div class="frame-letter-row">
+                <div class="frame-letter-char">E</div>
+                <div class="frame-letter-info">
+                  <div class="frame-letter-word">Expression</div>
+                  <div class="frame-letter-desc">Audio — the most overlooked element in beginner filmmaking. Fix this and everything else gets better.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── ABOUT ──────────────────── -->
+  <section class="section about-section" id="about">
+    <div class="section-inner">
+      <div class="section-label">The Founders</div>
+      <h2 class="section-heading">BUILT BY PEOPLE<br>WHO ACTUALLY DID IT.</h2>
+      <p class="section-sub">Not tutorial creators who never ran a real content operation. Two co-owners with verifiable, at-scale experience in both professional filmmaking and social media.</p>
+
+      <div class="about-grid">
+
+        <div class="founder-card">
+          <div class="founder-top">
+            <div class="founder-name-row">
+              <div class="founder-avatar">BW</div>
+              <div class="founder-id">
+                <div class="founder-name">Brian Whitesel</div>
+                <div class="founder-role">Co-Founder · Products & Strategy</div>
+              </div>
+            </div>
+            <p class="founder-bio">Brian spent five years as the content architect behind Card Collector 2 — building a multi-platform video operation across YouTube, Instagram, Facebook, and TikTok from scratch. Nearly 1,250 consecutive days of YouTube Shorts. The whole time, he was also the person behind the camera, developing a run-and-gun filmmaking style built for speed and precision. CC2 tried to hire someone who could do what Brian does. They couldn't find one. That gap is what HIF teaches.</p>
+          </div>
+          <div class="founder-stats">
+            <div class="founder-stat">
+              <div class="fs-num">5+ yrs</div>
+              <div class="fs-label">Professional filmmaking</div>
+            </div>
+            <div class="founder-stat">
+              <div class="fs-num">1,250+</div>
+              <div class="fs-label">Consecutive days posting</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-top">
+            <div class="founder-name-row">
+              <div class="founder-avatar">RW</div>
+              <div class="founder-id">
+                <div class="founder-name">Reese White</div>
+                <div class="founder-role">Co-Founder · Content & Community</div>
+              </div>
+            </div>
+            <p class="founder-bio">Reese co-owns the @howitsfilmed Instagram account and brings real production experience to the brand. As the face and content director of HIF, Reese is the connection between the methodology and the audience — the person who has lived the education in the field and can translate it authentically. When Brian builds the systems, Reese is the proof that they work.</p>
+          </div>
+          <div class="founder-stats">
+            <div class="founder-stat">
+              <div class="fs-num">170K</div>
+              <div class="fs-label">Shared audience built</div>
+            </div>
+            <div class="founder-stat">
+              <div class="fs-num">50/50</div>
+              <div class="fs-label">Co-ownership, LLC</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── FINAL CTA ──────────────────── -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-eyebrow">
+        <span>Start here</span>
+      </div>
+      <h2 class="cta-headline">YOU DON'T NEED<br>MORE GEAR.<br><span style="color: var(--red);">YOU NEED A SYSTEM.</span></h2>
+      <p class="cta-sub">30 professional filmmaking templates and a course built around the methodology that actually closes the gap. Built by working filmmakers. Available now.</p>
+      <div class="cta-buttons">
+        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-primary" style="font-size:16px; padding:16px 32px;">
+          Get the Templates →
+        </a>
+        <a href="#course-detail" class="btn-secondary" style="font-size:16px; padding:15px 30px;">
+          See the Course
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ──────────────────── FOOTER ──────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg class="footer-brand-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#FF3333" stroke-width="1.5" opacity="0.5"/>
+          <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="'Bebas Neue', Impact, sans-serif" font-size="20" fill="#FF3333" letter-spacing="1">HIF</text>
+        </svg>
+        <span class="footer-brand-name">HOW IT'S FILMED</span>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="#templates">Templates</a></li>
+        <li><a href="#course">The Course</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Whop Store</a></li>
+      </ul>
+
+      <div class="footer-legal">
+        © 2026 How It's Filmed LLC. All rights reserved. · Built for the filmmakers who are done making excuses about their gear.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

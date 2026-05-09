@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Board — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; line-height: 1.5; }
+
+  /* HEADER */
+  .header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 28px 40px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+  .header-left { display: flex; flex-direction: column; gap: 4px; }
+  .brand { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-family: var(--font-head); font-weight: 600; }
+  .doc-title { font-family: var(--font-head); font-size: 36px; font-weight: 400; }
+  .header-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .hf { display: flex; gap: 10px; align-items: center; justify-content: flex-end; }
+  .hl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); }
+  .hv { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; text-align: right; width: 150px; padding: 2px 0; }
+  .hv:focus { border-bottom-color: var(--accent); }
+
+  .accent-line { height: 2px; background: linear-gradient(90deg, var(--accent), transparent 60%); }
+
+  /* BODY */
+  .body { padding: 32px 40px 48px; display: flex; flex-direction: column; gap: 32px; }
+
+  /* SECTION LABEL */
+  .sec-label { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .sec-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text3); }
+  .sec-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* IMAGE GRID */
+  .image-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; gap: 8px; }
+  .img-cell {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    aspect-ratio: 16/10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .img-cell:hover { border-color: var(--accent2); }
+  .img-cell.large { grid-column: span 2; grid-row: span 2; aspect-ratio: unset; min-height: 220px; }
+  .img-cell.tall { grid-row: span 2; aspect-ratio: unset; min-height: 220px; }
+  .img-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(13,13,13,0.85);
+    padding: 6px 10px;
+    font-size: 10px;
+    color: var(--text2);
+    border-top: 1px solid var(--border);
+  }
+  .img-caption input { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 10px; outline: none; width: 100%; }
+  .img-caption input::placeholder { color: var(--text3); }
+
+  /* File input overlay */
+  .img-cell input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; z-index: 2; }
+  .img-cell img.preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .img-placeholder { display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; z-index: 0; }
+  .img-icon { opacity: 0.3; display: flex; align-items: center; justify-content: center; }
+  .img-label { font-size: 10px; color: var(--text3); text-align: center; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* Remove button */
+  .img-remove {
+    position: absolute; top: 6px; right: 6px;
+    width: 22px; height: 22px;
+    background: rgba(0,0,0,0.72); border: 1px solid rgba(255,255,255,0.18);
+    color: #fff; font-size: 13px; line-height: 1;
+    border-radius: 50%; cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    z-index: 10; transition: background 0.15s; padding: 0;
+  }
+  .img-remove:hover { background: var(--accent); border-color: var(--accent); }
+  .img-cell.has-image .img-remove { display: flex; }
+  .img-cell.has-image .img-placeholder { display: none; }
+  .img-cell.has-image input[type="file"] { z-index: 0; pointer-events: none; }
+
+  /* Accent tone pills */
+  .accent-tone-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; align-items: center; }
+  .accent-tone-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); margin-right: 2px; flex-shrink: 0; }
+  .accent-pill {
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text2); padding: 4px 13px; border-radius: 20px;
+    font-size: 10px; letter-spacing: 0.05em; cursor: pointer;
+    transition: all 0.15s; user-select: none;
+  }
+  .accent-pill:hover { border-color: var(--text3); color: var(--text); }
+  .accent-pill.active { color: #fff; border-width: 1.5px; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* COLOR PALETTE */
+  .palette-section { display: flex; flex-direction: column; gap: 12px; }
+  .swatches { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .swatch { flex: 1; display: flex; flex-direction: column; }
+  .swatch-color {
+    height: 80px;
+    background: var(--bg);
+    cursor: pointer;
+    position: relative;
+  }
+  .swatch-color input[type="color"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; border: none; padding: 0; }
+  .swatch-info { background: var(--bg2); border-top: 1px solid var(--border); padding: 8px 12px; display: flex; flex-direction: column; gap: 3px; }
+  .swatch-name input { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 11px; font-weight: 500; outline: none; width: 100%; }
+  .swatch-hex input { background: transparent; border: none; color: var(--text3); font-family: var(--font-ui); font-size: 10px; outline: none; width: 100%; }
+  .swatch-name input::placeholder, .swatch-hex input::placeholder { color: var(--text3); }
+  .swatch-use input { background: transparent; border: none; color: var(--text3); font-family: var(--font-ui); font-size: 9px; outline: none; width: 100%; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* TYPOGRAPHY */
+  .typo-section { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .typo-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 20px 24px; }
+  .typo-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent2); margin-bottom: 8px; }
+  .typo-sample { font-size: 28px; color: var(--text); margin-bottom: 8px; outline: none; border: none; background: transparent; width: 100%; font-family: var(--font-head); }
+  .typo-sample[contenteditable] { cursor: text; }
+  .typo-meta { display: flex; flex-direction: column; gap: 3px; }
+  .tm-row { display: flex; gap: 8px; align-items: center; }
+  .tm-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); width: 60px; flex-shrink: 0; }
+  .tm-val { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text2); font-family: var(--font-ui); font-size: 11px; outline: none; flex: 1; padding: 1px 0; }
+  .tm-val:focus { border-bottom-color: var(--accent); }
+
+  /* DIRECTION NOTES */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .note-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 18px 20px; }
+  .note-card-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent2); margin-bottom: 10px; }
+  .note-ta { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 12px; line-height: 1.7; width: 100%; min-height: 80px; outline: none; resize: vertical; }
+  .note-ta::placeholder { color: var(--text3); }
+
+  /* TONE TAGS */
+  .tone-section { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tone-tag { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); padding: 5px 14px; border-radius: 2px; font-size: 11px; letter-spacing: 0.06em; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .tone-tag:hover { border-color: var(--accent2); color: var(--text); }
+  .tone-tag.active { background: rgba(255,51,51,0.1); border-color: var(--accent); color: var(--accent); }
+  .tone-add { background: transparent; border: 1px dashed var(--border); color: var(--text3); padding: 5px 14px; border-radius: 2px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+  .tone-add:hover { border-color: var(--accent2); color: var(--accent); }
+
+  /* FOOTER */
+  .footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 10px; color: var(--text3); }
+  .footer-brand span { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .header { padding: 18px 16px; grid-template-columns: 1fr; gap: 16px; }
+    .header-right { align-items: flex-start; }
+    .body { padding: 16px 16px 32px; gap: 24px; }
+    .image-grid { grid-template-columns: repeat(2, 1fr); }
+    .img-cell.large { grid-column: span 2; min-height: 160px; }
+    .img-cell.tall { grid-row: span 1; min-height: 120px; }
+    .typo-section { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; }
+    .swatches { flex-wrap: wrap; }
+    .swatch { flex: 0 0 33.33%; }
+  }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .header { background: #f8f8f8; border-bottom: 2px solid #1a1a1a; }
+    .brand { color: #FF3333; } .doc-title { color: #1a1a1a; }
+    .hv { color: #1a1a1a; border-bottom-color: #ccc; }
+    .accent-line { background: #FF3333; }
+    .sec-title { color: #999; } .sec-line { background: #ddd; }
+    .img-cell { background: #f0f0f0; border-color: #ddd; }
+    .img-label { color: #aaa; }
+    .swatches { border-color: #ddd; }
+    .swatch-info { background: #fff; border-top-color: #ddd; }
+    .swatch-name input { color: #1a1a1a; }
+    .swatch-hex input { color: #888; }
+    .typo-card, .note-card { background: #fff; border-color: #ddd; }
+    .tone-tag { border-color: #ddd; color: #555; } .tone-tag.active { border-color: #FF3333; color: #FF3333; background: #fdfaf4; }
+    .footer-brand span { color: #FF3333; } .footer-brand { color: #999; }
+    .tone-add { display: none; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .header { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+    .header-right { align-items: flex-start; }
+    .hv { text-align: left; }
+    .body { padding: 16px 16px 32px; }
+    .image-grid { grid-template-columns: 1fr 1fr; }
+    .img-cell.large { grid-column: span 1; grid-row: span 1; min-height: 120px; }
+    .img-cell.tall { grid-row: span 1; min-height: 120px; }
+    .typo-section { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 8px; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="hif-mini-toolbar">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+
+
+<div class="header">
+  <div class="header-left">
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="doc-title" style="font-family:var(--font-head)">Mood Board</div>
+  </div>
+  <div class="header-right">
+    <div class="hf"><span class="hl">Project</span><input class="hv" type="text" placeholder="Project / Client Name"></div>
+    <div class="hf"><span class="hl">Director</span><input class="hv" type="text" placeholder="Your Name"></div>
+    <div class="hf"><span class="hl">Date</span><input class="hv" type="text" placeholder="MM/DD/YYYY"></div>
+    <div class="hf"><span class="hl">Version</span><input class="hv" type="text" placeholder="v1.0"></div>
+  </div>
+</div>
+<div class="accent-line"></div>
+
+<div class="body">
+
+  <!-- VISUAL DIRECTION -->
+  <div>
+    <div class="sec-label"><span class="sec-title">Visual Direction</span><div class="sec-line"></div></div>
+    <div class="image-grid">
+      <div class="img-cell large">
+        <div class="img-placeholder">
+          <span class="img-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          <span class="img-label">Tap to add photo</span>
+        </div>
+        <button class="img-remove" onclick="removeImg(this)" title="Remove image">×</button>
+        <input type="file" accept="image/*" onchange="previewImg(this)">
+        <div class="img-caption"><input type="text" placeholder="Add caption or reference note..."></div>
+      </div>
+      <div class="img-cell">
+        <div class="img-placeholder">
+          <span class="img-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          <span class="img-label">Tap to add photo</span>
+        </div>
+        <button class="img-remove" onclick="removeImg(this)" title="Remove image">×</button>
+        <input type="file" accept="image/*" onchange="previewImg(this)">
+        <div class="img-caption"><input type="text" placeholder="Lighting reference..."></div>
+      </div>
+      <div class="img-cell">
+        <div class="img-placeholder">
+          <span class="img-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          <span class="img-label">Tap to add photo</span>
+        </div>
+        <button class="img-remove" onclick="removeImg(this)" title="Remove image">×</button>
+        <input type="file" accept="image/*" onchange="previewImg(this)">
+        <div class="img-caption"><input type="text" placeholder="Color/grade reference..."></div>
+      </div>
+      <div class="img-cell">
+        <div class="img-placeholder">
+          <span class="img-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          <span class="img-label">Tap to add photo</span>
+        </div>
+        <button class="img-remove" onclick="removeImg(this)" title="Remove image">×</button>
+        <input type="file" accept="image/*" onchange="previewImg(this)">
+        <div class="img-caption"><input type="text" placeholder="Location inspiration..."></div>
+      </div>
+      <div class="img-cell">
+        <div class="img-placeholder">
+          <span class="img-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          <span class="img-label">Tap to add photo</span>
+        </div>
+        <button class="img-remove" onclick="removeImg(this)" title="Remove image">×</button>
+        <input type="file" accept="image/*" onchange="previewImg(this)">
+        <div class="img-caption"><input type="text" placeholder="Wardrobe / styling ref..."></div>
+      </div>
+      <div class="img-cell">
+        <div class="img-placeholder">
+          <span class="img-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          <span class="img-label">Tap to add photo</span>
+        </div>
+        <button class="img-remove" onclick="removeImg(this)" title="Remove image">×</button>
+        <input type="file" accept="image/*" onchange="previewImg(this)">
+        <div class="img-caption"><input type="text" placeholder="Camera style reference..."></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TONE TAGS -->
+  <div>
+    <div class="sec-label"><span class="sec-title">Visual Tone &amp; Keywords</span><div class="sec-line"></div></div>
+    <div class="accent-tone-row">
+      <span class="accent-tone-label">Accent →</span>
+      <button class="accent-pill" data-color="#E8891A" onclick="setAccent(this)">Warm</button>
+      <button class="accent-pill" data-color="#3A8FD1" onclick="setAccent(this)">Cool</button>
+      <button class="accent-pill" data-color="#8B5CF6" onclick="setAccent(this)">Moody</button>
+      <button class="accent-pill" data-color="#F5D800" onclick="setAccent(this)">Bright</button>
+      <button class="accent-pill active" data-color="#FF3333" onclick="setAccent(this)" style="border-color:#FF3333;color:#FF3333;">Cinematic</button>
+      <button class="accent-pill" data-color="#AAAAAA" onclick="setAccent(this)">Minimal</button>
+      <button class="accent-pill" data-color="#B5703A" onclick="setAccent(this)">Raw</button>
+      <button class="accent-pill" data-color="#00FF88" onclick="setAccent(this)">Neon</button>
+      <button class="accent-pill" data-color="#F5A623" onclick="setAccent(this)">Golden Hour</button>
+      <button class="accent-pill" data-color="#4A4AFF" onclick="setAccent(this)">Night</button>
+    </div>
+    <div class="tone-section" id="tone-container">
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Cinematic</span>
+      <span class="tone-tag active" onclick="this.classList.toggle('active')">Moody</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Warm</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">High Contrast</span>
+      <span class="tone-tag active" onclick="this.classList.toggle('active')">Documentary</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Natural Light</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Golden Hour</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Desaturated</span>
+      <span class="tone-tag active" onclick="this.classList.toggle('active')">Raw / Authentic</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Soft &amp; Airy</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Commercial Clean</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Handheld Energy</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Film Grain</span>
+      <span class="tone-tag" onclick="this.classList.toggle('active')">Teal &amp; Orange</span>
+      <button class="tone-add" onclick="addTag()">+ Add</button>
+    </div>
+  </div>
+
+  <!-- COLOR PALETTE -->
+  <div>
+    <div class="sec-label"><span class="sec-title">Color Palette</span><div class="sec-line"></div></div>
+    <div class="palette-section">
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#1a1412;"><input type="color" value="#1a1412" oninput="this.parentNode.style.background=this.value"></div>
+          <div class="swatch-info"><div class="swatch-name"><input type="text" placeholder="Shadow Black"></div><div class="swatch-hex"><input type="text" placeholder="#1A1412"></div><div class="swatch-use"><input type="text" placeholder="Primary BG"></div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#3d2b1f;"><input type="color" value="#3d2b1f" oninput="this.parentNode.style.background=this.value"></div>
+          <div class="swatch-info"><div class="swatch-name"><input type="text" placeholder="Espresso"></div><div class="swatch-hex"><input type="text" placeholder="#3D2B1F"></div><div class="swatch-use"><input type="text" placeholder="Midtone"></div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#FF3333;"><input type="color" value="#FF3333" oninput="this.parentNode.style.background=this.value"></div>
+          <div class="swatch-info"><div class="swatch-name"><input type="text" placeholder="HIF Red"></div><div class="swatch-hex"><input type="text" placeholder="#FF3333"></div><div class="swatch-use"><input type="text" placeholder="Primary Accent"></div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#d4c5a9;"><input type="color" value="#d4c5a9" oninput="this.parentNode.style.background=this.value"></div>
+          <div class="swatch-info"><div class="swatch-name"><input type="text" placeholder="Linen"></div><div class="swatch-hex"><input type="text" placeholder="#D4C5A9"></div><div class="swatch-use"><input type="text" placeholder="Highlights"></div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#f0ece0;"><input type="color" value="#f0ece0" oninput="this.parentNode.style.background=this.value"></div>
+          <div class="swatch-info"><div class="swatch-name"><input type="text" placeholder="Warm White"></div><div class="swatch-hex"><input type="text" placeholder="#F0ECE0"></div><div class="swatch-use"><input type="text" placeholder="Text / Clean"></div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#2d4a3e;"><input type="color" value="#2d4a3e" oninput="this.parentNode.style.background=this.value"></div>
+          <div class="swatch-info"><div class="swatch-name"><input type="text" placeholder="Forest"></div><div class="swatch-hex"><input type="text" placeholder="#2D4A3E"></div><div class="swatch-use"><input type="text" placeholder="Secondary Accent"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div>
+    <div class="sec-label"><span class="sec-title">Typography</span><div class="sec-line"></div></div>
+    <div class="typo-section">
+      <div class="typo-card">
+        <div class="typo-role">Display / Heading</div>
+        <div class="typo-sample" contenteditable="true" style="font-family:'Bebas Neue',sans-serif;">The Story<br>We Tell</div>
+        <div class="typo-meta">
+          <div class="tm-row"><span class="tm-label">Typeface</span><input class="tm-val" type="text" placeholder="Bebas Neue"></div>
+          <div class="tm-row"><span class="tm-label">Weight</span><input class="tm-val" type="text" placeholder="Regular / Italic"></div>
+          <div class="tm-row"><span class="tm-label">Use Case</span><input class="tm-val" type="text" placeholder="Titles, pull quotes, hero text"></div>
+          <div class="tm-row"><span class="tm-label">Source</span><input class="tm-val" type="text" placeholder="Google Fonts — free"></div>
+        </div>
+      </div>
+      <div class="typo-card">
+        <div class="typo-role">Body / UI</div>
+        <div class="typo-sample" contenteditable="true" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:1.6;">Clean, readable,<br>professional body copy.</div>
+        <div class="typo-meta">
+          <div class="tm-row"><span class="tm-label">Typeface</span><input class="tm-val" type="text" placeholder="Inter"></div>
+          <div class="tm-row"><span class="tm-label">Weight</span><input class="tm-val" type="text" placeholder="300, 400, 600"></div>
+          <div class="tm-row"><span class="tm-label">Use Case</span><input class="tm-val" type="text" placeholder="Body, captions, UI, labels"></div>
+          <div class="tm-row"><span class="tm-label">Source</span><input class="tm-val" type="text" placeholder="Google Fonts — free"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIRECTOR'S NOTES -->
+  <div>
+    <div class="sec-label"><span class="sec-title">Director's Notes</span><div class="sec-line"></div></div>
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="note-card-title">Visual Language</div>
+        <textarea class="note-ta" placeholder="Describe the overall visual approach. How should it feel? What films, photographers, or styles are you referencing?
+
+Example: Think Wong Kar-wai meets modern brand film. Warm, intimate close-ups. Selective focus. Let the moments breathe."></textarea>
+      </div>
+      <div class="note-card">
+        <div class="note-card-title">Lighting Direction</div>
+        <textarea class="note-ta" placeholder="How should the lighting feel? Hard/soft? Natural or controlled? Day or night?
+
+Example: Natural light wherever possible. Window light as key, subtle fill. Avoid hard shadows. Golden hour for exterior shots."></textarea>
+      </div>
+      <div class="note-card">
+        <div class="note-card-title">Camera &amp; Movement</div>
+        <textarea class="note-ta" placeholder="What camera language speaks to this project? Static? Kinetic? Handheld? Gimbal?
+
+Example: Mostly static with intentional slow pushes. One or two handheld moments for authenticity. No drone unless essential."></textarea>
+      </div>
+      <div class="note-card">
+        <div class="note-card-title">What to Avoid</div>
+        <textarea class="note-ta" placeholder="List things that are NOT right for this project — helps keep the creative focused.
+
+Example: No stock-feeling compositions. No overexposed, washed-out looks. No fast cuts or flashy transitions. No on-the-nose royalty-free music."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand"><span>How It's Filmed</span> · howitsfilmed.com</div>
+    <div style="font-size:10px;color:var(--text3)">Mood Board · For Creative Alignment</div>
+  </div>
+
+</div>
+
+<script>
+function previewImg(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const cell = input.closest('.img-cell');
+      let img = cell.querySelector('img.preview');
+      if (!img) {
+        img = document.createElement('img');
+        img.className = 'preview';
+        const caption = cell.querySelector('.img-caption');
+        cell.insertBefore(img, caption);
+      }
+      img.src = e.target.result;
+      cell.classList.add('has-image');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function removeImg(btn) {
+  const cell = btn.closest('.img-cell');
+  const img = cell.querySelector('img.preview');
+  if (img) img.remove();
+  cell.classList.remove('has-image');
+  // Reset the file input so the same file can be re-uploaded
+  const fileInput = cell.querySelector('input[type="file"]');
+  if (fileInput) fileInput.value = '';
+}
+
+function setAccent(pill) {
+  const color = pill.dataset.color;
+  // Update CSS variable
+  document.documentElement.style.setProperty('--accent', color);
+  // Compute a slightly darker version for --accent2
+  document.documentElement.style.setProperty('--accent2', color);
+  // Update all accent pill states
+  document.querySelectorAll('.accent-pill').forEach(p => {
+    p.classList.remove('active');
+    p.style.borderColor = '';
+    p.style.color = '';
+  });
+  pill.classList.add('active');
+  pill.style.borderColor = color;
+  pill.style.color = color;
+  // Also update logo SVG accent paths
+  document.querySelectorAll('.hif-logo-svg path, .hif-logo-svg circle').forEach(el => {
+    if (el.getAttribute('stroke') && el.getAttribute('stroke') !== 'none') el.setAttribute('stroke', color);
+    if (el.getAttribute('fill') && el.getAttribute('fill') !== 'none' && el.getAttribute('fill') !== '#FFFFFF') el.setAttribute('fill', color);
+  });
+}
+
+function addTag() {
+  const text = prompt('Add tone keyword:');
+  if (text && text.trim()) {
+    const btn = document.querySelector('.tone-add');
+    const tag = document.createElement('span');
+    tag.className = 'tone-tag active';
+    tag.textContent = text.trim();
+    tag.onclick = () => tag.classList.toggle('active');
+    btn.parentNode.insertBefore(tag, btn);
+  }
+}
+</script>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>

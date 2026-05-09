@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shot List — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif;
+  --font-head: 'Bebas Neue', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 6px 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .toolbar-btn:hover:not(:disabled) { border-color: var(--text3); color: var(--text); }
+  .toolbar-btn:disabled { opacity: 0.28; cursor: default; }
+  .toolbar-btn.save-btn { border-color: var(--accent2); color: var(--accent); }
+  .toolbar-btn.save-btn:hover { background: rgba(255,51,51,0.08); }
+  .toolbar-divider { width: 1px; height: 16px; background: var(--border); margin: 0 4px; }
+  .toolbar-shortcut {
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+  .undo-indicator {
+    font-size: 10px;
+    color: var(--text3);
+    margin-left: 4px;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .undo-indicator.flash { opacity: 1; }
+
+  /* HEADER */
+  .page-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 48px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .brand-block { display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; }
+  .brand-name {
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .doc-title {
+    font-family: var(--font-head);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .doc-subtitle {
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 24px;
+  }
+  .meta-field { display: flex; flex-direction: column; gap: 2px; align-items: center; }
+  /* Change 2: meta labels now white */
+  .meta-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text); text-align: center; }
+  .meta-value {
+    font-size: 12px;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    padding: 2px 0;
+    text-align: center;
+    width: 160px;
+    outline: none;
+    font-family: var(--font-ui);
+  }
+  .meta-value:focus { border-bottom-color: var(--accent); }
+
+  /* PROJECT INFO STRIP */
+  .project-strip {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 48px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .strip-field { display: flex; align-items: center; gap: 10px; }
+  /* Change 2: strip labels now white */
+  .strip-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text); white-space: nowrap; }
+  .strip-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 12px;
+    padding: 2px 4px;
+    outline: none;
+    min-width: 120px;
+  }
+  .strip-input:focus { border-bottom-color: var(--accent); }
+
+  /* MAIN CONTENT */
+  .page-body { padding: 32px 48px 48px; }
+
+  /* SCENE SECTION */
+  .scene-block { margin-bottom: 32px; }
+  .scene-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .scene-badge {
+    background: var(--accent);
+    color: #0d0d0d;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .scene-title-input {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-style: italic;
+    padding: 0;
+    outline: none;
+    flex: 1;
+  }
+  .scene-title-input::placeholder { color: var(--text3); }
+  .scene-title-input:focus { border-bottom: 1px solid var(--accent); }
+  .scene-notes-input {
+    background: transparent;
+    border: none;
+    color: var(--text2);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    padding: 0;
+    outline: none;
+    min-width: 200px;
+  }
+  .scene-notes-input::placeholder { color: var(--text3); }
+
+  /* SHOT TABLE */
+  .shot-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .shot-table thead tr {
+    background: var(--bg3);
+  }
+  .shot-table th {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text3);
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .shot-table td {
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .shot-table tr:hover td { background: rgba(201,168,76,0.03); }
+
+  .td-center { text-align: center; }
+  .col-check  { width: 36px; }
+  .col-shot   { width: 52px; }
+  .col-type   { width: 90px; }
+  .col-desc   { }
+  /* Change 3: Camera column added */
+  .col-camera { width: 110px; }
+  .col-lens   { width: 100px; }
+  .col-move   { width: 110px; }
+  .col-notes  { width: 160px; }
+
+  .cell-input {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 12px;
+    padding: 10px 12px;
+    outline: none;
+    width: 100%;
+    display: block;
+  }
+  .cell-input::placeholder { color: var(--text3); }
+  .cell-input:focus { background: rgba(201,168,76,0.04); }
+
+  /* Custom checkbox */
+  .shot-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  .shot-check input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .shot-check input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .shot-check input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 1px;
+    width: 5px; height: 8px;
+    border: 1.5px solid #0d0d0d;
+    border-top: none; border-left: none;
+    transform: rotate(40deg);
+  }
+
+  .shot-num {
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    padding: 10px 12px;
+    font-weight: 500;
+  }
+
+  /* SELECT CELLS */
+  .cell-select {
+    background: transparent;
+    border: none;
+    color: var(--text2);
+    font-family: var(--font-ui);
+    font-size: 12px;
+    padding: 10px 12px;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+  }
+  .cell-select option { background: var(--bg); color: var(--text); }
+
+  /* ADD ROW BUTTON */
+  .add-row-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--text3);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 8px 16px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .add-row-btn:hover { border-color: var(--accent2); color: var(--accent); }
+  .add-row-btn span { font-size: 16px; line-height: 1; }
+
+  /* ADD SCENE BUTTON */
+  .add-scene-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px dashed var(--accent2);
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.15s;
+  }
+  .add-scene-btn:hover { background: rgba(201,168,76,0.06); }
+
+  /* FOOTER */
+  .page-footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; }
+  .footer-brand span { color: var(--accent); }
+  .footer-page { font-size: 10px; color: var(--text3); }
+
+  /* ACCENT LINE */
+  .accent-rule {
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+    margin-bottom: 0;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    .toolbar { display: none; }
+    body { background: #fff; color: #1a1a1a; }
+    .page-header { background: #fff; border-bottom: 2px solid #1a1a1a; padding: 20px 32px; }
+    .brand-name { color: #FF3333; }
+    .doc-title { color: #1a1a1a; }
+    .meta-label { color: #333; }
+    .meta-value { color: #1a1a1a; border-bottom-color: #ccc; }
+    .project-strip { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 12px 32px; }
+    .strip-label { color: #333; }
+    .strip-input { color: #1a1a1a; border-bottom-color: #999; }
+    .page-body { padding: 24px 32px 32px; }
+    .scene-badge { background: #FF3333; color: #fff; }
+    .scene-title-input { color: #1a1a1a; }
+    .shot-table thead tr { background: #f0f0f0; }
+    .shot-table th { color: #666; border-bottom-color: #ccc; }
+    .shot-table td { border-bottom-color: #eee; }
+    .cell-input, .cell-select { color: #1a1a1a; }
+    .shot-num { color: #999; }
+    .add-row-btn, .add-scene-btn { display: none; }
+    .page-footer { border-top-color: #ccc; }
+    .footer-brand, .footer-page { color: #999; }
+    .footer-brand span { color: #FF3333; }
+    .accent-rule { background: linear-gradient(90deg, #FF3333 0%, transparent 60%); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .toolbar { padding: 6px 12px; flex-wrap: wrap; gap: 6px; }
+    .toolbar-btn { padding: 4px 8px; font-size: 10px; }
+    .page-header { padding: 20px 16px 16px; flex-direction: column; align-items: center; gap: 12px; }
+    .header-meta { flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
+    .meta-value { width: 140px; }
+    .project-strip { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .strip-field { flex-direction: column; gap: 3px; }
+    .strip-input { width: 100% !important; min-width: 0; }
+    .page-body { padding: 16px 16px 32px; }
+    .scene-block { overflow-x: auto; }
+    .shot-table { min-width: 620px; }
+    .page-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- Change 4 & 5: Toolbar with Save, Undo, Redo -->
+<div class="toolbar" id="toolbar">
+  <button class="toolbar-btn save-btn" id="btn-save" onclick="saveFile()">
+    ↓ Save File
+  </button>
+    <div class="toolbar-divider"></div>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+  <div class="toolbar-divider"></div>
+  <button class="toolbar-btn" id="btn-undo" onclick="doUndo()" disabled>
+    ↩ Undo
+    <span class="toolbar-shortcut">⌘Z</span>
+  </button>
+  <button class="toolbar-btn" id="btn-redo" onclick="doRedo()" disabled>
+    Redo ↪
+    <span class="toolbar-shortcut">⌘⇧Z</span>
+  </button>
+  <span class="undo-indicator" id="undo-indicator"></span>
+</div>
+
+<div class="accent-rule"></div>
+<div class="page-header">
+  <div class="brand-block">
+    <!-- Change 1: Corner brackets are now WHITE (#FFFFFF); recording dot stays red -->
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="doc-title">Shot List</div>
+    <div class="doc-subtitle">Production Document</div>
+  </div>
+  <div class="header-meta">
+    <div class="meta-field">
+      <div class="meta-label">Project</div>
+      <input class="meta-value" type="text" placeholder="Project Title">
+    </div>
+    <div class="meta-field">
+      <div class="meta-label">Date</div>
+      <input class="meta-value" type="text" placeholder="MM/DD/YYYY">
+    </div>
+    <div class="meta-field">
+      <div class="meta-label">Director</div>
+      <input class="meta-value" type="text" placeholder="Name">
+    </div>
+    <div class="meta-field">
+      <div class="meta-label">DP</div>
+      <input class="meta-value" type="text" placeholder="Name">
+    </div>
+  </div>
+</div>
+
+<div class="project-strip">
+  <div class="strip-field">
+    <span class="strip-label">Client</span>
+    <input class="strip-input" type="text" placeholder="Client Name" style="width:140px">
+  </div>
+  <div class="strip-field">
+    <span class="strip-label">Location</span>
+    <input class="strip-input" type="text" placeholder="Location / Address" style="width:180px">
+  </div>
+  <div class="strip-field">
+    <span class="strip-label">Camera</span>
+    <input class="strip-input" type="text" placeholder="Camera Body" style="width:120px">
+  </div>
+  <div class="strip-field">
+    <span class="strip-label">Shoot Day</span>
+    <input class="strip-input" type="text" placeholder="Day 1 of 3" style="width:80px">
+  </div>
+  <div class="strip-field">
+    <span class="strip-label">Revision</span>
+    <input class="strip-input" type="text" placeholder="v1.0" style="width:60px">
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- SCENE 1 -->
+  <!-- Change 3: Camera column added to table header and rows -->
+  <div class="scene-block" id="scene-container">
+    <div class="scene-header">
+      <div class="scene-badge">Scene 01</div>
+      <input class="scene-title-input" type="text" placeholder="INT. Office — Day (Scene title / description)">
+      <input class="scene-notes-input" type="text" placeholder="Additional context or notes...">
+    </div>
+    <table class="shot-table">
+      <thead>
+        <tr>
+          <th class="col-check td-center">✓</th>
+          <th class="col-shot td-center">Shot</th>
+          <th class="col-type">Type</th>
+          <th class="col-desc">Description</th>
+          <th class="col-camera">Camera</th>
+          <th class="col-lens">Lens</th>
+          <th class="col-move">Movement</th>
+          <th class="col-notes">Notes</th>
+        </tr>
+      </thead>
+      <tbody id="shot-body-1">
+        <tr>
+          <td class="col-check"><div class="shot-check"><input type="checkbox"></div></td>
+          <td class="col-shot"><div class="shot-num">1A</div></td>
+          <td class="col-type"><select class="cell-select"><option value="">— Select —</option><option>Wide / Est.</option><option>Medium</option><option>Close-Up</option><option>ECU</option><option>OTS</option><option>POV</option><option>Insert</option><option>Aerial</option><option>B-Roll</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Describe the shot composition and action..."></td>
+          <td><input class="cell-input" type="text" placeholder="Cam A"></td>
+          <td><input class="cell-input" type="text" placeholder="24mm f/1.8"></td>
+          <td><select class="cell-select"><option value="">— Select —</option><option>Static</option><option>Pan</option><option>Tilt</option><option>Dolly In</option><option>Dolly Out</option><option>Tracking</option><option>Handheld</option><option>Gimbal</option><option>Crane</option><option>Drone</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Focus pull, lighting note..."></td>
+        </tr>
+        <tr>
+          <td class="col-check"><div class="shot-check"><input type="checkbox"></div></td>
+          <td class="col-shot"><div class="shot-num">1B</div></td>
+          <td class="col-type"><select class="cell-select"><option value="">— Select —</option><option>Wide / Est.</option><option>Medium</option><option>Close-Up</option><option>ECU</option><option>OTS</option><option>POV</option><option>Insert</option><option>Aerial</option><option>B-Roll</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Describe the shot composition and action..."></td>
+          <td><input class="cell-input" type="text" placeholder="Cam A"></td>
+          <td><input class="cell-input" type="text" placeholder="50mm f/1.2"></td>
+          <td><select class="cell-select"><option value="">— Select —</option><option>Static</option><option>Pan</option><option>Tilt</option><option>Dolly In</option><option>Dolly Out</option><option>Tracking</option><option>Handheld</option><option>Gimbal</option><option>Crane</option><option>Drone</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Focus pull, lighting note..."></td>
+        </tr>
+        <tr>
+          <td class="col-check"><div class="shot-check"><input type="checkbox"></div></td>
+          <td class="col-shot"><div class="shot-num">1C</div></td>
+          <td class="col-type"><select class="cell-select"><option value="">— Select —</option><option>Wide / Est.</option><option>Medium</option><option>Close-Up</option><option>ECU</option><option>OTS</option><option>POV</option><option>Insert</option><option>Aerial</option><option>B-Roll</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Describe the shot composition and action..."></td>
+          <td><input class="cell-input" type="text" placeholder="Cam A"></td>
+          <td><input class="cell-input" type="text" placeholder="85mm f/1.4"></td>
+          <td><select class="cell-select"><option value="">— Select —</option><option>Static</option><option>Pan</option><option>Tilt</option><option>Dolly In</option><option>Dolly Out</option><option>Tracking</option><option>Handheld</option><option>Gimbal</option><option>Crane</option><option>Drone</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Focus pull, lighting note..."></td>
+        </tr>
+        <tr>
+          <td class="col-check"><div class="shot-check"><input type="checkbox"></div></td>
+          <td class="col-shot"><div class="shot-num">1D</div></td>
+          <td class="col-type"><select class="cell-select"><option value="">— Select —</option><option>Wide / Est.</option><option>Medium</option><option>Close-Up</option><option>ECU</option><option>OTS</option><option>POV</option><option>Insert</option><option>Aerial</option><option>B-Roll</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Describe the shot composition and action..."></td>
+          <td><input class="cell-input" type="text" placeholder="Cam A"></td>
+          <td><input class="cell-input" type="text" placeholder="35mm f/1.8"></td>
+          <td><select class="cell-select"><option value="">— Select —</option><option>Static</option><option>Pan</option><option>Tilt</option><option>Dolly In</option><option>Dolly Out</option><option>Tracking</option><option>Handheld</option><option>Gimbal</option><option>Crane</option><option>Drone</option></select></td>
+          <td><input class="cell-input" type="text" placeholder="Focus pull, lighting note..."></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow(this)"><span>+</span> Add Shot</button>
+  </div>
+
+  <button class="add-scene-btn" onclick="addScene()"><span>+</span> Add Scene</button>
+
+  <div class="page-footer">
+    <div class="footer-brand"><span>How It's Filmed</span> — howitsfilmed.com</div>
+    <div class="footer-page">Shot List &nbsp;·&nbsp; Page 1</div>
+  </div>
+</div>
+
+<script>
+/* ─── SCENE / ROW MANAGEMENT ─── */
+let sceneCount = 1;
+let shotCounters = {1: 4};
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+function shotLabel(sceneNum, idx) {
+  return sceneNum + letters[idx];
+}
+
+function createRow(sceneNum, idx) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="col-check"><div class="shot-check"><input type="checkbox"></div></td>
+    <td class="col-shot"><div class="shot-num">${shotLabel(sceneNum, idx)}</div></td>
+    <td class="col-type"><select class="cell-select"><option value="">— Select —</option><option>Wide / Est.</option><option>Medium</option><option>Close-Up</option><option>ECU</option><option>OTS</option><option>POV</option><option>Insert</option><option>Aerial</option><option>B-Roll</option></select></td>
+    <td><input class="cell-input" type="text" placeholder="Describe the shot composition and action..."></td>
+    <td><input class="cell-input" type="text" placeholder="Cam A"></td>
+    <td><input class="cell-input" type="text" placeholder="24mm f/1.8"></td>
+    <td><select class="cell-select"><option value="">— Select —</option><option>Static</option><option>Pan</option><option>Tilt</option><option>Dolly In</option><option>Dolly Out</option><option>Tracking</option><option>Handheld</option><option>Gimbal</option><option>Crane</option><option>Drone</option></select></td>
+    <td><input class="cell-input" type="text" placeholder="Focus pull, lighting note..."></td>`;
+  // Wire up new inputs for undo tracking
+  tr.querySelectorAll('input, select').forEach(el => attachUndoListeners(el));
+  return tr;
+}
+
+function addRow(btn) {
+  pushState(); // record state before structural change
+  const sceneBlock = btn.closest('.scene-block');
+  const tbody = sceneBlock.querySelector('tbody');
+  const sceneNum = parseInt(sceneBlock.dataset.scene || 1);
+  if (!shotCounters[sceneNum]) shotCounters[sceneNum] = 0;
+  tbody.appendChild(createRow(sceneNum, shotCounters[sceneNum]));
+  shotCounters[sceneNum]++;
+}
+
+function addScene() {
+  pushState();
+  sceneCount++;
+  const num = String(sceneCount).padStart(2,'0');
+  shotCounters[sceneCount] = 0;
+  const div = document.createElement('div');
+  div.className = 'scene-block';
+  div.dataset.scene = sceneCount;
+  div.innerHTML = `
+    <div class="scene-header">
+      <div class="scene-badge">Scene ${num}</div>
+      <input class="scene-title-input" type="text" placeholder="INT./EXT. Location — Time (Scene description)">
+      <input class="scene-notes-input" type="text" placeholder="Additional context...">
+    </div>
+    <table class="shot-table">
+      <thead><tr>
+        <th class="col-check td-center">✓</th>
+        <th class="col-shot td-center">Shot</th>
+        <th class="col-type">Type</th>
+        <th class="col-desc">Description</th>
+        <th class="col-camera">Camera</th>
+        <th class="col-lens">Lens</th>
+        <th class="col-move">Movement</th>
+        <th class="col-notes">Notes</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow(this)"><span>+</span> Add Shot</button>`;
+  const addBtn = document.querySelector('.add-scene-btn');
+  addBtn.parentNode.insertBefore(div, addBtn);
+  // Wire up scene text inputs
+  div.querySelectorAll('input, select').forEach(el => attachUndoListeners(el));
+  const tbody = div.querySelector('tbody');
+  for (let i = 0; i < 3; i++) {
+    tbody.appendChild(createRow(sceneCount, shotCounters[sceneCount]));
+    shotCounters[sceneCount]++;
+  }
+}
+
+document.querySelector('.scene-block').dataset.scene = 1;
+
+
+/* ─── UNDO / REDO ─── */
+const MAX_STACK = 50;
+let undoStack = [];
+let redoStack = [];
+let isRestoring = false;
+let debounceTimer = null;
+
+/** Serialize all interactive field values in the document */
+function captureState() {
+  const fields = document.querySelectorAll('input[type="text"], input[type="checkbox"], select');
+  const data = [];
+  fields.forEach(el => {
+    data.push({
+      tag: el.tagName,
+      type: el.type || '',
+      value: el.type === 'checkbox' ? el.checked : el.value,
+      // index among all matching fields — used for restore
+    });
+  });
+  return JSON.stringify(data);
+}
+
+/** Restore a previously captured state */
+function restoreState(stateStr) {
+  isRestoring = true;
+  const data = JSON.parse(stateStr);
+  const fields = document.querySelectorAll('input[type="text"], input[type="checkbox"], select');
+  data.forEach((entry, i) => {
+    const el = fields[i];
+    if (!el) return;
+    if (entry.type === 'checkbox') {
+      el.checked = entry.value;
+    } else {
+      el.value = entry.value;
+    }
+  });
+  isRestoring = false;
+  updateToolbarButtons();
+}
+
+/** Push the current state onto the undo stack (called before a change) */
+function pushState(state) {
+  if (isRestoring) return;
+  const s = state || captureState();
+  undoStack.push(s);
+  if (undoStack.length > MAX_STACK) undoStack.shift();
+  redoStack = []; // new action clears redo
+  updateToolbarButtons();
+}
+
+function doUndo() {
+  if (undoStack.length === 0) return;
+  const current = captureState();
+  redoStack.push(current);
+  const prev = undoStack.pop();
+  restoreState(prev);
+  flashIndicator('Undone');
+}
+
+function doRedo() {
+  if (redoStack.length === 0) return;
+  const current = captureState();
+  undoStack.push(current);
+  if (undoStack.length > MAX_STACK) undoStack.shift();
+  const next = redoStack.pop();
+  restoreState(next);
+  flashIndicator('Redone');
+}
+
+function updateToolbarButtons() {
+  document.getElementById('btn-undo').disabled = undoStack.length === 0;
+  document.getElementById('btn-redo').disabled = redoStack.length === 0;
+}
+
+function flashIndicator(msg) {
+  const el = document.getElementById('undo-indicator');
+  el.textContent = msg;
+  el.classList.add('flash');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('flash'), 1200);
+}
+
+/** Attach undo-tracking listeners to a field */
+function attachUndoListeners(el) {
+  if (el.type === 'checkbox') {
+    el.addEventListener('change', () => {
+      if (!isRestoring) { pushState(); /* checkbox is instant */ }
+    });
+  } else if (el.tagName === 'SELECT') {
+    el.addEventListener('change', () => {
+      if (!isRestoring) pushState();
+    });
+  } else {
+    // text inputs: debounce so we don't snapshot every keystroke
+    el.addEventListener('focus', () => {
+      if (!isRestoring) el._stateOnFocus = captureState();
+    });
+    el.addEventListener('input', () => {
+      if (isRestoring) return;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        if (el._stateOnFocus !== undefined) {
+          undoStack.push(el._stateOnFocus);
+          if (undoStack.length > MAX_STACK) undoStack.shift();
+          el._stateOnFocus = captureState(); // update anchor
+          redoStack = [];
+          updateToolbarButtons();
+        }
+      }, 600);
+    });
+  }
+}
+
+// Wire up all existing fields on page load
+document.querySelectorAll('input[type="text"], input[type="checkbox"], select').forEach(el => {
+  attachUndoListeners(el);
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  const isMac = navigator.platform.toUpperCase().includes('MAC');
+  const mod = isMac ? e.metaKey : e.ctrlKey;
+  if (!mod) return;
+  if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); doUndo(); }
+  if (e.key === 'z' &&  e.shiftKey) { e.preventDefault(); doRedo(); }
+  if (e.key === 'y' && !isMac)      { e.preventDefault(); doRedo(); }
+});
+
+// Initialize button states
+updateToolbarButtons();
+
+
+/* ─── SAVE FILE ─── */
+function saveFile() {
+  // Snapshot current input values into the HTML before saving
+  // We clone the document, inject current values as attributes so they appear in the saved file
+  const doctype = '<!DOCTYPE html>';
+  const clone = document.documentElement.cloneNode(true);
+
+  // Walk all inputs/selects in the LIVE doc and mirror to clone
+  const liveInputs = Array.from(document.querySelectorAll('input, select, textarea'));
+  const cloneInputs = Array.from(clone.querySelectorAll('input, select, textarea'));
+
+  liveInputs.forEach((live, i) => {
+    const cl = cloneInputs[i];
+    if (!cl) return;
+    if (live.type === 'checkbox') {
+      if (live.checked) cl.setAttribute('checked', 'checked');
+      else cl.removeAttribute('checked');
+    } else if (live.tagName === 'SELECT') {
+      // Set selected option
+      Array.from(cl.options).forEach((opt, j) => {
+        if (live.options[j] && live.options[j].selected) opt.setAttribute('selected', 'selected');
+        else opt.removeAttribute('selected');
+      });
+    } else {
+      cl.setAttribute('value', live.value);
+    }
+  });
+
+  // Remove toolbar from saved file (it's a utility UI)
+  const toolbarEl = clone.querySelector('#toolbar');
+  if (toolbarEl) toolbarEl.remove();
+
+  const html = doctype + '\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  // Use project name if filled in, otherwise default
+  const projectInput = document.querySelector('.meta-value');
+  const projectName = projectInput && projectInput.value.trim()
+    ? projectInput.value.trim().replace(/[^a-z0-9_\-\s]/gi, '').replace(/\s+/g, '-')
+    : 'HIF-Shot-List';
+  a.download = `${projectName}-Shot-List.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>

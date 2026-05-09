@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #FAFAFA; --bg2: #FFFFFF; --bg3: #F2F2F2; --bg4: #EBEBEB;
+  --border: #E0E0E0; --border2: #D0D0D0;
+  --accent: #FF3333; --accent2: #CC2020;
+  --text: #1A1A1A; --text2: #555555; --text3: #999999;
+  --logo-ink: #1a1a1a; --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A; --bg2: #212121; --bg3: #2a2a2a; --bg4: #2f2f2f;
+  --border: #252525; --border2: #2e2e2e;
+  --accent: #FF3333; --accent2: #CC2020;
+  --text: #FFFFFF; --text2: #9a9490; --text3: #5a5650;
+  --logo-ink: #FFFFFF; --logo-bg: #1A1A1A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--bg); color: var(--text); font-size: 14px; min-height: 100vh; }
+.accent-rule { height: 2px; background: linear-gradient(90deg, var(--accent) 0%, transparent 60%); }
+.toolbar { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--bg2); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.toolbar-btn { background: transparent; border: 1px solid var(--border); color: var(--text2); font-size: 12px; padding: 4px 10px; cursor: pointer; border-radius: 2px; font-family: var(--font-ui); transition: all 0.15s; }
+.toolbar-btn:hover:not(:disabled) { border-color: var(--accent2); color: var(--accent); }
+.toolbar-btn:disabled { opacity: 0.35; cursor: default; }
+.toolbar-btn.save-btn { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.toolbar-btn.save-btn:hover { background: var(--accent2); border-color: var(--accent2); }
+.toolbar-btn.print-btn { background: var(--bg3); border-color: var(--border2); color: var(--text2); font-weight: 600; }
+.toolbar-btn.print-btn:hover { background: var(--bg4); border-color: var(--accent); color: var(--accent); }
+.toolbar-divider { width: 1px; height: 20px; background: var(--border); }
+.toolbar-shortcut { font-size: 10px; opacity: 0.6; margin-left: 2px; }
+.undo-indicator { font-size: 11px; color: var(--text3); margin-left: 4px; min-width: 80px; }
+.theme-toggle { margin-left: auto; background: transparent; border: 1px solid var(--border); color: var(--text2); font-size: 14px; padding: 4px 10px; cursor: pointer; border-radius: 2px; transition: all 0.15s; line-height: 1; }
+.theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+[data-theme="dark"] .theme-icon::before { content: "\2600"; }
+[data-theme="light"] .theme-icon::before { content: "\1F319"; }
+
+.page-body { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+
+.invoice-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; gap: 20px; flex-wrap: wrap; }
+.invoice-title { font-family: var(--font-head); font-size: 64px; color: var(--text); letter-spacing: 2px; line-height: 1; }
+.invoice-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.invoice-meta-row { display: flex; align-items: center; gap: 10px; }
+.invoice-meta-row label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text3); font-weight: 600; white-space: nowrap; }
+.invoice-meta-row input { border: 1px solid var(--border); background: var(--bg3); color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 5px 9px; border-radius: 3px; width: 160px; text-align: right; }
+.invoice-meta-row input:focus { outline: none; border-color: var(--accent); }
+
+.status-badge { font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; border: none; font-family: var(--font-ui); letter-spacing: 0.5px; transition: all 0.15s; }
+.status-badge.unpaid { background: #fff3cd; color: #856404; border: 1px solid #ffe083; }
+[data-theme="dark"] .status-badge.unpaid { background: #3a2e00; color: #ffd700; border-color: #5a4a00; }
+.status-badge.paid { background: #d1f5e0; color: #0a7d3e; border: 1px solid #7de0a8; }
+[data-theme="dark"] .status-badge.paid { background: #0a2e1a; color: #4dc88a; border-color: #1a5c36; }
+.status-badge.overdue { background: #fde8e8; color: #b30000; border: 1px solid #f5a0a0; }
+[data-theme="dark"] .status-badge.overdue { background: #2e0000; color: #ff6666; border-color: #660000; }
+
+.divider-rule { height: 2px; background: linear-gradient(90deg, var(--accent) 0%, transparent 60%); margin: 20px 0; }
+
+.bill-section { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px; }
+.bill-block h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 600; margin-bottom: 12px; }
+.bill-field { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+.bill-field label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text3); }
+.bill-field input { border: none; border-bottom: 1px solid var(--border); background: transparent; color: var(--text); font-family: var(--font-ui); font-size: 14px; padding: 3px 0; }
+.bill-field input:focus { outline: none; border-bottom-color: var(--accent); }
+.bill-field input::placeholder { color: var(--text3); font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 8px; }
+th { background: var(--bg3); color: var(--text2); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border2); }
+th:last-child { text-align: right; }
+th.center { text-align: center; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+td.center { text-align: center; }
+td.right { text-align: right; font-weight: 600; }
+td.row-num { width: 32px; color: var(--text3); font-size: 12px; text-align: center; }
+td input { border: none; background: transparent; color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 2px 0; width: 100%; }
+td input:focus { outline: none; }
+td input.num-input { text-align: right; }
+td.amount-cell { font-weight: 600; text-align: right; color: var(--text); }
+tr:hover td { background: var(--bg3); }
+
+.add-row-btn { margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px dashed var(--border2); color: var(--text3); font-family: var(--font-ui); font-size: 12px; padding: 6px 14px; cursor: pointer; border-radius: 2px; transition: all 0.15s; }
+.add-row-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.totals-section { display: flex; justify-content: flex-end; margin: 20px 0 28px; }
+.totals-block { min-width: 280px; }
+.total-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); gap: 20px; }
+.total-row:last-child { border-bottom: none; padding-top: 12px; }
+.total-label { font-size: 13px; color: var(--text2); }
+.total-val { font-size: 13px; font-weight: 600; color: var(--text); }
+.total-row.grand { }
+.total-row.grand .total-label { font-size: 16px; font-weight: 700; color: var(--text); }
+.total-row.grand .total-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+.tax-row { display: flex; align-items: center; gap: 6px; }
+.tax-input { border: 1px solid var(--border); background: var(--bg3); color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 3px 7px; border-radius: 3px; width: 56px; text-align: right; }
+.tax-input:focus { outline: none; border-color: var(--accent); }
+.discount-input { border: 1px solid var(--border); background: var(--bg3); color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 3px 7px; border-radius: 3px; width: 80px; text-align: right; }
+.discount-input:focus { outline: none; border-color: var(--accent); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+.section-block { }
+.section-block h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 600; margin-bottom: 12px; }
+.payment-field { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; }
+.payment-field label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text3); }
+.payment-field input { border: none; border-bottom: 1px solid var(--border); background: transparent; color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 4px 0; }
+.payment-field input:focus { outline: none; border-bottom-color: var(--accent); }
+textarea.notes-area { width: 100%; min-height: 80px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 10px 12px; border-radius: 4px; resize: vertical; }
+textarea.notes-area:focus { outline: none; border-color: var(--accent); }
+
+.page-footer { padding: 14px 24px; border-top: 1px solid var(--border); background: var(--bg3); display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text3); margin-top: 20px; }
+
+@media (max-width: 600px) {
+  .invoice-top { flex-direction: column; }
+  .invoice-meta { align-items: flex-start; }
+  .bill-section, .two-col { grid-template-columns: 1fr; }
+  .page-body { padding: 16px; }
+  table { overflow-x: auto; display: block; }
+  .invoice-title { font-size: 48px; }
+}
+@media print {
+  .toolbar { display: none !important; }
+  .accent-rule { display: none; }
+  .add-row-btn { display: none; }
+  .print-only-hide { display: none; }
+  body { background: white !important; }
+  * { color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .invoice-title { color: #1A1A1A !important; }
+  .total-row.grand .total-val { color: #FF3333 !important; }
+}
+</style>
+</head>
+<body>
+<div class="toolbar" id="toolbar">
+  <button class="toolbar-btn save-btn" id="btn-save" onclick="saveFile()">↓ Save File</button>
+  <button class="toolbar-btn print-btn" onclick="window.print()">🖨 Print / PDF</button>
+  <div class="toolbar-divider"></div>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+  <button class="toolbar-btn" id="btn-undo" onclick="doUndo()" disabled>↩ Undo <span class="toolbar-shortcut">⌘Z</span></button>
+  <button class="toolbar-btn" id="btn-redo" onclick="doRedo()" disabled>Redo ↪ <span class="toolbar-shortcut">⌘⇧Z</span></button>
+  <span class="undo-indicator" id="undo-indicator"></span>
+</div>
+<div class="accent-rule"></div>
+
+<div class="page-body">
+
+  <div class="invoice-top">
+    <div>
+      <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:200px;height:auto;display:block;margin-bottom:12px;" aria-label="How It's Filmed">
+        <style>.logo-ink{fill:var(--logo-ink,#1a1a1a)}.logo-dot{fill:#f33}.logo-bg-counter{fill:var(--logo-bg,#fafafa)}</style>
+        <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+        <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+        <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+        <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+        <g>
+          <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+          <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+          <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+          <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+          <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+          <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+          <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+          <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+          <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+          <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+          <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+          <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+          <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+          <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+        </g>
+      </svg>
+    </div>
+    <div style="text-align:right;">
+      <div class="invoice-title">INVOICE</div>
+      <div class="invoice-meta" style="margin-top:12px;">
+        <div class="invoice-meta-row">
+          <label>Invoice #</label>
+          <input type="text" id="inv-num" placeholder="INV-001">
+        </div>
+        <div class="invoice-meta-row">
+          <label>Invoice Date</label>
+          <input type="date" id="inv-date">
+        </div>
+        <div class="invoice-meta-row">
+          <label>Due Date</label>
+          <input type="date" id="inv-due">
+        </div>
+        <div class="invoice-meta-row" style="justify-content:flex-end;margin-top:4px;">
+          <button class="status-badge unpaid" id="inv-status" onclick="cycleStatus()">Unpaid</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider-rule"></div>
+
+  <div class="bill-section">
+    <div class="bill-block">
+      <h3>Bill To</h3>
+      <div class="bill-field"><label>Company / Client</label><input type="text" id="bt-company" placeholder="Client Company Name"></div>
+      <div class="bill-field"><label>Contact Name</label><input type="text" id="bt-contact" placeholder="First Last"></div>
+      <div class="bill-field"><label>Address Line 1</label><input type="text" id="bt-addr1" placeholder="123 Main Street"></div>
+      <div class="bill-field"><label>Address Line 2</label><input type="text" id="bt-addr2" placeholder="Suite 100"></div>
+      <div class="bill-field"><label>City / State / Zip</label><input type="text" id="bt-csz" placeholder="Los Angeles, CA 90001"></div>
+      <div class="bill-field"><label>Email</label><input type="email" id="bt-email" placeholder="client@example.com"></div>
+    </div>
+    <div class="bill-block">
+      <h3>Bill From</h3>
+      <div class="bill-field"><label>Company</label><input type="text" id="bf-company" value="How It's Filmed"></div>
+      <div class="bill-field"><label>Website</label><input type="text" id="bf-website" value="howitsfilmed.com"></div>
+      <div class="bill-field"><label>Email</label><input type="email" id="bf-email" value="brianwhitesel@gmail.com"></div>
+      <div class="bill-field"><label>Phone</label><input type="tel" id="bf-phone" placeholder="555-000-0000"></div>
+      <div class="bill-field"><label>Address</label><input type="text" id="bf-addr" placeholder="Your Address"></div>
+    </div>
+  </div>
+
+  <div class="divider-rule"></div>
+
+  <table id="line-table">
+    <thead>
+      <tr>
+        <th style="width:36px;">#</th>
+        <th>Description</th>
+        <th class="center" style="width:80px;">Qty</th>
+        <th class="center" style="width:110px;">Rate ($)</th>
+        <th style="width:110px;text-align:right;">Amount</th>
+        <th style="width:36px;" class="print-only-hide"></th>
+      </tr>
+    </thead>
+    <tbody id="line-body">
+    </tbody>
+  </table>
+  <button class="add-row-btn print-only-hide" onclick="addLineItem()">+ Add Line Item</button>
+
+  <div class="totals-section">
+    <div class="totals-block">
+      <div class="total-row">
+        <span class="total-label">Subtotal</span>
+        <span class="total-val" id="t-subtotal">$0.00</span>
+      </div>
+      <div class="total-row">
+        <div class="tax-row">
+          <span class="total-label">Tax</span>
+          <input type="number" class="tax-input" id="t-tax-pct" value="0" min="0" max="100" step="0.1" oninput="calcTotals()">
+          <span class="total-label">%</span>
+        </div>
+        <span class="total-val" id="t-tax-amt">$0.00</span>
+      </div>
+      <div class="total-row">
+        <div class="tax-row">
+          <span class="total-label">Discount</span>
+          <span class="total-label">$</span>
+          <input type="number" class="discount-input" id="t-discount" value="0" min="0" step="0.01" oninput="calcTotals()">
+        </div>
+        <span class="total-val" id="t-discount-display">-$0.00</span>
+      </div>
+      <div class="total-row grand">
+        <span class="total-label">Total</span>
+        <span class="total-val" id="t-total">$0.00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section-block">
+      <h3>Payment Instructions</h3>
+      <div class="payment-field"><label>Bank / Wire</label><input type="text" id="pay-bank" placeholder="Bank name, account details..."></div>
+      <div class="payment-field"><label>Venmo</label><input type="text" id="pay-venmo" placeholder="@username"></div>
+      <div class="payment-field"><label>PayPal</label><input type="text" id="pay-paypal" placeholder="paypal.me/username or email"></div>
+      <div class="payment-field"><label>Other</label><input type="text" id="pay-other" placeholder="Zelle, CashApp, etc."></div>
+    </div>
+    <div class="section-block">
+      <h3>Notes</h3>
+      <textarea class="notes-area" id="inv-notes" placeholder="Payment terms, thank you message, late fee policy..."></textarea>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <span>How It's Filmed · howitsfilmed.com</span>
+  <span>Invoice</span>
+</div>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+
+var undoStack = [], redoStack = [], lastState = null, undoTimeout = null;
+var lineCount = 0;
+
+function captureState() {
+  var state = {};
+  document.querySelectorAll('input, textarea, select').forEach(function(el, i) {
+    state[el.id || 'el_' + i] = el.value;
+  });
+  state['__lines'] = document.querySelectorAll('#line-body tr').length;
+  return JSON.stringify(state);
+}
+
+function pushState() {
+  var c = captureState();
+  if (c === lastState) return;
+  if (lastState !== null) undoStack.push(lastState);
+  lastState = c; redoStack = [];
+  if (undoStack.length > 100) undoStack.shift();
+  updateButtons();
+}
+
+function doUndo() {
+  if (!undoStack.length) return;
+  redoStack.push(captureState());
+  var p = undoStack.pop(); lastState = p;
+  var state = JSON.parse(p);
+  document.querySelectorAll('input, textarea, select').forEach(function(el, i) {
+    var k = el.id || 'el_' + i;
+    if (state[k] !== undefined) el.value = state[k];
+  });
+  calcTotals(); updateButtons(); showIndicator('Undone');
+}
+function doRedo() {
+  if (!redoStack.length) return;
+  undoStack.push(captureState());
+  var n = redoStack.pop(); lastState = n;
+  var state = JSON.parse(n);
+  document.querySelectorAll('input, textarea, select').forEach(function(el, i) {
+    var k = el.id || 'el_' + i;
+    if (state[k] !== undefined) el.value = state[k];
+  });
+  calcTotals(); updateButtons(); showIndicator('Redone');
+}
+function updateButtons() {
+  document.getElementById('btn-undo').disabled = !undoStack.length;
+  document.getElementById('btn-redo').disabled = !redoStack.length;
+}
+function showIndicator(m) {
+  var el = document.getElementById('undo-indicator'); el.textContent = m;
+  setTimeout(function() { el.textContent = ''; }, 1500);
+}
+
+var statusStates = ['unpaid','paid','overdue'];
+var statusLabels = ['Unpaid','Paid','Overdue'];
+var currentStatus = 0;
+function cycleStatus() {
+  pushState();
+  currentStatus = (currentStatus + 1) % statusStates.length;
+  var btn = document.getElementById('inv-status');
+  btn.className = 'status-badge ' + statusStates[currentStatus];
+  btn.textContent = statusLabels[currentStatus];
+  pushState();
+}
+window.cycleStatus = cycleStatus;
+
+function calcLineAmount(row) {
+  var qty = parseFloat(row.querySelector('.line-qty').value) || 0;
+  var rate = parseFloat(row.querySelector('.line-rate').value) || 0;
+  var amt = qty * rate;
+  row.querySelector('.line-amt').textContent = '$' + amt.toFixed(2);
+  return amt;
+}
+
+function calcTotals() {
+  var rows = document.querySelectorAll('#line-body tr');
+  var subtotal = 0;
+  rows.forEach(function(row) { subtotal += calcLineAmount(row); });
+  var taxPct = parseFloat(document.getElementById('t-tax-pct').value) || 0;
+  var discount = parseFloat(document.getElementById('t-discount').value) || 0;
+  var taxAmt = subtotal * taxPct / 100;
+  var total = subtotal + taxAmt - discount;
+  if (total < 0) total = 0;
+  document.getElementById('t-subtotal').textContent = '$' + subtotal.toFixed(2);
+  document.getElementById('t-tax-amt').textContent = '$' + taxAmt.toFixed(2);
+  document.getElementById('t-discount-display').textContent = '-$' + discount.toFixed(2);
+  document.getElementById('t-total').textContent = '$' + total.toFixed(2);
+}
+window.calcTotals = calcTotals;
+
+function addLineItem(opts) {
+  opts = opts || {};
+  var tbody = document.getElementById('line-body');
+  var num = tbody.querySelectorAll('tr').length + 1;
+  var tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="row-num">${num}</td>
+    <td><input type="text" class="line-desc" placeholder="Service description" value="${opts.desc||''}"></td>
+    <td class="center"><input type="number" class="num-input line-qty" value="${opts.qty||'1'}" min="0" step="0.5" oninput="calcTotals();schedulePush();" style="width:70px;text-align:right;"></td>
+    <td class="center"><input type="number" class="num-input line-rate" value="${opts.rate||''}" min="0" step="0.01" placeholder="0.00" oninput="calcTotals();schedulePush();" style="width:100px;text-align:right;"></td>
+    <td class="line-amt amount-cell">$0.00</td>
+    <td class="print-only-hide" style="text-align:center;"><button onclick="deleteRow(this)" style="background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 6px;" title="Remove">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+  calcLineAmount(tr);
+  calcTotals();
+  attachUndoListeners();
+}
+window.addLineItem = addLineItem;
+
+function deleteRow(btn) {
+  pushState();
+  btn.closest('tr').remove();
+  renumberRows();
+  calcTotals();
+  pushState();
+}
+window.deleteRow = deleteRow;
+
+function renumberRows() {
+  var rows = document.querySelectorAll('#line-body tr');
+  rows.forEach(function(row, i) { row.querySelector('.row-num').textContent = i + 1; });
+}
+
+var pushTimer;
+window.schedulePush = function() {
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushState, 600);
+};
+
+function attachUndoListeners() {
+  document.querySelectorAll('input, textarea, select').forEach(function(el) {
+    if (el.dataset.undoAttached) return;
+    el.dataset.undoAttached = '1';
+    el.addEventListener('focus', function() { lastState = captureState(); });
+    el.addEventListener('input', function() {
+      clearTimeout(undoTimeout);
+      undoTimeout = setTimeout(pushState, 600);
+    });
+    el.addEventListener('change', pushState);
+  });
+}
+
+function saveFile() {
+  var html = document.documentElement.outerHTML;
+  var blob = new Blob([html], {type:'text/html'});
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'HIF-Invoice.html'; a.click();
+}
+
+document.addEventListener('keydown', function(e) {
+  var mod = e.metaKey || e.ctrlKey;
+  if (mod && e.key === 'z' && !e.shiftKey) { e.preventDefault(); doUndo(); }
+  if (mod && (e.key === 'Z' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); doRedo(); }
+});
+
+window.addEventListener('load', function() {
+  addLineItem({ desc: 'Video Production — Brand Film (Full Day)', qty: 1, rate: 3500 });
+  addLineItem({ desc: 'Post-Production & Editing', qty: 8, rate: 150 });
+  addLineItem({ desc: 'Color Grading', qty: 1, rate: 600 });
+  attachUndoListeners();
+  lastState = captureState();
+  updateButtons();
+  calcTotals();
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('inv-date').value = today;
+  var due = new Date(); due.setDate(due.getDate() + 30);
+  document.getElementById('inv-due').value = due.toISOString().split('T')[0];
+});
+</script>
+</body>
+</html>

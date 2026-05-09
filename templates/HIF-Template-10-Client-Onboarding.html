@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Onboarding — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; line-height: 1.6; max-width: 1200px; margin: 0 auto; }
+
+  .top-rule { height: 3px; background: linear-gradient(90deg, var(--accent), transparent 70%); }
+
+  /* COVER HEADER */
+  .cover { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 40px 52px 36px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; position: relative; overflow: hidden; }
+  .cover::after { content: ''; position: absolute; right: -40px; top: -40px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%); pointer-events: none; }
+  .cover-left { display: flex; flex-direction: column; gap: 6px; }
+  .brand { font-family: var(--font-head); font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+  .doc-title { font-family: var(--font-head); font-size: 40px; font-weight: 400; line-height: 1.05; }
+  .doc-tagline { font-family: var(--font-head); font-size: 16px; font-style: italic; color: var(--text2); margin-top: 4px; }
+  .cover-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; z-index: 1; }
+  .hm { display: flex; gap: 10px; align-items: center; justify-content: flex-end; }
+  .hml { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); }
+  .hmv { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; text-align: right; width: 160px; padding: 2px 0; }
+  .hmv:focus { border-bottom-color: var(--accent); }
+
+  /* WELCOME NOTE */
+  .welcome { background: var(--bg3); border-bottom: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 16px 52px; font-family: var(--font-head); font-size: 14px; font-style: italic; color: var(--text2); line-height: 1.7; }
+
+  /* BODY */
+  .body { padding: 36px 52px 52px; display: flex; flex-direction: column; gap: 32px; }
+
+  /* SECTION */
+  .qsec { display: flex; flex-direction: column; gap: 16px; }
+  .sec-header { display: flex; align-items: center; gap: 14px; }
+  .sec-num { font-family: var(--font-head); font-size: 36px; font-weight: 600; color: var(--accent); opacity: 0.5; line-height: 1; min-width: 36px; }
+  .sec-info { display: flex; flex-direction: column; gap: 2px; }
+  .sec-title { font-family: var(--font-head); font-size: 24px; font-weight: 600; }
+  .sec-desc { font-size: 11px; color: var(--text3); }
+
+  /* QUESTION CARD */
+  .q-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .q-label { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 10px 18px; font-size: 11px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+  .q-required { font-size: 9px; color: var(--accent); font-weight: 700; background: rgba(255,51,51,0.1); padding: 1px 6px; border-radius: 2px; }
+  .q-optional { font-size: 9px; color: var(--text3); }
+  .q-body { padding: 0; }
+  .q-input { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 14px 18px; outline: none; width: 100%; }
+  .q-input::placeholder { color: var(--text3); }
+  .q-input:focus { background: rgba(201,168,76,0.03); }
+  .q-textarea { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 14px 18px; outline: none; width: 100%; min-height: 88px; resize: vertical; line-height: 1.7; }
+  .q-textarea::placeholder { color: var(--text3); }
+  .q-textarea:focus { background: rgba(201,168,76,0.03); }
+
+  /* INLINE GRID */
+  .q-grid { display: grid; gap: 0; }
+  .q-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .q-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .q-grid-cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .q-grid-cell:last-child, .q-grid-cell:nth-child(2n) { border-right: none; }
+  .q-grid-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .q-grid-cell:nth-last-child(-n+3).cols-3-last { border-bottom: none; }
+  .q-grid-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); padding: 10px 18px 2px; }
+  .q-grid-val { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 13px; padding: 4px 18px 12px; outline: none; width: 100%; }
+  .q-grid-val::placeholder { color: var(--text3); }
+  .q-grid-val:focus { background: rgba(201,168,76,0.03); }
+
+  /* MULTI-SELECT CHIPS */
+  .chip-group { padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); padding: 5px 14px; border-radius: 2px; font-size: 11px; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .chip:hover { border-color: var(--accent2); color: var(--text); }
+  .chip.selected { background: rgba(201,168,76,0.12); border-color: var(--accent); color: var(--accent); }
+
+  /* SCALE / RANGE */
+  .scale-row { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .scale-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); }
+  .scale-input { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--border2); border-radius: 2px; outline: none; cursor: pointer; }
+  .scale-input::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .scale-input::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
+  .scale-value { text-align: center; font-size: 12px; font-weight: 600; color: var(--accent); }
+
+  /* BUDGET TIERS */
+  .budget-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .budget-opt { padding: 14px 16px; border-right: 1px solid var(--border); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 10px; }
+  .budget-opt:last-child { border-right: none; }
+  .budget-opt:hover { background: rgba(201,168,76,0.04); }
+  .budget-opt.selected { background: rgba(255,51,51,0.1); }
+  .budget-radio { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--border2); background: transparent; flex-shrink: 0; position: relative; }
+  .budget-opt.selected .budget-radio { border-color: var(--accent); background: var(--accent); }
+  .budget-opt.selected .budget-radio::after { content: ''; position: absolute; left: 4px; top: 4px; width: 6px; height: 6px; border-radius: 50%; background: var(--bg); }
+  .budget-info { display: flex; flex-direction: column; gap: 1px; }
+  .budget-amount { font-size: 13px; font-weight: 600; color: var(--text); }
+  .budget-opt.selected .budget-amount { color: var(--accent); }
+  .budget-label { font-size: 10px; color: var(--text3); }
+
+  /* REFERRAL */
+  .ref-options { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--border); }
+  .ref-opt { padding: 10px 16px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); transition: all 0.15s; }
+  .ref-opt:hover { background: rgba(201,168,76,0.04); color: var(--text); }
+  .ref-opt.selected { background: rgba(255,51,51,0.1); color: var(--accent); }
+  .ref-cb { width: 13px; height: 13px; border: 1px solid var(--border2); border-radius: 2px; flex-shrink: 0; }
+  .ref-opt.selected .ref-cb { background: var(--accent); border-color: var(--accent); }
+
+  /* DIVIDER */
+  .section-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* SUBMIT / SEND NOTE */
+  .submit-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 28px 32px; display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; }
+  .submit-icon { font-size: 32px; }
+  .submit-title { font-family: var(--font-head); font-size: 22px; font-weight: 600; }
+  .submit-desc { font-size: 12px; color: var(--text2); max-width: 420px; line-height: 1.7; }
+  .submit-btn { background: var(--accent); color: #0d0d0d; font-family: var(--font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: none; padding: 14px 40px; cursor: pointer; border-radius: 2px; transition: all 0.15s; margin-top: 8px; }
+  .submit-btn:hover { background: #d4b560; }
+  .submit-note { font-size: 11px; color: var(--text3); }
+
+  /* FOOTER */
+  .footer { padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .footer-brand { font-size: 10px; color: var(--text3); }
+  .footer-brand span { color: var(--accent); }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .top-rule { background: #FF3333; }
+    .cover { background: #f8f8f8; border-bottom: 2px solid #1a1a1a; }
+    .brand { color: #FF3333; } .doc-title { color: #1a1a1a; }
+    .doc-tagline { color: #555; } .hmv { color: #1a1a1a; border-bottom-color: #ccc; }
+    .welcome { background: #fdfaf4; border-left-color: #FF3333; color: #555; }
+    .q-card { background: #fff; border-color: #ddd; }
+    .q-label { background: #f5f5f5; border-bottom-color: #ddd; color: #444; }
+    .q-input, .q-textarea { color: #1a1a1a; }
+    .q-grid-val { color: #1a1a1a; }
+    .chip { border-color: #ddd; color: #555; } .chip.selected { border-color: #FF3333; color: #FF3333; background: #fdfaf4; }
+    .budget-options { border-top: 1px solid #eee; }
+    .budget-opt { border-right-color: #eee; } .budget-amount { color: #1a1a1a; }
+    .budget-opt.selected { background: #fdfaf4; } .budget-opt.selected .budget-amount { color: #FF3333; }
+    .submit-block { display: none; }
+    .footer-brand span { color: #FF3333; } .footer-brand { color: #999; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .cover { grid-template-columns: 1fr; padding: 24px 16px 20px; gap: 20px; }
+    .cover-right { align-items: flex-start; }
+    .hmv { text-align: left; }
+    .welcome { padding: 12px 16px; }
+    .body { padding: 20px 16px 32px; }
+    .q-grid.cols-2 { grid-template-columns: 1fr; }
+    .q-grid.cols-3 { grid-template-columns: 1fr; }
+    .q-grid-cell { border-right: none; }
+    .q-grid-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .q-grid-cell:last-child { border-bottom: none; }
+    .budget-options { grid-template-columns: 1fr 1fr; }
+    .budget-opt:nth-child(even) { border-right: none; }
+    .ref-options { flex-direction: column; }
+    .ref-opt { border-right: none; }
+    .footer { flex-direction: column; gap: 8px; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="hif-mini-toolbar">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+<div class="top-rule"></div>
+<div class="cover">
+  <div class="cover-left">
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="doc-title">Client Onboarding<br>Questionnaire</div>
+    <div class="doc-tagline">Help us tell your story the right way.</div>
+  </div>
+  <div class="cover-right">
+    <div class="hm"><span class="hml">Client Name</span><input class="hmv" type="text" placeholder="Your Full Name"></div>
+    <div class="hm"><span class="hml">Company</span><input class="hmv" type="text" placeholder="Company / Brand"></div>
+    <div class="hm"><span class="hml">Date</span><input class="hmv" type="text" placeholder="MM/DD/YYYY"></div>
+    <div class="hm"><span class="hml">Referred By</span><input class="hmv" type="text" placeholder="How you found us"></div>
+  </div>
+</div>
+
+<div class="welcome" contenteditable="true">
+  Welcome, and thank you for choosing How It's Filmed. This questionnaire helps us understand your brand, your goals, and what success looks like for your project. The more detail you share, the better your final video will be. There are no wrong answers — just tell us what's true for you.
+</div>
+
+<div class="body">
+
+  <!-- 01 ABOUT YOU -->
+  <div class="qsec">
+    <div class="sec-header">
+      <div class="sec-num">01</div>
+      <div class="sec-info">
+        <div class="sec-title">About You &amp; Your Brand</div>
+        <div class="sec-desc">Tell us who you are and what makes your business unique.</div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Contact &amp; Business Info <span class="q-required">Required</span></div>
+      <div class="q-body">
+        <div class="q-grid cols-2">
+          <div class="q-grid-cell"><div class="q-grid-label">Full Name</div><input class="q-grid-val" type="text" placeholder="First Last"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Business / Brand Name</div><input class="q-grid-val" type="text" placeholder="Your Company Name"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Email Address</div><input class="q-grid-val" type="text" placeholder="you@company.com"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Phone Number</div><input class="q-grid-val" type="text" placeholder="(555) 000-0000"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Website</div><input class="q-grid-val" type="text" placeholder="yourwebsite.com"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Primary Social</div><input class="q-grid-val" type="text" placeholder="@yourhandle on Instagram / TikTok"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">What does your business do? Who do you serve? <span class="q-required">Required</span></div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="Describe your business, your products or services, and your ideal customer. The more specific, the better.
+
+Example: We're a premium fitness coaching brand for women over 40. We sell a 12-week online program and 1:1 coaching packages. Our clients are ambitious, health-focused women who want results without extremes."></textarea></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">What makes you different from competitors? <span class="q-optional">Optional but valuable</span></div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="What's your unique selling proposition? What do you do better, differently, or more authentically than anyone else?"></textarea></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">How would you describe your brand's tone and personality?</div>
+      <div class="q-body">
+        <div class="chip-group">
+          <span class="chip" onclick="this.classList.toggle('selected')">Professional</span>
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Authentic</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Bold / Confident</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Warm / Approachable</span>
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Premium / Luxury</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Educational</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Playful / Fun</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Raw / Unfiltered</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Minimalist</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Inspirational</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Technical / Expert</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Community-Driven</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 PROJECT GOALS -->
+  <div class="qsec">
+    <div class="sec-header">
+      <div class="sec-num">02</div>
+      <div class="sec-info">
+        <div class="sec-title">Project Goals</div>
+        <div class="sec-desc">What do you want this video to accomplish?</div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">What type of video(s) are you looking for? <span class="q-required">Required</span></div>
+      <div class="q-body">
+        <div class="chip-group">
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Brand Film</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Product Video</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Interview / Testimonial</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Social Content (Reels / TikTok)</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Event Coverage</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">TV / Commercial</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">YouTube / Long-Form</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Documentary / Mini-Doc</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Real Estate / Architecture</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Training / Educational</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Other</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">What is the primary goal of this video? <span class="q-required">Required</span></div>
+      <div class="q-body">
+        <div class="chip-group">
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Brand Awareness</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Generate Leads</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Drive Sales</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Build Trust / Credibility</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Launch a Product / Service</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Grow Social Following</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Educate Audience</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Internal / Team Use</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">What does a successful outcome look like to you?</div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="Describe what winning looks like after this video goes live. Sales? Comments? Shares? Bookings? New followers? Be specific — it helps us align our creative choices with your actual goals."></textarea></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Who is the target audience for this video?</div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="Age, gender, interests, profession, pain points, where they hang out online, what they care about...
+
+Example: Women 28–45, fitness-minded, Instagram-native, tired of one-size-fits-all programs, value authenticity and results over aesthetics."></textarea></div>
+    </div>
+  </div>
+
+  <!-- 03 CREATIVE DIRECTION -->
+  <div class="qsec">
+    <div class="sec-header">
+      <div class="sec-num">03</div>
+      <div class="sec-info">
+        <div class="sec-title">Creative Direction &amp; Style</div>
+        <div class="sec-desc">Help us understand your visual language.</div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Share 2–3 videos you love and describe what you like about them</div>
+      <div class="q-body">
+        <div class="q-grid cols-2">
+          <div class="q-grid-cell"><div class="q-grid-label">Reference Link 1</div><input class="q-grid-val" type="text" placeholder="youtube.com/watch?v=..."></div>
+          <div class="q-grid-cell"><div class="q-grid-label">What you like about it</div><input class="q-grid-val" type="text" placeholder="Warm color grade, intimate feel, pacing..."></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Reference Link 2</div><input class="q-grid-val" type="text" placeholder="youtube.com/watch?v=..."></div>
+          <div class="q-grid-cell"><div class="q-grid-label">What you like about it</div><input class="q-grid-val" type="text" placeholder="Strong music, cinematic wides, energy..."></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Reference Link 3</div><input class="q-grid-val" type="text" placeholder="youtube.com/watch?v=..."></div>
+          <div class="q-grid-cell"><div class="q-grid-label">What you like about it</div><input class="q-grid-val" type="text" placeholder="Interview style, honest, raw emotion..."></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Brand color palette — primary colors</div>
+      <div class="q-body">
+        <div class="q-grid cols-3">
+          <div class="q-grid-cell"><div class="q-grid-label">Primary Color</div><input class="q-grid-val" type="text" placeholder="#000000 or 'Navy Blue'"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Secondary Color</div><input class="q-grid-val" type="text" placeholder="#FFFFFF or 'Warm Cream'"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Accent Color</div><input class="q-grid-val" type="text" placeholder="#FF3333 or 'Red'"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Describe the feeling your audience should have after watching</div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="Example: Inspired and ready to buy. Like they just found the brand they've been looking for. Seen. Understood. Excited to reach out.
+
+Think emotion-first — not 'informed' but 'moved'."></textarea></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Is there anything you DON'T want in this video?</div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="List styles, tones, music types, visual approaches, or anything that doesn't represent your brand well.
+
+Example: No stock-looking footage. No cheesy corporate vibes. No upbeat pop music. No shaky handheld unless intentional."></textarea></div>
+    </div>
+  </div>
+
+  <!-- 04 LOGISTICS -->
+  <div class="qsec">
+    <div class="sec-header">
+      <div class="sec-num">04</div>
+      <div class="sec-info">
+        <div class="sec-title">Timeline &amp; Logistics</div>
+        <div class="sec-desc">When do you need it and what's involved?</div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Shoot date preference &amp; deadline</div>
+      <div class="q-body">
+        <div class="q-grid cols-3">
+          <div class="q-grid-cell"><div class="q-grid-label">Ideal Shoot Date</div><input class="q-grid-val" type="text" placeholder="Flexible / Week of Jan 20"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Hard Deadline</div><input class="q-grid-val" type="text" placeholder="Feb 1, 2025 (product launch)"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Flexibility</div><input class="q-grid-val" type="text" placeholder="Very flexible / No flex / 2-week window"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Location(s) in mind?</div>
+      <div class="q-body"><textarea class="q-textarea" style="min-height:60px" placeholder="Do you have a location already? Studio, office, outdoor space? City or region? Any restrictions?"></textarea></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Will there be people on camera? <span class="q-required">Required</span></div>
+      <div class="q-body">
+        <div class="chip-group">
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Yes — myself / my team</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Yes — hired talent needed</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">No — product only</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">No — B-roll / atmosphere only</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Combination of the above</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Where will this video be distributed?</div>
+      <div class="q-body">
+        <div class="chip-group">
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Instagram / Reels</span>
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Website / Landing Page</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">YouTube</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">TikTok</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">LinkedIn</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Paid Ads (Meta / Google)</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Email Marketing</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Broadcast / TV</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Internal / Private</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 BUDGET -->
+  <div class="qsec">
+    <div class="sec-header">
+      <div class="sec-num">05</div>
+      <div class="sec-info">
+        <div class="sec-title">Budget &amp; Investment</div>
+        <div class="sec-desc">Understanding budget helps us scope the right package for you.</div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">What is your approximate budget range? <span class="q-required">Required</span></div>
+      <div class="q-body">
+        <div class="budget-options">
+          <div class="budget-opt" onclick="selectBudget(this)">
+            <div class="budget-radio"></div>
+            <div class="budget-info">
+              <span class="budget-amount">Under $2K</span>
+              <span class="budget-label">Entry level</span>
+            </div>
+          </div>
+          <div class="budget-opt" onclick="selectBudget(this)">
+            <div class="budget-radio"></div>
+            <div class="budget-info">
+              <span class="budget-amount">$2K–$5K</span>
+              <span class="budget-label">Core package</span>
+            </div>
+          </div>
+          <div class="budget-opt selected" onclick="selectBudget(this)">
+            <div class="budget-radio"></div>
+            <div class="budget-info">
+              <span class="budget-amount">$5K–$15K</span>
+              <span class="budget-label">Signature project</span>
+            </div>
+          </div>
+          <div class="budget-opt" onclick="selectBudget(this)">
+            <div class="budget-radio"></div>
+            <div class="budget-info">
+              <span class="budget-amount">$15K+</span>
+              <span class="budget-label">Full campaign</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Have you worked with a professional videographer before?</div>
+      <div class="q-body">
+        <div class="chip-group">
+          <span class="chip" onclick="this.classList.toggle('selected')">No — first time</span>
+          <span class="chip selected" onclick="this.classList.toggle('selected')">Yes — 1-2 times</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">Yes — regularly</span>
+          <span class="chip" onclick="this.classList.toggle('selected')">We have an in-house team</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Anything else we should know before our first call?</div>
+      <div class="q-body"><textarea class="q-textarea" placeholder="Share any context, questions, concerns, unique considerations, or extra details that would help us prepare for a great conversation. Nothing is too small to mention."></textarea></div>
+    </div>
+  </div>
+
+  <!-- 06 HOW DID YOU HEAR ABOUT US -->
+  <div class="qsec">
+    <div class="sec-header">
+      <div class="sec-num">06</div>
+      <div class="sec-info">
+        <div class="sec-title">How Did You Find Us?</div>
+        <div class="sec-desc">Helps us understand where our community comes from.</div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Where did you first discover How It's Filmed?</div>
+      <div class="q-body">
+        <div class="ref-options">
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Instagram</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>YouTube</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>TikTok</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Personal Referral</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Google Search</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>LinkedIn</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Podcast / Interview</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Whop / Digital Product</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Event / Conference</div>
+          <div class="ref-opt" onclick="this.classList.toggle('selected')"><div class="ref-cb"></div>Other</div>
+        </div>
+        <div class="q-grid cols-2" style="border-top:1px solid var(--border)">
+          <div class="q-grid-cell"><div class="q-grid-label">Referred by name (if applicable)</div><input class="q-grid-val" type="text" placeholder="Friend / colleague's name"></div>
+          <div class="q-grid-cell"><div class="q-grid-label">Specific post, video, or content that led you here?</div><input class="q-grid-val" type="text" placeholder="Title or link if you remember"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT NOTE -->
+  <div class="submit-block">
+    <div class="submit-icon">📬</div>
+    <div class="submit-title">You're all set.</div>
+    <div class="submit-desc">Once you've filled this out, send it back to Brian via email or print to PDF and attach it to your message. We'll review everything before your first call so we can hit the ground running.</div>
+    <button class="submit-btn" onclick="window.print()">Save as PDF</button>
+    <div class="submit-note">Or email completed form to: <strong style="color:var(--text2)">brian@howitsfilmed.com</strong></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand"><span>How It's Filmed</span> · howitsfilmed.com</div>
+    <div style="font-size:10px;color:var(--text3)">Client Onboarding · Confidential</div>
+  </div>
+
+</div>
+
+<script>
+function selectBudget(el) {
+  el.closest('.budget-options').querySelectorAll('.budget-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>

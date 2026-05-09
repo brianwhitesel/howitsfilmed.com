@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+  --green: #4caf7d; --red: #e05252;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; line-height: 1.5; min-height: 100vh; }
+
+  /* TOP STRIPE */
+  .top-stripe { height: 3px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 45%, transparent 85%); }
+
+  /* HEADER */
+  .inv-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 56px 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: start;
+  }
+  .brand-col { display: flex; flex-direction: column; gap: 6px; }
+  .brand-mark { font-family: var(--font-head); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .brand-company { font-family: var(--font-head); font-size: 26px; font-weight: 600; color: var(--text); }
+  .brand-tagline { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .brand-contact { display: flex; flex-direction: column; gap: 3px; margin-top: 12px; }
+  .bc-line { font-size: 11px; color: var(--text2); }
+  .bc-line input { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text2); font-family: var(--font-ui); font-size: 11px; outline: none; width: 200px; padding: 1px 0; }
+  .bc-line input:focus { border-bottom-color: var(--accent); color: var(--text); }
+
+  .invoice-col { text-align: right; }
+  .invoice-word { font-family: var(--font-head); font-size: 48px; font-weight: 400; color: var(--text); line-height: 1; letter-spacing: -0.01em; }
+  .invoice-num { font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; margin-top: 4px; }
+  .invoice-num input { background: transparent; border: none; color: var(--accent); font-family: var(--font-ui); font-size: 13px; font-weight: 600; outline: none; text-align: right; }
+  .inv-dates { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+  .inv-date-row { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+  .inv-date-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); }
+  .inv-date-val { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; text-align: right; width: 130px; padding: 2px 0; }
+  .inv-date-val:focus { border-bottom-color: var(--accent); }
+
+  /* STATUS BADGE */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(76,175,125,0.12);
+    border: 1px solid rgba(76,175,125,0.3);
+    color: var(--green);
+    cursor: pointer;
+  }
+  .status-badge.unpaid { background: rgba(224,82,82,0.1); border-color: rgba(224,82,82,0.3); color: var(--red); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* BILL TO / FROM */
+  .bill-section {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .bill-col { display: flex; flex-direction: column; gap: 8px; }
+  .bill-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text3); font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .bill-field { display: flex; flex-direction: column; gap: 2px; }
+  .bill-field-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); }
+  .bill-input { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 12px; outline: none; width: 100%; padding: 1px 0; }
+  .bill-input.strong { color: var(--text); font-weight: 500; font-size: 13px; }
+  .bill-input::placeholder { color: var(--text3); }
+  .bill-input:focus { color: var(--text); }
+
+  /* LINE ITEMS */
+  .items-section { padding: 0 56px; }
+  .items-table { width: 100%; border-collapse: collapse; }
+  .items-table thead tr { background: var(--bg2); }
+  .items-table th {
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text3); padding: 12px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .items-table th.right { text-align: right; }
+  .items-table td { border-bottom: 1px solid var(--border); padding: 0; }
+  .items-table tr:last-child td { border-bottom: none; }
+  .item-input {
+    background: transparent; border: none; color: var(--text); font-family: var(--font-ui);
+    font-size: 13px; padding: 13px 14px; outline: none; width: 100%; display: block;
+  }
+  .item-input::placeholder { color: var(--text3); }
+  .item-input:focus { background: var(--accent-pale); }
+  .item-input.right { text-align: right; color: var(--text2); }
+  .item-input.right:focus { color: var(--text); }
+  .item-input.amount { color: var(--text); font-weight: 500; }
+  .col-desc { }
+  .col-qty { width: 60px; }
+  .col-rate { width: 110px; }
+  .col-amount { width: 120px; }
+  .col-del { width: 36px; }
+  .del-btn { background: transparent; border: none; color: var(--text3); cursor: pointer; padding: 13px 10px; font-size: 14px; display: block; width: 100%; text-align: center; transition: color 0.15s; }
+  .del-btn:hover { color: var(--red); }
+
+  .items-table tr:hover td { background: rgba(201,168,76,0.02); }
+
+  /* ADD ITEM */
+  .add-item-btn {
+    margin: 12px 56px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--text3);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .add-item-btn:hover { border-color: var(--accent2); color: var(--accent); }
+
+  /* TOTALS */
+  .totals-section {
+    margin: 0 56px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+  }
+  .notes-col { display: flex; flex-direction: column; gap: 8px; }
+  .notes-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); }
+  .notes-ta { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); font-family: var(--font-ui); font-size: 12px; line-height: 1.6; padding: 12px; outline: none; resize: vertical; min-height: 100px; width: 100%; border-radius: 2px; }
+  .notes-ta::placeholder { color: var(--text3); }
+
+  .totals-col { display: flex; flex-direction: column; }
+  .total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  .total-row:last-child { border-bottom: none; }
+  .total-label { font-size: 12px; color: var(--text2); }
+  .total-val { font-size: 12px; color: var(--text); text-align: right; }
+  .total-val input { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; text-align: right; width: 100px; }
+  .total-val input:focus { border-bottom: 1px solid var(--accent); }
+  .tax-row .total-label { display: flex; gap: 8px; align-items: center; }
+  .tax-rate { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text3); font-family: var(--font-ui); font-size: 11px; outline: none; width: 40px; text-align: center; }
+  .grand-row { background: var(--accent); padding: 16px; }
+  .grand-label { font-family: var(--font-head); font-size: 14px; font-weight: 600; color: #0d0d0d; letter-spacing: 0.05em; }
+  .grand-val { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: #0d0d0d; }
+
+  /* PAYMENT */
+  .payment-section {
+    margin: 0 56px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .payment-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 18px 20px; }
+  .pb-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent2); font-weight: 700; margin-bottom: 10px; }
+  .pb-field { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+  .pb-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); }
+  .pb-input { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; padding: 3px 0; width: 100%; }
+  .pb-input::placeholder { color: var(--text3); }
+  .pb-input:focus { border-bottom-color: var(--accent); }
+
+  /* FOOTER */
+  .inv-footer { margin: 0 56px 48px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 10px; color: var(--text3); }
+  .footer-brand span { color: var(--accent); }
+  .footer-thanks { font-family: var(--font-head); font-size: 13px; font-style: italic; color: var(--text2); }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .top-stripe { background: #FF3333; }
+    .inv-header { background: #f8f8f8; border-bottom: 2px solid #1a1a1a; padding: 28px 40px; }
+    .brand-mark { color: #FF3333; } .brand-company { color: #1a1a1a; }
+    .bc-line input { color: #555; border-bottom-color: #ccc; }
+    .invoice-word { color: #1a1a1a; }
+    .invoice-num input { color: #FF3333; }
+    .inv-date-val { color: #1a1a1a; border-bottom-color: #ccc; }
+    .status-badge { background: rgba(76,175,125,0.15); border-color: #4caf7d; color: #2a7a4f; }
+    .bill-section { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 20px 40px; }
+    .bill-label { color: #888; border-bottom-color: #ddd; }
+    .bill-input { color: #555; } .bill-input.strong { color: #1a1a1a; }
+    .items-section { padding: 0 40px; }
+    .items-table th { color: #888; border-bottom-color: #ccc; }
+    .items-table td { border-bottom-color: #eee; }
+    .item-input { color: #1a1a1a; }
+    .item-input.right { color: #555; }
+    .add-item-btn, .del-btn { display: none; }
+    .totals-section { margin: 0 40px; border-top-color: #ddd; }
+    .notes-ta { background: #f5f5f5; border-color: #ddd; color: #555; }
+    .total-row { border-bottom-color: #eee; }
+    .total-label { color: #555; }
+    .total-val input { color: #1a1a1a; }
+    .grand-row { background: #1a1a1a; }
+    .grand-label, .grand-val { color: #fff; }
+    .payment-section { margin: 0 40px 32px; }
+    .payment-block { background: #fff; border-color: #ddd; }
+    .pb-label { color: #888; }
+    .pb-input { color: #1a1a1a; border-bottom-color: #ddd; }
+    .inv-footer { margin: 0 40px 32px; border-top-color: #ddd; }
+    .footer-brand span { color: #FF3333; }
+    .footer-brand { color: #999; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .inv-header { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
+    .invoice-col { text-align: left; }
+    .inv-date-row { justify-content: flex-start; }
+    .inv-date-val { text-align: left; }
+    .bill-section { grid-template-columns: 1fr; padding: 16px; gap: 20px; }
+    .items-section { padding: 0; overflow-x: auto; }
+    .items-table { min-width: 480px; }
+    .add-item-btn { margin: 12px 16px; }
+    .totals-section { margin: 0 16px; grid-template-columns: 1fr; }
+    .payment-section { margin: 0 16px 32px; grid-template-columns: 1fr; }
+    .inv-footer { margin: 0 16px 32px; flex-direction: column; gap: 8px; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="hif-mini-toolbar">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+
+<div class="top-stripe"></div>
+
+<!-- HEADER -->
+<div class="inv-header">
+  <div class="brand-col">
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="brand-company" contenteditable="true">HOW IT'S FILMED</div>
+    <div class="brand-tagline" contenteditable="true">Filmmaker &amp; Video Producer</div>
+    <div class="brand-contact">
+      <div class="bc-line"><input type="text" placeholder="brian@howitsfilmed.com"></div>
+      <div class="bc-line"><input type="text" placeholder="howitsfilmed.com"></div>
+      <div class="bc-line"><input type="text" placeholder="(555) 000-0000"></div>
+      <div class="bc-line"><input type="text" placeholder="City, State ZIP"></div>
+    </div>
+  </div>
+  <div class="invoice-col">
+    <div class="invoice-word">Invoice</div>
+    <div class="invoice-num"># <input type="text" placeholder="HIF-2025-001" style="width:140px;"></div>
+    <div class="inv-dates">
+      <div class="inv-date-row">
+        <span class="inv-date-label">Invoice Date</span>
+        <input class="inv-date-val" type="text" placeholder="January 1, 2025">
+      </div>
+      <div class="inv-date-row">
+        <span class="inv-date-label">Due Date</span>
+        <input class="inv-date-val" type="text" placeholder="January 15, 2025">
+      </div>
+      <div class="inv-date-row">
+        <span class="inv-date-label">Project Ref</span>
+        <input class="inv-date-val" type="text" placeholder="Brand Film — Q1">
+      </div>
+    </div>
+    <div style="text-align:right;margin-top:12px;">
+      <span class="status-badge unpaid" onclick="this.classList.toggle('unpaid')">
+        <span class="status-dot"></span>
+        <span class="status-text">Unpaid</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- BILL TO -->
+<div class="bill-section">
+  <div class="bill-col">
+    <div class="bill-label">Bill To</div>
+    <div class="bill-field"><input class="bill-input strong" type="text" placeholder="Client Name or Company"></div>
+    <div class="bill-field"><input class="bill-input" type="text" placeholder="Contact Name"></div>
+    <div class="bill-field"><input class="bill-input" type="text" placeholder="Address Line 1"></div>
+    <div class="bill-field"><input class="bill-input" type="text" placeholder="City, State, ZIP"></div>
+    <div class="bill-field"><input class="bill-input" type="text" placeholder="email@company.com"></div>
+  </div>
+  <div class="bill-col">
+    <div class="bill-label">Project Details</div>
+    <div class="bill-field"><div class="bill-field-label">Project Name</div><input class="bill-input strong" type="text" placeholder="Brand Film Production"></div>
+    <div class="bill-field"><div class="bill-field-label">Shoot Date(s)</div><input class="bill-input" type="text" placeholder="January 5, 2025"></div>
+    <div class="bill-field"><div class="bill-field-label">Delivery Date</div><input class="bill-input" type="text" placeholder="January 20, 2025"></div>
+    <div class="bill-field"><div class="bill-field-label">Contract #</div><input class="bill-input" type="text" placeholder="HIF-CONT-001"></div>
+  </div>
+  <div class="bill-col">
+    <div class="bill-label">Summary</div>
+    <div class="bill-field"><div class="bill-field-label">Subtotal</div><input class="bill-input strong" type="text" placeholder="$0.00" id="subtotal-display" readonly></div>
+    <div class="bill-field"><div class="bill-field-label">Deposit Received</div><input class="bill-input" type="text" placeholder="−$0.00"></div>
+    <div class="bill-field"><div class="bill-field-label">Balance Due</div><input class="bill-input strong" type="text" placeholder="$0.00" style="color:var(--accent);"></div>
+    <div class="bill-field"><div class="bill-field-label">Payment Method</div><input class="bill-input" type="text" placeholder="Bank Transfer / Venmo"></div>
+  </div>
+</div>
+
+<!-- LINE ITEMS -->
+<div class="items-section" style="padding-top:28px;">
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th class="col-desc">Description</th>
+        <th class="col-qty right">Qty</th>
+        <th class="col-rate right">Rate</th>
+        <th class="col-amount right">Amount</th>
+        <th class="col-del"></th>
+      </tr>
+    </thead>
+    <tbody id="line-items">
+      <tr>
+        <td><input class="item-input" type="text" placeholder="Full Production Day — 8 hrs on-location filming with camera package"></td>
+        <td><input class="item-input right" type="text" placeholder="1" oninput="calcRow(this)"></td>
+        <td><input class="item-input right" type="text" placeholder="$2,500.00" oninput="calcRow(this)"></td>
+        <td><input class="item-input right amount" type="text" placeholder="$2,500.00" readonly></td>
+        <td><button class="del-btn" onclick="this.closest('tr').remove();calcTotals()">×</button></td>
+      </tr>
+      <tr>
+        <td><input class="item-input" type="text" placeholder="Post-Production — Edit, color grade, audio mix (up to 3 min)"></td>
+        <td><input class="item-input right" type="text" placeholder="1" oninput="calcRow(this)"></td>
+        <td><input class="item-input right" type="text" placeholder="$1,200.00" oninput="calcRow(this)"></td>
+        <td><input class="item-input right amount" type="text" placeholder="$1,200.00" readonly></td>
+        <td><button class="del-btn" onclick="this.closest('tr').remove();calcTotals()">×</button></td>
+      </tr>
+      <tr>
+        <td><input class="item-input" type="text" placeholder="Social Cutdowns — 3x reels / shorts formatted for social platforms"></td>
+        <td><input class="item-input right" type="text" placeholder="3" oninput="calcRow(this)"></td>
+        <td><input class="item-input right" type="text" placeholder="$200.00" oninput="calcRow(this)"></td>
+        <td><input class="item-input right amount" type="text" placeholder="$600.00" readonly></td>
+        <td><button class="del-btn" onclick="this.closest('tr').remove();calcTotals()">×</button></td>
+      </tr>
+      <tr>
+        <td><input class="item-input" type="text" placeholder="Licensed Music — royalty-free track from premium library"></td>
+        <td><input class="item-input right" type="text" placeholder="1" oninput="calcRow(this)"></td>
+        <td><input class="item-input right" type="text" placeholder="$75.00" oninput="calcRow(this)"></td>
+        <td><input class="item-input right amount" type="text" placeholder="$75.00" readonly></td>
+        <td><button class="del-btn" onclick="this.closest('tr').remove();calcTotals()">×</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button class="add-item-btn" onclick="addLineItem()"><span style="font-size:16px;line-height:1">+</span> Add Line Item</button>
+
+<!-- TOTALS -->
+<div class="totals-section">
+  <div class="notes-col">
+    <div class="notes-label">Notes &amp; Terms</div>
+    <textarea class="notes-ta" placeholder="Payment terms, project notes, or special conditions:&#10;&#10;• Payment due within 14 days of invoice date&#10;• Late payments subject to 1.5% monthly fee&#10;• All work remains property of How It's Filmed until paid in full&#10;• Revisions beyond agreed scope billed at $100/hr"></textarea>
+  </div>
+  <div class="totals-col" style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;overflow:hidden;">
+    <div class="total-row">
+      <span class="total-label">Subtotal</span>
+      <span class="total-val"><input id="subtotal" type="text" placeholder="$4,375.00" readonly></span>
+    </div>
+    <div class="total-row tax-row">
+      <span class="total-label">Tax &nbsp;<input class="tax-rate" type="text" placeholder="0%" id="tax-rate" oninput="calcTotals()">%</span>
+      <span class="total-val"><input id="tax-amt" type="text" placeholder="$0.00" readonly></span>
+    </div>
+    <div class="total-row">
+      <span class="total-label">Deposit Received</span>
+      <span class="total-val"><input id="deposit" type="text" placeholder="−$0.00" oninput="calcTotals()"></span>
+    </div>
+    <div class="total-row grand-row" style="display:flex;justify-content:space-between;align-items:center;">
+      <span class="grand-label">Total Due</span>
+      <span class="grand-val" id="grand-total">$4,375.00</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT INFO -->
+<div class="payment-section">
+  <div class="payment-block">
+    <div class="pb-title">Bank Transfer</div>
+    <div class="pb-field"><div class="pb-label">Bank Name</div><input class="pb-input" type="text" placeholder="Chase Bank"></div>
+    <div class="pb-field"><div class="pb-label">Account Name</div><input class="pb-input" type="text" placeholder="HOW IT'S FILMED"></div>
+    <div class="pb-field"><div class="pb-label">Routing Number</div><input class="pb-input" type="text" placeholder="●●●●●●●●●"></div>
+    <div class="pb-field"><div class="pb-label">Account Number</div><input class="pb-input" type="text" placeholder="●●●●●●●●●●●"></div>
+  </div>
+  <div class="payment-block">
+    <div class="pb-title">Digital Payments</div>
+    <div class="pb-field"><div class="pb-label">Venmo</div><input class="pb-input" type="text" placeholder="@your-venmo-handle"></div>
+    <div class="pb-field"><div class="pb-label">PayPal</div><input class="pb-input" type="text" placeholder="paypal.me/your-handle"></div>
+    <div class="pb-field"><div class="pb-label">Zelle</div><input class="pb-input" type="text" placeholder="your@email.com"></div>
+    <div class="pb-field"><div class="pb-label">Check Payable To</div><input class="pb-input" type="text" placeholder="HOW IT'S FILMED"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="inv-footer">
+  <div class="footer-brand"><span>How It's Filmed</span> · howitsfilmed.com</div>
+  <div class="footer-thanks">Thank you for your business.</div>
+</div>
+
+<script>
+function parseCurrency(str) {
+  if (!str) return 0;
+  return parseFloat(str.replace(/[$,]/g, '')) || 0;
+}
+function formatCurrency(n) {
+  return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+function calcRow(input) {
+  const row = input.closest('tr');
+  const cells = row.querySelectorAll('input');
+  const qty = parseCurrency(cells[1].value) || 1;
+  const rate = parseCurrency(cells[2].value);
+  if (rate) cells[3].value = formatCurrency(qty * rate);
+  calcTotals();
+}
+function calcTotals() {
+  let sub = 0;
+  document.querySelectorAll('#line-items tr').forEach(tr => {
+    const amt = tr.querySelectorAll('input')[3];
+    if (amt) sub += parseCurrency(amt.value);
+  });
+  const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+  const tax = sub * (taxRate / 100);
+  const dep = parseCurrency(document.getElementById('deposit').value);
+  const grand = sub + tax - Math.abs(dep);
+  document.getElementById('subtotal').value = formatCurrency(sub);
+  document.getElementById('tax-amt').value = formatCurrency(tax);
+  document.getElementById('grand-total').textContent = formatCurrency(grand > 0 ? grand : 0);
+}
+function addLineItem() {
+  const tbody = document.getElementById('line-items');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input class="item-input" type="text" placeholder="Service or deliverable description"></td>
+    <td><input class="item-input right" type="text" placeholder="1" oninput="calcRow(this)"></td>
+    <td><input class="item-input right" type="text" placeholder="$0.00" oninput="calcRow(this)"></td>
+    <td><input class="item-input right amount" type="text" placeholder="$0.00" readonly></td>
+    <td><button class="del-btn" onclick="this.closest('tr').remove();calcTotals()">×</button></td>`;
+  tbody.appendChild(tr);
+  tr.querySelector('.item-input').focus();
+}
+document.querySelector('.status-badge').addEventListener('click', function() {
+  this.classList.toggle('unpaid');
+  this.querySelector('.status-text').textContent = this.classList.contains('unpaid') ? 'Unpaid' : 'Paid';
+});
+</script>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>

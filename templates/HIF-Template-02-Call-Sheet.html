@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Sheet — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+  --red: #c0392b; --green: #27ae60;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 12px; line-height: 1.5; }
+
+  .accent-rule { height: 3px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 40%, transparent 80%); }
+
+  /* HEADER */
+  .page-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 24px 40px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+  .brand-name { font-family: var(--font-head); font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .doc-title { font-family: var(--font-head); font-size: 36px; font-weight: 400; color: var(--text); line-height: 1; }
+  .doc-badge { display: inline-block; margin-top: 8px; background: var(--bg3); border: 1px solid var(--border2); color: var(--text2); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; }
+
+  .header-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .hdr-field { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+  .hdr-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); white-space: nowrap; }
+  .hdr-input { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; padding: 2px 0; outline: none; text-align: right; width: 150px; }
+  .hdr-input:focus { border-bottom-color: var(--accent); }
+
+  /* GENERAL CALL TIME banner */
+  .call-banner {
+    background: var(--accent);
+    color: #0d0d0d;
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .call-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .call-time-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(0,0,0,0.3);
+    color: #0d0d0d;
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 600;
+    text-align: right;
+    outline: none;
+    width: 120px;
+    padding: 0 4px;
+  }
+  .call-time-input::placeholder { color: rgba(0,0,0,0.4); }
+  .call-meta { display: flex; gap: 24px; }
+  .call-meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .call-meta-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+  .call-meta-input { background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.3); color: #0d0d0d; font-family: var(--font-ui); font-size: 12px; font-weight: 600; outline: none; padding: 1px 0; width: 110px; }
+
+  /* PAGE BODY */
+  .page-body { padding: 28px 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .full-col { grid-column: 1 / -1; }
+
+  /* SECTION BLOCKS */
+  .section { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 0; }
+  .section-head {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-icon { font-size: 14px; opacity: 0.6; }
+  .section-title { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text2); }
+  .section-body { padding: 0; }
+
+  /* INFO GRID */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .info-cell { padding: 10px 16px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .info-cell:nth-child(even) { border-right: none; }
+  .info-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .info-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 3px; }
+  .info-val { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; width: 100%; }
+  .info-val::placeholder { color: var(--text3); }
+
+  /* WEATHER BLOCK */
+  .weather-row { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--border); }
+  .wx-cell { padding: 12px 14px; border-right: 1px solid var(--border); }
+  .wx-cell:last-child { border-right: none; }
+  .wx-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 4px; }
+  .wx-val { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 13px; outline: none; width: 100%; }
+  .wx-val::placeholder { color: var(--text3); }
+  .wx-icon { font-size: 18px; display: block; margin-bottom: 4px; }
+
+  /* LOCATION */
+  .loc-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .loc-field { display: flex; flex-direction: column; gap: 3px; }
+  .loc-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); }
+  .loc-val { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; padding: 3px 0; }
+  .loc-val:focus { border-bottom-color: var(--accent); }
+  .loc-val::placeholder { color: var(--text3); }
+
+  /* CREW TABLE */
+  .crew-table { width: 100%; border-collapse: collapse; }
+  .crew-table th { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  .crew-table td { padding: 0; border-bottom: 1px solid var(--border); }
+  .crew-table tr:last-child td { border-bottom: none; }
+  .crew-cell { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; padding: 9px 12px; outline: none; width: 100%; display: block; }
+  .crew-cell::placeholder { color: var(--text3); }
+  .crew-cell:focus { background: rgba(201,168,76,0.04); }
+  .call-cell { color: var(--accent); font-weight: 500; }
+  .dept-badge { display: inline-block; font-size: 9px; color: var(--text3); background: var(--bg3); border: 1px solid var(--border); padding: 1px 6px; border-radius: 2px; white-space: nowrap; }
+
+  /* SCHEDULE TABLE */
+  .sched-table { width: 100%; border-collapse: collapse; }
+  .sched-table th { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  .sched-table td { padding: 0; border-bottom: 1px solid var(--border); }
+  .sched-table tr:last-child td { border-bottom: none; }
+  .sched-cell { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; padding: 9px 12px; outline: none; width: 100%; display: block; }
+  .sched-cell::placeholder { color: var(--text3); }
+  .sched-cell:focus { background: rgba(201,168,76,0.04); }
+  .time-cell { color: var(--accent); font-weight: 600; font-size: 13px; width: 80px; }
+
+  /* NOTES */
+  .notes-area { padding: 14px 16px; }
+  .notes-ta { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 12px; width: 100%; min-height: 80px; outline: none; resize: vertical; line-height: 1.6; }
+  .notes-ta::placeholder { color: var(--text3); }
+
+  /* CONTACTS QUICK */
+  .contact-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .cq-cell { padding: 10px 16px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .cq-cell:nth-child(even) { border-right: none; }
+  .cq-name { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; font-weight: 500; outline: none; width: 100%; display: block; margin-bottom: 3px; }
+  .cq-name::placeholder { color: var(--text3); }
+  .cq-phone { background: transparent; border: none; color: var(--text3); font-family: var(--font-ui); font-size: 11px; outline: none; width: 100%; display: block; }
+  .cq-phone::placeholder { color: var(--text3); opacity: 0.5; }
+  .cq-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); margin-bottom: 4px; }
+
+  /* FOOTER */
+  .page-footer { grid-column: 1 / -1; margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; }
+  .footer-brand span { color: var(--accent); }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .accent-rule { background: linear-gradient(90deg, #FF3333 0%, transparent 60%); }
+    .page-header { background: #fff; border-bottom: 2px solid #1a1a1a; }
+    .brand-name { color: #FF3333; } .doc-title { color: #1a1a1a; }
+    .hdr-input { color: #1a1a1a; border-bottom-color: #ccc; }
+    .call-banner { background: #1a1a1a; }
+    .call-time-input { color: #fff; } .call-meta-input { color: #fff; }
+    .section { background: #fff; border-color: #ddd; }
+    .section-head { background: #f5f5f5; border-bottom-color: #ddd; }
+    .section-title { color: #666; }
+    .info-cell, .wx-cell, .cq-cell { border-color: #eee; }
+    .info-val, .crew-cell, .sched-cell, .wx-val, .loc-val, .cq-name, .cq-phone, .notes-ta { color: #1a1a1a; }
+    .crew-table th, .sched-table th { background: #f0f0f0; color: #888; border-bottom-color: #ddd; }
+    .crew-table td, .sched-table td { border-bottom-color: #eee; }
+    .time-cell, .call-cell { color: #FF3333; }
+    .footer-brand span { color: #FF3333; }
+    .footer-brand, .footer-page { color: #999; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .page-header { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+    .header-right { align-items: flex-start; }
+    .hdr-input { text-align: left; width: 100%; }
+    .call-banner { padding: 12px 16px; flex-direction: column; gap: 10px; }
+    .call-meta { flex-wrap: wrap; gap: 10px; }
+    .call-meta-input { width: 120px; }
+    .page-body { padding: 16px; grid-template-columns: 1fr; gap: 16px; }
+    .full-col { grid-column: 1; }
+    .info-grid { grid-template-columns: 1fr; }
+    .info-cell { border-right: none; }
+    .info-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .info-cell:last-child { border-bottom: none; }
+    .weather-row { grid-template-columns: 1fr 1fr; }
+    .wx-cell:nth-child(2n) { border-right: none; }
+    .contact-quick { grid-template-columns: 1fr; }
+    .cq-cell:nth-child(even) { border-right: none; }
+    .section { overflow-x: auto; }
+    .crew-table, .sched-table { min-width: 500px; }
+    .page-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="hif-mini-toolbar">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+<div class="accent-rule"></div>
+
+<div class="page-header">
+  <div>
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="doc-title">Call Sheet</div>
+    <div class="doc-badge">Crew Distribution Copy</div>
+  </div>
+  <div class="header-right">
+    <div class="hdr-field">
+      <span class="hdr-label">Project</span>
+      <input class="hdr-input" type="text" placeholder="Project Title">
+    </div>
+    <div class="hdr-field">
+      <span class="hdr-label">Shoot Date</span>
+      <input class="hdr-input" type="text" placeholder="Monday, Jan 1, 2025">
+    </div>
+    <div class="hdr-field">
+      <span class="hdr-label">Day</span>
+      <input class="hdr-input" type="text" placeholder="Day 1 of 2">
+    </div>
+    <div class="hdr-field">
+      <span class="hdr-label">Director</span>
+      <input class="hdr-input" type="text" placeholder="Your Name">
+    </div>
+    <div class="hdr-field">
+      <span class="hdr-label">Prepared By</span>
+      <input class="hdr-input" type="text" placeholder="Your Name">
+    </div>
+  </div>
+</div>
+
+<div class="call-banner">
+  <div>
+    <div class="call-label">General Call Time</div>
+    <input class="call-time-input" type="text" placeholder="7:00 AM">
+  </div>
+  <div class="call-meta">
+    <div class="call-meta-item">
+      <div class="call-meta-label">Wrap Est.</div>
+      <input class="call-meta-input" type="text" placeholder="6:00 PM">
+    </div>
+    <div class="call-meta-item">
+      <div class="call-meta-label">Lunch</div>
+      <input class="call-meta-input" type="text" placeholder="12:30 PM">
+    </div>
+    <div class="call-meta-item">
+      <div class="call-meta-label">Dress / Makeup</div>
+      <input class="call-meta-input" type="text" placeholder="6:00 AM">
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- PRODUCTION INFO -->
+  <div class="section full-col">
+    <div class="section-head">
+      <span class="section-icon">🎬</span>
+      <span class="section-title">Production Info</span>
+    </div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="info-cell"><div class="info-label">Production Company</div><input class="info-val" type="text" placeholder="How It's Filmed LLC"></div>
+        <div class="info-cell"><div class="info-label">Client</div><input class="info-val" type="text" placeholder="Client Name / Brand"></div>
+        <div class="info-cell"><div class="info-label">Producer</div><input class="info-val" type="text" placeholder="Name"></div>
+        <div class="info-cell"><div class="info-label">Director of Photography</div><input class="info-val" type="text" placeholder="Name"></div>
+        <div class="info-cell"><div class="info-label">Script / Storyboard</div><input class="info-val" type="text" placeholder="Version 2.1 — Locked"></div>
+        <div class="info-cell"><div class="info-label">Budget Code</div><input class="info-val" type="text" placeholder="#2025-001"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEATHER -->
+  <div class="section full-col">
+    <div class="section-head">
+      <span class="section-icon">🌤</span>
+      <span class="section-title">Weather Forecast</span>
+    </div>
+    <div class="section-body">
+      <div class="weather-row">
+        <div class="wx-cell"><div class="wx-label">Conditions</div><input class="wx-val" type="text" placeholder="Partly Cloudy"></div>
+        <div class="wx-cell"><div class="wx-label">High / Low</div><input class="wx-val" type="text" placeholder="72° / 58°"></div>
+        <div class="wx-cell"><div class="wx-label">Sunrise</div><input class="wx-val" type="text" placeholder="6:41 AM"></div>
+        <div class="wx-cell"><div class="wx-label">Sunset</div><input class="wx-val" type="text" placeholder="7:22 PM"></div>
+        <div class="wx-cell"><div class="wx-label">Wind / Rain</div><input class="wx-val" type="text" placeholder="8 mph / 0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-icon">📍</span>
+      <span class="section-title">Location Details</span>
+    </div>
+    <div class="section-body">
+      <div class="loc-body">
+        <div class="loc-field"><div class="loc-label">Primary Location Name</div><input class="loc-val" type="text" placeholder="Rooftop Studio / Client HQ"></div>
+        <div class="loc-field"><div class="loc-label">Address</div><input class="loc-val" type="text" placeholder="123 Main Street, Suite 400, Los Angeles CA 90001"></div>
+        <div class="loc-field"><div class="loc-label">Parking / Load-In</div><input class="loc-val" type="text" placeholder="Parking lot behind building, Gate C. Load-in via freight elevator."></div>
+        <div class="loc-field"><div class="loc-label">Point of Contact on Site</div><input class="loc-val" type="text" placeholder="Name — (555) 000-0000"></div>
+        <div class="loc-field"><div class="loc-label">Nearest Hospital</div><input class="loc-val" type="text" placeholder="Cedars-Sinai Medical — 0.8 mi — (555) 000-0000"></div>
+        <div class="loc-field"><div class="loc-label">Location Notes</div><input class="loc-val" type="text" placeholder="No smoking. Check in at front desk. Quiet on set after 9 AM."></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY CONTACTS -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-icon">📞</span>
+      <span class="section-title">Key Contacts</span>
+    </div>
+    <div class="section-body">
+      <div class="contact-quick">
+        <div class="cq-cell"><div class="cq-role">Director</div><input class="cq-name" type="text" placeholder="Name"><input class="cq-phone" type="text" placeholder="(555) 000-0000"></div>
+        <div class="cq-cell"><div class="cq-role">DP / Camera Op</div><input class="cq-name" type="text" placeholder="Name"><input class="cq-phone" type="text" placeholder="(555) 000-0000"></div>
+        <div class="cq-cell"><div class="cq-role">Producer</div><input class="cq-name" type="text" placeholder="Name"><input class="cq-phone" type="text" placeholder="(555) 000-0000"></div>
+        <div class="cq-cell"><div class="cq-role">Sound Mixer</div><input class="cq-name" type="text" placeholder="Name"><input class="cq-phone" type="text" placeholder="(555) 000-0000"></div>
+        <div class="cq-cell"><div class="cq-role">Gaffer</div><input class="cq-name" type="text" placeholder="Name"><input class="cq-phone" type="text" placeholder="(555) 000-0000"></div>
+        <div class="cq-cell"><div class="cq-role">Client Rep</div><input class="cq-name" type="text" placeholder="Name"><input class="cq-phone" type="text" placeholder="(555) 000-0000"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREW CALL TIMES -->
+  <div class="section full-col">
+    <div class="section-head">
+      <span class="section-icon">👥</span>
+      <span class="section-title">Crew Call Times</span>
+    </div>
+    <div class="section-body">
+      <table class="crew-table">
+        <thead>
+          <tr>
+            <th style="width:140px">Department</th>
+            <th>Name</th>
+            <th style="width:80px">Call Time</th>
+            <th>Role / Notes</th>
+            <th style="width:140px">Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><select class="crew-cell"><option>Camera</option><option>Sound</option><option>Lighting / Grip</option><option>Production</option><option>Hair/MUA</option><option>Talent</option><option>PA</option><option>Other</option></select></td><td><input class="crew-cell" type="text" placeholder="Full Name"></td><td><input class="crew-cell call-cell" type="text" placeholder="7:00 AM"></td><td><input class="crew-cell" type="text" placeholder="1st AC / Camera Op"></td><td><input class="crew-cell" type="text" placeholder="(555) 000-0000"></td></tr>
+          <tr><td><select class="crew-cell"><option>Camera</option><option>Sound</option><option>Lighting / Grip</option><option>Production</option><option>Hair/MUA</option><option>Talent</option><option>PA</option><option>Other</option></select></td><td><input class="crew-cell" type="text" placeholder="Full Name"></td><td><input class="crew-cell call-cell" type="text" placeholder="7:30 AM"></td><td><input class="crew-cell" type="text" placeholder="Boom Operator"></td><td><input class="crew-cell" type="text" placeholder="(555) 000-0000"></td></tr>
+          <tr><td><select class="crew-cell"><option>Camera</option><option>Sound</option><option>Lighting / Grip</option><option>Production</option><option>Hair/MUA</option><option>Talent</option><option>PA</option><option>Other</option></select></td><td><input class="crew-cell" type="text" placeholder="Full Name"></td><td><input class="crew-cell call-cell" type="text" placeholder="6:30 AM"></td><td><input class="crew-cell" type="text" placeholder="Gaffer / Lighting Lead"></td><td><input class="crew-cell" type="text" placeholder="(555) 000-0000"></td></tr>
+          <tr><td><select class="crew-cell"><option>Camera</option><option>Sound</option><option>Lighting / Grip</option><option>Production</option><option>Hair/MUA</option><option>Talent</option><option>PA</option><option>Other</option></select></td><td><input class="crew-cell" type="text" placeholder="Full Name"></td><td><input class="crew-cell call-cell" type="text" placeholder="8:00 AM"></td><td><input class="crew-cell" type="text" placeholder="Production Assistant"></td><td><input class="crew-cell" type="text" placeholder="(555) 000-0000"></td></tr>
+          <tr><td><select class="crew-cell"><option>Camera</option><option>Sound</option><option>Lighting / Grip</option><option>Production</option><option>Hair/MUA</option><option>Talent</option><option>PA</option><option>Other</option></select></td><td><input class="crew-cell" type="text" placeholder="Full Name"></td><td><input class="crew-cell call-cell" type="text" placeholder="6:00 AM"></td><td><input class="crew-cell" type="text" placeholder="Hair & Makeup"></td><td><input class="crew-cell" type="text" placeholder="(555) 000-0000"></td></tr>
+          <tr><td><select class="crew-cell"><option>Camera</option><option>Sound</option><option>Lighting / Grip</option><option>Production</option><option>Hair/MUA</option><option>Talent</option><option>PA</option><option>Other</option></select></td><td><input class="crew-cell" type="text" placeholder="Full Name"></td><td><input class="crew-cell call-cell" type="text" placeholder="8:30 AM"></td><td><input class="crew-cell" type="text" placeholder="Talent / Subject"></td><td><input class="crew-cell" type="text" placeholder="(555) 000-0000"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="section full-col">
+    <div class="section-head">
+      <span class="section-icon">🕐</span>
+      <span class="section-title">Day Schedule</span>
+    </div>
+    <div class="section-body">
+      <table class="sched-table">
+        <thead>
+          <tr>
+            <th style="width:90px">Time</th>
+            <th style="width:140px">Scene / Segment</th>
+            <th>Activity</th>
+            <th style="width:120px">Location</th>
+            <th style="width:120px">Talent</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="6:30 AM"></td><td><input class="sched-cell" type="text" placeholder="PRE-SHOOT"></td><td><input class="sched-cell" type="text" placeholder="Crew arrives, equipment load-in, set dressing begins"></td><td><input class="sched-cell" type="text" placeholder="Main Studio"></td><td><input class="sched-cell" type="text" placeholder="N/A"></td><td><input class="sched-cell" type="text" placeholder=""></td></tr>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="7:00 AM"></td><td><input class="sched-cell" type="text" placeholder="Scene 1"></td><td><input class="sched-cell" type="text" placeholder="Opening wide shots, establishing B-roll"></td><td><input class="sched-cell" type="text" placeholder="Rooftop"></td><td><input class="sched-cell" type="text" placeholder="—"></td><td><input class="sched-cell" type="text" placeholder="Golden hour priority"></td></tr>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="8:30 AM"></td><td><input class="sched-cell" type="text" placeholder="Scene 2"></td><td><input class="sched-cell" type="text" placeholder="Interview setup, talent arrives for makeup"></td><td><input class="sched-cell" type="text" placeholder="Studio A"></td><td><input class="sched-cell" type="text" placeholder="Talent A"></td><td><input class="sched-cell" type="text" placeholder="90-min block"></td></tr>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="12:30 PM"></td><td><input class="sched-cell" type="text" placeholder="LUNCH"></td><td><input class="sched-cell" type="text" placeholder="Catered lunch break — 30 minutes"></td><td><input class="sched-cell" type="text" placeholder="Break Room"></td><td><input class="sched-cell" type="text" placeholder="All"></td><td><input class="sched-cell" type="text" placeholder=""></td></tr>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="1:00 PM"></td><td><input class="sched-cell" type="text" placeholder="Scene 3"></td><td><input class="sched-cell" type="text" placeholder="B-roll coverage, product shots"></td><td><input class="sched-cell" type="text" placeholder="Studio B"></td><td><input class="sched-cell" type="text" placeholder="—"></td><td><input class="sched-cell" type="text" placeholder="Macro lens needed"></td></tr>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="3:30 PM"></td><td><input class="sched-cell" type="text" placeholder="Scene 4"></td><td><input class="sched-cell" type="text" placeholder="Final interview, alternate takes"></td><td><input class="sched-cell" type="text" placeholder="Studio A"></td><td><input class="sched-cell" type="text" placeholder="Talent A, B"></td><td><input class="sched-cell" type="text" placeholder="Backup angles"></td></tr>
+          <tr><td><input class="sched-cell time-cell" type="text" placeholder="5:30 PM"></td><td><input class="sched-cell" type="text" placeholder="WRAP"></td><td><input class="sched-cell" type="text" placeholder="Equipment strike, location reset"></td><td><input class="sched-cell" type="text" placeholder="All"></td><td><input class="sched-cell" type="text" placeholder="All"></td><td><input class="sched-cell" type="text" placeholder="Est. out by 6 PM"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="section full-col">
+    <div class="section-head">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Production Notes &amp; Reminders</span>
+    </div>
+    <div class="section-body">
+      <div class="notes-area">
+        <textarea class="notes-ta" placeholder="Add any special instructions, reminders, or notes for the crew. Example: &#10;• No phones on set during takes &#10;• Client has approval on all footage before wrap &#10;• NDA in effect — do not share location or content on social media &#10;• Catering confirmed for 12:30 PM"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand"><span>How It's Filmed</span> — howitsfilmed.com</div>
+    <div class="footer-page" style="font-size:10px;color:var(--text3)">Call Sheet · Confidential · Do Not Distribute</div>
+  </div>
+
+</div>
+
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>

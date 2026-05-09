@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Agreement — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#FAFAFA;--bg2:#FFFFFF;--bg3:#F2F2F2;--bg4:#EBEBEB;
+  --border:#E0E0E0;--border2:#D0D0D0;
+  --accent:#FF3333;--accent2:#CC2020;
+  --text:#1A1A1A;--text2:#555555;--text3:#999999;
+  --logo-ink:#1a1a1a;--logo-bg:#FAFAFA;
+  --font-ui:'Inter',sans-serif;--font-head:'Bebas Neue',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#1A1A1A;--bg2:#212121;--bg3:#2a2a2a;--bg4:#2f2f2f;
+  --border:#252525;--border2:#2e2e2e;
+  --accent:#FF3333;--accent2:#CC2020;
+  --text:#FFFFFF;--text2:#9a9490;--text3:#5a5650;
+  --logo-ink:#FFFFFF;--logo-bg:#1A1A1A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:14px;min-height:100vh;}
+.mini-toolbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:5px 24px;display:flex;align-items:center;gap:8px;}
+.toolbar-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border);color:var(--text2);font-family:var(--font-ui);font-size:11px;font-weight:500;letter-spacing:0.06em;padding:5px 12px;cursor:pointer;border-radius:2px;transition:all 0.15s;white-space:nowrap;}
+.toolbar-btn:hover{border-color:var(--text3);color:var(--text);}
+.theme-toggle{margin-left:auto;background:transparent;border:1px solid var(--border);color:var(--text2);font-size:14px;padding:4px 10px;cursor:pointer;border-radius:2px;transition:all 0.15s;line-height:1;font-family:var(--font-ui,sans-serif);}
+.theme-toggle:hover{border-color:var(--accent2);color:var(--accent);}
+[data-theme="dark"] .theme-icon::before{content:"\2600";}
+[data-theme="light"] .theme-icon::before{content:"\1F319";}
+.page-wrap{max-width:900px;margin:0 auto;padding:48px;}
+@media(max-width:600px){.page-wrap{padding:24px 16px;}.mini-toolbar{padding:5px 12px;}}
+.doc-header-centered{text-align:center;margin-bottom:36px;border-bottom:2px solid var(--border);padding-bottom:32px;}
+.doc-title-large{font-family:var(--font-head);font-size:42px;letter-spacing:0.06em;color:var(--text);margin-top:12px;}
+.doc-subtitle-sm{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-top:4px;}
+.parties-line{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:28px;border:1px solid var(--border);border-radius:4px;padding:16px 20px;background:var(--bg2);}
+.inline-field{background:transparent;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:var(--font-ui);font-size:14px;padding:2px 4px;outline:none;min-width:120px;}
+.inline-field:focus{border-bottom-color:var(--accent);}
+.section-heading{font-family:var(--font-head);font-size:20px;letter-spacing:0.08em;color:var(--text);margin-bottom:12px;margin-top:0;border-left:3px solid var(--accent);padding-left:10px;}
+.section-block{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px 24px;margin-bottom:20px;}
+.field-row{display:flex;flex-wrap:wrap;gap:6px 20px;margin-bottom:12px;align-items:flex-end;}
+.field-group{display:flex;flex-direction:column;gap:3px;flex:1;min-width:150px;}
+.field-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);}
+.field-input{background:transparent;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:var(--font-ui);font-size:13px;padding:4px 0;outline:none;width:100%;}
+.field-input:focus{border-bottom-color:var(--accent);}
+.dollar-wrap{display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--border2);}
+.dollar-wrap span{color:var(--text3);font-size:13px;}
+.dollar-wrap .field-input{border-bottom:none;}
+.field-select{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-ui);font-size:13px;padding:5px 8px;outline:none;border-radius:2px;width:100%;}
+.field-select:focus{border-color:var(--accent);}
+.field-textarea{background:transparent;border:1px solid var(--border);color:var(--text);font-family:var(--font-ui);font-size:13px;padding:8px;outline:none;width:100%;border-radius:2px;resize:vertical;line-height:1.5;}
+.field-textarea:focus{border-color:var(--accent);}
+.sig-block{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px;}
+@media(max-width:600px){.sig-block{grid-template-columns:1fr;}}
+.sig-panel{}
+.sig-party{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;font-weight:600;}
+.sig-line{border-bottom:1px solid var(--border2);margin-bottom:6px;height:40px;}
+.sig-field-label{font-size:10px;color:var(--text3);letter-spacing:0.06em;}
+.sig-input{background:transparent;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:var(--font-ui);font-size:12px;padding:3px 0;outline:none;width:100%;margin-top:12px;display:block;}
+.sig-input:focus{border-bottom-color:var(--accent);}
+.page-footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+@media print{.mini-toolbar{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="mini-toolbar">
+  <button class="toolbar-btn" onclick="window.print()">&#x1F5A8; Print</button>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+
+<div class="page-wrap">
+  <div class="doc-header-centered">
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:220px;height:auto;display:block;margin:0 auto;" aria-label="How It's Filmed">
+      <style>.logo-ink{fill:var(--logo-ink,#1a1a1a)}.logo-dot{fill:#f33}.logo-bg-counter{fill:var(--logo-bg,#fafafa)}</style>
+      <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+      <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+      <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+      <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+      <g><rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+      <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+      <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+      <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+      <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+      <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+      <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+      <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+      <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+      <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+      <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+      <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+      <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+      <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+      </g>
+    </svg>
+    <div class="doc-title-large">Videography Service Agreement</div>
+    <div class="doc-subtitle-sm">How It's Filmed — Professional Services</div>
+  </div>
+
+  <div class="parties-line">
+    This Agreement is entered into as of&nbsp;
+    <input class="inline-field" type="text" placeholder="MM/DD/YYYY" style="min-width:110px;">&nbsp;
+    between&nbsp;
+    <input class="inline-field" type="text" placeholder="Videographer Name" style="min-width:160px;">&nbsp;
+    ("<strong>Videographer</strong>") and&nbsp;
+    <input class="inline-field" type="text" placeholder="Client Name" style="min-width:160px;">&nbsp;
+    ("<strong>Client</strong>").
+  </div>
+
+  <!-- 1. PROJECT DETAILS -->
+  <div class="section-block">
+    <h2 class="section-heading">1. Project Details</h2>
+    <div class="field-row">
+      <div class="field-group"><span class="field-label">Project Name</span><input class="field-input" type="text" placeholder="Project / Campaign Name"></div>
+      <div class="field-group"><span class="field-label">Shoot Date(s)</span><input class="field-input" type="text" placeholder="e.g. June 15–16, 2025"></div>
+    </div>
+    <div class="field-row">
+      <div class="field-group"><span class="field-label">Location</span><input class="field-input" type="text" placeholder="Shoot location or address"></div>
+    </div>
+    <div class="field-group" style="margin-top:8px;">
+      <span class="field-label">Deliverables</span>
+      <textarea class="field-textarea" rows="3" placeholder="e.g. 1 x 2-minute hero video (4K, H.264), 3 x 30-second social cuts, RAW files on request..."></textarea>
+    </div>
+  </div>
+
+  <!-- 2. COMPENSATION -->
+  <div class="section-block">
+    <h2 class="section-heading">2. Compensation</h2>
+    <div class="field-row">
+      <div class="field-group">
+        <span class="field-label">Rate / Total Fee</span>
+        <div class="dollar-wrap"><span>$</span><input class="field-input" type="text" placeholder="0.00"></div>
+      </div>
+      <div class="field-group">
+        <span class="field-label">Payment Schedule</span>
+        <select class="field-select">
+          <option>50% deposit + 50% on delivery</option>
+          <option>100% upfront</option>
+          <option>Net 30</option>
+          <option>Net 15</option>
+          <option>Custom</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <span class="field-label">Payment Method</span>
+        <input class="field-input" type="text" placeholder="e.g. Bank transfer, PayPal, Venmo">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. REVISIONS -->
+  <div class="section-block">
+    <h2 class="section-heading">3. Revisions</h2>
+    <div class="field-row">
+      <div class="field-group">
+        <span class="field-label">Revision Rounds Included</span>
+        <input class="field-input" type="number" min="0" value="2" placeholder="2">
+      </div>
+      <div class="field-group">
+        <span class="field-label">Additional Revision Rate</span>
+        <div class="dollar-wrap"><span>$</span><input class="field-input" type="text" placeholder="75.00 / hr"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. USAGE RIGHTS -->
+  <div class="section-block">
+    <h2 class="section-heading">4. Usage Rights</h2>
+    <div class="field-group">
+      <span class="field-label">Rights Granted</span>
+      <textarea class="field-textarea" rows="3" placeholder="e.g. Client receives full commercial usage rights in perpetuity across all digital and print media. Videographer retains the right to use footage in portfolio and promotional materials unless otherwise agreed in writing.">Client receives full commercial usage rights in perpetuity across all digital and print media. Videographer retains the right to use footage in portfolio and promotional materials unless otherwise agreed in writing.</textarea>
+    </div>
+  </div>
+
+  <!-- 5. CANCELLATION -->
+  <div class="section-block">
+    <h2 class="section-heading">5. Cancellation</h2>
+    <div class="field-group">
+      <span class="field-label">Cancellation Policy</span>
+      <textarea class="field-textarea" rows="3">If Client cancels with fewer than 14 days notice, deposit is non-refundable. If Client cancels with fewer than 48 hours notice, the full fee is owed. If Videographer cancels for any reason, a full refund of any payments received will be issued within 5 business days.</textarea>
+    </div>
+  </div>
+
+  <!-- 6. ADDITIONAL TERMS -->
+  <div class="section-block">
+    <h2 class="section-heading">6. Additional Terms</h2>
+    <div class="field-group">
+      <span class="field-label">Additional Notes / Terms</span>
+      <textarea class="field-textarea" rows="4" placeholder="Any additional terms, conditions, or notes..."></textarea>
+    </div>
+  </div>
+
+  <!-- SIGNATURE BLOCK -->
+  <div class="sig-block">
+    <div class="sig-panel">
+      <div class="sig-party">Client</div>
+      <div class="sig-line"></div>
+      <div class="sig-field-label">Signature</div>
+      <input class="sig-input" type="text" placeholder="Printed Name">
+      <input class="sig-input" type="text" placeholder="Date">
+      <input class="sig-input" type="text" placeholder="Title / Organization">
+    </div>
+    <div class="sig-panel">
+      <div class="sig-party">Videographer</div>
+      <div class="sig-line"></div>
+      <div class="sig-field-label">Signature</div>
+      <input class="sig-input" type="text" placeholder="Printed Name">
+      <input class="sig-input" type="text" placeholder="Date">
+      <input class="sig-input" type="text" placeholder="Business / DBA">
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:0.1em;"><span style="color:var(--accent);">How It's Filmed</span> — howitsfilmed.com</div>
+    <div style="font-size:10px;color:var(--text3);">SERVICE AGREEMENT &nbsp;·&nbsp; howitsfilmed.com</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function toggleTheme(){var h=document.documentElement;var d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');}
+  window.toggleTheme=toggleTheme;
+  document.documentElement.setAttribute('data-theme','light');
+})();
+</script>
+</body>
+</html>

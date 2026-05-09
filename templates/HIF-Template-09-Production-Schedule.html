@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Schedule — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+  :root, [data-theme="light"] {
+  --bg: #FAFAFA;
+  --bg2: #FFFFFF;
+  --bg3: #F2F2F2;
+  --bg4: #EBEBEB;
+  --border: #E0E0E0;
+  --border2: #D0D0D0;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #1A1A1A;
+  --text2: #555555;
+  --text3: #999999;
+  --logo-ink: #1a1a1a;
+  --logo-bg: #FAFAFA;
+  --font-ui: 'Inter', sans-serif; --font-head: 'Bebas Neue', sans-serif;
+  --prepro: #3d5c7a; --production: #4a3d7a; --post: #3d7a5c; --delivery: #7a5c3d;
+}
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --bg2: #212121;
+  --bg3: #2a2a2a;
+  --bg4: #2f2f2f;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --accent: #FF3333;
+  --accent2: #CC2020;
+  --text: #FFFFFF;
+  --text2: #9a9490;
+  --text3: #5a5650;
+  --logo-ink: #FFFFFF;
+  --logo-bg: #1A1A1A;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; line-height: 1.5; }
+
+  .top-rule { height: 3px; background: linear-gradient(90deg, var(--accent), transparent 70%); }
+
+  /* HEADER */
+  .hdr { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 28px 44px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+  .brand { font-size: 10px; letter-spacing: 0.22em; color: var(--accent); font-family: var(--font-head); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+  .title { font-family: var(--font-head); font-size: 34px; font-weight: 400; }
+  .hdr-meta { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
+  .hm { display: flex; gap: 10px; align-items: center; }
+  .hml { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); }
+  .hmv { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-ui); font-size: 12px; outline: none; text-align: right; width: 150px; padding: 2px 0; }
+  .hmv:focus { border-bottom-color: var(--accent); }
+
+  /* PHASE LEGEND */
+  .legend { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 12px 44px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text2); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* BODY */
+  .body { padding: 28px 44px 48px; display: flex; flex-direction: column; gap: 24px; }
+
+  /* OVERVIEW ROW */
+  .overview-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .overview-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 16px 18px; }
+  .oc-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); margin-bottom: 6px; }
+  .oc-val { background: transparent; border: none; color: var(--text); font-family: var(--font-head); font-size: 22px; font-weight: 400; outline: none; width: 100%; }
+  .oc-val::placeholder { color: var(--text3); font-size: 16px; }
+  .oc-sub { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 11px; outline: none; width: 100%; margin-top: 2px; }
+  .oc-sub::placeholder { color: var(--text3); }
+
+  /* PHASE SECTION */
+  .phase-section { display: flex; flex-direction: column; gap: 8px; }
+  .phase-header { display: flex; align-items: center; gap: 12px; }
+  .phase-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 12px; border-radius: 2px; }
+  .phase-badge.prepro { background: rgba(61,92,122,0.3); color: #7ab0d4; border: 1px solid rgba(61,92,122,0.5); }
+  .phase-badge.production { background: rgba(74,61,122,0.3); color: #a69ede; border: 1px solid rgba(74,61,122,0.5); }
+  .phase-badge.post { background: rgba(61,122,92,0.3); color: #7ad4aa; border: 1px solid rgba(61,122,92,0.5); }
+  .phase-badge.delivery { background: rgba(122,92,61,0.3); color: #d4aa7a; border: 1px solid rgba(122,92,61,0.5); }
+  .phase-line { flex: 1; height: 1px; background: var(--border); }
+  .add-day-btn { background: transparent; border: 1px dashed var(--border); color: var(--text3); font-family: var(--font-ui); font-size: 10px; padding: 3px 12px; cursor: pointer; border-radius: 2px; transition: all 0.15s; }
+  .add-day-btn:hover { border-color: var(--accent2); color: var(--accent); }
+
+  /* DAY CARDS */
+  .days-grid { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+
+  .day-card { background: var(--bg2); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 120px 1fr; }
+  .day-card:last-child { border-bottom: none; }
+
+  .day-sidebar { padding: 16px; border-right: 1px solid var(--border); background: var(--bg3); display: flex; flex-direction: column; gap: 6px; }
+  .day-num { font-family: var(--font-head); font-size: 28px; font-weight: 600; color: var(--accent); line-height: 1; }
+  .day-date-input { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 11px; font-weight: 500; outline: none; width: 100%; }
+  .day-date-input::placeholder { color: var(--text3); }
+  .day-dow { background: transparent; border: none; color: var(--text3); font-family: var(--font-ui); font-size: 10px; outline: none; width: 100%; }
+  .day-dow::placeholder { color: var(--text3); }
+  .day-status { margin-top: 4px; }
+  .day-status select { background: transparent; border: 1px solid var(--border); color: var(--text2); font-family: var(--font-ui); font-size: 9px; outline: none; padding: 2px 6px; border-radius: 2px; cursor: pointer; width: 100%; }
+  .day-status select option { background: var(--bg); }
+
+  .day-content { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .day-title-input { background: transparent; border: none; color: var(--text); font-family: var(--font-head); font-size: 18px; font-weight: 600; outline: none; width: 100%; }
+  .day-title-input::placeholder { color: var(--text3); }
+
+  .day-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .df { display: flex; flex-direction: column; gap: 2px; }
+  .df-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); }
+  .df-val { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text2); font-family: var(--font-ui); font-size: 11px; outline: none; padding: 2px 0; }
+  .df-val:focus { border-bottom-color: var(--accent); color: var(--text); }
+  .df-val::placeholder { color: var(--text3); }
+
+  /* TASKS LIST */
+  .task-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); margin-top: 4px; }
+  .task-item { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; border-bottom: 1px solid var(--border); min-height: 34px; }
+  .task-item:last-child { border-bottom: none; }
+  .task-item:hover { background: rgba(201,168,76,0.03); }
+  .task-item.done .task-text { text-decoration: line-through; color: var(--text3); }
+  .task-cb { display: flex; align-items: center; justify-content: center; padding: 6px; }
+  .task-cb input[type="checkbox"] {
+    -webkit-appearance: none; appearance: none; width: 13px; height: 13px;
+    border: 1px solid var(--border2); border-radius: 2px; background: transparent; cursor: pointer; position: relative;
+  }
+  .task-cb input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+  .task-cb input[type="checkbox"]:checked::after { content: ''; position: absolute; left: 3px; top: 0px; width: 4px; height: 7px; border: 1.5px solid #0d0d0d; border-top: none; border-left: none; transform: rotate(40deg); }
+  .task-text { background: transparent; border: none; color: var(--text2); font-family: var(--font-ui); font-size: 12px; outline: none; width: 100%; padding: 6px 4px; }
+  .task-text::placeholder { color: var(--text3); }
+  .task-who { background: transparent; border: none; color: var(--text3); font-family: var(--font-ui); font-size: 10px; outline: none; padding: 6px 12px 6px 4px; width: 80px; text-align: right; }
+  .task-who::placeholder { color: var(--text3); opacity: 0.5; }
+  .add-task { background: transparent; border: none; border-top: 1px dashed var(--border); color: var(--text3); font-family: var(--font-ui); font-size: 10px; padding: 6px 10px; cursor: pointer; width: 100%; text-align: left; transition: color 0.15s; }
+  .add-task:hover { color: var(--accent); }
+
+  /* MILESTONE BLOCK */
+  .milestones { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .milestone-hd { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 10px 18px; display: flex; align-items: center; gap: 10px; }
+  .milestone-title { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text2); }
+  .milestone-list { display: flex; flex-direction: column; }
+  .ms-item { display: grid; grid-template-columns: 28px 120px 1fr auto; align-items: center; border-bottom: 1px solid var(--border); min-height: 40px; }
+  .ms-item:last-child { border-bottom: none; }
+  .ms-cb { display: flex; align-items: center; justify-content: center; padding: 8px; }
+  .ms-cb input[type="checkbox"] { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border: 1px solid var(--border2); border-radius: 50%; background: transparent; cursor: pointer; position: relative; }
+  .ms-cb input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+  .ms-cb input[type="checkbox"]:checked::after { content: ''; position: absolute; left: 3px; top: 1px; width: 5px; height: 8px; border: 1.5px solid #0d0d0d; border-top: none; border-left: none; transform: rotate(40deg); }
+  .ms-date { background: transparent; border: none; color: var(--accent2); font-family: var(--font-ui); font-size: 11px; font-weight: 600; outline: none; padding: 8px 12px; }
+  .ms-date::placeholder { color: var(--text3); }
+  .ms-name { background: transparent; border: none; color: var(--text); font-family: var(--font-ui); font-size: 12px; font-weight: 500; outline: none; width: 100%; padding: 8px 4px; }
+  .ms-name::placeholder { color: var(--text3); }
+  .ms-owner { background: transparent; border: none; color: var(--text3); font-family: var(--font-ui); font-size: 11px; outline: none; padding: 8px 16px 8px 4px; width: 90px; text-align: right; }
+  .ms-owner::placeholder { color: var(--text3); opacity: 0.5; }
+
+  /* FOOTER */
+  .footer { padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .footer-brand { font-size: 10px; color: var(--text3); }
+  .footer-brand span { color: var(--accent); }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .top-rule { background: #FF3333; }
+    .hdr { background: #f8f8f8; border-bottom: 2px solid #1a1a1a; }
+    .brand { color: #FF3333; } .title { color: #1a1a1a; }
+    .hmv { color: #1a1a1a; border-bottom-color: #ccc; }
+    .legend { background: #f5f5f5; border-bottom-color: #ddd; }
+    .overview-card { background: #fff; border-color: #ddd; }
+    .oc-val { color: #1a1a1a; } .oc-sub { color: #555; }
+    .day-card { background: #fff; border-bottom-color: #eee; }
+    .day-sidebar { background: #f5f5f5; border-right-color: #ddd; }
+    .day-num { color: #FF3333; }
+    .day-date-input { color: #1a1a1a; } .day-dow { color: #888; }
+    .day-title-input { color: #1a1a1a; }
+    .df-val { color: #555; border-bottom-color: #eee; }
+    .task-text { color: #444; } .task-who { color: #888; }
+    .task-item { border-bottom-color: #eee; }
+    .milestones { background: #fff; border-color: #ddd; }
+    .milestone-hd { background: #f5f5f5; border-bottom-color: #ddd; }
+    .ms-date { color: #FF3333; } .ms-name { color: #1a1a1a; }
+    .add-task, .add-day-btn { display: none; }
+    .footer-brand span { color: #FF3333; } .footer-brand { color: #999; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .hdr { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+    .hdr-meta { align-items: flex-start; }
+    .hmv { text-align: left; }
+    .legend { padding: 10px 16px; }
+    .body { padding: 16px 16px 32px; }
+    .overview-row { grid-template-columns: 1fr 1fr; }
+    .day-card { grid-template-columns: 1fr; }
+    .day-sidebar { border-right: none; border-bottom: 1px solid var(--border); display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 12px 16px; }
+    .day-num { font-size: 20px; }
+    .day-fields { grid-template-columns: 1fr 1fr; }
+    .ms-item { grid-template-columns: 28px 80px 1fr; }
+    .ms-owner { display: none; }
+    .footer { flex-direction: column; gap: 8px; }
+  }
+
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .theme-toggle:hover { border-color: var(--accent2); color: var(--accent); }
+  .theme-icon { font-style: normal; }
+  [data-theme="dark"] .theme-icon::before { content: "\2600"; }
+  [data-theme="light"] .theme-icon::before { content: "\1F319"; }
+  /* Mini toolbar for templates without a full toolbar */
+  .hif-mini-toolbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @media print { .hif-mini-toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="hif-mini-toolbar">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="theme-icon"></span></button>
+</div>
+<div class="top-rule"></div>
+<div class="hdr">
+  <div>
+    <svg class="hif-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:240px;height:auto;display:block;" aria-label="How It's Filmed">
+  <style>
+    .logo-ink { fill: var(--logo-ink, #1a1a1a); }
+    .logo-dot { fill: #f33; }
+    .logo-bg-counter { fill: var(--logo-bg, #fafafa); }
+  </style>
+  <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+  <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+  <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+  <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+  <g>
+    <rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+    <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+    <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+    <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+    <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+    <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+    <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+    <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+    <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+    <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+    <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+  </g>
+</svg>
+    <div class="title">Production Schedule</div>
+  </div>
+  <div class="hdr-meta">
+    <div class="hm"><span class="hml">Project</span><input class="hmv" type="text" placeholder="Project Title"></div>
+    <div class="hm"><span class="hml">Client</span><input class="hmv" type="text" placeholder="Client Name"></div>
+    <div class="hm"><span class="hml">Start Date</span><input class="hmv" type="text" placeholder="MM/DD/YYYY"></div>
+    <div class="hm"><span class="hml">End Date</span><input class="hmv" type="text" placeholder="MM/DD/YYYY"></div>
+    <div class="hm"><span class="hml">Version</span><input class="hmv" type="text" placeholder="v1.0"></div>
+  </div>
+</div>
+
+<div class="legend">
+  <span style="font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);">Phase:</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#3d5c7a"></span>Pre-Production</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#4a3d7a"></span>Production</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#3d7a5c"></span>Post-Production</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#7a5c3d"></span>Delivery</span>
+</div>
+
+<div class="body">
+
+  <!-- OVERVIEW -->
+  <div class="overview-row">
+    <div class="overview-card">
+      <div class="oc-label">Total Duration</div>
+      <input class="oc-val" type="text" placeholder="6 Wks">
+      <input class="oc-sub" type="text" placeholder="From kickoff to delivery">
+    </div>
+    <div class="overview-card">
+      <div class="oc-label">Shoot Days</div>
+      <input class="oc-val" type="text" placeholder="2">
+      <input class="oc-sub" type="text" placeholder="Production days on set">
+    </div>
+    <div class="overview-card">
+      <div class="oc-label">Deliverable Count</div>
+      <input class="oc-val" type="text" placeholder="4">
+      <input class="oc-sub" type="text" placeholder="Final files to deliver">
+    </div>
+    <div class="overview-card">
+      <div class="oc-label">Revisions Included</div>
+      <input class="oc-val" type="text" placeholder="2">
+      <input class="oc-sub" type="text" placeholder="Rounds per deliverable">
+    </div>
+  </div>
+
+  <!-- PRE-PRODUCTION -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-badge prepro">Pre-Production</span>
+      <div class="phase-line"></div>
+      <button class="add-day-btn" onclick="addDay('pre-production-days', 'prepro')">+ Add Day</button>
+    </div>
+    <div class="days-grid" id="pre-production-days">
+      <div class="day-card">
+        <div class="day-sidebar">
+          <div class="day-num">W1</div>
+          <input class="day-date-input" type="text" placeholder="Jan 6–10">
+          <input class="day-dow" type="text" placeholder="Mon–Fri">
+          <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delayed</option></select></div>
+        </div>
+        <div class="day-content">
+          <input class="day-title-input" type="text" placeholder="Kickoff &amp; Creative Development">
+          <div class="day-fields">
+            <div class="df"><div class="df-label">Location</div><input class="df-val" type="text" placeholder="Remote / Call"></div>
+            <div class="df"><div class="df-label">Crew Call</div><input class="df-val" type="text" placeholder="N/A"></div>
+            <div class="df"><div class="df-label">Owner</div><input class="df-val" type="text" placeholder="Brian"></div>
+          </div>
+          <div class="task-list">
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Send creative brief to client for review"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Build mood board and share for approval"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Confirm shoot date and crew availability"><input class="task-who" type="text" placeholder="Brian"></div>
+            <button class="add-task" onclick="addTask(this)">+ Add task</button>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-sidebar">
+          <div class="day-num">W2</div>
+          <input class="day-date-input" type="text" placeholder="Jan 13–17">
+          <input class="day-dow" type="text" placeholder="Mon–Fri">
+          <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delayed</option></select></div>
+        </div>
+        <div class="day-content">
+          <input class="day-title-input" type="text" placeholder="Pre-Production &amp; Logistics">
+          <div class="day-fields">
+            <div class="df"><div class="df-label">Location</div><input class="df-val" type="text" placeholder="Scout TBD"></div>
+            <div class="df"><div class="df-label">Crew Call</div><input class="df-val" type="text" placeholder="N/A"></div>
+            <div class="df"><div class="df-label">Owner</div><input class="df-val" type="text" placeholder="Brian"></div>
+          </div>
+          <div class="task-list">
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Location scout and photo documentation"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Finalize shot list and call sheet"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Confirm talent / release forms signed"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Equipment check + pack gear bag"><input class="task-who" type="text" placeholder="Brian"></div>
+            <button class="add-task" onclick="addTask(this)">+ Add task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTION -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-badge production">Production</span>
+      <div class="phase-line"></div>
+      <button class="add-day-btn" onclick="addDay('production-days', 'production')">+ Add Shoot Day</button>
+    </div>
+    <div class="days-grid" id="production-days">
+      <div class="day-card">
+        <div class="day-sidebar">
+          <div class="day-num" style="color:#a69ede">D1</div>
+          <input class="day-date-input" type="text" placeholder="Jan 20, 2025">
+          <input class="day-dow" type="text" placeholder="Monday">
+          <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delayed</option></select></div>
+        </div>
+        <div class="day-content">
+          <input class="day-title-input" type="text" placeholder="Shoot Day 1 — Primary Interviews">
+          <div class="day-fields">
+            <div class="df"><div class="df-label">Location</div><input class="df-val" type="text" placeholder="Client HQ — Studio A"></div>
+            <div class="df"><div class="df-label">Crew Call</div><input class="df-val" type="text" placeholder="7:00 AM"></div>
+            <div class="df"><div class="df-label">Wrap Est.</div><input class="df-val" type="text" placeholder="6:00 PM"></div>
+          </div>
+          <div class="task-list">
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Scene 1: Opening wide / establishing B-roll (7–8:30 AM)"><input class="task-who" type="text" placeholder="Full crew"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Scene 2: Primary interview setup + shoot (9–12 PM)"><input class="task-who" type="text" placeholder="Full crew"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Lunch break (12–12:30 PM)"><input class="task-who" type="text" placeholder="All"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Scene 3: Product / B-roll coverage (12:30–4 PM)"><input class="task-who" type="text" placeholder="DP + PA"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Scene 4: Final shots + wrap (4–6 PM)"><input class="task-who" type="text" placeholder="Full crew"></div>
+            <button class="add-task" onclick="addTask(this)">+ Add task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST-PRODUCTION -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-badge post">Post-Production</span>
+      <div class="phase-line"></div>
+      <button class="add-day-btn" onclick="addDay('post-days', 'post')">+ Add Week</button>
+    </div>
+    <div class="days-grid" id="post-days">
+      <div class="day-card">
+        <div class="day-sidebar">
+          <div class="day-num" style="color:#7ad4aa">W4</div>
+          <input class="day-date-input" type="text" placeholder="Jan 27–31">
+          <input class="day-dow" type="text" placeholder="Mon–Fri">
+          <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delayed</option></select></div>
+        </div>
+        <div class="day-content">
+          <input class="day-title-input" type="text" placeholder="Edit &amp; Post-Production Week 1">
+          <div class="day-fields">
+            <div class="df"><div class="df-label">Location</div><input class="df-val" type="text" placeholder="Remote / Studio"></div>
+            <div class="df"><div class="df-label">Deliverable</div><input class="df-val" type="text" placeholder="Rough cut v1"></div>
+            <div class="df"><div class="df-label">Owner</div><input class="df-val" type="text" placeholder="Brian"></div>
+          </div>
+          <div class="task-list">
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Ingest and organize footage / sync audio"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Build rough cut — pacing and structure"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Music licensing — select and license track"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Send rough cut to client for review"><input class="task-who" type="text" placeholder="Brian"></div>
+            <button class="add-task" onclick="addTask(this)">+ Add task</button>
+          </div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-sidebar">
+          <div class="day-num" style="color:#7ad4aa">W5</div>
+          <input class="day-date-input" type="text" placeholder="Feb 3–7">
+          <input class="day-dow" type="text" placeholder="Mon–Fri">
+          <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delayed</option></select></div>
+        </div>
+        <div class="day-content">
+          <input class="day-title-input" type="text" placeholder="Revisions &amp; Color Grade">
+          <div class="day-fields">
+            <div class="df"><div class="df-label">Location</div><input class="df-val" type="text" placeholder="Remote"></div>
+            <div class="df"><div class="df-label">Deliverable</div><input class="df-val" type="text" placeholder="Final cut v1"></div>
+            <div class="df"><div class="df-label">Owner</div><input class="df-val" type="text" placeholder="Brian"></div>
+          </div>
+          <div class="task-list">
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Implement client revision notes (Round 1)"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Color grade and audio mix"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Cut social versions (Reels / Shorts)"><input class="task-who" type="text" placeholder="Brian"></div>
+            <button class="add-task" onclick="addTask(this)">+ Add task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-badge delivery">Delivery</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="days-grid" id="delivery-days">
+      <div class="day-card">
+        <div class="day-sidebar">
+          <div class="day-num" style="color:#d4aa7a">W6</div>
+          <input class="day-date-input" type="text" placeholder="Feb 10–14">
+          <input class="day-dow" type="text" placeholder="Mon–Fri">
+          <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delivered</option></select></div>
+        </div>
+        <div class="day-content">
+          <input class="day-title-input" type="text" placeholder="Final Delivery &amp; Project Close">
+          <div class="day-fields">
+            <div class="df"><div class="df-label">Delivery Method</div><input class="df-val" type="text" placeholder="Google Drive / Frame.io"></div>
+            <div class="df"><div class="df-label">Formats</div><input class="df-val" type="text" placeholder="H.264, ProRes, MP4"></div>
+            <div class="df"><div class="df-label">Invoice Due</div><input class="df-val" type="text" placeholder="Net 14"></div>
+          </div>
+          <div class="task-list">
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Final client approval and sign-off"><input class="task-who" type="text" placeholder="Client"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Export all final files in required formats"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Upload to delivery folder and share link"><input class="task-who" type="text" placeholder="Brian"></div>
+            <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Send final invoice + archive project files"><input class="task-who" type="text" placeholder="Brian"></div>
+            <button class="add-task" onclick="addTask(this)">+ Add task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MILESTONES -->
+  <div class="milestones">
+    <div class="milestone-hd"><span style="font-size:14px">🏁</span><span class="milestone-title">Key Milestones</span></div>
+    <div class="milestone-list">
+      <div class="ms-item"><div class="ms-cb"><input type="checkbox" onchange="this.closest('.ms-item').style.opacity=this.checked?'0.5':'1'"></div><input class="ms-date" type="text" placeholder="Jan 10"><input class="ms-name" type="text" placeholder="Creative brief approved by client"><input class="ms-owner" type="text" placeholder="Client"></div>
+      <div class="ms-item"><div class="ms-cb"><input type="checkbox" onchange="this.closest('.ms-item').style.opacity=this.checked?'0.5':'1'"></div><input class="ms-date" type="text" placeholder="Jan 17"><input class="ms-name" type="text" placeholder="Shot list and call sheet finalized — locked"><input class="ms-owner" type="text" placeholder="Brian"></div>
+      <div class="ms-item"><div class="ms-cb"><input type="checkbox" onchange="this.closest('.ms-item').style.opacity=this.checked?'0.5':'1'"></div><input class="ms-date" type="text" placeholder="Jan 20"><input class="ms-name" type="text" placeholder="Shoot Day 1 complete · footage offloaded · backed up"><input class="ms-owner" type="text" placeholder="Brian"></div>
+      <div class="ms-item"><div class="ms-cb"><input type="checkbox" onchange="this.closest('.ms-item').style.opacity=this.checked?'0.5':'1'"></div><input class="ms-date" type="text" placeholder="Jan 30"><input class="ms-name" type="text" placeholder="Rough cut delivered to client for review"><input class="ms-owner" type="text" placeholder="Brian"></div>
+      <div class="ms-item"><div class="ms-cb"><input type="checkbox" onchange="this.closest('.ms-item').style.opacity=this.checked?'0.5':'1'"></div><input class="ms-date" type="text" placeholder="Feb 7"><input class="ms-name" type="text" placeholder="Final cut approved — no further revisions"><input class="ms-owner" type="text" placeholder="Client"></div>
+      <div class="ms-item"><div class="ms-cb"><input type="checkbox" onchange="this.closest('.ms-item').style.opacity=this.checked?'0.5':'1'"></div><input class="ms-date" type="text" placeholder="Feb 10"><input class="ms-name" type="text" placeholder="All files delivered · invoice sent · project closed"><input class="ms-owner" type="text" placeholder="Brian"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand"><span>How It's Filmed</span> · howitsfilmed.com</div>
+    <div style="font-size:10px;color:var(--text3)">Production Schedule · Living Document</div>
+  </div>
+
+</div>
+
+<script>
+function addTask(btn) {
+  const taskList = btn.closest('.task-list');
+  const item = document.createElement('div');
+  item.className = 'task-item';
+  item.innerHTML = `<div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Task description..."><input class="task-who" type="text" placeholder="Owner">`;
+  taskList.insertBefore(item, btn);
+  item.querySelector('.task-text').focus();
+}
+function addDay(containerId, phase) {
+  const container = document.getElementById(containerId);
+  const colors = { prepro: 'var(--text)', production: '#a69ede', post: '#7ad4aa', delivery: '#d4aa7a' };
+  const labels = { prepro: 'W', production: 'D', post: 'W', delivery: 'D' };
+  const count = container.querySelectorAll('.day-card').length + 1;
+  const card = document.createElement('div');
+  card.className = 'day-card';
+  card.innerHTML = `
+    <div class="day-sidebar">
+      <div class="day-num" style="color:${colors[phase]}">${labels[phase]}${count}</div>
+      <input class="day-date-input" type="text" placeholder="Date / Range">
+      <input class="day-dow" type="text" placeholder="Day(s)">
+      <div class="day-status"><select><option>Upcoming</option><option>In Progress</option><option>Complete</option><option>Delayed</option></select></div>
+    </div>
+    <div class="day-content">
+      <input class="day-title-input" type="text" placeholder="Day / Week Title">
+      <div class="day-fields">
+        <div class="df"><div class="df-label">Location</div><input class="df-val" type="text" placeholder=""></div>
+        <div class="df"><div class="df-label">Crew Call</div><input class="df-val" type="text" placeholder=""></div>
+        <div class="df"><div class="df-label">Owner</div><input class="df-val" type="text" placeholder=""></div>
+      </div>
+      <div class="task-list">
+        <div class="task-item"><div class="task-cb"><input type="checkbox" onchange="this.closest('.task-item').classList.toggle('done',this.checked)"></div><input class="task-text" type="text" placeholder="Task..."><input class="task-who" type="text" placeholder="Owner"></div>
+        <button class="add-task" onclick="addTask(this)">+ Add task</button>
+      </div>
+    </div>`;
+  container.appendChild(card);
+  card.querySelector('.day-title-input').focus();
+}
+</script>
+
+<script>
+(function() {
+  function toggleTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  }
+  window.toggleTheme = toggleTheme;
+  document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</body>
+</html>
