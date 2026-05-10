@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Audio Sync Assistant — How It's Filmed Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);--accent-glow:rgba(255,51,51,0.06);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;
+  --blue:#4488ff;--blue-dim:rgba(68,136,255,0.12);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.10);
+  --yellow:#eab308;--yellow-dim:rgba(234,179,8,0.10);
+  --radius:10px;--radius-sm:6px;--radius-xs:4px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a3a}
+
+/* ─── HEADER ─── */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:200;backdrop-filter:blur(12px)}
+.header-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:5px;transition:color .15s;flex-shrink:0;letter-spacing:.02em}
+.back-btn:hover{color:var(--text)}
+.back-btn svg{width:14px;height:14px}
+.logo-wordmark{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--text);flex-shrink:0}
+.logo-wordmark span{color:var(--accent)}
+.header-divider{width:1px;height:24px;background:var(--border2);flex-shrink:0}
+.header-tool-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.08em;color:var(--text-muted)}
+.studio-tag{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.15em;padding:2px 8px;border-radius:3px;flex-shrink:0}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.fps-badge{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-xs);padding:4px 10px;font-family:'Courier New',monospace;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em}
+.project-badge{color:var(--text-muted);font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ─── BUTTONS ─── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;text-decoration:none;white-space:nowrap;line-height:1}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-sm{padding:5px 11px;font-size:11px;font-weight:600}
+.btn-xs{padding:3px 8px;font-size:10px;font-weight:700;letter-spacing:.03em}
+.btn-danger-ghost{background:transparent;color:#ff6666;border:1px solid #2a1515;padding:3px 8px;font-size:10px;border-radius:3px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:all .15s}
+.btn-danger-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ─── LAYOUT ─── */
+.page{max-width:1360px;margin:0 auto;padding:24px 24px 48px;display:grid;grid-template-columns:1fr 288px;gap:20px;align-items:start}
+@media(max-width:960px){.page{grid-template-columns:1fr}}
+.main-col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.side-col{display:flex;flex-direction:column;gap:16px}
+.side-sticky{position:sticky;top:78px}
+
+/* ─── CARDS ─── */
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.018)}
+.card-head-left{display:flex;align-items:center;gap:10px}
+.section-num{width:22px;height:22px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.12em;color:var(--text)}
+.card-sub{font-size:11px;color:var(--text-muted);margin-top:1px}
+.card-body{padding:20px}
+.card-body-tight{padding:14px 20px}
+
+/* ─── FORMS ─── */
+.field-label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-xs);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+select.form-control option{background:#191919}
+textarea.form-control{resize:vertical;min-height:80px;line-height:1.6;font-size:12px}
+.form-row{display:grid;gap:14px}
+.cols-2{grid-template-columns:1fr 1fr}
+.cols-3{grid-template-columns:1fr 1fr 1fr}
+.cols-4{grid-template-columns:repeat(4,1fr)}
+
+/* ─── TRACK TAGS ─── */
+.track-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;min-height:32px}
+.track-tag{display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-xs);padding:5px 10px;font-size:12px;font-weight:500;transition:border-color .15s}
+.track-tag.cam{border-left:3px solid var(--blue)}
+.track-tag.rec{border-left:3px solid var(--green)}
+.track-tag .remove-x{color:var(--text-dim);cursor:pointer;font-size:15px;line-height:1;transition:color .15s}
+.track-tag .remove-x:hover{color:var(--accent)}
+.add-inline{display:flex;gap:8px;margin-top:10px}
+.add-inline .form-control{flex:1}
+
+/* ─── TIMECODE INPUT ─── */
+.tc-wrap{position:relative}
+.tc-input{font-family:'Courier New',monospace!important;font-size:19px!important;font-weight:700!important;letter-spacing:3px;text-align:center;color:#FFD166!important;background:var(--surface3)!important;border:1px solid var(--border2)!important;padding:10px 12px!important;border-radius:var(--radius-xs);transition:border-color .15s}
+.tc-input:focus{border-color:var(--accent)!important;box-shadow:0 0 0 2px var(--accent-glow)}
+.tc-input::placeholder{color:#333!important;letter-spacing:2px}
+.tc-label-under{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);text-align:center;margin-top:4px}
+
+/* ─── SYNC PAIR ─── */
+.sync-pair-wrap{border:1px solid var(--border2);border-radius:var(--radius-sm);margin-bottom:14px;overflow:hidden}
+.sync-pair-wrap:last-child{margin-bottom:0}
+.pair-head{background:rgba(255,255,255,0.025);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap}
+.pair-head-left{display:flex;align-items:center;gap:8px}
+.chip{border-radius:3px;padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.chip-cam{background:var(--blue-dim);color:var(--blue)}
+.chip-rec{background:var(--green-dim);color:var(--green)}
+.pair-head-right{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.pair-select{background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:3px 6px;border-radius:3px;outline:none;cursor:pointer;transition:border-color .15s}
+.pair-select:focus{border-color:var(--accent)}
+
+/* ─── SYNC POINT ─── */
+.sync-point-wrap{padding:16px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.sync-point-wrap:last-child{border-bottom:none}
+.sync-point-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sp-label-input{background:transparent;border:none;border-bottom:1px solid var(--border2);border-radius:0;padding:2px 4px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--text);outline:none;width:180px;transition:border-color .15s}
+.sp-label-input:focus{border-bottom-color:var(--accent)}
+.tc-row{display:grid;grid-template-columns:1fr 36px 1fr;gap:10px;align-items:end;margin-bottom:14px}
+.tc-arrow{text-align:center;color:var(--text-dim);font-size:20px;padding-bottom:14px;line-height:1}
+
+/* ─── OFFSET RESULT ─── */
+.offset-result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.offset-box{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-xs);padding:10px;text-align:center}
+.offset-num{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.05em;line-height:1.1;transition:color .2s}
+.offset-num.pos{color:var(--blue)}
+.offset-num.neg{color:var(--accent)}
+.offset-num.zero{color:var(--green)}
+.offset-num.empty{color:var(--text-dim)}
+.offset-unit{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-top:3px}
+.offset-dir-badge{display:inline-block;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
+.dir-advance{background:var(--accent-dim);color:var(--accent)}
+.dir-delay{background:var(--blue-dim);color:var(--blue)}
+.dir-sync{background:var(--green-dim);color:var(--green)}
+.dir-empty{background:var(--surface3);color:var(--text-dim)}
+.offset-hint{text-align:center;padding:10px;font-size:11px;color:var(--text-dim)}
+
+/* ─── CHECKLIST ─── */
+.cl-progress{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.cl-bar-wrap{flex:1;height:4px;background:var(--border2);border-radius:2px;overflow:hidden}
+.cl-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s}
+.cl-count{font-size:11px;font-weight:700;color:var(--text-muted);white-space:nowrap}
+.cl-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:opacity .15s}
+.cl-item:last-child{border-bottom:none}
+.cl-item.done{opacity:.55}
+.cl-item.done .cl-text{text-decoration:line-through}
+.cl-check{width:17px;height:17px;border:2px solid var(--border2);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.cl-item:hover .cl-check{border-color:var(--accent)}
+.cl-item.done .cl-check{background:var(--accent);border-color:var(--accent)}
+.cl-check svg{width:9px;height:9px;stroke:#fff;stroke-width:3;fill:none;display:none}
+.cl-item.done .cl-check svg{display:block}
+.cl-text{font-size:13px;color:var(--text);user-select:none}
+
+/* ─── GRID ─── */
+.grid-scroll{overflow-x:auto}
+.sync-grid{width:100%;border-collapse:collapse;min-width:400px}
+.sync-grid th{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.1em;color:var(--text-muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border2);background:rgba(255,255,255,0.02);white-space:nowrap}
+.sync-grid th.scene-th{text-align:center;min-width:110px}
+.sync-grid td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.03);vertical-align:middle}
+.sync-grid td.cam-td{font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap;padding-right:14px}
+.grid-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:52px;border-radius:var(--radius-xs);padding:6px 8px;cursor:pointer;transition:all .15s;border:1px dashed var(--border2);gap:2px}
+.grid-cell:hover{border-color:#444;background:rgba(255,255,255,0.03)}
+.grid-cell.calculated{background:var(--yellow-dim);border:1px solid rgba(234,179,8,0.25)}
+.grid-cell.calculated:hover{background:rgba(234,179,8,0.15)}
+.grid-cell.synced{background:var(--green-dim);border:1px solid rgba(34,197,94,0.25)}
+.grid-cell.synced:hover{background:rgba(34,197,94,0.15)}
+.cell-val{font-family:'Courier New',monospace;font-size:11px;font-weight:700}
+.grid-cell.pending .cell-val{color:var(--text-dim)}
+.grid-cell.calculated .cell-val{color:var(--yellow)}
+.grid-cell.synced .cell-val{color:var(--green)}
+.cell-status-text{font-size:8px;text-transform:uppercase;letter-spacing:.1em}
+.grid-cell.pending .cell-status-text{color:var(--text-dim)}
+.grid-cell.calculated .cell-status-text{color:var(--yellow)}
+.grid-cell.synced .cell-status-text{color:var(--green)}
+.scene-th-inner{display:flex;align-items:center;justify-content:center;gap:5px}
+.remove-scene{color:var(--text-dim);cursor:pointer;font-size:12px;transition:color .15s;line-height:1}
+.remove-scene:hover{color:var(--accent)}
+
+/* ─── LEGEND DOTS ─── */
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-green{background:var(--green)}
+.dot-yellow{background:var(--yellow)}
+.dot-muted{background:var(--text-dim)}
+
+/* ─── EXPORT ─── */
+.export-pre{background:#0d0d0d;border:1px solid var(--border2);border-radius:var(--radius-xs);padding:14px;font-family:'Courier New',monospace;font-size:11px;line-height:1.9;color:var(--green);white-space:pre-wrap;max-height:220px;overflow-y:auto;margin-bottom:14px}
+
+/* ─── DIVIDER ─── */
+hr.divider{border:none;border-top:1px solid var(--border2);margin:14px 0}
+
+/* ─── EMPTY STATE ─── */
+.empty-state{text-align:center;padding:28px 20px;color:var(--text-dim)}
+.empty-icon{font-size:28px;margin-bottom:8px;opacity:.5}
+.empty-text{font-size:12px;line-height:1.6}
+
+/* ─── CONVERTER PANEL ─── */
+.conv-section{margin-bottom:14px}
+.conv-section:last-child{margin-bottom:0}
+.conv-result-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.conv-box{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-xs);padding:9px;text-align:center}
+.conv-val{font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:var(--accent);line-height:1.2}
+.conv-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-top:3px}
+.conv-full{grid-column:1/-1}
+
+/* ─── QUICK REF ─── */
+.ref-item{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:11px}
+.ref-item:last-child{border-bottom:none}
+.ref-key{font-weight:700;color:var(--text);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.ref-val{color:var(--text-muted)}
+.ref-code{background:var(--surface3);color:var(--green);font-family:'Courier New',monospace;font-size:10px;padding:4px 8px;border-radius:3px;margin-top:4px}
+
+/* ─── MODAL ─── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;width:360px;max-width:calc(100vw - 40px)}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.1em;margin-bottom:18px;color:var(--text)}
+.status-toggle{display:flex;gap:8px;margin-top:8px}
+.st-btn{flex:1;padding:9px 6px;border-radius:var(--radius-xs);border:2px solid var(--border2);background:var(--surface2);color:var(--text-muted);font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:center}
+.st-btn.pending.sel{border-color:var(--text-dim);color:var(--text)}
+.st-btn.calculated.sel{border-color:var(--yellow);color:var(--yellow)}
+.st-btn.synced.sel{border-color:var(--green);color:var(--green)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+.modal-hint{font-size:11px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+
+/* ─── FOOTER ─── */
+.footer{text-align:center;padding:20px;font-size:10px;color:var(--text-dim);letter-spacing:.1em;border-top:1px solid var(--border)}
+
+/* ─── COPY FLASH ─── */
+@keyframes flashGreen{0%{color:var(--green)}100%{color:var(--text-muted)}}
+.copy-flash{animation:flashGreen .8s ease-out forwards}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <a href="../tools.html" class="back-btn">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2L4 7l5 5"/></svg>
+      Tools
+    </a>
+    <div class="header-divider"></div>
+    <div class="logo-wordmark">HIF <span>STUDIO</span></div>
+    <div class="header-divider"></div>
+    <div class="header-tool-name">Audio Sync Assistant</div>
+    <div class="studio-tag">STUDIO</div>
+    <div class="header-right">
+      <div class="fps-badge" id="hFps">29.97 fps</div>
+      <div class="project-badge" id="hProject"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN COLUMN
+  ═══════════════════════════════════════════════ -->
+  <div class="main-col">
+
+    <!-- § 1 PROJECT SETUP -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="section-num">1</div>
+          <div>
+            <div class="card-title">Project Setup</div>
+            <div class="card-sub">Name your project, set frame rate, add cameras &amp; recorders</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-row cols-2" style="margin-bottom:18px">
+          <div>
+            <label class="field-label">Project Name</label>
+            <input type="text" class="form-control" id="projName" placeholder="Documentary 2025 — Day 3" oninput="onProjName()">
+          </div>
+          <div>
+            <label class="field-label">Frame Rate</label>
+            <select class="form-control" id="fpsSelect" onchange="onFpsChange()">
+              <option value="23.976">23.976 fps — Cinema / Netflix</option>
+              <option value="24">24 fps — Film / Cinema</option>
+              <option value="25">25 fps — PAL / Europe</option>
+              <option value="29.97" selected>29.97 fps — NTSC / Broadcast</option>
+              <option value="30">30 fps — Web / Social</option>
+              <option value="59.94">59.94 fps — NTSC HFR</option>
+              <option value="60">60 fps — HFR / Gaming</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <!-- Cameras -->
+          <div>
+            <label class="field-label">📷 Camera Tracks</label>
+            <div class="track-list" id="camList"></div>
+            <div class="add-inline">
+              <input type="text" class="form-control" id="camInput" placeholder="A-Cam, B-Cam, RED Komodo…" onkeydown="if(event.key==='Enter')addCam()">
+              <button class="btn btn-ghost btn-sm" onclick="addCam()">+ Add</button>
+            </div>
+          </div>
+          <!-- Recorders -->
+          <div>
+            <label class="field-label">🎙 Audio Recorders</label>
+            <div class="track-list" id="recList"></div>
+            <div class="add-inline">
+              <input type="text" class="form-control" id="recInput" placeholder="Sound Devices, Zoom H6…" onkeydown="if(event.key==='Enter')addRec()">
+              <button class="btn btn-ghost btn-sm" onclick="addRec()">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- § 2 SYNC POINT CALCULATOR -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="section-num">2</div>
+          <div>
+            <div class="card-title">Sync Point Calculator</div>
+            <div class="card-sub">Enter clap timecodes to calculate audio offset for each camera/recorder pair</div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addPair()">+ Sync Pair</button>
+      </div>
+      <div class="card-body" id="pairsContainer">
+        <div class="empty-state" id="pairsEmpty">
+          <div class="empty-icon">🎬</div>
+          <div class="empty-text">Add cameras and recorders above,<br>then create a sync pair to calculate offsets.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- § 3 VERIFICATION CHECKLIST -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="section-num">3</div>
+          <div>
+            <div class="card-title">Sync Verification Checklist</div>
+            <div class="card-sub">Confirm each step before locking editorial</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="resetChecklist()">↺ Reset</button>
+      </div>
+      <div class="card-body">
+        <div class="cl-progress">
+          <div class="cl-bar-wrap"><div class="cl-bar-fill" id="clBar" style="width:0%"></div></div>
+          <div class="cl-count" id="clCount">0 / 6</div>
+        </div>
+        <div id="clItems"></div>
+      </div>
+    </div>
+
+    <!-- § 4 MULTI-CAM SYNC GRID -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="section-num">4</div>
+          <div>
+            <div class="card-title">Multi-Cam Sync Grid</div>
+            <div class="card-sub">Track sync status per camera per scene — click any cell to edit</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text-muted)">
+            <span><span class="dot dot-green"></span> Synced</span>
+            <span><span class="dot dot-yellow"></span> Calculated</span>
+            <span><span class="dot dot-muted"></span> Pending</span>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="addScene()">+ Scene</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="gridContainer">
+          <div class="empty-state">
+            <div class="empty-icon">📊</div>
+            <div class="empty-text">Add cameras in Section 1, then add scenes here to build the grid.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- § 5 EXPORT & NOTES -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="section-num">5</div>
+          <div>
+            <div class="card-title">Export &amp; Notes</div>
+            <div class="card-sub">Copy sync report for your NLE notes field</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" id="copyBtn" onclick="copyReport()">📋 Copy Sync Report</button>
+          <button class="btn btn-ghost btn-sm" onclick="refreshReport()">↺ Refresh</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <label class="field-label">Sync Report Preview</label>
+        <div class="export-pre" id="exportPre">// Add sync pairs and offsets above to generate report</div>
+        <label class="field-label" style="margin-top:16px">Session Notes</label>
+        <textarea class="form-control" id="sessionNotes" placeholder="Shot with clapper on Scene 3 take 2. B-Cam had drift after lunch, re-synced at 13:45. Boom mic: channel 1. Lav: channel 2…" rows="4"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /main-col -->
+
+  <!-- ═══════════════════════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════════════════════ -->
+  <div class="side-col">
+    <div class="side-sticky">
+
+      <!-- TIMECODE CONVERTER -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-title" style="font-size:13px">⏱ Timecode Converter</div>
+          </div>
+        </div>
+        <div class="card-body-tight">
+
+          <!-- TC → Frames / Time -->
+          <div class="conv-section">
+            <label class="field-label">Timecode → Frames / Time</label>
+            <input type="text" class="form-control tc-input" id="convTc" placeholder="00:00:00:00" maxlength="11" oninput="fmtTc(this);convFromTc()">
+            <div class="conv-result-row">
+              <div class="conv-box"><div class="conv-val" id="cFrames">—</div><div class="conv-lbl">Frames</div></div>
+              <div class="conv-box"><div class="conv-val" id="cSecs">—</div><div class="conv-lbl">Seconds</div></div>
+              <div class="conv-box"><div class="conv-val" id="cMs">—</div><div class="conv-lbl">Millisec</div></div>
+              <div class="conv-box"><div class="conv-val" id="cFeet">—</div><div class="conv-lbl">Feet+Fr</div></div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Frames → TC -->
+          <div class="conv-section">
+            <label class="field-label">Frames → Timecode</label>
+            <input type="number" class="form-control" id="convFrames" placeholder="e.g. 1798" style="text-align:center;font-family:monospace;font-size:14px" oninput="convFromFrames()">
+            <div class="conv-result-row">
+              <div class="conv-box conv-full"><div class="conv-val" id="cFrToTc" style="font-size:17px;letter-spacing:2px">—</div><div class="conv-lbl">Timecode</div></div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Frame Offset → Time -->
+          <div class="conv-section">
+            <label class="field-label">Frame Offset → Time</label>
+            <input type="number" class="form-control" id="convOffset" placeholder="e.g. 37" style="text-align:center;font-family:monospace;font-size:14px" oninput="convOffset()">
+            <div class="conv-result-row">
+              <div class="conv-box"><div class="conv-val" id="cOSecs">—</div><div class="conv-lbl">Seconds</div></div>
+              <div class="conv-box"><div class="conv-val" id="cOMs">—</div><div class="conv-lbl">Millisec</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- QUICK REFERENCE -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title" style="font-size:13px">📖 Quick Reference</div>
+        </div>
+        <div class="card-body-tight">
+          <div class="ref-item">
+            <div class="ref-key">Timecode Format</div>
+            <div class="ref-code">HH : MM : SS : FF</div>
+          </div>
+          <div class="ref-item">
+            <div class="ref-key">Positive Offset</div>
+            <div class="ref-val">Delay audio — shift forward in timeline</div>
+          </div>
+          <div class="ref-item">
+            <div class="ref-key">Negative Offset</div>
+            <div class="ref-val">Advance audio — shift backward in timeline</div>
+          </div>
+          <div class="ref-item">
+            <div class="ref-key">Offset Formula</div>
+            <div class="ref-code">offset = cam_TC − audio_TC</div>
+          </div>
+          <div class="ref-item">
+            <div class="ref-key">Common Frame Rates</div>
+            <div class="ref-val" style="font-size:10px;line-height:1.9">
+              23.976 — Cinema / Netflix<br>
+              24 — Film / Arri Alexa<br>
+              25 — PAL / BBC / EBU<br>
+              29.97 — NTSC / US broadcast<br>
+              59.94 — US broadcast HFR
+            </div>
+          </div>
+          <div class="ref-item">
+            <div class="ref-key">Premiere Pro</div>
+            <div class="ref-val" style="font-size:10px">Clip → Speed/Duration → or Audio Gain offset in timeline panel</div>
+          </div>
+          <div class="ref-item" style="border-bottom:none">
+            <div class="ref-key">DaVinci Resolve</div>
+            <div class="ref-val" style="font-size:10px">Right-click clip → Adjust Audio Sync Offset</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /side-sticky -->
+  </div><!-- /side-col -->
+
+</div><!-- /page -->
+
+<!-- CELL EDIT MODAL -->
+<div class="modal-overlay" id="cellModal">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Edit Sync Cell</div>
+    <div>
+      <label class="field-label">Offset (seconds)</label>
+      <input type="number" class="form-control" id="modalOffset" placeholder="e.g. +1.240" step="0.001" style="text-align:center;font-family:monospace;font-size:16px">
+      <div class="modal-hint">Enter positive to delay audio, negative to advance. Leave blank if no offset needed.</div>
+    </div>
+    <div style="margin-top:14px">
+      <label class="field-label">Status</label>
+      <div class="status-toggle">
+        <div class="st-btn pending sel" id="stPending" onclick="setStatus('pending')">Pending</div>
+        <div class="st-btn calculated" id="stCalculated" onclick="setStatus('calculated')">Calculated</div>
+        <div class="st-btn synced" id="stSynced" onclick="setStatus('synced')">Synced ✓</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="saveCell()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">HIF STUDIO · AUDIO SYNC ASSISTANT · © HOW IT'S FILMED</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let _id = 1;
+function uid(){return _id++}
+
+const S = {
+  fps: 29.97,
+  projName: '',
+  cams: [],       // {id, name}
+  recs: [],       // {id, name}
+  pairs: [],      // {id, camId, recId, points:[{id,label,camTc,audioTc,offsetF,offsetS}]}
+  scenes: [],     // {id, name}
+  cells: {},      // "camId_sceneId": {status:'pending'|'calculated'|'synced', offset:null|number}
+  cl: {}          // checklist: key->bool
+};
+
+const CL_ITEMS = [
+  {k:'clap_vis',  t:'Clap / slate is visible in the video frame'},
+  {k:'clap_aud',  t:'Clap is audible in the audio track'},
+  {k:'offset_nle',t:'Offset calculated and applied in NLE'},
+  {k:'lipsync',   t:'Lip sync verified at 3 random points throughout clip'},
+  {k:'start_end', t:'Sync confirmed at both scene start and end'},
+  {k:'backup',    t:'Backup / ISO audio track verified and in sync'}
+];
+
+// ══════════════════════════════════════════════════════
+// TIMECODE MATH
+// ══════════════════════════════════════════════════════
+function tcToF(tc, fps){
+  const p=tc.split(':');
+  if(p.length!==4)return null;
+  const [h,m,s,f]=p.map(Number);
+  if([h,m,s,f].some(isNaN))return null;
+  const r=Math.round(fps);
+  return h*3600*r + m*60*r + s*r + f;
+}
+function fToTc(frames, fps){
+  const r=Math.round(fps);
+  if(r===0)return'00:00:00:00';
+  const f=((frames%r)+r)%r;
+  const ts=Math.floor(Math.abs(frames)/r);
+  const s=ts%60,m=Math.floor(ts/60)%60,h=Math.floor(ts/3600);
+  return`${p2(h)}:${p2(m)}:${p2(s)}:${p2(f)}`;
+}
+function p2(n){return String(Math.abs(Math.floor(n))).padStart(2,'0')}
+function tcComplete(tc){return/^\d{2}:\d{2}:\d{2}:\d{2}$/.test(tc)}
+function fmtTc(input){
+  const raw=input.value.replace(/\D/g,'').slice(0,8);
+  let out='';
+  for(let i=0;i<raw.length;i++){if(i===2||i===4||i===6)out+=':';out+=raw[i];}
+  input.value=out;
+}
+
+// ══════════════════════════════════════════════════════
+// PROJECT SETUP
+// ══════════════════════════════════════════════════════
+function onFpsChange(){
+  S.fps=parseFloat(document.getElementById('fpsSelect').value);
+  document.getElementById('hFps').textContent=S.fps+' fps';
+  recalcAll();
+  convFromTc(); convFromFrames(); convOffset();
+  refreshReport();
+}
+function onProjName(){
+  S.projName=document.getElementById('projName').value.trim();
+  const el=document.getElementById('hProject');
+  el.textContent=S.projName?'— '+S.projName:'';
+}
+
+function addCam(){
+  const inp=document.getElementById('camInput');
+  const name=inp.value.trim();if(!name)return;
+  S.cams.push({id:uid(),name});inp.value='';
+  renderCams(); renderPairs(); renderGrid();
+}
+function addRec(){
+  const inp=document.getElementById('recInput');
+  const name=inp.value.trim();if(!name)return;
+  S.recs.push({id:uid(),name});inp.value='';
+  renderRecs(); renderPairs();
+}
+function rmCam(id){
+  S.cams=S.cams.filter(c=>c.id!==id);
+  S.pairs=S.pairs.filter(p=>p.camId!==id);
+  renderCams(); renderPairs(); renderGrid();
+}
+function rmRec(id){
+  S.recs=S.recs.filter(r=>r.id!==id);
+  S.pairs=S.pairs.filter(p=>p.recId!==id);
+  renderRecs(); renderPairs();
+}
+
+function renderCams(){
+  document.getElementById('camList').innerHTML=S.cams.map(c=>
+    `<div class="track-tag cam">📷 ${esc(c.name)}<span class="remove-x" onclick="rmCam(${c.id})">×</span></div>`
+  ).join('');
+}
+function renderRecs(){
+  document.getElementById('recList').innerHTML=S.recs.map(r=>
+    `<div class="track-tag rec">🎙 ${esc(r.name)}<span class="remove-x" onclick="rmRec(${r.id})">×</span></div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC PAIRS
+// ══════════════════════════════════════════════════════
+function addPair(){
+  if(!S.cams.length||!S.recs.length){
+    alert('Please add at least one camera and one audio recorder first.');return;
+  }
+  const id=uid();
+  S.pairs.push({id, camId:S.cams[0].id, recId:S.recs[0].id, points:[]});
+  renderPairs();
+  addPoint(id);
+}
+function rmPair(id){S.pairs=S.pairs.filter(p=>p.id!==id);renderPairs();refreshReport();}
+
+function addPoint(pairId){
+  const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
+  pair.points.push({id:uid(), label:'Sync Point '+(pair.points.length+1), camTc:'', audioTc:'', offsetF:null, offsetS:null});
+  renderPairs();
+}
+function rmPoint(pairId, ptId){
+  const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
+  pair.points=pair.points.filter(pt=>pt.id!==ptId);
+  renderPairs();refreshReport();
+}
+
+function pairCamChange(pairId, camId){
+  const p=S.pairs.find(x=>x.id===pairId);if(p)p.camId=+camId;renderPairs();
+}
+function pairRecChange(pairId, recId){
+  const p=S.pairs.find(x=>x.id===pairId);if(p)p.recId=+recId;renderPairs();
+}
+
+function onTcInput(pairId, ptId, field, val){
+  const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
+  const pt=pair.points.find(x=>x.id===ptId);if(!pt)return;
+  pt[field]=val;
+  calcPt(pt);
+  updatePtResult(pairId, ptId, pt);
+  refreshReport();
+}
+function onLabelChange(pairId, ptId, val){
+  const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
+  const pt=pair.points.find(x=>x.id===ptId);if(pt)pt.label=val;
+  refreshReport();
+}
+function calcPt(pt){
+  if(!tcComplete(pt.camTc)||!tcComplete(pt.audioTc)){pt.offsetF=null;pt.offsetS=null;return;}
+  const cf=tcToF(pt.camTc,S.fps), af=tcToF(pt.audioTc,S.fps);
+  if(cf===null||af===null)return;
+  pt.offsetF=cf-af; pt.offsetS=pt.offsetF/S.fps;
+}
+function recalcAll(){S.pairs.forEach(p=>p.points.forEach(pt=>calcPt(pt)));renderPairs();}
+
+function renderPairs(){
+  const con=document.getElementById('pairsContainer');
+  const emp=document.getElementById('pairsEmpty');
+  if(!S.pairs.length){
+    con.innerHTML=''; con.appendChild(emp); emp.style.display='block'; return;
+  }
+  emp.style.display='none';
+  con.innerHTML=S.pairs.map(pair=>{
+    const cam=S.cams.find(c=>c.id===pair.camId);
+    const rec=S.recs.find(r=>r.id===pair.recId);
+    return`
+    <div class="sync-pair-wrap">
+      <div class="pair-head">
+        <div class="pair-head-left">
+          <span class="chip chip-cam">📷 ${esc(cam?cam.name:'?')}</span>
+          <span style="color:var(--text-dim);font-size:12px">+</span>
+          <span class="chip chip-rec">🎙 ${esc(rec?rec.name:'?')}</span>
+        </div>
+        <div class="pair-head-right">
+          <select class="pair-select" onchange="pairCamChange(${pair.id},this.value)">
+            ${S.cams.map(c=>`<option value="${c.id}"${c.id===pair.camId?' selected':''}>${esc(c.name)}</option>`).join('')}
+          </select>
+          <span style="color:var(--text-dim);font-size:10px">+</span>
+          <select class="pair-select" onchange="pairRecChange(${pair.id},this.value)">
+            ${S.recs.map(r=>`<option value="${r.id}"${r.id===pair.recId?' selected':''}>${esc(r.name)}</option>`).join('')}
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="addPoint(${pair.id})">+ Point</button>
+          <button class="btn-danger-ghost" onclick="rmPair(${pair.id})">✕ Remove</button>
+        </div>
+      </div>
+      ${pair.points.length?pair.points.map(pt=>renderPt(pair.id,pt)).join(''):
+        `<div class="sync-point-wrap"><div class="empty-state" style="padding:16px"><div class="empty-text">No sync points. <span style="color:var(--accent);cursor:pointer" onclick="addPoint(${pair.id})">Add one →</span></div></div></div>`
+      }
+    </div>`;
+  }).join('');
+}
+
+function renderPt(pairId, pt){
+  return`
+  <div class="sync-point-wrap">
+    <div class="sync-point-top">
+      <input type="text" class="sp-label-input" value="${esc(pt.label)}" onchange="onLabelChange(${pairId},${pt.id},this.value)" placeholder="Sync Point Label">
+      <button class="btn-danger-ghost" onclick="rmPoint(${pairId},${pt.id})">✕</button>
+    </div>
+    <div class="tc-row">
+      <div class="tc-wrap">
+        <input type="text" class="form-control tc-input" value="${pt.camTc}" placeholder="00:00:00:00" maxlength="11"
+          oninput="fmtTc(this);onTcInput(${pairId},${pt.id},'camTc',this.value)">
+        <div class="tc-label-under">📷 Slate in camera</div>
+      </div>
+      <div class="tc-arrow">⇄</div>
+      <div class="tc-wrap">
+        <input type="text" class="form-control tc-input" value="${pt.audioTc}" placeholder="00:00:00:00" maxlength="11"
+          oninput="fmtTc(this);onTcInput(${pairId},${pt.id},'audioTc',this.value)">
+        <div class="tc-label-under">🎙 Slate in recorder</div>
+      </div>
+    </div>
+    <div id="result-${pairId}-${pt.id}">${buildPtResult(pt)}</div>
+  </div>`;
+}
+
+function updatePtResult(pairId, ptId, pt){
+  const el=document.getElementById(`result-${pairId}-${ptId}`);
+  if(el)el.innerHTML=buildPtResult(pt);
+}
+
+function buildPtResult(pt){
+  if(pt.offsetF===null){
+    return`<div class="offset-hint">Enter complete timecodes above (HH:MM:SS:FF) to calculate offset</div>`;
+  }
+  const f=pt.offsetF, s=pt.offsetS;
+  const af=Math.abs(f), as=Math.abs(s), am=Math.round(Math.abs(s)*1000);
+  const sign=f>0?'+':f<0?'-':'';
+  const numCls=f>0?'pos':f<0?'neg':'zero';
+  let dir,dirCls;
+  if(f===0){dir='Perfect Sync';dirCls='dir-sync';}
+  else if(f>0){dir='→ Delay Audio (shift forward)';dirCls='dir-delay';}
+  else{dir='← Advance Audio (shift back)';dirCls='dir-advance';}
+  return`
+  <div class="offset-result-grid">
+    <div class="offset-box">
+      <div class="offset-num ${numCls}">${sign}${af}</div>
+      <div class="offset-unit">Frames</div>
+    </div>
+    <div class="offset-box">
+      <div class="offset-num ${numCls}">${sign}${as.toFixed(4)}s</div>
+      <div class="offset-unit">Seconds</div>
+    </div>
+    <div class="offset-box">
+      <div class="offset-num ${numCls}" style="font-size:20px">${sign}${am}ms</div>
+      <div class="offset-unit">Milliseconds</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:9px">
+    <span class="offset-dir-badge ${dirCls}">${dir}</span>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// CHECKLIST
+// ══════════════════════════════════════════════════════
+function initCl(){CL_ITEMS.forEach(i=>{if(!(i.k in S.cl))S.cl[i.k]=false;});renderCl();}
+function toggleCl(k){S.cl[k]=!S.cl[k];renderCl();}
+function resetChecklist(){CL_ITEMS.forEach(i=>S.cl[i.k]=false);renderCl();}
+function renderCl(){
+  const done=CL_ITEMS.filter(i=>S.cl[i.k]).length, tot=CL_ITEMS.length;
+  document.getElementById('clBar').style.width=`${(done/tot)*100}%`;
+  document.getElementById('clCount').textContent=`${done} / ${tot}`;
+  document.getElementById('clItems').innerHTML=CL_ITEMS.map(i=>`
+    <div class="cl-item${S.cl[i.k]?' done':''}" onclick="toggleCl('${i.k}')">
+      <div class="cl-check">
+        <svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1"/></svg>
+      </div>
+      <div class="cl-text">${i.t}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// MULTI-CAM GRID
+// ══════════════════════════════════════════════════════
+function addScene(){
+  const name=prompt('Scene / Clip name:',`Scene ${S.scenes.length+1}`);
+  if(!name||!name.trim())return;
+  S.scenes.push({id:uid(),name:name.trim()});
+  renderGrid(); refreshReport();
+}
+function rmScene(id){
+  S.scenes=S.scenes.filter(s=>s.id!==id);
+  Object.keys(S.cells).forEach(k=>{if(k.endsWith('_'+id))delete S.cells[k];});
+  renderGrid(); refreshReport();
+}
+
+function renderGrid(){
+  const con=document.getElementById('gridContainer');
+  if(!S.cams.length||!S.scenes.length){
+    con.innerHTML=`<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-text">
+      ${!S.cams.length?'Add cameras in Section 1 above,':''}
+      ${!S.scenes.length?'then click <strong>+ Scene</strong> to build the grid.':''}
+    </div></div>`;return;
+  }
+  con.innerHTML=`
+  <div class="grid-scroll">
+    <table class="sync-grid">
+      <thead><tr>
+        <th>Camera</th>
+        ${S.scenes.map(sc=>`<th class="scene-th"><div class="scene-th-inner">${esc(sc.name)}<span class="remove-scene" onclick="rmScene(${sc.id})">×</span></div></th>`).join('')}
+      </tr></thead>
+      <tbody>
+        ${S.cams.map(cam=>`
+          <tr>
+            <td class="cam-td">📷 ${esc(cam.name)}</td>
+            ${S.scenes.map(sc=>{
+              const key=`${cam.id}_${sc.id}`;
+              const cell=S.cells[key]||{status:'pending',offset:null};
+              const offStr=cell.offset!==null?`${cell.offset>=0?'+':''}${cell.offset.toFixed(2)}s`:'—';
+              return`<td>
+                <div class="grid-cell ${cell.status}" onclick="openModal(${cam.id},${sc.id})">
+                  <div class="cell-val">${offStr}</div>
+                  <div class="cell-status-text">${cell.status}</div>
+                </div>
+              </td>`;
+            }).join('')}
+          </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// CELL MODAL
+// ══════════════════════════════════════════════════════
+let _modalKey=null, _modalStatus='pending';
+
+function openModal(camId, sceneId){
+  _modalKey=`${camId}_${sceneId}`;
+  const cell=S.cells[_modalKey]||{status:'pending',offset:null};
+  const cam=S.cams.find(c=>c.id===camId);
+  const sc=S.scenes.find(s=>s.id===sceneId);
+  document.getElementById('modalTitle').textContent=`${cam?.name||'?'}  —  ${sc?.name||'?'}`;
+  document.getElementById('modalOffset').value=cell.offset!==null?cell.offset:'';
+  setStatus(cell.status);
+  document.getElementById('cellModal').classList.add('open');
+}
+function closeModal(){document.getElementById('cellModal').classList.remove('open');_modalKey=null;}
+function setStatus(s){
+  _modalStatus=s;
+  ['pending','calculated','synced'].forEach(x=>{
+    const el=document.getElementById('st'+x[0].toUpperCase()+x.slice(1));
+    el.classList.toggle('sel',x===s);
+    ['pending','calculated','synced'].forEach(y=>el.classList.remove(y));
+    el.classList.add(x);
+  });
+}
+function saveCell(){
+  if(!_modalKey)return;
+  const v=parseFloat(document.getElementById('modalOffset').value);
+  S.cells[_modalKey]={status:_modalStatus, offset:isNaN(v)?null:v};
+  closeModal(); renderGrid(); refreshReport();
+}
+document.getElementById('cellModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+
+// ══════════════════════════════════════════════════════
+// TIMECODE CONVERTER
+// ══════════════════════════════════════════════════════
+function convFromTc(){
+  const tc=document.getElementById('convTc').value;
+  if(!tcComplete(tc)){
+    ['cFrames','cSecs','cMs','cFeet'].forEach(id=>document.getElementById(id).textContent='—');return;
+  }
+  const f=tcToF(tc,S.fps);
+  if(f===null)return;
+  const secs=f/S.fps, ms=Math.round(secs*1000);
+  const feetNum=Math.floor(f/16), fr=f%16;
+  document.getElementById('cFrames').textContent=f.toLocaleString();
+  document.getElementById('cSecs').textContent=secs.toFixed(4);
+  document.getElementById('cMs').textContent=ms.toLocaleString();
+  document.getElementById('cFeet').textContent=`${feetNum}+${p2(fr)}`;
+}
+function convFromFrames(){
+  const f=parseInt(document.getElementById('convFrames').value);
+  document.getElementById('cFrToTc').textContent=isNaN(f)||f<0?'—':fToTc(f,S.fps);
+}
+function convOffset(){
+  const f=parseFloat(document.getElementById('convOffset').value);
+  if(isNaN(f)){document.getElementById('cOSecs').textContent='—';document.getElementById('cOMs').textContent='—';return;}
+  const s=f/S.fps, ms=Math.round(s*1000);
+  document.getElementById('cOSecs').textContent=(s>=0?'+':'')+s.toFixed(4)+'s';
+  document.getElementById('cOMs').textContent=(ms>=0?'+':'')+ms+'ms';
+}
+
+// ══════════════════════════════════════════════════════
+// EXPORT REPORT
+// ══════════════════════════════════════════════════════
+function refreshReport(){
+  const lines=[];
+  const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  lines.push('AUDIO SYNC REPORT');
+  lines.push('='.repeat(52));
+  if(S.projName)lines.push(`Project : ${S.projName}`);
+  lines.push(`Date    : ${now}`);
+  lines.push(`FPS     : ${S.fps}`);
+  lines.push('');
+
+  if(!S.pairs.length){
+    lines.push('// No sync pairs defined');
+  } else {
+    S.pairs.forEach(pair=>{
+      const cam=S.cams.find(c=>c.id===pair.camId);
+      const rec=S.recs.find(r=>r.id===pair.recId);
+      lines.push(`${cam?.name||'?'}  +  ${rec?.name||'?'}`);
+      lines.push('-'.repeat(44));
+      if(!pair.points.length){
+        lines.push('  (no sync points)');
+      } else {
+        pair.points.forEach(pt=>{
+          if(pt.offsetF!==null){
+            const sign=pt.offsetF>=0?'+':'';
+            const dir=pt.offsetF>0?'DELAY':pt.offsetF<0?'ADVANCE':'NO OFFSET';
+            lines.push(`  ${pt.label}`);
+            lines.push(`    ${cam?.name||'?'}: Audio offset ${sign}${pt.offsetS?.toFixed(4)}s (${sign}${pt.offsetF}f @ ${S.fps}fps) — ${dir}`);
+            lines.push(`    Cam TC: ${pt.camTc}   Audio TC: ${pt.audioTc}`);
+          } else {
+            lines.push(`  ${pt.label}: [timecodes not entered]`);
+          }
+        });
+      }
+      lines.push('');
+    });
+  }
+
+  if(S.scenes.length&&S.cams.length){
+    lines.push('MULTI-CAM GRID');
+    lines.push('='.repeat(52));
+    S.cams.forEach(cam=>{
+      S.scenes.forEach(sc=>{
+        const cell=S.cells[`${cam.id}_${sc.id}`];
+        if(cell&&cell.status!=='pending'){
+          const off=cell.offset!==null?`${cell.offset>=0?'+':''}${cell.offset.toFixed(3)}s`:'no offset entered';
+          lines.push(`  ${cam.name} — ${sc.name} : ${off} [${cell.status.toUpperCase()}]`);
+        }
+      });
+    });
+  }
+
+  document.getElementById('exportPre').textContent=lines.join('\n');
+}
+
+function copyReport(){
+  const text=document.getElementById('exportPre').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    const orig=btn.textContent;
+    btn.textContent='✓ Copied!';
+    btn.classList.add('copy-flash');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copy-flash');},2000);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+function init(){
+  initCl();
+  refreshReport();
+  // Seed with an example so the tool doesn't feel blank
+  // (User can clear these out immediately)
+}
+init();
+</script>
+</body>
+</html>
