@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Gear Checklist — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.header-title{flex:1;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--text-muted);text-align:center}
+.header-actions{display:flex;gap:8px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#e02020}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+.main{max-width:1000px;margin:0 auto;padding:24px 20px}
+
+/* HERO BAR */
+.hero-bar{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:18px 24px;margin-bottom:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.04em;color:var(--accent);line-height:1}
+.hero-stat-label{font-size:11px;color:var(--text-muted);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.hero-divider{width:1px;height:40px;background:var(--border2)}
+.hero-progress-wrap{flex:1;min-width:200px}
+.hero-progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:8px}
+.hero-progress-bar{height:8px;background:var(--surface3);border-radius:100px;overflow:hidden}
+.hero-progress-fill{height:100%;background:var(--accent);border-radius:100px;transition:width .4s ease}
+.hero-progress-fill.full{background:var(--green)}
+
+/* PROJ INFO */
+.proj-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.proj-input{flex:1;min-width:140px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;outline:none;transition:border-color .15s}
+.proj-input:focus{border-color:var(--accent)}
+.proj-input::placeholder{color:var(--text-dim)}
+
+/* GRID */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+
+/* CATEGORY CARD */
+.cat-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden}
+.cat-header{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.cat-icon{font-size:20px;flex-shrink:0}
+.cat-info{flex:1;min-width:0}
+.cat-name{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.06em}
+.cat-count{font-size:11px;color:var(--text-muted)}
+.cat-mini-bar{width:50px;height:4px;background:var(--surface3);border-radius:100px;overflow:hidden;flex-shrink:0}
+.cat-mini-fill{height:100%;background:var(--accent);border-radius:100px;transition:width .3s}
+.cat-mini-fill.full{background:var(--green)}
+
+.cat-items{padding:8px 12px}
+.gear-item{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.gear-item:last-child{border-bottom:none}
+.gear-check{width:18px;height:18px;border-radius:4px;border:2px solid var(--border2);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;background:transparent}
+.gear-check:hover{border-color:var(--green)}
+.gear-check.packed{background:var(--green);border-color:var(--green)}
+.gear-check.packed svg{display:block}
+.gear-check svg{display:none}
+.gear-label{flex:1;font-size:12px;cursor:pointer;transition:color .15s}
+.gear-label.packed{color:var(--text-dim);text-decoration:line-through}
+.gear-del{background:none;border:none;color:transparent;cursor:pointer;padding:3px;border-radius:3px;transition:color .15s;opacity:0}
+.gear-item:hover .gear-del{opacity:1;color:var(--text-dim)}
+.gear-del:hover{color:#ff6666!important}
+
+.cat-add-wrap{padding:8px 12px;border-top:1px solid var(--border)}
+.cat-add-row{display:flex;gap:6px}
+.cat-add-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;padding:6px 9px;outline:none;transition:border-color .15s}
+.cat-add-input:focus{border-color:var(--accent)}
+.cat-add-input::placeholder{color:var(--text-dim)}
+.cat-add-btn{background:var(--accent-dim);border:1px solid rgba(255,51,51,.3);color:var(--accent);border-radius:var(--radius-sm);padding:6px 10px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cat-add-btn:hover{background:rgba(255,51,51,.2)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:var(--text);transition:transform .3s;z-index:999;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media print{
+  body{background:#fff;color:#000;font-size:10pt}
+  .header,.header-actions,.gear-del,.cat-add-wrap,.btn,.no-print{display:none!important}
+  .cat-card{border:1px solid #ccc;background:#fff;page-break-inside:avoid}
+  .cat-header{background:#f8f8f8;border-bottom:1px solid #ccc}
+  .gear-check{border:2px solid #ccc}
+  .gear-check.packed{background:#22c55e;border-color:#22c55e}
+  .hero-bar{border:1px solid #ccc;background:#fff}
+}
+@media(max-width:700px){.header-title{display:none}.cats-grid{grid-template-columns:1fr}.header-actions .btn span{display:none}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="javascript:history.back()" class="back-btn">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>FILMED</span></div>
+    <div class="header-title">GEAR CHECKLIST</div>
+    <div class="header-actions">
+      <button class="btn btn-ghost btn-sm" onclick="newShoot()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>New Shoot</span>
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Print</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="proj-bar">
+    <input class="proj-input" id="proj-name" type="text" placeholder="Project / Shoot Name" oninput="save()"/>
+    <input class="proj-input" id="proj-date" type="date" oninput="save()" style="max-width:180px"/>
+    <input class="proj-input" id="proj-location" type="text" placeholder="Location" oninput="save()" style="max-width:220px"/>
+  </div>
+
+  <!-- Hero Stats -->
+  <div class="hero-bar">
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="stat-packed">0</div>
+      <div class="hero-stat-label">Packed</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="stat-total" style="color:var(--text-muted)">0</div>
+      <div class="hero-stat-label">Total Items</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-progress-wrap">
+      <div class="hero-progress-label">
+        <span>Packing Progress</span>
+        <span id="stat-pct">0%</span>
+      </div>
+      <div class="hero-progress-bar">
+        <div class="hero-progress-fill" id="hero-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cats-grid" id="cats-grid"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_CATEGORIES = [
+  { id:'cameras', name:'Camera Bodies', icon:'📷', items:[
+    'Main camera body','Backup / B-camera body','Batteries × 4 (per body)','Battery charger(s)','USB-C / charging cables','Lens mount adapters','Body caps','HDMI / SDI monitor output cable'
+  ]},
+  { id:'lenses', name:'Lenses', icon:'🔭', items:[
+    'Wide angle prime (14–28mm)','Standard prime (35–50mm)','Portrait prime (85mm)','Telephoto prime / zoom','Zoom lens (24–70mm f/2.8)','Zoom lens (70–200mm)','Macro lens','Lens caps (front & rear) — all lenses','Lens cloths / blower'
+  ]},
+  { id:'audio', name:'Audio', icon:'🎙️', items:[
+    'Recorder (Zoom / Sound Devices)','Shotgun microphone','Lavalier mic × 2','Wireless transmitter / receiver set','Boom pole','Boom pole mount','Deadcat windscreen','XLR cables × 4','Headphones','Audio batteries (AA × 8)','Gaff tape'
+  ]},
+  { id:'lighting', name:'Lighting', icon:'💡', items:[
+    'Key light (LED panel / Aputure)','Fill light / reflector','Practical / background light','Light stands × 2','Sandbags × 4','Diffusion / softbox','Gels kit','Extension cords × 2','Power strip','Dimmer / controller','Barn doors / flags'
+  ]},
+  { id:'support', name:'Support & Grip', icon:'🎬', items:[
+    'Tripod (main)','Tripod head (fluid)','Monopod','Gimbal / stabilizer','Slider','Shoulder rig','Clamps × 4','Magic arms × 2','Super clamp × 2','C-stands × 2','Apple boxes'
+  ]},
+  { id:'power', name:'Power', icon:'🔋', items:[
+    'V-mount / Gold mount batteries','V-mount battery charger','AC power cables','Power inverter (for car)','Portable power station','USB power bank × 2','Gaff tape (always)','Velcro cable ties'
+  ]},
+  { id:'media', name:'Storage & Media', icon:'💾', items:[
+    'CFexpress / SD cards × 6 (formatted)','Card reader (multi-format)','External SSD backup drive × 2','Laptop','Hard drive cables','USB hub','Sharpie (for labeling)','Card wallet / case'
+  ]},
+  { id:'accessories', name:'Accessories', icon:'🧰', items:[
+    'Matte box','Follow focus','ND filter kit','Polarizing filter','Monitor (field)','HDMI cable (short)','Clapperboard / slate','Color calibration card','Rain cover for camera','Hand warmers','Multi-tool / hex keys'
+  ]},
+  { id:'misc', name:'Misc & Safety', icon:'📦', items:[
+    'First aid kit','Sunscreen / bug spray','Water bottles','Trash bags','Zip ties × 20','Bungee cords','Foam / padding','Stickers / labels','Notebook & pens','Printed call sheet','Printed shot list'
+  ]}
+];
+
+// ── STATE ────────────────────────────────────────────────────────
+let categories = [];
+
+function initCats() {
+  categories = DEFAULT_CATEGORIES.map(c=>({
+    ...c,
+    items: c.items.map((label,i)=>({id:`${c.id}-${i}`,label,packed:false}))
+  }));
+}
+
+// ── RENDER ───────────────────────────────────────────────────────
+function render() {
+  const grid = document.getElementById('cats-grid');
+  grid.innerHTML = categories.map(cat=>{
+    const total = cat.items.length;
+    const packed = cat.items.filter(i=>i.packed).length;
+    const pct = total>0?Math.round(packed/total*100):0;
+    return `
+      <div class="cat-card">
+        <div class="cat-header">
+          <div class="cat-icon">${cat.icon}</div>
+          <div class="cat-info">
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-count">${packed} / ${total} packed</div>
+          </div>
+          <div class="cat-mini-bar">
+            <div class="cat-mini-fill ${pct===100?'full':''}" style="width:${pct}%"></div>
+          </div>
+        </div>
+        <div class="cat-items">
+          ${cat.items.map(item=>`
+            <div class="gear-item">
+              <div class="gear-check ${item.packed?'packed':''}" onclick="toggleGear('${cat.id}','${item.id}')">
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="gear-label ${item.packed?'packed':''}" onclick="toggleGear('${cat.id}','${item.id}')">${esc(item.label)}</div>
+              <button class="gear-del" onclick="delGear('${cat.id}','${item.id}')" title="Remove">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          `).join('')}
+        </div>
+        <div class="cat-add-wrap">
+          <div class="cat-add-row">
+            <input class="cat-add-input" type="text" placeholder="Add item…" id="add-${cat.id}"
+              onkeydown="if(event.key==='Enter')addGear('${cat.id}')"/>
+            <button class="cat-add-btn" onclick="addGear('${cat.id}')">+ Add</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+  updateStats();
+}
+
+function toggleGear(catId, itemId) {
+  const cat = categories.find(c=>c.id===catId);
+  const item = cat?.items.find(i=>i.id===itemId);
+  if(item){ item.packed=!item.packed; render(); save(); }
+}
+
+function delGear(catId, itemId) {
+  const cat = categories.find(c=>c.id===catId);
+  if(cat){ cat.items=cat.items.filter(i=>i.id!==itemId); render(); save(); }
+}
+
+function addGear(catId) {
+  const input = document.getElementById(`add-${catId}`);
+  const label = input?.value?.trim();
+  if(!label) return;
+  const cat = categories.find(c=>c.id===catId);
+  if(!cat) return;
+  cat.items.push({id:`${catId}-custom-${Date.now()}`,label,packed:false});
+  render(); save();
+  setTimeout(()=>{ const el=document.getElementById(`add-${catId}`); if(el){el.value='';el.focus();} },10);
+}
+
+function updateStats() {
+  let total=0,packed=0;
+  categories.forEach(c=>{ total+=c.items.length; packed+=c.items.filter(i=>i.packed).length; });
+  const pct=total>0?Math.round(packed/total*100):0;
+  document.getElementById('stat-packed').textContent=packed;
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-pct').textContent=`${pct}%`;
+  const fill=document.getElementById('hero-fill');
+  fill.style.width=`${pct}%`;
+  fill.className=`hero-progress-fill${pct===100?' full':''}`;
+}
+
+function newShoot() {
+  if(!confirm('Start a new shoot? This will uncheck all packed items (your gear list stays intact).')) return;
+  categories.forEach(c=>c.items.forEach(i=>i.packed=false));
+  ['proj-name','proj-date','proj-location'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  render(); save(); toast('Ready for new shoot!');
+}
+
+function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function toast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500); }
+
+// ── PERSISTENCE ──────────────────────────────────────────────────
+function save() {
+  try{
+    localStorage.setItem('hif-gear-checklist',JSON.stringify({
+      categories,
+      proj:{
+        name:document.getElementById('proj-name')?.value||'',
+        date:document.getElementById('proj-date')?.value||'',
+        location:document.getElementById('proj-location')?.value||''
+      }
+    }));
+  }catch(e){}
+}
+
+function load() {
+  try{
+    const raw=localStorage.getItem('hif-gear-checklist');
+    if(!raw){ initCats(); return; }
+    const data=JSON.parse(raw);
+    categories=data.categories||[];
+    if(categories.length===0) initCats();
+    if(data.proj){
+      if(document.getElementById('proj-name')) document.getElementById('proj-name').value=data.proj.name||'';
+      if(document.getElementById('proj-date')) document.getElementById('proj-date').value=data.proj.date||'';
+      if(document.getElementById('proj-location')) document.getElementById('proj-location').value=data.proj.location||'';
+    }
+  }catch(e){ initCats(); }
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  load(); render();
+  ['proj-name','proj-date','proj-location'].forEach(id=>document.getElementById(id)?.addEventListener('input',save));
+});
+</script>
+</body>
+</html>

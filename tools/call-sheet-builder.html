@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Call Sheet Builder — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.header-title{flex:1;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--text-muted);text-align:center}
+.header-actions{display:flex;gap:8px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:var(--accent-dim)}
+
+.main{max-width:1100px;margin:0 auto;padding:24px 20px;display:flex;flex-direction:column;gap:20px}
+
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+textarea.form-control{resize:vertical;min-height:72px}
+
+.calltime-banner{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);border-radius:var(--radius);padding:16px 24px;display:flex;align-items:center;gap:16px}
+.calltime-label{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:var(--accent)}
+.calltime-input{background:var(--surface2);border:1px solid rgba(255,51,51,0.4);border-radius:var(--radius-sm);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;padding:8px 16px;outline:none;transition:border-color .15s;width:160px}
+.calltime-input:focus{border-color:var(--accent)}
+.calltime-note{color:var(--text-muted);font-size:12px}
+
+/* DYNAMIC TABLES */
+.dyn-table-wrap{overflow-x:auto}
+.dyn-table{width:100%;border-collapse:collapse}
+.dyn-table th{text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;padding:7px 8px;border-bottom:1px solid var(--border2)}
+.dyn-table td{padding:5px 4px;vertical-align:middle}
+.dyn-table tr:not(:last-child) td{border-bottom:1px solid rgba(255,255,255,0.04)}
+.td-input{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;padding:6px 8px;outline:none;transition:border-color .15s;width:100%}
+.td-input:focus{border-color:var(--accent)}
+.td-input::placeholder{color:var(--text-dim)}
+.row-del{background:none;border:none;color:var(--text-dim);cursor:pointer;padding:4px;border-radius:4px;transition:color .15s}
+.row-del:hover{color:#ff6666}
+.table-footer{margin-top:10px;display:flex;gap:8px;align-items:center}
+.add-row-btn{display:flex;align-items:center;gap:6px;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;background:none;border:none;padding:0;transition:opacity .15s}
+.add-row-btn:hover{opacity:.75}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:var(--text);transition:transform .3s;z-index:999;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media print{
+  body{background:#fff;color:#000;font-size:10pt}
+  .header,.header-actions,.row-del,.add-row-btn,.btn,.no-print{display:none!important}
+  .card{border:1px solid #ccc;background:#fff;page-break-inside:avoid;margin-bottom:10pt}
+  .form-control,.td-input,.calltime-input{border:none;background:transparent;color:#000}
+  .section-label{color:#cc0000}
+  .calltime-label{color:#cc0000}
+  .calltime-banner{background:#fff8f8;border:1px solid #fcc}
+  .dyn-table th{border-bottom:1px solid #ccc;color:#666}
+  .dyn-table tr td{border-bottom:1px solid #eee}
+  .print-callsheet-header{display:block!important}
+}
+.print-callsheet-header{display:none}
+
+@media(max-width:700px){.header-title{display:none}.form-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.form-grid{grid-template-columns:1fr}.header-actions .btn span{display:none}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="javascript:history.back()" class="back-btn">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>FILMED</span></div>
+    <div class="header-title">CALL SHEET BUILDER</div>
+    <div class="header-actions">
+      <button class="btn btn-ghost btn-sm" onclick="clearAll()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Clear</span>
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Print / Export</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Print header -->
+  <div class="print-callsheet-header" style="margin-bottom:16pt;padding-bottom:10pt;border-bottom:2pt solid #000">
+    <div style="font-size:24pt;font-weight:700;letter-spacing:.04em">CALL SHEET</div>
+    <div id="cs-print-meta" style="font-size:10pt;color:#666;margin-top:2pt"></div>
+  </div>
+
+  <!-- Production Info -->
+  <div class="card">
+    <div class="section-label">Production Information</div>
+    <div class="form-grid">
+      <div class="form-group" style="grid-column:span 2">
+        <label>Project Name</label>
+        <input class="form-control" id="cs-project" type="text" placeholder="Documentary — Episode 3" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Shoot Date</label>
+        <input class="form-control" id="cs-date" type="date" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Director</label>
+        <input class="form-control" id="cs-director" type="text" placeholder="Jane Smith" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Producer</label>
+        <input class="form-control" id="cs-producer" type="text" placeholder="Alex Johnson" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>DP / Cinematographer</label>
+        <input class="form-control" id="cs-dp" type="text" placeholder="John Doe" oninput="save()"/>
+      </div>
+      <div class="form-group" style="grid-column:span 2">
+        <label>Location Address</label>
+        <input class="form-control" id="cs-location" type="text" placeholder="123 Main St, Los Angeles, CA 90001" oninput="save()"/>
+      </div>
+      <div class="form-group" style="grid-column:span 2">
+        <label>Nearest Hospital</label>
+        <input class="form-control" id="cs-hospital" type="text" placeholder="Cedars-Sinai — 8700 Beverly Blvd, LA — 0.8 mi" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Weather Forecast</label>
+        <input class="form-control" id="cs-weather" type="text" placeholder="Sunny, 72°F, low wind" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Parking Notes</label>
+        <input class="form-control" id="cs-parking" type="text" placeholder="Street parking on Oak Ave" oninput="save()"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- General Call Time -->
+  <div class="calltime-banner">
+    <div class="calltime-label">GENERAL CALL:</div>
+    <input class="calltime-input" id="cs-calltime" type="time" oninput="save()" title="General call time"/>
+    <div class="calltime-note">All crew to be on set and ready by this time.</div>
+  </div>
+
+  <!-- Crew List -->
+  <div class="card">
+    <div class="section-label">Crew List</div>
+    <div class="dyn-table-wrap">
+      <table class="dyn-table" id="crew-table">
+        <thead>
+          <tr>
+            <th style="min-width:160px">Name</th>
+            <th style="min-width:140px">Role</th>
+            <th style="min-width:90px">Call Time</th>
+            <th style="min-width:140px">Phone</th>
+            <th style="min-width:140px">Notes</th>
+            <th style="width:32px"></th>
+          </tr>
+        </thead>
+        <tbody id="crew-body"></tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <button class="add-row-btn" onclick="addRow('crew')">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Add Crew Member
+      </button>
+    </div>
+  </div>
+
+  <!-- Cast / Talent -->
+  <div class="card">
+    <div class="section-label">Talent / Cast</div>
+    <div class="dyn-table-wrap">
+      <table class="dyn-table" id="cast-table">
+        <thead>
+          <tr>
+            <th style="min-width:140px">Name</th>
+            <th style="min-width:130px">Character</th>
+            <th style="min-width:90px">Call Time</th>
+            <th style="min-width:90px">On Set</th>
+            <th style="min-width:100px">Scenes</th>
+            <th style="min-width:130px">Notes</th>
+            <th style="width:32px"></th>
+          </tr>
+        </thead>
+        <tbody id="cast-body"></tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <button class="add-row-btn" onclick="addRow('cast')">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Add Talent
+      </button>
+    </div>
+  </div>
+
+  <!-- Schedule -->
+  <div class="card">
+    <div class="section-label">Day Schedule</div>
+    <div class="dyn-table-wrap">
+      <table class="dyn-table" id="schedule-table">
+        <thead>
+          <tr>
+            <th style="min-width:60px">Scene #</th>
+            <th style="min-width:55px">Pages</th>
+            <th style="min-width:130px">Cast</th>
+            <th style="min-width:130px">Location</th>
+            <th style="min-width:55px">D/N</th>
+            <th style="min-width:180px">Description</th>
+            <th style="min-width:80px">Est. Time</th>
+            <th style="width:32px"></th>
+          </tr>
+        </thead>
+        <tbody id="schedule-body"></tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <button class="add-row-btn" onclick="addRow('schedule')">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Add Scene
+      </button>
+    </div>
+  </div>
+
+  <!-- Special Notes -->
+  <div class="card">
+    <div class="section-label">Special Instructions &amp; Notes</div>
+    <textarea class="form-control" id="cs-notes" rows="4" placeholder="COVID protocols, dress code, meal times, parking instructions, special equipment reminders, safety notes…" oninput="save()"></textarea>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── ROW CONFIGS ──────────────────────────────────────────────────
+const ROW_CONFIGS = {
+  crew: {
+    body: 'crew-body',
+    default: {name:'',role:'',calltime:'',phone:'',notes:''},
+    render: (row,id)=>`
+      <tr id="crew-row-${id}">
+        <td><input class="td-input" type="text" placeholder="Full Name" value="${esc(row.name)}" oninput="updateRow('crew',${id},'name',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="e.g. Camera Op" value="${esc(row.role)}" oninput="updateRow('crew',${id},'role',this.value)"/></td>
+        <td><input class="td-input" type="time" value="${esc(row.calltime)}" oninput="updateRow('crew',${id},'calltime',this.value)"/></td>
+        <td><input class="td-input" type="tel" placeholder="+1 (555) 000-0000" value="${esc(row.phone)}" oninput="updateRow('crew',${id},'phone',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="Notes" value="${esc(row.notes)}" oninput="updateRow('crew',${id},'notes',this.value)"/></td>
+        <td><button class="row-del" onclick="delRow('crew',${id})"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td>
+      </tr>`
+  },
+  cast: {
+    body: 'cast-body',
+    default: {name:'',character:'',calltime:'',onset:'',scenes:'',notes:''},
+    render: (row,id)=>`
+      <tr id="cast-row-${id}">
+        <td><input class="td-input" type="text" placeholder="Actor Name" value="${esc(row.name)}" oninput="updateRow('cast',${id},'name',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="Character" value="${esc(row.character)}" oninput="updateRow('cast',${id},'character',this.value)"/></td>
+        <td><input class="td-input" type="time" value="${esc(row.calltime)}" oninput="updateRow('cast',${id},'calltime',this.value)"/></td>
+        <td><input class="td-input" type="time" value="${esc(row.onset)}" oninput="updateRow('cast',${id},'onset',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="1,2,7" value="${esc(row.scenes)}" oninput="updateRow('cast',${id},'scenes',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="Notes" value="${esc(row.notes)}" oninput="updateRow('cast',${id},'notes',this.value)"/></td>
+        <td><button class="row-del" onclick="delRow('cast',${id})"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td>
+      </tr>`
+  },
+  schedule: {
+    body: 'schedule-body',
+    default: {scene:'',pages:'',cast:'',location:'',dn:'DAY',desc:'',time:''},
+    render: (row,id)=>`
+      <tr id="schedule-row-${id}">
+        <td><input class="td-input" type="text" placeholder="1" value="${esc(row.scene)}" oninput="updateRow('schedule',${id},'scene',this.value)" style="width:60px"/></td>
+        <td><input class="td-input" type="text" placeholder="2/8" value="${esc(row.pages)}" oninput="updateRow('schedule',${id},'pages',this.value)" style="width:55px"/></td>
+        <td><input class="td-input" type="text" placeholder="1,2" value="${esc(row.cast)}" oninput="updateRow('schedule',${id},'cast',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="Location" value="${esc(row.location)}" oninput="updateRow('schedule',${id},'location',this.value)"/></td>
+        <td>
+          <select class="td-input" style="width:65px" onchange="updateRow('schedule',${id},'dn',this.value)">
+            ${['DAY','NIGHT','DAWN','DUSK'].map(v=>`<option ${row.dn===v?'selected':''}>${v}</option>`).join('')}
+          </select>
+        </td>
+        <td><input class="td-input" type="text" placeholder="Brief description" value="${esc(row.desc)}" oninput="updateRow('schedule',${id},'desc',this.value)"/></td>
+        <td><input class="td-input" type="text" placeholder="2h 30m" value="${esc(row.time)}" oninput="updateRow('schedule',${id},'time',this.value)" style="width:80px"/></td>
+        <td><button class="row-del" onclick="delRow('schedule',${id})"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td>
+      </tr>`
+  }
+};
+
+const state = { crew:[], cast:[], schedule:[], nextId:1 };
+
+function addRow(type) {
+  const cfg = ROW_CONFIGS[type];
+  const id = state.nextId++;
+  const row = {...cfg.default, id};
+  state[type].push(row);
+  const tbody = document.getElementById(cfg.body);
+  const tr = document.createElement('tr');
+  tr.outerHTML; // placeholder
+  tbody.insertAdjacentHTML('beforeend', cfg.render(row,id));
+  save();
+}
+
+function delRow(type, id) {
+  state[type] = state[type].filter(r=>r.id!==id);
+  const el = document.getElementById(`${type}-row-${id}`);
+  if(el) el.remove();
+  save();
+}
+
+function updateRow(type, id, field, val) {
+  const row = state[type].find(r=>r.id===id);
+  if(row){ row[field]=val; save(); }
+}
+
+function renderAll() {
+  ['crew','cast','schedule'].forEach(type=>{
+    const cfg = ROW_CONFIGS[type];
+    const tbody = document.getElementById(cfg.body);
+    tbody.innerHTML = state[type].map(row=>cfg.render(row,row.id)).join('');
+  });
+}
+
+function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500); }
+
+function clearAll() {
+  if(!confirm('Clear the entire call sheet? This cannot be undone.')) return;
+  ['cs-project','cs-date','cs-director','cs-producer','cs-dp','cs-location','cs-hospital','cs-weather','cs-parking','cs-calltime','cs-notes'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  state.crew=[];state.cast=[];state.schedule=[];state.nextId=1;
+  renderAll(); save(); toast('Cleared.');
+}
+
+const PROJ_FIELDS = ['cs-project','cs-date','cs-director','cs-producer','cs-dp','cs-location','cs-hospital','cs-weather','cs-parking','cs-calltime','cs-notes'];
+
+function save() {
+  const proj = {};
+  PROJ_FIELDS.forEach(id=>{ proj[id]=document.getElementById(id)?.value||''; });
+  try{ localStorage.setItem('hif-call-sheet',JSON.stringify({...state,proj})); }catch(e){}
+  // update print meta
+  const meta = document.getElementById('cs-print-meta');
+  if(meta) meta.textContent=[proj['cs-project'],proj['cs-date']&&`Date: ${proj['cs-date']}`,proj['cs-director']&&`Director: ${proj['cs-director']}`,proj['cs-calltime']&&`General Call: ${proj['cs-calltime']}`].filter(Boolean).join('  ·  ');
+}
+
+function load() {
+  try{
+    const raw = localStorage.getItem('hif-call-sheet');
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    if(data.proj) PROJ_FIELDS.forEach(id=>{ if(document.getElementById(id)) document.getElementById(id).value=data.proj[id]||''; });
+    state.crew=data.crew||[];
+    state.cast=data.cast||[];
+    state.schedule=data.schedule||[];
+    state.nextId=data.nextId||1;
+    renderAll();
+    save();
+  }catch(e){}
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  load();
+  PROJ_FIELDS.forEach(id=>document.getElementById(id)?.addEventListener('input',save));
+  // default rows if empty
+  if(state.crew.length===0){ addRow('crew');addRow('crew');addRow('crew'); }
+  if(state.cast.length===0){ addRow('cast');addRow('cast'); }
+  if(state.schedule.length===0){ addRow('schedule');addRow('schedule'); }
+});
+</script>
+</body>
+</html>

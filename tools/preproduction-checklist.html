@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Pre-Production Checklist — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.header-title{flex:1;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--text-muted);text-align:center}
+.header-actions{display:flex;gap:8px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#e02020}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+.main{max-width:920px;margin:0 auto;padding:24px 20px}
+
+/* OVERALL PROGRESS */
+.progress-hero{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px}
+.progress-hero-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.progress-hero-label{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.08em;color:var(--text-muted)}
+.progress-hero-pct{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.04em;color:var(--accent)}
+.progress-bar-wrap{background:var(--surface3);border-radius:100px;height:8px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--accent);border-radius:100px;transition:width .4s ease}
+.progress-bar-fill.done{background:var(--green)}
+.progress-summary{margin-top:10px;font-size:12px;color:var(--text-muted)}
+
+/* PROJECT HEADER */
+.proj-header{display:flex;gap:12px;margin-bottom:20px}
+.proj-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;outline:none;transition:border-color .15s}
+.proj-input:focus{border-color:var(--accent)}
+.proj-input::placeholder{color:var(--text-dim)}
+
+/* PHASE CARDS */
+.phase{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
+.phase-header{padding:14px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none;transition:background .15s}
+.phase-header:hover{background:rgba(255,255,255,0.02)}
+.phase-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.phase-info{flex:1;min-width:0}
+.phase-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.06em}
+.phase-sub{font-size:11px;color:var(--text-muted)}
+.phase-progress{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.phase-pct{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.04em;color:var(--text-muted);min-width:38px;text-align:right}
+.phase-mini-bar{width:60px;height:5px;background:var(--surface3);border-radius:100px;overflow:hidden}
+.phase-mini-fill{height:100%;background:var(--accent);border-radius:100px;transition:width .3s}
+.phase-mini-fill.done{background:var(--green)}
+.phase-chevron{color:var(--text-dim);transition:transform .2s;flex-shrink:0}
+.phase.open .phase-chevron{transform:rotate(180deg)}
+
+.phase-body{display:none;padding:0 20px 16px}
+.phase.open .phase-body{display:block}
+
+/* ITEMS */
+.item{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.item:last-child{border-bottom:none}
+.item-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border2);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;background:transparent}
+.item-check:hover{border-color:var(--accent)}
+.item-check.checked{background:var(--green);border-color:var(--green)}
+.item-check.checked svg{display:block}
+.item-check svg{display:none}
+.item-label{flex:1;font-size:13px;cursor:pointer;transition:color .15s}
+.item-label.checked{color:var(--text-dim);text-decoration:line-through}
+.item-del{background:none;border:none;color:transparent;cursor:pointer;padding:4px;border-radius:4px;transition:color .15s;opacity:0}
+.item:hover .item-del{opacity:1;color:var(--text-dim)}
+.item-del:hover{color:#ff6666!important}
+
+/* ADD CUSTOM */
+.add-custom-wrap{display:flex;gap:8px;margin-top:12px}
+.add-custom-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;padding:7px 10px;outline:none;transition:border-color .15s}
+.add-custom-input:focus{border-color:var(--accent)}
+.add-custom-input::placeholder{color:var(--text-dim)}
+.add-custom-btn{background:var(--accent-dim);border:1px solid rgba(255,51,51,.3);color:var(--accent);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.add-custom-btn:hover{background:rgba(255,51,51,.2)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:var(--text);transition:transform .3s;z-index:999;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media print{
+  body{background:#fff;color:#000;font-size:10pt}
+  .header,.header-actions,.add-custom-wrap,.item-del,.btn,.no-print{display:none!important}
+  .phase{border:1px solid #ccc;background:#fff;page-break-inside:avoid}
+  .phase-header{background:#f8f8f8;cursor:default}
+  .phase-body{display:block!important}
+  .item-check{border:2px solid #ccc}
+  .item-check.checked{background:#22c55e;border-color:#22c55e}
+  .progress-hero{border:1px solid #ccc;background:#fff}
+  .progress-bar-fill{background:#cc0000}
+}
+@media(max-width:600px){.header-title{display:none}.proj-header{flex-direction:column}.header-actions .btn span{display:none}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="javascript:history.back()" class="back-btn">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>FILMED</span></div>
+    <div class="header-title">PRE-PRODUCTION CHECKLIST</div>
+    <div class="header-actions">
+      <button class="btn btn-ghost btn-sm" onclick="resetChecks()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Reset</span>
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Print</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="proj-header">
+    <input class="proj-input" id="proj-name" type="text" placeholder="Project Name" oninput="save()"/>
+    <input class="proj-input" id="proj-date" type="date" oninput="save()" style="max-width:180px"/>
+  </div>
+
+  <!-- Overall Progress -->
+  <div class="progress-hero">
+    <div class="progress-hero-top">
+      <div class="progress-hero-label">Overall Progress</div>
+      <div class="progress-hero-pct" id="overall-pct">0%</div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="overall-bar" style="width:0%"></div>
+    </div>
+    <div class="progress-summary" id="overall-summary">0 of 0 items complete</div>
+  </div>
+
+  <div id="phases-container"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DEFAULT PHASES & ITEMS ────────────────────────────────────────
+const DEFAULT_PHASES = [
+  {
+    id:'development', name:'Development', icon:'📋', color:'#3B82F6',
+    items:[
+      'Script locked and final draft distributed',
+      'Budget approved and signed off',
+      'Director and key crew attached',
+      'Locations identified and scouted',
+      'Casting breakdown created',
+      'Production timeline drafted',
+      'Rights and clearances identified',
+      'Insurance arranged',
+      'Legal agreements / contracts drafted',
+    ]
+  },
+  {
+    id:'preproWeek2', name:'Pre-Production — Week 2', icon:'🗓️', color:'#F97316',
+    items:[
+      'Location permits pulled and approved',
+      'Gear list finalized and reserved',
+      'Full crew confirmed and contracts signed',
+      'Cast confirmed and contracts signed',
+      'Shot list drafted',
+      'Storyboards or mood board complete',
+      'Script breakdown complete',
+      'Travel and accommodation booked',
+      'Catering / meals planned',
+      'Communication plan shared with team',
+    ]
+  },
+  {
+    id:'preproWeek1', name:'Pre-Production — Week 1', icon:'⚡', color:'#A855F7',
+    items:[
+      'Call sheets drafted and reviewed',
+      'Shot list finalized and distributed',
+      'All locations confirmed — access secured',
+      'All cast confirmed — sides distributed',
+      'Gear order confirmed — delivery date set',
+      'Talent releases printed and ready',
+      'Walkie talkies / comms plan sorted',
+      'Safety plan reviewed with all departments',
+      'Run of show / schedule distributed',
+      'Emergency contacts list prepared',
+      'Backup plans in place (weather, gear failure)',
+    ]
+  },
+  {
+    id:'dayBefore', name:'Day Before Shoot', icon:'🌙', color:'#EC4899',
+    items:[
+      'All gear packed and checked off list',
+      'Camera batteries charged (all sets)',
+      'Audio batteries charged and fresh',
+      'Media cards formatted and ready',
+      'ND filters cleaned and packed',
+      'Call sheet distributed to all crew',
+      'Final location check / confirm access',
+      'Craft services / water packed',
+      'Wardrobe prepped and organized',
+      'Props confirmed and packed',
+      'Directions / parking confirmed',
+      'Phone charged — alarm set',
+    ]
+  },
+  {
+    id:'dayOf', name:'Day of Shoot', icon:'🎬', color:'#14B8A6',
+    items:[
+      'Gear check on arrival — nothing missing',
+      'All crew briefed on day plan',
+      'Camera tested — format confirmed',
+      'Audio levels checked and monitored',
+      'Lighting setup reviewed with DP',
+      'Locations walked with director',
+      'Releases collected from all talent',
+      'Safety briefing done with crew',
+      'Slate or scene list ready',
+      'Media backup / redundancy confirmed',
+    ]
+  }
+];
+
+// ── STATE ────────────────────────────────────────────────────────
+let phases = [];
+
+function initPhases() {
+  phases = DEFAULT_PHASES.map(p=>({
+    ...p,
+    open: true,
+    items: p.items.map((label,i)=>({id:`${p.id}-${i}`,label,checked:false,custom:false}))
+  }));
+}
+
+// ── RENDER ───────────────────────────────────────────────────────
+function render() {
+  const container = document.getElementById('phases-container');
+  container.innerHTML = phases.map(phase=>{
+    const total = phase.items.length;
+    const done  = phase.items.filter(i=>i.checked).length;
+    const pct   = total>0?Math.round(done/total*100):0;
+    return `
+      <div class="phase ${phase.open?'open':''}" id="phase-${phase.id}">
+        <div class="phase-header" onclick="togglePhase('${phase.id}')">
+          <div class="phase-icon" style="background:${phase.color}22">${phase.icon}</div>
+          <div class="phase-info">
+            <div class="phase-name">${phase.name}</div>
+            <div class="phase-sub">${done} of ${total} complete</div>
+          </div>
+          <div class="phase-progress">
+            <div class="phase-pct" style="color:${pct===100?'var(--green)':'var(--text-muted)'}">${pct}%</div>
+            <div class="phase-mini-bar">
+              <div class="phase-mini-fill ${pct===100?'done':''}" style="width:${pct}%;background:${pct===100?'var(--green)':phase.color}"></div>
+            </div>
+          </div>
+          <svg class="phase-chevron" width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="phase-body">
+          ${phase.items.map(item=>`
+            <div class="item" id="item-${item.id}">
+              <div class="item-check ${item.checked?'checked':''}" onclick="toggleItem('${phase.id}','${item.id}')">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="item-label ${item.checked?'checked':''}" onclick="toggleItem('${phase.id}','${item.id}')">${esc(item.label)}</div>
+              <button class="item-del" onclick="delItem('${phase.id}','${item.id}')" title="Remove item">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          `).join('')}
+          <div class="add-custom-wrap">
+            <input class="add-custom-input" type="text" placeholder="Add custom item…" id="custom-input-${phase.id}"
+              onkeydown="if(event.key==='Enter')addCustom('${phase.id}')"/>
+            <button class="add-custom-btn" onclick="addCustom('${phase.id}')">+ Add</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+  updateProgress();
+}
+
+function togglePhase(id) {
+  const phase = phases.find(p=>p.id===id);
+  if(phase){ phase.open=!phase.open; render(); save(); }
+}
+
+function toggleItem(phaseId, itemId) {
+  const phase = phases.find(p=>p.id===phaseId);
+  if(!phase) return;
+  const item = phase.items.find(i=>i.id===itemId);
+  if(item){ item.checked=!item.checked; render(); save(); }
+}
+
+function delItem(phaseId, itemId) {
+  const phase = phases.find(p=>p.id===phaseId);
+  if(!phase) return;
+  phase.items = phase.items.filter(i=>i.id!==itemId);
+  render(); save();
+}
+
+function addCustom(phaseId) {
+  const input = document.getElementById(`custom-input-${phaseId}`);
+  const label = input?.value?.trim();
+  if(!label) return;
+  const phase = phases.find(p=>p.id===phaseId);
+  if(!phase) return;
+  const id = `${phaseId}-custom-${Date.now()}`;
+  phase.items.push({id, label, checked:false, custom:true});
+  render();
+  save();
+  // re-focus after render
+  setTimeout(()=>{ const el=document.getElementById(`custom-input-${phaseId}`); if(el){el.value='';el.focus();} },10);
+}
+
+function updateProgress() {
+  let total=0,done=0;
+  phases.forEach(p=>{ total+=p.items.length; done+=p.items.filter(i=>i.checked).length; });
+  const pct = total>0?Math.round(done/total*100):0;
+  document.getElementById('overall-pct').textContent=`${pct}%`;
+  const bar = document.getElementById('overall-bar');
+  bar.style.width=`${pct}%`;
+  bar.className=`progress-bar-fill${pct===100?' done':''}`;
+  document.getElementById('overall-summary').textContent=`${done} of ${total} items complete`;
+}
+
+function resetChecks() {
+  if(!confirm('Uncheck all items? Your custom items will be kept.')) return;
+  phases.forEach(p=>p.items.forEach(i=>i.checked=false));
+  render(); save(); toast('All items reset.');
+}
+
+function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function toast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500); }
+
+// ── PERSISTENCE ──────────────────────────────────────────────────
+function save() {
+  try{
+    localStorage.setItem('hif-prepro-checklist',JSON.stringify({
+      phases,
+      proj:{ name:document.getElementById('proj-name')?.value||'', date:document.getElementById('proj-date')?.value||'' }
+    }));
+  }catch(e){}
+}
+
+function load() {
+  try{
+    const raw = localStorage.getItem('hif-prepro-checklist');
+    if(!raw){ initPhases(); return; }
+    const data = JSON.parse(raw);
+    // Merge saved state with defaults (so new default items appear)
+    if(data.phases && data.phases.length>0){
+      phases = data.phases;
+    } else {
+      initPhases();
+    }
+    if(data.proj){
+      if(document.getElementById('proj-name')) document.getElementById('proj-name').value=data.proj.name||'';
+      if(document.getElementById('proj-date')) document.getElementById('proj-date').value=data.proj.date||'';
+    }
+  }catch(e){ initPhases(); }
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  load();
+  render();
+  ['proj-name','proj-date'].forEach(id=>document.getElementById(id)?.addEventListener('input',save));
+});
+</script>
+</body>
+</html>
