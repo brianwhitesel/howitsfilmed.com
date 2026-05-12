@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Day Out of Days — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+  :root {
+    --bg: #080c14;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --surface3: rgba(255,255,255,0.10);
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f1f5f9;
+    --dim: #94a3b8;
+    --muted: #4b5e78;
+    --accent: #e41e2b;
+    --blue: #3b82f6;
+    --green: #34d369;
+    --teal: #14b8a6;
+    --amber: #f59e0b;
+    --purple: #8b5cf6;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.15s ease;
+  }
+  html.light {
+    --bg: #f0f2f5;
+    --surface: rgba(255,255,255,0.85);
+    --surface2: rgba(255,255,255,0.95);
+    --surface3: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #0d1117;
+    --dim: #475569;
+    --muted: #94a3b8;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+  --green:#22c55e;--green-bg:rgba(34,197,94,0.15);
+  --yellow:#eab308;--yellow-bg:rgba(234,179,8,0.15);
+  --blue:#3b82f6;--blue-bg:rgba(59,130,246,0.15);
+  --teal:#14b8a6;--teal-bg:rgba(20,184,166,0.15);
+  --red:#ef4444;--red-bg:rgba(239,68,68,0.15);
+  --purple:#a855f7;--purple-bg:rgba(168,85,247,0.15);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:14px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:5px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--text);flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.hdiv{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.tool-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.08em;color:var(--text-muted)}
+.studio-tag{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.15em;padding:2px 8px;border-radius:3px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-danger{background:transparent;color:#ff6666;border:1px solid #3a1515;font-size:11px;padding:5px 10px}
+.btn-danger:hover{background:#1a0808;border-color:#ff3333}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:24px 20px 60px}
+
+/* PROJECT INFO */
+.project-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+
+/* LEGEND */
+.legend-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:14px 20px;margin-bottom:20px}
+.legend-inner{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.legend-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.08em;color:var(--text-muted);margin-right:4px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.04em}
+.legend-swatch{width:22px;height:18px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+
+/* CONTROLS */
+.controls-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.controls-row h2{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em;flex:1}
+
+/* GRID WRAPPER */
+.dood-wrap{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);overflow:auto;margin-bottom:20px}
+.dood-table{border-collapse:collapse;width:100%;min-width:600px}
+.dood-table th,.dood-table td{border:1px solid var(--border2);padding:0;text-align:center}
+.dood-table th{background:var(--surface2);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.08em;color:var(--text-muted);padding:8px 6px;white-space:nowrap}
+.th-cast{text-align:left;padding-left:14px;min-width:160px;background:var(--surface3)}
+.th-day{min-width:70px;font-size:11px}
+.th-total{min-width:50px;background:var(--surface3)}
+
+/* CAST ROW */
+.cast-cell{background:var(--surface2);padding:0;position:relative}
+.cast-input{background:transparent;border:none;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;width:100%;outline:none}
+.cast-input::placeholder{color:var(--text-dim)}
+.status-cell{padding:2px}
+.status-select{background:transparent;border:none;color:var(--text);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-align:center;width:100%;height:36px;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none}
+.status-select option{background:#1a1a1a;color:#fafafa}
+
+/* STATUS COLORS */
+.s-W   {background:var(--green-bg);color:var(--green)}
+.s-H   {background:var(--yellow-bg);color:var(--yellow)}
+.s-T   {background:var(--blue-bg);color:var(--blue)}
+.s-SW  {background:rgba(16,185,129,0.18);color:#10b981}
+.s-WF  {background:var(--red-bg);color:var(--red)}
+.s-SWF {background:var(--purple-bg);color:var(--purple)}
+.s-blank{background:transparent;color:var(--text-dim)}
+
+.total-cell{background:var(--surface2);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;color:var(--accent);padding:8px}
+.del-row-btn{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:4px 8px;transition:color .15s}
+.del-row-btn:hover{color:var(--accent)}
+
+/* DATE HEADER INPUT */
+.date-header-input{background:transparent;border:none;color:var(--text-muted);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:.06em;text-align:center;width:100%;outline:none;cursor:pointer;padding:4px}
+.date-header-input:focus{color:var(--text);background:rgba(255,255,255,0.05);border-radius:3px}
+
+.del-col-btn{display:block;width:100%;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;padding:2px;transition:color .15s;text-align:center}
+.del-col-btn:hover{color:var(--accent)}
+
+/* FOOTER ROW */
+.totals-row td{background:var(--surface3);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.06em;color:var(--text-muted);padding:7px 6px}
+
+/* EMPTY STATE */
+.empty-grid{padding:60px;text-align:center;color:var(--text-dim);font-size:14px}
+
+/* PRINT */
+@media print{
+  .header,.controls-row,.legend-card button,.btn,.del-row-btn,.del-col-btn{display:none!important}
+  body{background:#fff;color:#000}
+  .dood-wrap{border:1px solid #ccc;overflow:visible}
+  .dood-table th,.dood-table td{border:1px solid #ccc}
+  .dood-table th{background:#f5f5f5;color:#333}
+  .cast-cell,.total-cell,.totals-row td{background:#f9f9f9}
+  .status-select{color:#000}
+  .project-card,.legend-card{border:1px solid #ccc;background:#fff}
+  .s-W   {background:#dcfce7;color:#166534}
+  .s-H   {background:#fef9c3;color:#854d0e}
+  .s-T   {background:#dbeafe;color:#1e40af}
+  .s-SW  {background:#d1fae5;color:#065f46}
+  .s-WF  {background:#fee2e2;color:#991b1b}
+  .s-SWF {background:#f3e8ff;color:#6b21a8}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="back-btn" href="../app/index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>F</span>ILMED</div>
+    <div class="hdiv"></div>
+    <div class="tool-name">Day Out of Days</div>
+    <span class="studio-tag">PRO TOOL</span>
+    <div class="header-right">
+      <button class="btn btn-ghost" onclick="clearAll()">Clear All</button>
+      <button class="btn btn-ghost" onclick="window.print()">⎙ Print</button>
+      <button class="btn btn-primary" onclick="exportCSV()">↓ Export CSV</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- PROJECT INFO -->
+  <div class="project-card">
+    <div class="section-label">Project Information</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Production Title</label>
+        <input class="form-control" id="projTitle" placeholder="My Film" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Production Company</label>
+        <input class="form-control" id="projCompany" placeholder="HIF Productions" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Producer / AD</label>
+        <input class="form-control" id="projAD" placeholder="Name" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Total Shoot Days</label>
+        <input class="form-control" id="projDays" placeholder="20" type="number" min="1" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Shoot Start Date</label>
+        <input class="form-control" id="projStart" type="date" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Prep Date</label>
+        <input class="form-control" id="projPrep" placeholder="Notes" oninput="save()"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend-card">
+    <div class="legend-inner">
+      <span class="legend-label">Legend:</span>
+      <span class="legend-item"><span class="legend-swatch s-W">W</span> Work</span>
+      <span class="legend-item"><span class="legend-swatch s-H">H</span> Hold</span>
+      <span class="legend-item"><span class="legend-swatch s-T">T</span> Travel</span>
+      <span class="legend-item"><span class="legend-swatch s-SW">SW</span> Start Work</span>
+      <span class="legend-item"><span class="legend-swatch s-WF">WF</span> Work Finish</span>
+      <span class="legend-item"><span class="legend-swatch s-SWF">SWF</span> Start Work Finish</span>
+    </div>
+  </div>
+
+  <!-- GRID CONTROLS -->
+  <div class="controls-row">
+    <h2>Cast Schedule Grid</h2>
+    <button class="btn btn-ghost" onclick="addDay()">+ Add Day</button>
+    <button class="btn btn-primary" onclick="addCast()">+ Add Cast Member</button>
+  </div>
+
+  <!-- DOOD GRID -->
+  <div class="dood-wrap" id="doodWrap">
+    <div class="empty-grid" id="emptyState">
+      Click <strong>+ Add Cast Member</strong> and <strong>+ Add Day</strong> to build your Day Out of Days grid.
+    </div>
+    <table class="dood-table" id="doodTable" style="display:none">
+      <thead id="thead"></thead>
+      <tbody id="tbody"></tbody>
+      <tfoot id="tfoot"></tfoot>
+    </table>
+  </div>
+
+</main>
+
+<script>
+// ── STATE ──
+let state = {
+  project: { title:'', company:'', ad:'', days:'', start:'', prep:'' },
+  cast: [],     // [{id, name}]
+  days: [],     // [{id, label}]
+  cells: {}     // "castId_dayId": status string
+};
+
+const STATUSES = ['','W','H','T','SW','WF','SWF'];
+const STATUS_LABELS = {
+  '': '—', W:'W', H:'H', T:'T', SW:'SW', WF:'WF', SWF:'SWF'
+};
+const STATUS_CLASS = {
+  '':'s-blank', W:'s-W', H:'s-H', T:'s-T', SW:'s-SW', WF:'s-WF', SWF:'s-SWF'
+};
+
+let castCounter = 0, dayCounter = 0;
+
+function uid(prefix) {
+  return prefix + (++({cast:()=>++castCounter, day:()=>++dayCounter}[prefix]() || 0));
+}
+function newCastId() { return 'c' + (++castCounter); }
+function newDayId()  { return 'd' + (++dayCounter); }
+
+// ── RENDER ──
+function render() {
+  const thead = document.getElementById('thead');
+  const tbody = document.getElementById('tbody');
+  const tfoot = document.getElementById('tfoot');
+  const table = document.getElementById('doodTable');
+  const empty = document.getElementById('emptyState');
+
+  if (state.cast.length === 0 && state.days.length === 0) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  // HEADER ROW
+  let headHtml = '<tr><th class="th-cast">Cast Member</th>';
+  state.days.forEach(d => {
+    headHtml += `<th class="th-day">
+      <input class="date-header-input" value="${escHtml(d.label)}" placeholder="Day ${d.id}" onchange="renameDay('${d.id}',this.value)" title="Click to edit date/label"/>
+      <button class="del-col-btn" onclick="removeDay('${d.id}')" title="Remove day">✕</button>
+    </th>`;
+  });
+  headHtml += '<th class="th-total">Work<br>Days</th></tr>';
+  thead.innerHTML = headHtml;
+
+  // BODY ROWS
+  let bodyHtml = '';
+  state.cast.forEach(c => {
+    let workDays = 0;
+    state.days.forEach(d => {
+      const v = state.cells[c.id+'_'+d.id] || '';
+      if (v === 'W' || v === 'SW' || v === 'WF' || v === 'SWF') workDays++;
+    });
+    bodyHtml += `<tr>
+      <td class="cast-cell">
+        <input class="cast-input" value="${escHtml(c.name)}" placeholder="Cast Member Name" onchange="renameCast('${c.id}',this.value)"/>
+      </td>`;
+    state.days.forEach(d => {
+      const key = c.id + '_' + d.id;
+      const val = state.cells[key] || '';
+      const cls = STATUS_CLASS[val] || 's-blank';
+      bodyHtml += `<td class="status-cell ${cls}" id="cell_${key}">
+        <select class="status-select ${cls}" onchange="setCell('${c.id}','${d.id}',this.value)" title="Set status">`;
+      STATUSES.forEach(s => {
+        bodyHtml += `<option value="${s}" ${val===s?'selected':''}>${s||'—'}</option>`;
+      });
+      bodyHtml += `</select></td>`;
+    });
+    bodyHtml += `<td class="total-cell">${workDays||'—'}</td>
+      <td style="border:none;background:transparent;padding:0 4px">
+        <button class="del-row-btn" onclick="removeCast('${c.id}')" title="Remove cast member">✕</button>
+      </td>
+    </tr>`;
+  });
+  tbody.innerHTML = bodyHtml;
+
+  // FOOTER: day totals
+  let footHtml = '<tr><td style="background:var(--surface3);padding:8px 12px;text-align:left;font-family:\'Bebas Neue\',sans-serif;font-size:12px;letter-spacing:.08em;color:var(--text-muted)">Day Totals</td>';
+  state.days.forEach(d => {
+    let dayTotal = 0;
+    state.cast.forEach(c => {
+      const v = state.cells[c.id+'_'+d.id] || '';
+      if (v === 'W' || v === 'SW' || v === 'WF' || v === 'SWF') dayTotal++;
+    });
+    footHtml += `<td class="totals-row" style="background:var(--surface3);font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--text-muted);padding:7px 6px">${dayTotal||'—'}</td>`;
+  });
+  footHtml += '<td style="background:var(--surface3)"></td><td style="background:transparent;border:none"></td></tr>';
+  tfoot.innerHTML = footHtml;
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── ACTIONS ──
+function addCast() {
+  const id = newCastId();
+  state.cast.push({ id, name: '' });
+  render();
+  save();
+  // Focus the new input
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('.cast-input');
+    if (inputs.length) inputs[inputs.length-1].focus();
+  }, 50);
+}
+
+function addDay() {
+  const id = newDayId();
+  const num = state.days.length + 1;
+  state.days.push({ id, label: 'Day ' + num });
+  render();
+  save();
+}
+
+function renameCast(id, name) {
+  const c = state.cast.find(x => x.id === id);
+  if (c) { c.name = name; save(); }
+}
+
+function renameDay(id, label) {
+  const d = state.days.find(x => x.id === id);
+  if (d) { d.label = label; save(); }
+}
+
+function removeCast(id) {
+  state.cast = state.cast.filter(c => c.id !== id);
+  // Clean cells
+  Object.keys(state.cells).forEach(k => { if (k.startsWith(id+'_')) delete state.cells[k]; });
+  render(); save();
+}
+
+function removeDay(id) {
+  state.days = state.days.filter(d => d.id !== id);
+  Object.keys(state.cells).forEach(k => { if (k.endsWith('_'+id)) delete state.cells[k]; });
+  render(); save();
+}
+
+function setCell(castId, dayId, val) {
+  const key = castId + '_' + dayId;
+  state.cells[key] = val;
+  // Update cell class
+  const cell = document.getElementById('cell_' + key);
+  if (cell) {
+    const cls = STATUS_CLASS[val] || 's-blank';
+    cell.className = 'status-cell ' + cls;
+    const sel = cell.querySelector('select');
+    if (sel) { sel.className = 'status-select ' + cls; }
+  }
+  // Update total
+  render();
+  save();
+}
+
+function clearAll() {
+  if (!confirm('Clear all cast and schedule data? This cannot be undone.')) return;
+  state.cast = []; state.days = []; state.cells = {};
+  castCounter = 0; dayCounter = 0;
+  render(); save();
+}
+
+// ── PROJECT FORM ──
+document.querySelectorAll('#projTitle,#projCompany,#projAD,#projDays,#projStart,#projPrep').forEach(el => {
+  el.addEventListener('input', save);
+});
+
+function save() {
+  state.project = {
+    title:   document.getElementById('projTitle').value,
+    company: document.getElementById('projCompany').value,
+    ad:      document.getElementById('projAD').value,
+    days:    document.getElementById('projDays').value,
+    start:   document.getElementById('projStart').value,
+    prep:    document.getElementById('projPrep').value,
+  };
+  try { localStorage.setItem('hif_dood', JSON.stringify(state)); } catch(e){}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('hif_dood');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    state = s;
+    // Restore counters
+    state.cast.forEach(c => {
+      const n = parseInt(c.id.slice(1)); if (n > castCounter) castCounter = n;
+    });
+    state.days.forEach(d => {
+      const n = parseInt(d.id.slice(1)); if (n > dayCounter) dayCounter = n;
+    });
+    if (s.project) {
+      document.getElementById('projTitle').value = s.project.title || '';
+      document.getElementById('projCompany').value = s.project.company || '';
+      document.getElementById('projAD').value = s.project.ad || '';
+      document.getElementById('projDays').value = s.project.days || '';
+      document.getElementById('projStart').value = s.project.start || '';
+      document.getElementById('projPrep').value = s.project.prep || '';
+    }
+  } catch(e){}
+}
+
+// ── CSV EXPORT ──
+function exportCSV() {
+  let rows = [];
+  // Header
+  let header = ['Cast Member', ...state.days.map(d => d.label || d.id), 'Work Days'];
+  rows.push(header.map(h => '"'+h+'"').join(','));
+  // Rows
+  state.cast.forEach(c => {
+    let workDays = 0;
+    let row = ['"'+(c.name||'Unnamed')+'"'];
+    state.days.forEach(d => {
+      const v = state.cells[c.id+'_'+d.id] || '';
+      if (v==='W'||v==='SW'||v==='WF'||v==='SWF') workDays++;
+      row.push('"'+v+'"');
+    });
+    row.push(workDays);
+    rows.push(row.join(','));
+  });
+  const csv = rows.join('\n');
+  const title = document.getElementById('projTitle').value || 'day-out-of-days';
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = title.replace(/\s+/g,'-').toLowerCase() + '-dood.csv';
+  a.click();
+}
+
+// ── INIT ──
+load();
+render();
+</script>
+</body>
+</html>

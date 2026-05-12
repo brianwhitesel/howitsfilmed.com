@@ -38,6 +38,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
+/* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+:root {
+  --bg: #080c14;
+  --surface: rgba(255,255,255,0.04);
+  --surface2: rgba(255,255,255,0.07);
+  --surface3: rgba(255,255,255,0.10);
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #f1f5f9;
+  --dim: #94a3b8;
+  --muted: #4b5e78;
+  --accent: #e41e2b;
+  --blue: #3b82f6;
+  --green: #34d369;
+  --teal: #14b8a6;
+  --amber: #f59e0b;
+  --purple: #8b5cf6;
+  --font-head: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.15s ease;
+}
+html.light {
+  --bg: #f0f2f5;
+  --surface: rgba(255,255,255,0.85);
+  --surface2: rgba(255,255,255,0.95);
+  --surface3: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text: #0d1117;
+  --dim: #475569;
+  --muted: #94a3b8;
+}
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -185,6 +221,7 @@
     .filter-btn[data-cat="gear-equipment"].active    { background: #3d2f00; border-color: #EAB308; color: #fde68a; }
     .filter-btn[data-cat="social-delivery"].active   { background: #4a0d2e; border-color: #EC4899; color: #f9a8d4; }
     .filter-btn[data-cat="finance-planning"].active  { background: #0f3320; border-color: #22C55E; color: #86efac; }
+    .filter-btn[data-cat="interactive-tools"].active { background: #1a0a2e; border-color: #FF3333; color: #ff8080; }
 
     /* ── MAIN CONTENT ── */
     .main {
@@ -254,6 +291,7 @@
     .card[data-cat="gear-equipment"]::before    { background: #EAB308; }
     .card[data-cat="social-delivery"]::before   { background: #EC4899; }
     .card[data-cat="finance-planning"]::before  { background: #22C55E; }
+    .card[data-cat="interactive-tools"]::before { background: #FF3333; }
 
     .card-top {
       display: flex;
@@ -282,6 +320,7 @@
     [data-cat="gear-equipment"]  .card-pill { background: #3d2f00; color: #fde68a; }
     [data-cat="social-delivery"] .card-pill { background: #4a0d2e; color: #f9a8d4; }
     [data-cat="finance-planning"] .card-pill { background: #0f3320; color: #86efac; }
+    [data-cat="interactive-tools"] .card-pill { background: #2a0505; color: #ff8080; }
 
     .card-name {
       font-family: 'Bebas Neue', sans-serif;
@@ -604,7 +643,7 @@
       </div>
 
       <!-- Badge -->
-      <div class="badge-count">50 Templates</div>
+      <div class="badge-count">55 Templates</div>
     </div>
   </header>
 
@@ -619,6 +658,7 @@
       <button class="filter-btn" data-cat="gear-equipment">Gear &amp; Equipment</button>
       <button class="filter-btn" data-cat="social-delivery">Social &amp; Delivery</button>
       <button class="filter-btn" data-cat="finance-planning">Finance &amp; Planning</button>
+      <button class="filter-btn" data-cat="interactive-tools">⚡ Interactive Tools</button>
     </div>
   </div>
 
@@ -752,6 +792,13 @@
       { num:'11', name:'Budget Tracker',             cat:'finance-planning', label:'Finance & Planning', file:'../templates/HIF-Template-11-Budget-Tracker.html',            exists:true,  desc:'Track every dollar in and out of your production budget.' },
       { num:'25', name:'Music & Licensing Tracker',  cat:'finance-planning', label:'Finance & Planning', file:'../templates/HIF-Template-25.html',                           exists:true,  desc:'Manage music rights and licenses across all projects.' },
       { num:'45', name:'Licensing & Rights Tracker', cat:'finance-planning', label:'Finance & Planning', file:'../templates/HIF-Template-45.html',                           exists:true,  desc:'Track usage rights for footage, music, and talent.' },
+
+      // INTERACTIVE TOOLS
+      { num:'T1', name:'Day Out of Days',         cat:'interactive-tools', label:'Interactive Tool', file:'../tools/day-out-of-days.html',         exists:true, desc:'Build a cast schedule grid with W / H / T / SW / WF / SWF status per shooting day. Auto-totals work days per actor.' },
+      { num:'T2', name:'Film Budget Builder',     cat:'interactive-tools', label:'Interactive Tool', file:'../tools/film-budget-builder.html',     exists:true, desc:'Build a full production budget across ATL, BTL, Post, and Other categories with auto-calculated totals and contingency.' },
+      { num:'T3', name:'Location Scout Tracker',  cat:'interactive-tools', label:'Interactive Tool', file:'../tools/location-scout-tracker.html',  exists:true, desc:'Track scouted locations with status, permit info, contact details, cost, and notes. Sortable by status.' },
+      { num:'T4', name:'Script Breakdown Sheet',  cat:'interactive-tools', label:'Interactive Tool', file:'../tools/script-breakdown-sheet.html',  exists:true, desc:'Standard breakdown form per scene — Cast, Props, Wardrobe, Stunts, SFX, and more with color-coded categories.' },
+      { num:'T5', name:'Production Calendar',     cat:'interactive-tools', label:'Interactive Tool', file:'../tools/production-calendar.html',     exists:true, desc:'Monthly calendar view for your full production. Add Shoot Days, Scouts, Meetings, Delivery, and more with color coding.' },
     ];
 
     // ── STATE ─────────────────────────────────────────────────────────

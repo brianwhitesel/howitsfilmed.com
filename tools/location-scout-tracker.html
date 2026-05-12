@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Location Scout Tracker — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+  :root {
+    --bg: #080c14;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --surface3: rgba(255,255,255,0.10);
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f1f5f9;
+    --dim: #94a3b8;
+    --muted: #4b5e78;
+    --accent: #e41e2b;
+    --blue: #3b82f6;
+    --green: #34d369;
+    --teal: #14b8a6;
+    --amber: #f59e0b;
+    --purple: #8b5cf6;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.15s ease;
+  }
+  html.light {
+    --bg: #f0f2f5;
+    --surface: rgba(255,255,255,0.85);
+    --surface2: rgba(255,255,255,0.95);
+    --surface3: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #0d1117;
+    --dim: #475569;
+    --muted: #94a3b8;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;gap:14px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:5px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--text);flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.hdiv{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.tool-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.08em;color:var(--text-muted)}
+.studio-tag{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.15em;padding:2px 8px;border-radius:3px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+
+/* MAIN */
+.main{max-width:1300px;margin:0 auto;padding:24px 20px 60px}
+
+/* PROJECT INFO */
+.project-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+select.form-control option{background:#191919}
+
+/* CONTROLS */
+.controls-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.controls-row h2{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em;flex:1}
+.sort-select{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text-muted);font-family:'Inter',sans-serif;font-size:12px;padding:7px 12px;outline:none;cursor:pointer}
+.sort-select:focus{border-color:var(--accent)}
+.sort-select option{background:#191919}
+
+/* STATUS BADGES */
+.status-scouted       {background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3)}
+.status-pending       {background:rgba(234,179,8,0.15);color:#eab308;border:1px solid rgba(234,179,8,0.3)}
+.status-confirmed     {background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.3)}
+.status-backup        {background:rgba(168,85,247,0.15);color:#a855f7;border:1px solid rgba(168,85,247,0.3)}
+.status-rejected      {background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
+
+/* LOCATION CARD */
+.loc-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;transition:border-color .15s}
+.loc-card:hover{border-color:#333}
+.loc-header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.loc-num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.08em;color:var(--text-dim);min-width:28px}
+.loc-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em;flex:1}
+.loc-name-placeholder{color:var(--text-dim)}
+.status-pill{font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;text-transform:uppercase;flex-shrink:0}
+.loc-toggle{color:var(--text-dim);font-size:12px;flex-shrink:0;transition:transform .2s}
+.loc-toggle.open{transform:rotate(180deg)}
+.loc-body{padding:20px;display:none}
+.loc-body.open{display:block}
+.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:14px}
+.loc-label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;display:block}
+.loc-input{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.loc-input:focus{border-color:var(--accent)}
+.loc-input::placeholder{color:var(--text-dim)}
+.loc-select{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;cursor:pointer;width:100%}
+.loc-select:focus{border-color:var(--accent)}
+.loc-select option{background:#191919}
+.loc-textarea{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%;resize:vertical;min-height:80px}
+.loc-textarea:focus{border-color:var(--accent)}
+.loc-textarea::placeholder{color:var(--text-dim)}
+.loc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-top:4px}
+
+/* PHOTO PREVIEW */
+.photo-preview{width:100%;height:120px;border-radius:6px;object-fit:cover;display:block;margin-top:6px;background:var(--surface3)}
+.photo-placeholder{width:100%;height:80px;background:var(--surface3);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:12px;margin-top:6px}
+
+/* PERMIT TOGGLE */
+.permit-row{display:flex;gap:8px;align-items:center}
+.permit-btn{padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:transparent;color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.permit-btn.active-yes{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#22c55e}
+.permit-btn.active-no{background:rgba(239,68,68,0.15);border-color:#ef4444;color:#ef4444}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-dim)}
+.empty-state p{font-size:14px}
+
+/* PRINT */
+@media print{
+  .header,.controls-row .btn,.loc-footer .btn,.loc-toggle{display:none!important}
+  body{background:#fff;color:#000}
+  .loc-card{border:1px solid #ccc;background:#fff}
+  .loc-body{display:block!important}
+  .loc-header{background:#f5f5f5;border-bottom:1px solid #ccc}
+  .loc-input,.loc-select,.loc-textarea{background:#f9f9f9;border:1px solid #eee;color:#000}
+  .project-card{border:1px solid #ccc;background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="back-btn" href="../app/index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>F</span>ILMED</div>
+    <div class="hdiv"></div>
+    <div class="tool-name">Location Scout Tracker</div>
+    <span class="studio-tag">PRO TOOL</span>
+    <div class="header-right">
+      <select class="sort-select" id="sortSelect" onchange="renderLocations()">
+        <option value="order">Sort: Added Order</option>
+        <option value="status">Sort: By Status</option>
+        <option value="name">Sort: By Name</option>
+        <option value="cost">Sort: By Cost</option>
+      </select>
+      <button class="btn btn-ghost" onclick="window.print()">⎙ Print</button>
+      <button class="btn btn-primary" onclick="addLocation()">+ Add Location</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="project-card">
+    <div class="section-label">Production Information</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Production Title</label>
+        <input class="form-control" id="projTitle" placeholder="My Film" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Location Manager</label>
+        <input class="form-control" id="projLM" placeholder="Name" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Scout Date Range</label>
+        <input class="form-control" id="projDates" placeholder="June 1–15, 2026" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Production City / Region</label>
+        <input class="form-control" id="projCity" placeholder="Los Angeles, CA" oninput="save()"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-row">
+    <h2>Locations <span id="locCount" style="color:var(--text-dim);font-size:15px"></span></h2>
+  </div>
+
+  <div id="locationList">
+    <div class="empty-state" id="emptyState">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.3"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <p>No locations added yet.<br>Click <strong>+ Add Location</strong> to get started.</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+let locCounter = 0;
+function newLocId() { return 'loc' + (++locCounter); }
+
+let state = {
+  project: {},
+  locations: []
+};
+
+const STATUS_ORDER = ['Confirmed','Scouted','Pending Permit','Backup','Rejected'];
+const STATUS_CLASS = {
+  'Scouted':'status-scouted',
+  'Pending Permit':'status-pending',
+  'Confirmed':'status-confirmed',
+  'Backup':'status-backup',
+  'Rejected':'status-rejected',
+};
+
+function getSorted() {
+  const sort = document.getElementById('sortSelect').value;
+  const locs = [...state.locations];
+  if (sort === 'status') {
+    locs.sort((a,b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status));
+  } else if (sort === 'name') {
+    locs.sort((a,b) => (a.name||'').localeCompare(b.name||''));
+  } else if (sort === 'cost') {
+    locs.sort((a,b) => (parseFloat(b.cost)||0) - (parseFloat(a.cost)||0));
+  }
+  return locs;
+}
+
+function renderLocations() {
+  const container = document.getElementById('locationList');
+  const empty = document.getElementById('emptyState');
+  const sorted = getSorted();
+
+  if (sorted.length === 0) {
+    container.innerHTML = '<div class="empty-state" id="emptyState"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.3"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><p>No locations added yet.<br>Click <strong>+ Add Location</strong> to get started.</p></div>';
+    document.getElementById('locCount').textContent = '';
+    return;
+  }
+
+  document.getElementById('locCount').textContent = '(' + sorted.length + ')';
+
+  let html = '';
+  sorted.forEach((loc, idx) => {
+    const sClass = STATUS_CLASS[loc.status] || 'status-scouted';
+    const nameDisplay = loc.name ? escHtml(loc.name) : '<span class="loc-name-placeholder">Untitled Location</span>';
+    const isOpen = loc._open ? 'open' : '';
+    html += `
+    <div class="loc-card" id="loccard_${loc.id}">
+      <div class="loc-header" onclick="toggleLoc('${loc.id}')">
+        <span class="loc-num">${String(idx+1).padStart(2,'0')}</span>
+        <span class="loc-name">${nameDisplay}</span>
+        <span class="status-pill ${sClass}">${loc.status || 'Scouted'}</span>
+        <span class="loc-toggle ${isOpen}">▼</span>
+      </div>
+      <div class="loc-body ${isOpen}" id="locbody_${loc.id}">
+        <div class="loc-grid">
+          <div class="form-group">
+            <label class="loc-label">Location Name</label>
+            <input class="loc-input" value="${escHtml(loc.name)}" placeholder="e.g. Downtown Warehouse" oninput="updateLoc('${loc.id}','name',this.value)"/>
+          </div>
+          <div class="form-group" style="grid-column:span 2">
+            <label class="loc-label">Address</label>
+            <input class="loc-input" value="${escHtml(loc.address)}" placeholder="123 Main St, Los Angeles, CA 90001" oninput="updateLoc('${loc.id}','address',this.value)"/>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Contact Name</label>
+            <input class="loc-input" value="${escHtml(loc.contact)}" placeholder="Property Manager" oninput="updateLoc('${loc.id}','contact',this.value)"/>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Phone</label>
+            <input class="loc-input" value="${escHtml(loc.phone)}" placeholder="(310) 555-0100" oninput="updateLoc('${loc.id}','phone',this.value)"/>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Email</label>
+            <input class="loc-input" type="email" value="${escHtml(loc.email)}" placeholder="contact@location.com" oninput="updateLoc('${loc.id}','email',this.value)"/>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Status</label>
+            <select class="loc-select" onchange="updateLoc('${loc.id}','status',this.value)">
+              ${['Scouted','Pending Permit','Confirmed','Backup','Rejected'].map(s=>`<option value="${s}"${loc.status===s?' selected':''}>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Permit Required</label>
+            <div class="permit-row">
+              <button class="permit-btn ${loc.permit==='yes'?'active-yes':''}" onclick="updateLoc('${loc.id}','permit','yes');renderLocations()">Yes</button>
+              <button class="permit-btn ${loc.permit==='no'?'active-no':''}" onclick="updateLoc('${loc.id}','permit','no');renderLocations()">No</button>
+              <span style="font-size:12px;color:var(--text-dim)">${loc.permit==='yes'?'⚠ Permit needed':loc.permit==='no'?'✓ No permit':'Not set'}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Daily Cost / Fee</label>
+            <input class="loc-input" type="number" value="${escHtml(loc.cost)}" placeholder="0" oninput="updateLoc('${loc.id}','cost',this.value)"/>
+          </div>
+          <div class="form-group">
+            <label class="loc-label">Availability / Dates</label>
+            <input class="loc-input" value="${escHtml(loc.availability)}" placeholder="Weekdays, Jun–Jul 2026" oninput="updateLoc('${loc.id}','availability',this.value)"/>
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="loc-label">Notes</label>
+            <textarea class="loc-textarea" placeholder="Parking, power access, restrictions, vibe notes…" oninput="updateLoc('${loc.id}','notes',this.value)">${escHtml(loc.notes)}</textarea>
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="loc-label">Photo URL (optional)</label>
+            <input class="loc-input" value="${escHtml(loc.photoUrl)}" placeholder="https://example.com/photo.jpg" oninput="updateLoc('${loc.id}','photoUrl',this.value);updatePhoto('${loc.id}',this.value)"/>
+            <div id="photo_${loc.id}">
+              ${loc.photoUrl ? `<img class="photo-preview" src="${escHtml(loc.photoUrl)}" alt="Location photo" onerror="this.style.display='none'"/>` : '<div class="photo-placeholder">No photo URL provided</div>'}
+            </div>
+          </div>
+        </div>
+        <div class="loc-footer">
+          <span style="font-size:11px;color:var(--text-dim)">ID: ${loc.id}</span>
+          <button class="btn btn-ghost" style="color:#ff6666;border-color:#3a1515;font-size:12px" onclick="removeLocation('${loc.id}')">Remove Location</button>
+        </div>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function updatePhoto(id, url) {
+  const div = document.getElementById('photo_' + id);
+  if (!div) return;
+  if (url) {
+    div.innerHTML = `<img class="photo-preview" src="${escHtml(url)}" alt="Location photo" onerror="this.style.display='none'"/>`;
+  } else {
+    div.innerHTML = '<div class="photo-placeholder">No photo URL provided</div>';
+  }
+}
+
+function toggleLoc(id) {
+  const loc = state.locations.find(l => l.id === id);
+  if (!loc) return;
+  loc._open = !loc._open;
+  renderLocations();
+}
+
+function addLocation() {
+  const id = newLocId();
+  state.locations.push({
+    id, name:'', address:'', contact:'', phone:'', email:'',
+    status:'Scouted', permit:'', cost:'', availability:'', notes:'', photoUrl:'',
+    _open: true
+  });
+  renderLocations();
+  save();
+  setTimeout(() => {
+    const card = document.getElementById('loccard_' + id);
+    if (card) card.scrollIntoView({behavior:'smooth', block:'start'});
+    const input = card?.querySelector('.loc-input');
+    if (input) input.focus();
+  }, 100);
+}
+
+function updateLoc(id, field, value) {
+  const loc = state.locations.find(l => l.id === id);
+  if (!loc) return;
+  loc[field] = value;
+  // Update header name live
+  if (field === 'name') {
+    const nameEl = document.querySelector(`#loccard_${id} .loc-name`);
+    if (nameEl) nameEl.innerHTML = value ? escHtml(value) : '<span class="loc-name-placeholder">Untitled Location</span>';
+  }
+  if (field === 'status') {
+    const pill = document.querySelector(`#loccard_${id} .status-pill`);
+    if (pill) {
+      pill.className = 'status-pill ' + (STATUS_CLASS[value] || 'status-scouted');
+      pill.textContent = value;
+    }
+  }
+  save();
+}
+
+function removeLocation(id) {
+  if (!confirm('Remove this location?')) return;
+  state.locations = state.locations.filter(l => l.id !== id);
+  renderLocations();
+  save();
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function save() {
+  state.project = {
+    title: document.getElementById('projTitle').value,
+    lm:    document.getElementById('projLM').value,
+    dates: document.getElementById('projDates').value,
+    city:  document.getElementById('projCity').value,
+  };
+  try { localStorage.setItem('hif_locations', JSON.stringify(state)); } catch(e){}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('hif_locations');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    state = s;
+    state.locations.forEach(l => {
+      const n = parseInt(l.id.replace('loc',''));
+      if (n > locCounter) locCounter = n;
+    });
+    if (s.project) {
+      document.getElementById('projTitle').value = s.project.title || '';
+      document.getElementById('projLM').value = s.project.lm || '';
+      document.getElementById('projDates').value = s.project.dates || '';
+      document.getElementById('projCity').value = s.project.city || '';
+    }
+  } catch(e){}
+}
+
+document.querySelectorAll('#projTitle,#projLM,#projDates,#projCity').forEach(el => el.addEventListener('input', save));
+
+load();
+renderLocations();
+</script>
+</body>
+</html>

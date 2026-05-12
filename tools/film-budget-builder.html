@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Film Budget Builder — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+  :root {
+    --bg: #080c14;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --surface3: rgba(255,255,255,0.10);
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f1f5f9;
+    --dim: #94a3b8;
+    --muted: #4b5e78;
+    --accent: #e41e2b;
+    --blue: #3b82f6;
+    --green: #34d369;
+    --teal: #14b8a6;
+    --amber: #f59e0b;
+    --purple: #8b5cf6;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.15s ease;
+  }
+  html.light {
+    --bg: #f0f2f5;
+    --surface: rgba(255,255,255,0.85);
+    --surface2: rgba(255,255,255,0.95);
+    --surface3: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #0d1117;
+    --dim: #475569;
+    --muted: #94a3b8;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+  --atl:#3b82f6;--atl-dim:rgba(59,130,246,0.1);
+  --btl:#22c55e;--btl-dim:rgba(34,197,94,0.1);
+  --post:#a855f7;--post-dim:rgba(168,85,247,0.1);
+  --other:#f59e0b;--other-dim:rgba(245,158,11,0.1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:5px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--text);flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.hdiv{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.tool-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.08em;color:var(--text-muted)}
+.studio-tag{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.15em;padding:2px 8px;border-radius:3px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+
+/* PROJECT CARD */
+.project-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+select.form-control option{background:#191919}
+
+/* BUDGET CATEGORIES */
+.cat-block{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
+.cat-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)}
+.cat-title{display:flex;align-items:center;gap:10px}
+.cat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.cat-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em}
+.cat-subtotal{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em;color:var(--text-muted)}
+
+/* LINE ITEMS TABLE */
+.line-table{width:100%;border-collapse:collapse}
+.line-table th{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.line-table td{padding:4px 6px;border-bottom:1px solid var(--border);vertical-align:middle}
+.line-table tr:last-child td{border-bottom:none}
+.line-input{background:var(--surface2);border:1px solid transparent;border-radius:4px;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:6px 8px;width:100%;outline:none;transition:border-color .15s}
+.line-input:focus{border-color:var(--accent)}
+.line-input::placeholder{color:var(--text-dim)}
+.line-input.num{text-align:right}
+.line-input.total{background:transparent;border-color:transparent;color:var(--text-muted);font-weight:600;text-align:right;cursor:default}
+.unit-select{background:var(--surface2);border:1px solid transparent;border-radius:4px;color:var(--text-muted);font-family:'Inter',sans-serif;font-size:12px;padding:6px 8px;outline:none;cursor:pointer;width:100%}
+.unit-select:focus{border-color:var(--accent)}
+.unit-select option{background:#191919}
+.del-line-btn{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:4px 8px;transition:color .15s;display:block;margin:0 auto}
+.del-line-btn:hover{color:var(--accent)}
+.add-line-row{padding:10px 16px;border-top:1px solid var(--border)}
+
+/* COL WIDTHS */
+.col-desc{width:35%}
+.col-qty{width:10%}
+.col-rate{width:15%}
+.col-unit{width:14%}
+.col-total{width:16%}
+.col-del{width:4%}
+
+/* TOTALS PANEL */
+.totals-panel{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;margin-top:24px}
+.totals-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:600px;margin:0 auto}
+.totals-row-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.totals-row-item:last-child{border-bottom:none}
+.totals-label{font-size:13px;color:var(--text-muted);font-weight:500}
+.totals-value{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em}
+.totals-final{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:2px solid var(--border2);margin-top:8px;max-width:600px;margin:16px auto 0}
+.totals-final .totals-label{font-size:15px;font-weight:700;color:var(--text)}
+.totals-final .totals-value{font-size:26px;color:var(--accent)}
+.contingency-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--border);max-width:600px;margin:0 auto}
+.contingency-row label{font-size:13px;color:var(--text-muted);font-weight:500;white-space:nowrap}
+.contingency-input{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:7px 10px;outline:none;width:80px;text-align:center}
+.contingency-input:focus{border-color:var(--accent)}
+.contingency-amount{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--text-muted);margin-left:auto}
+
+/* SECTION SUBTOTALS */
+.cat-atl  .cat-dot{background:var(--atl)} .cat-atl  .cat-name{color:var(--atl)}
+.cat-btl  .cat-dot{background:var(--btl)} .cat-btl  .cat-name{color:var(--btl)}
+.cat-post .cat-dot{background:var(--post)}.cat-post .cat-name{color:var(--post)}
+.cat-other.cat-dot{background:var(--other)}.cat-other .cat-name{color:var(--other)}
+
+/* PRINT */
+@media print{
+  .header,.btn,.del-line-btn,.add-line-row{display:none!important}
+  body{background:#fff;color:#000}
+  .cat-block,.project-card,.totals-panel{border:1px solid #ccc;background:#fff}
+  .line-input,.unit-select{background:#f9f9f9;border:1px solid #eee;color:#000}
+  .cat-header{background:#f5f5f5}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="back-btn" href="../app/index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>F</span>ILMED</div>
+    <div class="hdiv"></div>
+    <div class="tool-name">Film Budget Builder</div>
+    <span class="studio-tag">PRO TOOL</span>
+    <div class="header-right">
+      <button class="btn btn-ghost" onclick="clearAll()">Clear All</button>
+      <button class="btn btn-ghost" onclick="window.print()">⎙ Print</button>
+      <button class="btn btn-primary" onclick="exportCSV()">↓ Export CSV</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="project-card">
+    <div class="section-label">Production Information</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Production Title</label>
+        <input class="form-control" id="projTitle" placeholder="My Film" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Production Company</label>
+        <input class="form-control" id="projCompany" placeholder="HIF Productions" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Budget Prepared By</label>
+        <input class="form-control" id="projBy" placeholder="Name" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input class="form-control" id="projDate" type="date" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Version</label>
+        <input class="form-control" id="projVersion" placeholder="v1.0" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Currency</label>
+        <select class="form-control" id="projCurrency" onchange="save();recalcAll()">
+          <option value="$">USD ($)</option>
+          <option value="€">EUR (€)</option>
+          <option value="£">GBP (£)</option>
+          <option value="CAD$">CAD ($)</option>
+          <option value="AUD$">AUD ($)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div id="budgetCats"></div>
+
+  <!-- TOTALS -->
+  <div class="totals-panel">
+    <div class="section-label" style="text-align:center;margin-bottom:20px">Budget Summary</div>
+    <div class="totals-grid" id="totalsGrid"></div>
+    <div class="contingency-row">
+      <label>Contingency</label>
+      <input class="contingency-input" id="contingencyPct" type="number" min="0" max="100" value="10" oninput="save();recalcAll()"/> <span style="color:var(--text-muted);font-size:13px">%</span>
+      <span class="contingency-amount" id="contingencyAmt"></span>
+    </div>
+    <div class="totals-final">
+      <span class="totals-label">TOTAL BUDGET WITH CONTINGENCY</span>
+      <span class="totals-value" id="grandTotal">—</span>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const CATS = [
+  { id:'atl',   name:'Above the Line',  cls:'cat-atl'  },
+  { id:'btl',   name:'Below the Line',  cls:'cat-btl'  },
+  { id:'post',  name:'Post Production', cls:'cat-post' },
+  { id:'other', name:'Other',           cls:'cat-other'},
+];
+
+let lineCounter = 0;
+function newLineId() { return 'l' + (++lineCounter); }
+
+let state = {
+  project: {},
+  cats: {
+    atl:   { items: [] },
+    btl:   { items: [] },
+    post:  { items: [] },
+    other: { items: [] },
+  },
+  contingencyPct: 10
+};
+
+function getCurrency() {
+  const el = document.getElementById('projCurrency');
+  return el ? el.value : '$';
+}
+
+function fmt(n) {
+  const sym = getCurrency();
+  return sym + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+function renderAll() {
+  const container = document.getElementById('budgetCats');
+  let html = '';
+  CATS.forEach(cat => {
+    const items = state.cats[cat.id].items;
+    const subtotal = items.reduce((s, item) => s + calcLine(item), 0);
+    html += `
+    <div class="cat-block">
+      <div class="cat-header">
+        <div class="cat-title">
+          <div class="cat-dot" style="background:${catColor(cat.id)}"></div>
+          <span class="cat-name" style="color:${catColor(cat.id)}">${cat.name}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span class="cat-subtotal" id="sub_${cat.id}">${fmt(subtotal)}</span>
+        </div>
+      </div>
+      <table class="line-table">
+        <colgroup>
+          <col class="col-desc"/><col class="col-qty"/><col class="col-rate"/>
+          <col class="col-unit"/><col class="col-total"/><col class="col-del"/>
+        </colgroup>
+        <thead><tr>
+          <th>Description</th><th style="text-align:right">Qty</th>
+          <th style="text-align:right">Rate</th><th>Unit</th>
+          <th style="text-align:right">Total</th><th></th>
+        </tr></thead>
+        <tbody id="tbody_${cat.id}">`;
+    items.forEach(item => {
+      const tot = calcLine(item);
+      html += `<tr id="row_${item.id}">
+        <td><input class="line-input" value="${escHtml(item.desc)}" placeholder="Description" onchange="updateItem('${cat.id}','${item.id}','desc',this.value)"/></td>
+        <td><input class="line-input num" type="number" min="0" value="${item.qty}" placeholder="1" onchange="updateItem('${cat.id}','${item.id}','qty',this.value)"/></td>
+        <td><input class="line-input num" type="number" min="0" step="0.01" value="${item.rate}" placeholder="0.00" onchange="updateItem('${cat.id}','${item.id}','rate',this.value)"/></td>
+        <td><select class="unit-select" onchange="updateItem('${cat.id}','${item.id}','unit',this.value)">
+          ${['Day','Week','Flat','Hour','Month'].map(u=>`<option value="${u}"${item.unit===u?' selected':''}>${u}</option>`).join('')}
+        </select></td>
+        <td><input class="line-input total" readonly value="${fmt(tot)}"/></td>
+        <td><button class="del-line-btn" onclick="removeLine('${cat.id}','${item.id}')" title="Remove">✕</button></td>
+      </tr>`;
+    });
+    html += `</tbody></table>
+      <div class="add-line-row">
+        <button class="btn btn-ghost" style="font-size:12px;padding:6px 14px" onclick="addLine('${cat.id}')">+ Add Line Item</button>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  recalcTotals();
+}
+
+function catColor(id) {
+  return {atl:'#3b82f6',btl:'#22c55e',post:'#a855f7',other:'#f59e0b'}[id] || '#888';
+}
+
+function calcLine(item) {
+  const qty = parseFloat(item.qty) || 0;
+  const rate = parseFloat(item.rate) || 0;
+  return qty * rate;
+}
+
+function addLine(catId) {
+  const id = newLineId();
+  state.cats[catId].items.push({ id, desc:'', qty:1, rate:0, unit:'Day' });
+  renderAll(); save();
+  // Focus new desc
+  setTimeout(() => {
+    const tbody = document.getElementById('tbody_' + catId);
+    if (tbody) {
+      const rows = tbody.querySelectorAll('tr');
+      if (rows.length) rows[rows.length-1].querySelector('input').focus();
+    }
+  }, 50);
+}
+
+function removeLine(catId, lineId) {
+  state.cats[catId].items = state.cats[catId].items.filter(i => i.id !== lineId);
+  renderAll(); save();
+}
+
+function updateItem(catId, lineId, field, value) {
+  const item = state.cats[catId].items.find(i => i.id === lineId);
+  if (!item) return;
+  item[field] = value;
+  // Update total cell only
+  const tot = calcLine(item);
+  const row = document.getElementById('row_' + lineId);
+  if (row) {
+    const totalInput = row.querySelector('.line-input.total');
+    if (totalInput) totalInput.value = fmt(tot);
+  }
+  recalcTotals();
+  // Update subtotal
+  const catItems = state.cats[catId].items;
+  const sub = catItems.reduce((s, i) => s + calcLine(i), 0);
+  const subEl = document.getElementById('sub_' + catId);
+  if (subEl) subEl.textContent = fmt(sub);
+  save();
+}
+
+function recalcAll() {
+  renderAll();
+}
+
+function recalcTotals() {
+  const subs = {};
+  let subtotalAll = 0;
+  CATS.forEach(cat => {
+    const sub = state.cats[cat.id].items.reduce((s, i) => s + calcLine(i), 0);
+    subs[cat.id] = sub;
+    subtotalAll += sub;
+  });
+
+  const pct = parseFloat(document.getElementById('contingencyPct')?.value) || 0;
+  const contingency = subtotalAll * pct / 100;
+  const grand = subtotalAll + contingency;
+
+  let html = '';
+  CATS.forEach(cat => {
+    html += `<div class="totals-row-item" style="grid-column:1/-1">
+      <span class="totals-label" style="color:${catColor(cat.id)}">${cat.name}</span>
+      <span class="totals-value" style="color:${catColor(cat.id)}">${fmt(subs[cat.id])}</span>
+    </div>`;
+  });
+  html += `<div class="totals-row-item" style="grid-column:1/-1;border-top:2px solid var(--border2)">
+    <span class="totals-label" style="font-weight:700;color:var(--text)">Production Subtotal</span>
+    <span class="totals-value">${fmt(subtotalAll)}</span>
+  </div>`;
+  const tg = document.getElementById('totalsGrid');
+  if (tg) tg.innerHTML = html;
+
+  const ca = document.getElementById('contingencyAmt');
+  if (ca) ca.textContent = fmt(contingency);
+  const gt = document.getElementById('grandTotal');
+  if (gt) gt.textContent = fmt(grand);
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function clearAll() {
+  if (!confirm('Clear all budget data? This cannot be undone.')) return;
+  state.cats = { atl:{items:[]}, btl:{items:[]}, post:{items:[]}, other:{items:[]} };
+  lineCounter = 0;
+  renderAll(); save();
+}
+
+function save() {
+  state.project = {
+    title:    document.getElementById('projTitle').value,
+    company:  document.getElementById('projCompany').value,
+    by:       document.getElementById('projBy').value,
+    date:     document.getElementById('projDate').value,
+    version:  document.getElementById('projVersion').value,
+    currency: document.getElementById('projCurrency').value,
+  };
+  state.contingencyPct = parseFloat(document.getElementById('contingencyPct')?.value) || 10;
+  try { localStorage.setItem('hif_budget', JSON.stringify(state)); } catch(e){}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('hif_budget');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    state = s;
+    // Restore counters
+    CATS.forEach(cat => {
+      (state.cats[cat.id]?.items || []).forEach(item => {
+        const n = parseInt((item.id||'l0').slice(1));
+        if (n > lineCounter) lineCounter = n;
+      });
+    });
+    if (s.project) {
+      document.getElementById('projTitle').value = s.project.title || '';
+      document.getElementById('projCompany').value = s.project.company || '';
+      document.getElementById('projBy').value = s.project.by || '';
+      document.getElementById('projDate').value = s.project.date || '';
+      document.getElementById('projVersion').value = s.project.version || '';
+      document.getElementById('projCurrency').value = s.project.currency || '$';
+    }
+    if (s.contingencyPct !== undefined) {
+      document.getElementById('contingencyPct').value = s.contingencyPct;
+    }
+  } catch(e){}
+}
+
+function exportCSV() {
+  let rows = [['Category','Description','Quantity','Rate','Unit','Total']];
+  CATS.forEach(cat => {
+    state.cats[cat.id].items.forEach(item => {
+      rows.push([cat.name, item.desc, item.qty, item.rate, item.unit, calcLine(item).toFixed(2)]);
+    });
+  });
+  const csv = rows.map(r => r.map(c => '"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const title = document.getElementById('projTitle').value || 'budget';
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = title.replace(/\s+/g,'-').toLowerCase() + '-budget.csv';
+  a.click();
+}
+
+// INIT
+document.querySelectorAll('#projTitle,#projCompany,#projBy,#projDate,#projVersion,#projCurrency').forEach(el => {
+  el.addEventListener('input', save);
+});
+
+load();
+renderAll();
+</script>
+</body>
+</html>

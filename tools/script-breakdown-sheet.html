@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Script Breakdown Sheet — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+  :root {
+    --bg: #080c14;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --surface3: rgba(255,255,255,0.10);
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f1f5f9;
+    --dim: #94a3b8;
+    --muted: #4b5e78;
+    --accent: #e41e2b;
+    --blue: #3b82f6;
+    --green: #34d369;
+    --teal: #14b8a6;
+    --amber: #f59e0b;
+    --purple: #8b5cf6;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.15s ease;
+  }
+  html.light {
+    --bg: #f0f2f5;
+    --surface: rgba(255,255,255,0.85);
+    --surface2: rgba(255,255,255,0.95);
+    --surface3: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #0d1117;
+    --dim: #475569;
+    --muted: #94a3b8;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:5px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--text);flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.hdiv{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.tool-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.08em;color:var(--text-muted)}
+.studio-tag{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.15em;padding:2px 8px;border-radius:3px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+
+/* PROJECT INFO */
+.project-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+select.form-control option{background:#191919}
+
+/* CONTROLS */
+.controls-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.controls-row h2{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em;flex:1}
+
+/* SCENE BLOCK */
+.scene-block{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);margin-bottom:20px;overflow:hidden}
+.scene-header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.scene-num-badge{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.1em;padding:4px 12px;border-radius:4px;flex-shrink:0}
+.toggle-group{display:flex;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border2);overflow:hidden;flex-shrink:0}
+.toggle-btn{padding:5px 14px;border:none;background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.toggle-btn.active{background:var(--surface3);color:var(--text)}
+.scene-title-input{flex:1;min-width:180px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.04em;padding:7px 12px;outline:none}
+.scene-title-input:focus{border-color:var(--accent)}
+.scene-title-input::placeholder{color:var(--text-dim)}
+.page-count-input{width:80px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;text-align:center;flex-shrink:0}
+.page-count-input:focus{border-color:var(--accent)}
+.page-count-input::placeholder{color:var(--text-dim)}
+.scene-del-btn{margin-left:auto;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:4px 8px;transition:color .15s;flex-shrink:0}
+.scene-del-btn:hover{color:var(--accent)}
+
+.scene-body{padding:20px}
+.breakdown-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+
+/* BREAKDOWN CATEGORY */
+.breakdown-cat{border-radius:var(--radius-sm);border:1px solid;padding:12px;background:var(--surface2)}
+.cat-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.cat-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.cat-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em}
+.cat-items{display:flex;flex-direction:column;gap:5px;margin-bottom:8px;min-height:28px}
+.cat-tag{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.05);border-radius:4px;padding:4px 8px;font-size:12px}
+.cat-tag-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:11px;padding:0 2px;transition:color .15s;margin-left:auto}
+.cat-tag-del:hover{color:#ff6666}
+.cat-add-row{display:flex;gap:6px}
+.cat-add-input{flex:1;background:var(--surface3);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'Inter',sans-serif;font-size:12px;padding:5px 8px;outline:none;min-width:0}
+.cat-add-input:focus{border-color:var(--accent)}
+.cat-add-input::placeholder{color:var(--text-dim)}
+.cat-add-btn{background:rgba(255,255,255,0.07);border:1px solid var(--border2);border-radius:4px;color:var(--text-muted);font-size:13px;font-weight:700;cursor:pointer;padding:4px 10px;transition:all .15s;flex-shrink:0}
+.cat-add-btn:hover{color:var(--text);border-color:#444}
+
+/* CATEGORY COLORS */
+.bcat-cast      {border-color:rgba(234,179,8,0.3);--swatch:#eab308}
+.bcat-extras    {border-color:rgba(34,197,94,0.3);--swatch:#22c55e}
+.bcat-stunts    {border-color:rgba(239,68,68,0.3);--swatch:#ef4444}
+.bcat-vehicles  {border-color:rgba(249,115,22,0.3);--swatch:#f97316}
+.bcat-props     {border-color:rgba(168,85,247,0.3);--swatch:#a855f7}
+.bcat-wardrobe  {border-color:rgba(59,130,246,0.3);--swatch:#3b82f6}
+.bcat-makeup    {border-color:rgba(244,114,182,0.3);--swatch:#f472b6}
+.bcat-sound     {border-color:rgba(120,113,108,0.3);--swatch:#78716c}
+.bcat-camera    {border-color:rgba(148,163,184,0.3);--swatch:#94a3b8}
+.bcat-sfx       {border-color:rgba(20,184,166,0.3);--swatch:#14b8a6}
+.bcat-locations {border-color:rgba(52,211,153,0.3);--swatch:#34d399}
+.bcat-notes     {border-color:rgba(100,116,139,0.3);--swatch:#64748b}
+
+/* EMPTY */
+.scenes-empty{text-align:center;padding:60px 20px;color:var(--text-dim)}
+
+/* PRINT */
+@media print{
+  .header,.controls-row .btn,.scene-del-btn,.cat-add-row,.cat-tag-del{display:none!important}
+  body{background:#fff;color:#000;font-size:11px}
+  .scene-block,.project-card{border:1px solid #ccc;background:#fff;break-inside:avoid}
+  .scene-header{background:#f5f5f5;border-bottom:1px solid #ccc}
+  .breakdown-cat{background:#f9f9f9}
+  .scene-title-input,.page-count-input,.form-control{background:#f9f9f9;border:1px solid #ddd;color:#000}
+  .toggle-btn{border:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="back-btn" href="../app/index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>F</span>ILMED</div>
+    <div class="hdiv"></div>
+    <div class="tool-name">Script Breakdown Sheet</div>
+    <span class="studio-tag">PRO TOOL</span>
+    <div class="header-right">
+      <button class="btn btn-ghost" onclick="clearAll()">Clear All</button>
+      <button class="btn btn-ghost" onclick="window.print()">⎙ Print</button>
+      <button class="btn btn-primary" onclick="addScene()">+ Add Scene</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="project-card">
+    <div class="section-label">Production Information</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Production Title</label>
+        <input class="form-control" id="projTitle" placeholder="My Film" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Director</label>
+        <input class="form-control" id="projDirector" placeholder="Name" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>1st AD</label>
+        <input class="form-control" id="projAD" placeholder="Name" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Script Version</label>
+        <input class="form-control" id="projScript" placeholder="Draft 3 — Blue Pages" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Total Pages</label>
+        <input class="form-control" id="projPages" type="number" placeholder="110" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input class="form-control" id="projDate" type="date" oninput="save()"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-row">
+    <h2>Scene Breakdowns</h2>
+  </div>
+
+  <div id="sceneList">
+    <div class="scenes-empty" id="scenesEmpty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.3"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <p>No scenes yet.<br>Click <strong>+ Add Scene</strong> to begin your breakdown.</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const BREAKDOWN_CATS = [
+  { id:'cast',      label:'Cast',            cls:'bcat-cast',      color:'#eab308', placeholder:'Character name…'  },
+  { id:'extras',    label:'Extras / BG',     cls:'bcat-extras',    color:'#22c55e', placeholder:'e.g. 10 pedestrians'  },
+  { id:'stunts',    label:'Stunts',          cls:'bcat-stunts',    color:'#ef4444', placeholder:'Stunt description…' },
+  { id:'vehicles',  label:'Vehicles',        cls:'bcat-vehicles',  color:'#f97316', placeholder:'Vehicle type…' },
+  { id:'props',     label:'Props',           cls:'bcat-props',     color:'#a855f7', placeholder:'Prop description…' },
+  { id:'wardrobe',  label:'Wardrobe',        cls:'bcat-wardrobe',  color:'#3b82f6', placeholder:'Wardrobe note…'  },
+  { id:'makeup',    label:'Hair & Makeup',   cls:'bcat-makeup',    color:'#f472b6', placeholder:'SFX makeup, prosthetics…' },
+  { id:'sound',     label:'Sound / Music',   cls:'bcat-sound',     color:'#78716c', placeholder:'Playback, SFX, walla…' },
+  { id:'camera',    label:'Camera',          cls:'bcat-camera',    color:'#94a3b8', placeholder:'Special rig, lens…' },
+  { id:'sfx',       label:'Special Effects', cls:'bcat-sfx',       color:'#14b8a6', placeholder:'Practical SFX…' },
+  { id:'locations', label:'Locations',       cls:'bcat-locations', color:'#34d399', placeholder:'Location name…' },
+  { id:'notes',     label:'Notes',           cls:'bcat-notes',     color:'#64748b', placeholder:'General note…' },
+];
+
+let sceneCounter = 0;
+let itemCounter = 0;
+function newSceneId() { return 'sc' + (++sceneCounter); }
+function newItemId()  { return 'it' + (++itemCounter); }
+
+let state = { project:{}, scenes:[] };
+
+function blankScene(id) {
+  const cats = {};
+  BREAKDOWN_CATS.forEach(c => { cats[c.id] = []; });
+  return {
+    id, num:'', title:'', intExt:'INT', dayNight:'DAY', pages:'', cats
+  };
+}
+
+function renderScenes() {
+  const container = document.getElementById('sceneList');
+  const empty = document.getElementById('scenesEmpty');
+  if (state.scenes.length === 0) {
+    container.innerHTML = '<div class="scenes-empty" id="scenesEmpty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.3"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><p>No scenes yet.<br>Click <strong>+ Add Scene</strong> to begin your breakdown.</p></div>';
+    return;
+  }
+
+  let html = '';
+  state.scenes.forEach((sc, idx) => {
+    html += `
+    <div class="scene-block" id="scblock_${sc.id}">
+      <div class="scene-header">
+        <span class="scene-num-badge">SC ${idx+1}</span>
+        <div class="toggle-group">
+          <button class="toggle-btn ${sc.intExt==='INT'?'active':''}" onclick="toggleField('${sc.id}','intExt','INT')">INT</button>
+          <button class="toggle-btn ${sc.intExt==='EXT'?'active':''}" onclick="toggleField('${sc.id}','intExt','EXT')">EXT</button>
+          <button class="toggle-btn ${sc.intExt==='INT/EXT'?'active':''}" onclick="toggleField('${sc.id}','intExt','INT/EXT')">INT/EXT</button>
+        </div>
+        <input class="scene-title-input" value="${escHtml(sc.title)}" placeholder="LOCATION / SCENE NAME" oninput="updateScene('${sc.id}','title',this.value)"/>
+        <div class="toggle-group">
+          <button class="toggle-btn ${sc.dayNight==='DAY'?'active':''}" onclick="toggleField('${sc.id}','dayNight','DAY')">DAY</button>
+          <button class="toggle-btn ${sc.dayNight==='NIGHT'?'active':''}" onclick="toggleField('${sc.id}','dayNight','NIGHT')">NIGHT</button>
+          <button class="toggle-btn ${sc.dayNight==='DUSK'?'active':''}" onclick="toggleField('${sc.id}','dayNight','DUSK')">DUSK</button>
+          <button class="toggle-btn ${sc.dayNight==='DAWN'?'active':''}" onclick="toggleField('${sc.id}','dayNight','DAWN')">DAWN</button>
+        </div>
+        <input class="page-count-input" type="text" value="${escHtml(sc.pages)}" placeholder="Pages" title="Page count (e.g. 2 3/8)" oninput="updateScene('${sc.id}','pages',this.value)"/>
+        <button class="scene-del-btn" onclick="removeScene('${sc.id}')" title="Delete scene">✕</button>
+      </div>
+      <div class="scene-body">
+        <div class="breakdown-grid">`;
+
+    BREAKDOWN_CATS.forEach(cat => {
+      const items = sc.cats[cat.id] || [];
+      html += `
+          <div class="breakdown-cat ${cat.cls}">
+            <div class="cat-head">
+              <div class="cat-swatch" style="background:${cat.color}"></div>
+              <span class="cat-label" style="color:${cat.color}">${cat.label}</span>
+              <span style="margin-left:auto;font-size:10px;color:var(--text-dim)">${items.length||''}</span>
+            </div>
+            <div class="cat-items" id="catitems_${sc.id}_${cat.id}">`;
+      items.forEach(item => {
+        html += `<div class="cat-tag" id="tag_${item.id}">
+          <span>${escHtml(item.text)}</span>
+          <button class="cat-tag-del" onclick="removeItem('${sc.id}','${cat.id}','${item.id}')" title="Remove">✕</button>
+        </div>`;
+      });
+      html += `</div>
+            <div class="cat-add-row">
+              <input class="cat-add-input" placeholder="${cat.placeholder}" id="addinput_${sc.id}_${cat.id}" onkeydown="if(event.key==='Enter')addItem('${sc.id}','${cat.id}')"/>
+              <button class="cat-add-btn" onclick="addItem('${sc.id}','${cat.id}')">+</button>
+            </div>
+          </div>`;
+    });
+
+    html += `</div><!-- /breakdown-grid -->
+      </div><!-- /scene-body -->
+    </div><!-- /scene-block -->`;
+  });
+
+  container.innerHTML = html;
+}
+
+function addScene() {
+  const id = newSceneId();
+  state.scenes.push(blankScene(id));
+  renderScenes();
+  save();
+  setTimeout(() => {
+    const el = document.getElementById('scblock_' + id);
+    if (el) {
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      el.querySelector('.scene-title-input')?.focus();
+    }
+  }, 80);
+}
+
+function removeScene(id) {
+  if (!confirm('Remove this scene breakdown?')) return;
+  state.scenes = state.scenes.filter(s => s.id !== id);
+  renderScenes(); save();
+}
+
+function updateScene(id, field, value) {
+  const sc = state.scenes.find(s => s.id === id);
+  if (sc) { sc[field] = value; save(); }
+}
+
+function toggleField(sceneId, field, value) {
+  const sc = state.scenes.find(s => s.id === sceneId);
+  if (sc) { sc[field] = value; save(); renderScenes(); }
+}
+
+function addItem(sceneId, catId) {
+  const input = document.getElementById('addinput_' + sceneId + '_' + catId);
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+  const sc = state.scenes.find(s => s.id === sceneId);
+  if (!sc) return;
+  if (!sc.cats[catId]) sc.cats[catId] = [];
+  const id = newItemId();
+  sc.cats[catId].push({ id, text });
+  input.value = '';
+  // Re-render just the items list
+  const container = document.getElementById('catitems_' + sceneId + '_' + catId);
+  if (container) {
+    const items = sc.cats[catId];
+    container.innerHTML = items.map(item => `
+      <div class="cat-tag" id="tag_${item.id}">
+        <span>${escHtml(item.text)}</span>
+        <button class="cat-tag-del" onclick="removeItem('${sceneId}','${catId}','${item.id}')" title="Remove">✕</button>
+      </div>`).join('');
+    // Update count
+    const head = container.closest('.breakdown-cat')?.querySelector('.cat-head span:last-child');
+    if (head) head.textContent = items.length || '';
+  }
+  save();
+}
+
+function removeItem(sceneId, catId, itemId) {
+  const sc = state.scenes.find(s => s.id === sceneId);
+  if (!sc || !sc.cats[catId]) return;
+  sc.cats[catId] = sc.cats[catId].filter(i => i.id !== itemId);
+  const container = document.getElementById('catitems_' + sceneId + '_' + catId);
+  if (container) {
+    const items = sc.cats[catId];
+    container.innerHTML = items.map(item => `
+      <div class="cat-tag" id="tag_${item.id}">
+        <span>${escHtml(item.text)}</span>
+        <button class="cat-tag-del" onclick="removeItem('${sceneId}','${catId}','${item.id}')" title="Remove">✕</button>
+      </div>`).join('');
+    const head = container.closest('.breakdown-cat')?.querySelector('.cat-head span:last-child');
+    if (head) head.textContent = items.length || '';
+  }
+  save();
+}
+
+function clearAll() {
+  if (!confirm('Clear all scene data?')) return;
+  state.scenes = []; sceneCounter = 0; itemCounter = 0;
+  renderScenes(); save();
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function save() {
+  state.project = {
+    title:    document.getElementById('projTitle').value,
+    director: document.getElementById('projDirector').value,
+    ad:       document.getElementById('projAD').value,
+    script:   document.getElementById('projScript').value,
+    pages:    document.getElementById('projPages').value,
+    date:     document.getElementById('projDate').value,
+  };
+  try { localStorage.setItem('hif_breakdown', JSON.stringify(state)); } catch(e){}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('hif_breakdown');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    state = s;
+    state.scenes.forEach(sc => {
+      const n = parseInt(sc.id.slice(2)); if (n > sceneCounter) sceneCounter = n;
+      BREAKDOWN_CATS.forEach(cat => {
+        (sc.cats[cat.id]||[]).forEach(item => {
+          const m = parseInt(item.id.slice(2)); if (m > itemCounter) itemCounter = m;
+        });
+      });
+    });
+    if (s.project) {
+      document.getElementById('projTitle').value = s.project.title || '';
+      document.getElementById('projDirector').value = s.project.director || '';
+      document.getElementById('projAD').value = s.project.ad || '';
+      document.getElementById('projScript').value = s.project.script || '';
+      document.getElementById('projPages').value = s.project.pages || '';
+      document.getElementById('projDate').value = s.project.date || '';
+    }
+  } catch(e){}
+}
+
+document.querySelectorAll('#projTitle,#projDirector,#projAD,#projScript,#projPages,#projDate').forEach(el => el.addEventListener('input', save));
+
+load();
+renderScenes();
+</script>
+</body>
+</html>

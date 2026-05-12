@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Production Calendar — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+  :root {
+    --bg: #080c14;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --surface3: rgba(255,255,255,0.10);
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f1f5f9;
+    --dim: #94a3b8;
+    --muted: #4b5e78;
+    --accent: #e41e2b;
+    --blue: #3b82f6;
+    --green: #34d369;
+    --teal: #14b8a6;
+    --amber: #f59e0b;
+    --purple: #8b5cf6;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.15s ease;
+  }
+  html.light {
+    --bg: #f0f2f5;
+    --surface: rgba(255,255,255,0.85);
+    --surface2: rgba(255,255,255,0.95);
+    --surface3: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #0d1117;
+    --dim: #475569;
+    --muted: #94a3b8;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111111;--surface2:#191919;--surface3:#222222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:200;backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:5px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--text);flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.hdiv{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.tool-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.08em;color:var(--text-muted)}
+.studio-tag{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.15em;padding:2px 8px;border-radius:3px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-sm{padding:6px 12px;font-size:11px}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+
+/* PROJECT INFO */
+.project-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:12px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;transition:border-color .15s;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-muted)}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* CAL NAV */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-month{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:var(--text)}
+.cal-year{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:var(--text-muted);margin-left:10px}
+.nav-btn{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text-muted);font-size:16px;font-weight:700;cursor:pointer;padding:8px 18px;transition:all .15s;font-family:'Inter',sans-serif}
+.nav-btn:hover{border-color:#444;color:var(--text)}
+.today-btn{background:transparent;border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;padding:7px 14px;transition:all .15s;font-family:'Inter',sans-serif}
+.today-btn:hover{border-color:#444;color:var(--text)}
+
+/* CALENDAR GRID */
+.cal-grid-wrap{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal-dow{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.08em;color:var(--text-muted);text-align:center;padding:10px 4px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.cal-cell{min-height:100px;padding:6px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;position:relative;vertical-align:top}
+.cal-cell:nth-child(7n){border-right:none}
+.cal-cell:hover{background:rgba(255,255,255,0.03)}
+.cal-cell.today{background:rgba(255,51,51,0.06)}
+.cal-cell.other-month{opacity:.3}
+.cal-cell.other-month .cell-num{color:var(--text-dim)}
+.cell-num{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.04em;margin-bottom:4px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.cal-cell.today .cell-num{background:var(--accent);color:#fff;font-size:13px}
+.cell-events{display:flex;flex-direction:column;gap:2px}
+.event-chip{font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:filter .1s;letter-spacing:.02em}
+.event-chip:hover{filter:brightness(1.15)}
+.more-events{font-size:10px;color:var(--text-dim);padding:1px 2px}
+
+/* EVENT TYPES */
+.et-preproduction {background:rgba(59,130,246,0.22);color:#60a5fa}
+.et-scout         {background:rgba(34,197,94,0.18);color:#4ade80}
+.et-techscout     {background:rgba(52,211,153,0.18);color:#34d399}
+.et-shootday      {background:rgba(255,51,51,0.22);color:#ff6b6b}
+.et-post          {background:rgba(168,85,247,0.2);color:#c084fc}
+.et-delivery      {background:rgba(249,115,22,0.2);color:#fb923c}
+.et-meeting       {background:rgba(234,179,8,0.18);color:#facc15}
+.et-holiday       {background:rgba(100,116,139,0.18);color:#94a3b8}
+.et-other         {background:rgba(148,163,184,0.15);color:#cbd5e1}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:28px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;margin-bottom:20px}
+.modal-date-label{font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.06em;margin-bottom:16px;display:block}
+.modal-form{display:flex;flex-direction:column;gap:12px}
+.modal-label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;display:block}
+.modal-input{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;outline:none;transition:border-color .15s;width:100%}
+.modal-input:focus{border-color:var(--accent)}
+.modal-input::placeholder{color:var(--text-dim)}
+.modal-select{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;outline:none;cursor:pointer;width:100%}
+.modal-select:focus{border-color:var(--accent)}
+.modal-select option{background:#191919}
+.modal-actions{display:flex;gap:8px;margin-top:8px}
+.modal-actions .btn{flex:1;justify-content:center}
+
+/* EXISTING EVENTS LIST IN MODAL */
+.existing-events{margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
+.existing-events-title{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.existing-event-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)}
+.existing-event-row:last-child{border-bottom:none}
+.existing-event-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px}
+.existing-event-title{flex:1;font-size:13px;color:var(--text)}
+.existing-event-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:13px;padding:2px 6px;transition:color .15s}
+.existing-event-del:hover{color:#ff6666}
+
+/* PRINT */
+@media print{
+  .header,.cal-nav .btn,.cal-nav .today-btn,.modal-overlay,.project-card{display:none!important}
+  body{background:#fff;color:#000}
+  .cal-grid-wrap{border:1px solid #ccc}
+  .cal-cell{min-height:80px}
+  .cal-dow{background:#f5f5f5;color:#333}
+  .event-chip{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cal-month,.cal-year{color:#000}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="back-btn" href="../app/index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>F</span>ILMED</div>
+    <div class="hdiv"></div>
+    <div class="tool-name">Production Calendar</div>
+    <span class="studio-tag">PRO TOOL</span>
+    <div class="header-right">
+      <button class="btn btn-ghost" onclick="window.print()">⎙ Print</button>
+      <button class="btn btn-ghost" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="project-card">
+    <div class="section-label">Production Information</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Production Title</label>
+        <input class="form-control" id="projTitle" placeholder="My Film" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Director</label>
+        <input class="form-control" id="projDirector" placeholder="Name" oninput="save()"/>
+      </div>
+      <div class="form-group">
+        <label>Producer</label>
+        <input class="form-control" id="projProducer" placeholder="Name" oninput="save()"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend" id="legend"></div>
+
+  <!-- MONTH NAV -->
+  <div class="cal-nav">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="nav-btn" onclick="prevMonth()">‹</button>
+      <button class="nav-btn" onclick="nextMonth()">›</button>
+      <button class="today-btn" onclick="goToday()">Today</button>
+    </div>
+    <div>
+      <span class="cal-month" id="calMonth"></span>
+      <span class="cal-year" id="calYear"></span>
+    </div>
+    <div style="font-size:12px;color:var(--text-dim)">Click any day to add an event</div>
+  </div>
+
+  <!-- CALENDAR GRID -->
+  <div class="cal-grid-wrap">
+    <div class="cal-grid" id="calDOW"></div>
+    <div class="cal-grid" id="calCells"></div>
+  </div>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Add Event</div>
+    <span class="modal-date-label" id="modalDateLabel"></span>
+    <div class="modal-form">
+      <div>
+        <label class="modal-label">Event Title</label>
+        <input class="modal-input" id="evTitle" placeholder="e.g. Shoot Day 1" autocomplete="off"/>
+      </div>
+      <div>
+        <label class="modal-label">Event Type</label>
+        <select class="modal-select" id="evType">
+          <option value="preproduction">Pre-Production</option>
+          <option value="scout">Location Scout</option>
+          <option value="techscout">Tech Scout</option>
+          <option value="shootday" selected>Shoot Day</option>
+          <option value="post">Post Production</option>
+          <option value="delivery">Delivery</option>
+          <option value="meeting">Meeting</option>
+          <option value="holiday">Holiday / Off</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="modal-label">Notes (optional)</label>
+        <input class="modal-input" id="evNotes" placeholder="Additional details…"/>
+      </div>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEvent()">Add Event</button>
+    </div>
+    <div class="existing-events" id="existingEvents" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+const EVENT_TYPES = [
+  { id:'preproduction', label:'Pre-Production', cls:'et-preproduction' },
+  { id:'scout',         label:'Location Scout', cls:'et-scout'         },
+  { id:'techscout',     label:'Tech Scout',     cls:'et-techscout'     },
+  { id:'shootday',      label:'Shoot Day',      cls:'et-shootday'      },
+  { id:'post',          label:'Post Production',cls:'et-post'          },
+  { id:'delivery',      label:'Delivery',       cls:'et-delivery'      },
+  { id:'meeting',       label:'Meeting',        cls:'et-meeting'       },
+  { id:'holiday',       label:'Holiday / Off',  cls:'et-holiday'       },
+  { id:'other',         label:'Other',          cls:'et-other'         },
+];
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DOWS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+let evCounter = 0;
+function newEvId() { return 'ev' + (++evCounter); }
+
+let state = {
+  project:{},
+  viewYear: new Date().getFullYear(),
+  viewMonth: new Date().getMonth(),
+  events: {} // "YYYY-MM-DD": [{id, title, type, notes}]
+};
+
+let modalDate = null;
+
+// ── LEGEND ──
+function renderLegend() {
+  const container = document.getElementById('legend');
+  container.innerHTML = EVENT_TYPES.map(et => `
+    <span class="legend-item">
+      <span class="legend-dot ${et.cls}"></span>
+      ${et.label}
+    </span>`).join('');
+}
+
+// ── CALENDAR ──
+function renderCalendar() {
+  document.getElementById('calMonth').textContent = MONTHS[state.viewMonth];
+  document.getElementById('calYear').textContent = state.viewYear;
+
+  // DOW headers
+  const dowEl = document.getElementById('calDOW');
+  dowEl.innerHTML = DOWS.map(d => `<div class="cal-dow">${d}</div>`).join('');
+
+  const today = new Date();
+  const todayStr = dateStr(today.getFullYear(), today.getMonth(), today.getDate());
+
+  // First day of month
+  const firstDay = new Date(state.viewYear, state.viewMonth, 1);
+  const startDow = firstDay.getDay();
+  const daysInMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
+  const daysInPrevMonth = new Date(state.viewYear, state.viewMonth, 0).getDate();
+
+  const cells = document.getElementById('calCells');
+  let html = '';
+
+  // Prev month fill
+  for (let i = startDow - 1; i >= 0; i--) {
+    const d = daysInPrevMonth - i;
+    const y = state.viewMonth === 0 ? state.viewYear - 1 : state.viewYear;
+    const m = state.viewMonth === 0 ? 11 : state.viewMonth - 1;
+    const ds = dateStr(y, m, d);
+    html += buildCell(d, ds, true, ds === todayStr);
+  }
+
+  // This month
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = dateStr(state.viewYear, state.viewMonth, d);
+    html += buildCell(d, ds, false, ds === todayStr);
+  }
+
+  // Next month fill
+  const totalCells = startDow + daysInMonth;
+  const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+  for (let d = 1; d <= remaining; d++) {
+    const y = state.viewMonth === 11 ? state.viewYear + 1 : state.viewYear;
+    const m = state.viewMonth === 11 ? 0 : state.viewMonth + 1;
+    const ds = dateStr(y, m, d);
+    html += buildCell(d, ds, true, ds === todayStr);
+  }
+
+  cells.innerHTML = html;
+}
+
+function buildCell(dayNum, ds, otherMonth, isToday) {
+  const events = state.events[ds] || [];
+  const maxShow = 3;
+  const shown = events.slice(0, maxShow);
+  const extra = events.length - maxShow;
+
+  let evHtml = shown.map(ev => {
+    const et = EVENT_TYPES.find(t => t.id === ev.type) || EVENT_TYPES[EVENT_TYPES.length-1];
+    const title = ev.title || et.label;
+    return `<div class="event-chip ${et.cls}" onclick="event.stopPropagation();openModal('${ds}')" title="${escHtml(title)}">${escHtml(title)}</div>`;
+  }).join('');
+  if (extra > 0) evHtml += `<div class="more-events">+${extra} more</div>`;
+
+  return `<div class="cal-cell${otherMonth?' other-month':''}${isToday?' today':''}" onclick="openModal('${ds}')">
+    <div class="cell-num">${dayNum}</div>
+    <div class="cell-events">${evHtml}</div>
+  </div>`;
+}
+
+function dateStr(y, m, d) {
+  return y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+}
+
+function formatDateLabel(ds) {
+  const [y,m,d] = ds.split('-').map(Number);
+  const date = new Date(y, m-1, d);
+  return DOWS[date.getDay()] + ', ' + MONTHS[m-1] + ' ' + d + ', ' + y;
+}
+
+// ── NAVIGATION ──
+function prevMonth() {
+  if (state.viewMonth === 0) { state.viewMonth = 11; state.viewYear--; }
+  else state.viewMonth--;
+  renderCalendar(); save();
+}
+function nextMonth() {
+  if (state.viewMonth === 11) { state.viewMonth = 0; state.viewYear++; }
+  else state.viewMonth++;
+  renderCalendar(); save();
+}
+function goToday() {
+  const now = new Date();
+  state.viewYear = now.getFullYear();
+  state.viewMonth = now.getMonth();
+  renderCalendar(); save();
+}
+
+// ── MODAL ──
+function openModal(ds) {
+  modalDate = ds;
+  document.getElementById('modalDateLabel').textContent = formatDateLabel(ds);
+  document.getElementById('evTitle').value = '';
+  document.getElementById('evType').value = 'shootday';
+  document.getElementById('evNotes').value = '';
+  document.getElementById('modalTitle').textContent = 'Add Event';
+
+  // Show existing events for this day
+  const events = state.events[ds] || [];
+  const existingEl = document.getElementById('existingEvents');
+  if (events.length > 0) {
+    let html = `<div class="existing-events-title">Events on this day</div>`;
+    events.forEach(ev => {
+      const et = EVENT_TYPES.find(t => t.id === ev.type) || EVENT_TYPES[EVENT_TYPES.length-1];
+      html += `<div class="existing-event-row">
+        <span class="existing-event-chip ${et.cls}">${et.label}</span>
+        <span class="existing-event-title">${escHtml(ev.title || et.label)}</span>
+        ${ev.notes ? `<span style="font-size:11px;color:var(--text-dim)">${escHtml(ev.notes)}</span>` : ''}
+        <button class="existing-event-del" onclick="deleteEvent('${ds}','${ev.id}')" title="Delete event">✕</button>
+      </div>`;
+    });
+    existingEl.innerHTML = html;
+    existingEl.style.display = 'block';
+  } else {
+    existingEl.style.display = 'none';
+  }
+
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('evTitle').focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  modalDate = null;
+}
+
+function saveEvent() {
+  const title = document.getElementById('evTitle').value.trim();
+  const type  = document.getElementById('evType').value;
+  const notes = document.getElementById('evNotes').value.trim();
+  if (!modalDate) return;
+  if (!title && !type) return;
+
+  if (!state.events[modalDate]) state.events[modalDate] = [];
+  state.events[modalDate].push({ id: newEvId(), title, type, notes });
+  closeModal();
+  renderCalendar();
+  save();
+}
+
+function deleteEvent(ds, evId) {
+  if (!state.events[ds]) return;
+  state.events[ds] = state.events[ds].filter(e => e.id !== evId);
+  if (state.events[ds].length === 0) delete state.events[ds];
+  // Refresh the existing events list in modal
+  const existingEl = document.getElementById('existingEvents');
+  const events = state.events[ds] || [];
+  if (events.length > 0) {
+    let html = `<div class="existing-events-title">Events on this day</div>`;
+    events.forEach(ev => {
+      const et = EVENT_TYPES.find(t => t.id === ev.type) || EVENT_TYPES[EVENT_TYPES.length-1];
+      html += `<div class="existing-event-row">
+        <span class="existing-event-chip ${et.cls}">${et.label}</span>
+        <span class="existing-event-title">${escHtml(ev.title || et.label)}</span>
+        ${ev.notes ? `<span style="font-size:11px;color:var(--text-dim)">${escHtml(ev.notes)}</span>` : ''}
+        <button class="existing-event-del" onclick="deleteEvent('${ds}','${ev.id}')" title="Delete event">✕</button>
+      </div>`;
+    });
+    existingEl.innerHTML = html;
+  } else {
+    existingEl.style.display = 'none';
+  }
+  renderCalendar();
+  save();
+}
+
+document.getElementById('evTitle').addEventListener('keydown', e => {
+  if (e.key === 'Enter') saveEvent();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+function clearAll() {
+  if (!confirm('Clear all events?')) return;
+  state.events = {};
+  evCounter = 0;
+  renderCalendar(); save();
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── PERSIST ──
+function save() {
+  state.project = {
+    title:    document.getElementById('projTitle').value,
+    director: document.getElementById('projDirector').value,
+    producer: document.getElementById('projProducer').value,
+  };
+  try { localStorage.setItem('hif_calendar', JSON.stringify(state)); } catch(e){}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('hif_calendar');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    // Restore event counter
+    Object.values(s.events || {}).forEach(evs => {
+      evs.forEach(ev => {
+        const n = parseInt((ev.id||'ev0').slice(2));
+        if (n > evCounter) evCounter = n;
+      });
+    });
+    state.events    = s.events    || {};
+    state.viewYear  = s.viewYear  || new Date().getFullYear();
+    state.viewMonth = s.viewMonth !== undefined ? s.viewMonth : new Date().getMonth();
+    if (s.project) {
+      document.getElementById('projTitle').value    = s.project.title    || '';
+      document.getElementById('projDirector').value = s.project.director || '';
+      document.getElementById('projProducer').value = s.project.producer || '';
+    }
+  } catch(e){}
+}
+
+document.querySelectorAll('#projTitle,#projDirector,#projProducer').forEach(el => el.addEventListener('input', save));
+
+// ── INIT ──
+load();
+renderLegend();
+renderCalendar();
+</script>
+</body>
+</html>
