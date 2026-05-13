@@ -373,6 +373,15 @@ html.light {
     /* phase-btn removed — replaced by #phaseSelect dropdown */
     .phase-btn { display: none; }
 
+    /* ── PHASE NAV MOBILE ── */
+    @media (max-width: 560px) {
+      .phase-nav { height: auto; padding: 8px 0; flex-wrap: wrap; gap: 8px; }
+      .phase-select-label { display: none; }
+      .phase-select { min-width: 0; flex: 1; font-size: 12px; padding: 6px 28px 6px 10px; }
+      .tier-chips { margin-left: 0; width: 100%; justify-content: flex-start; }
+      .tier-chip { font-size: 10px; padding: 4px 10px; }
+    }
+
     /* ── TIER SECTION HEADERS ── */
     .tier-section-head {
       display: flex;
@@ -1364,6 +1373,10 @@ html.light {
       { num:'43', name:'Brand Video Brief',          cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-43.html',                             exists:true,  desc:'Define brand tone, style, and messaging before production.' },
       { num:'44', name:'Project Kickoff Checklist',  cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-44.html',                             exists:true,  desc:'Start every new project on the right foot.' },
       { num:'46', name:'Interview Prep Sheet',       cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-46.html',                             exists:true,  desc:'Prepare questions and logistics for on-camera interviews.' },
+      { num:'63', name:'Creative Brief',             cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-63.html',                             exists:true,  desc:'Capture the client goal, audience, tone, and visual direction before cameras roll.' },
+      { num:'64', name:'Script Supervisor Notes',    cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-64.html',                             exists:true,  desc:'Log circle takes, continuity details, and coverage across every scene and setup.' },
+      { num:'65', name:'Risk Assessment',            cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-65.html',                             exists:true,  desc:'Identify on-set hazards, assess likelihood and severity, and document control measures.' },
+      { num:'66', name:'Casting Call',               cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-66.html',                             exists:true,  desc:'Post a professional casting notice with role breakdowns, submission details, and audition format.' },
 
       // ━━━━ PRE-PRODUCTION INTERACTIVE TOOLS ━━━━
       { num:'T01', name:'Shot List Generator',       cat:'interactive-tools', phase:'pre',     label:'Interactive Tool', file:'../tools/shot-list-generator.html',                             exists:true,  desc:'Build and manage a complete shot list with angles, gear, and notes for every scene.' },
@@ -1414,6 +1427,14 @@ html.light {
       { num:'16', name:'Social Cut Planner',         cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-16-Social-Cut-Planner.html',          exists:true,  desc:'Plan social edits by platform, format, and cut duration.' },
       { num:'23', name:'Client Revision Tracker',    cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-23.html',                             exists:true,  desc:'Log client feedback and manage revision rounds cleanly.' },
       { num:'29', name:'Social Caption Bank',        cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-29.html',                             exists:true,  desc:'Write and store captions that are ready to post.' },
+      { num:'51', name:'Edit Session Notes',        cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-51.html',                             exists:true,  desc:'Track what was cut, what was fixed, and what needs attention each edit session.' },
+      { num:'52', name:'Client Feedback Form',      cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-52.html',                             exists:true,  desc:'Capture client revision requests with timestamps, priorities, and status tracking.' },
+      { num:'53', name:'Festival Submission Tracker', cat:'post-production', phase:'post',    label:'Post-Production',  file:'../templates/HIF-Template-53.html',                             exists:true,  desc:'Track every festival submission — deadlines, fees, platforms, and results in one place.' },
+      { num:'54', name:'Version Control Log',       cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-54.html',                             exists:true,  desc:'Log every cut version with runtime, changes, and approval status.' },
+      { num:'55', name:'Final Delivery Specs',      cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-55.html',                             exists:true,  desc:'Document exact export specs and track every deliverable through to client confirmation.' },
+      { num:'56', name:'Sound Mix Notes',           cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-56.html',                             exists:true,  desc:'Log audio issues, track-by-track fixes, and final mix decisions for each session.' },
+      { num:'57', name:'Chapter &amp; Segment Breakdown', cat:'post-production', phase:'post', label:'Post-Production', file:'../templates/HIF-Template-57.html',                            exists:true,  desc:'Map your edit into labeled chapters with in/out points, duration, and story notes.' },
+      { num:'58', name:'Social Launch Plan',        cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-58.html',                             exists:true,  desc:'Plan each platform cut, caption, post time, and launch checklist in one doc.' },
 
       // ━━━━ BUSINESS INTERACTIVE TOOLS ━━━━
       { num:'T13', name:'Invoice Generator',          cat:'interactive-tools', phase:'business', label:'Interactive Tool', file:'../tools/invoice-generator.html',                              exists:true,  desc:'Build a professional invoice with auto-calculated totals, deposit tracking, tax, and clean PDF export.' },
@@ -1429,6 +1450,10 @@ html.light {
       { num:'11', name:'Budget Tracker',             cat:'finance-planning', phase:'business', label:'Finance & Planning', file:'../templates/HIF-Template-11-Budget-Tracker.html',            exists:true,  desc:'Track every dollar in and out of your production budget.' },
       { num:'25', name:'Music & Licensing Tracker',  cat:'finance-planning', phase:'business', label:'Finance & Planning', file:'../templates/HIF-Template-25.html',                           exists:true,  desc:'Manage music rights and licenses across all projects.' },
       { num:'45', name:'Licensing & Rights Tracker', cat:'finance-planning', phase:'business', label:'Finance & Planning', file:'../templates/HIF-Template-45.html',                           exists:true,  desc:'Track usage rights for footage, music, and talent.' },
+      { num:'59', name:'Project Change Order',      cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-59.html',                             exists:true,  desc:'Document scope changes with revised cost, timeline, and client sign-off.' },
+      { num:'60', name:'Late Payment Notice',       cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-60.html',                             exists:true,  desc:'Professional late payment notice with invoice details and updated amount owed.' },
+      { num:'61', name:'Confidentiality Agreement', cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-61.html',                             exists:true,  desc:'NDA-style agreement covering project details, footage, and proprietary information.' },
+      { num:'62', name:'Freelance Contractor Agreement', cat:'client-business', phase:'business', label:'Client & Business', file:'../templates/HIF-Template-62.html',                        exists:true,  desc:'Clear contractor terms covering scope, payment, work-for-hire, and signatures.' },
     ];
 
     // ── STATE ─────────────────────────────────────────────────────────

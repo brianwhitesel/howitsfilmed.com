@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelance Contractor Agreement — How It's Filmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue" rel="stylesheet">
+<style>
+/* BW Design System v1 */
+:root{--bg:#080c14;--surface:rgba(255,255,255,0.04);--surface2:rgba(255,255,255,0.07);--surface3:rgba(255,255,255,0.10);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--text:#f1f5f9;--dim:#94a3b8;--muted:#4b5e78;--accent:#e41e2b;--blue:#3b82f6;--green:#34d369;--teal:#14b8a6;--amber:#f59e0b;--purple:#8b5cf6;--font-head:'Outfit',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius:12px;--radius-sm:8px;--transition:0.15s ease;}
+html.light{--bg:#f0f2f5;--surface:rgba(255,255,255,0.85);--surface2:rgba(255,255,255,0.95);--surface3:#ffffff;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);--text:#0d1117;--dim:#475569;--muted:#94a3b8;}
+:root,[data-theme="light"]{--bg:#FAFAFA;--bg2:#FFFFFF;--bg3:#F2F2F2;--bg4:#EBEBEB;--border:#E0E0E0;--accent:#FF3333;--accent2:#CC2020;--text:#1A1A1A;--text2:#555555;--text3:#999999;--logo-ink:#1a1a1a;--logo-bg:#FAFAFA;--font-ui:'Inter',sans-serif;--font-head:'Bebas Neue',sans-serif;}
+[data-theme="dark"]{--bg:#1A1A1A;--bg2:#212121;--bg3:#2a2a2a;--bg4:#2f2f2f;--border:#252525;--accent:#FF3333;--accent2:#CC2020;--text:#FFFFFF;--text2:#9a9490;--text3:#5a5650;--logo-ink:#FFFFFF;--logo-bg:#1A1A1A;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--bg);}body{background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:13px;line-height:1.5;min-height:100vh;}
+.toolbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 48px;display:flex;align-items:center;gap:8px;}
+.toolbar-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border);color:var(--text2);font-family:var(--font-ui);font-size:11px;font-weight:500;letter-spacing:0.06em;padding:5px 12px;cursor:pointer;border-radius:2px;transition:all 0.15s;white-space:nowrap;}
+.toolbar-btn:hover:not(:disabled){border-color:var(--text3);color:var(--text);}
+.toolbar-btn:disabled{opacity:0.28;cursor:default;}
+.toolbar-btn.save-btn{border-color:var(--accent2);color:var(--accent);}
+.toolbar-btn.save-btn:hover{background:rgba(255,51,51,0.08);}
+.toolbar-divider{width:1px;height:16px;background:var(--border);margin:0 4px;}
+.toolbar-shortcut{font-size:9px;color:var(--text3);opacity:0.7;}
+.undo-indicator{font-size:10px;color:var(--text3);margin-left:4px;opacity:0;transition:opacity 0.4s;}
+.undo-indicator.flash{opacity:1;}
+.theme-toggle{margin-left:auto;background:transparent;border:1px solid var(--border);color:var(--text2);font-size:14px;padding:4px 10px;cursor:pointer;border-radius:2px;transition:all 0.15s;line-height:1;}
+.theme-toggle:hover{border-color:var(--accent2);color:var(--accent);}
+[data-theme="dark"] .theme-icon::before{content:"\2600";}
+[data-theme="light"] .theme-icon::before{content:"\1F319";}
+.accent-rule{height:2px;background:linear-gradient(90deg,var(--accent) 0%,transparent 60%);}
+.page-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:28px 48px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+.brand-block{display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center;}
+.doc-title{font-family:var(--font-head);font-size:32px;font-weight:400;color:var(--text);}
+.doc-subtitle{font-size:11px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
+.header-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;}
+.meta-field{display:flex;flex-direction:column;gap:2px;align-items:center;}
+.meta-label{font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:var(--text);}
+.meta-value{font-size:12px;color:var(--text);background:transparent;border:none;border-bottom:1px solid var(--border);padding:2px 0;text-align:center;width:160px;outline:none;font-family:var(--font-ui);}
+.meta-value:focus{border-bottom-color:var(--accent);}
+.page-body{padding:32px 48px 48px;}
+.section{margin-bottom:28px;}
+.section-title{font-family:var(--font-head);font-size:20px;font-weight:400;color:var(--accent);letter-spacing:0.04em;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.field-group{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;}
+.field-label{font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);}
+.field-input{background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-ui);font-size:12px;padding:7px 10px;outline:none;border-radius:2px;width:100%;}
+.field-input:focus{border-color:var(--accent);}
+.field-textarea{background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-ui);font-size:12px;padding:7px 10px;outline:none;border-radius:2px;width:100%;resize:vertical;min-height:90px;}
+.field-textarea:focus{border-color:var(--accent);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px 32px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:8px;}
+.tbl th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);background:var(--bg3);}
+.tbl td{border-bottom:1px solid var(--border);padding:0;vertical-align:middle;}
+.tbl tr:hover td{background:rgba(255,51,51,0.02);}
+.cell-input{background:transparent;border:none;color:var(--text);font-family:var(--font-ui);font-size:12px;padding:8px 10px;outline:none;width:100%;display:block;}
+.cell-input::placeholder{color:var(--text3);}
+.cell-input:focus{background:rgba(255,51,51,0.03);}
+.cell-select{background:transparent;border:none;color:var(--text2);font-family:var(--font-ui);font-size:12px;padding:8px 10px;outline:none;width:100%;cursor:pointer;}
+.cell-select option{background:var(--bg);color:var(--text);}
+.add-row-btn{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;background:none;border:none;padding:4px 0;transition:opacity .15s;}
+.add-row-btn:hover{opacity:.7;}
+.highlight-box{background:var(--bg2);border:2px solid var(--accent);border-radius:4px;padding:20px 24px;margin-top:8px;}
+.highlight-title{font-family:var(--font-head);font-size:20px;color:var(--accent);margin-bottom:14px;letter-spacing:0.04em;}
+.page-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;}
+.footer-brand{font-size:10px;color:var(--text3);}
+.footer-brand span{color:var(--accent);}
+@media print{.toolbar{display:none;}}
+@media(max-width:700px){.page-header{padding:20px 16px;}.page-body{padding:20px 16px;}.toolbar{padding:6px 16px;}.two-col{grid-template-columns:1fr;}.three-col{grid-template-columns:1fr 1fr;}.four-col{grid-template-columns:1fr 1fr;}}
+</style>
+  <script>
+    (function() {
+      function getCurrentMonth() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1); }
+      if (localStorage.getItem('hif_access_granted') === 'true' && localStorage.getItem('hif_access_month') === getCurrentMonth()) {
+        document.documentElement.classList.add('hif-unlocked');
+      } else { document.documentElement.classList.add('hif-locked'); }
+    })();
+  </script>
+  <style>
+    html.hif-locked body > *:not(#hif-gate) { display: none !important; }
+    html.hif-unlocked #hif-gate { display: none !important; }
+    #hif-gate { position: fixed; inset: 0; z-index: 99999; background: #0a0a0c; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .hg-card { background: #141418; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 36px 28px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.6); }
+    .hg-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #e41e2b; margin-bottom: 8px; font-family: -apple-system, sans-serif; }
+    .hg-title { font-size: 20px; font-weight: 800; color: #f1f5f9; margin-bottom: 6px; font-family: -apple-system, sans-serif; }
+    .hg-sub { font-size: 13px; color: #64748b; margin-bottom: 24px; font-family: -apple-system, sans-serif; }
+    .hg-input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #f1f5f9; font-size: 15px; font-weight: 600; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; outline: none; margin-bottom: 12px; font-family: -apple-system, sans-serif; }
+    .hg-input:focus { border-color: #e41e2b; }
+    .hg-btn { width: 100%; padding: 13px; background: #e41e2b; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: -apple-system, sans-serif; }
+    .hg-btn:hover { background: #c91824; }
+    .hg-error { color: #ef4444; font-size: 12px; margin-top: 8px; display: none; font-family: -apple-system, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="hif-gate">
+    <div class="hg-card">
+      <div class="hg-logo">How It's Filmed</div>
+      <div class="hg-title">Members Only</div>
+      <div class="hg-sub">Enter your access code to continue.</div>
+      <input class="hg-input" id="hg-input" type="text" placeholder="Access code" autocomplete="off" />
+      <button class="hg-btn" onclick="hgSubmit()">Enter</button>
+      <div class="hg-error" id="hg-error">Incorrect code. Try again.</div>
+    </div>
+  </div>
+  <script>
+    var HG_CODE = 'HIF2605';
+    function getCurrentMonth() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1); }
+    function hgSubmit() {
+      var val = document.getElementById('hg-input').value.trim().toUpperCase();
+      if (val === HG_CODE) {
+        localStorage.setItem('hif_access_granted', 'true');
+        localStorage.setItem('hif_access_month', getCurrentMonth());
+        document.getElementById('hif-gate').style.display = 'none';
+        document.documentElement.classList.remove('hif-locked');
+        document.documentElement.classList.add('hif-unlocked');
+      } else {
+        document.getElementById('hg-error').style.display = 'block';
+        document.getElementById('hg-input').focus();
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var inp = document.getElementById('hg-input');
+      if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') hgSubmit(); });
+    });
+  </script>
+<div class="toolbar" id="toolbar">
+  <button class="toolbar-btn save-btn" onclick="saveFile()">&#8595; Save File</button>
+  <div class="toolbar-divider"></div>
+  <button class="theme-toggle" onclick="toggleTheme()"><span class="theme-icon"></span></button>
+  <div class="toolbar-divider"></div>
+  <button class="toolbar-btn" id="btn-undo" onclick="doUndo()" disabled>&#8617; Undo <span class="toolbar-shortcut">&#8984;Z</span></button>
+  <button class="toolbar-btn" id="btn-redo" onclick="doRedo()" disabled>Redo &#8618; <span class="toolbar-shortcut">&#8984;&#8679;Z</span></button>
+  <span class="undo-indicator" id="undo-indicator"></span>
+</div>
+<div class="accent-rule"></div>
+<div class="page-header">
+  <div class="brand-block">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 22 640 268" style="width:220px;height:auto;display:block;">
+      <style>.logo-ink{fill:var(--logo-ink,#1a1a1a)}.logo-dot{fill:#f33}.logo-bg-counter{fill:var(--logo-bg,#fafafa)}</style>
+      <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+      <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+      <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+      <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
+      <g><rect fill="none" x="239.26" y="83.25" width="350.24" height="137.67"/>
+      <path class="logo-ink" d="M257.5,83.25v18.74h15.27v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+      <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+      <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+      <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+      <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+      <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
+      <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+      <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+      <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+      <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+      <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+      <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+      <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+      </g>
+    </svg>
+    <div class="doc-title">Freelance Contractor Agreement</div>
+    <div class="doc-subtitle">Client & Business</div>
+  </div>
+  <div class="header-meta">
+    <div class="meta-field"><div class="meta-label">Date</div><input class="meta-value" type="text" placeholder="MM/DD/YYYY"></div>
+    <div class="meta-field"><div class="meta-label">Project</div><input class="meta-value" type="text" placeholder="Project / Job Name"></div>
+  </div>
+</div>
+<div class="page-body">
+
+<div class="section">
+  <div class="section-title">Parties</div>
+  <div class="two-col">
+  <div class="field-group" >
+    <div class="field-label">Hiring Party (You)</div>
+    <input class="field-input" type="text" placeholder="Your Name / Production Company">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Contractor</div>
+    <input class="field-input" type="text" placeholder="Contractor Name / Business">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Your Email</div>
+    <input class="field-input" type="text" placeholder="your@email.com">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Contractor Email</div>
+    <input class="field-input" type="text" placeholder="contractor@email.com">
+  </div>
+</div>
+</div>
+<div class="section">
+  <div class="section-title">Scope of Work</div>
+    <div class="field-group" style="grid-column:1/-1">
+    <div class="field-label">Describe the Work to Be Performed</div>
+    <textarea class="field-textarea" style="min-height:120px" placeholder="Role, specific duties, deliverables, deadlines, any exclusions from scope..."></textarea>
+  </div>
+</div>
+<div class="section">
+  <div class="section-title">Compensation & Schedule</div>
+  <div class="two-col">
+  <div class="field-group" >
+    <div class="field-label">Agreed Rate</div>
+    <input class="field-input" type="text" placeholder="$XXX/day or $X,XXX flat">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Payment Schedule</div>
+    <input class="field-input" type="text" placeholder="e.g. 50% on signing, 50% on delivery">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Start Date</div>
+    <input class="field-input" type="text" placeholder="MM/DD/YYYY">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">End / Delivery Date</div>
+    <input class="field-input" type="text" placeholder="MM/DD/YYYY">
+  </div>
+</div>
+</div>
+<div class="section">
+  <div class="section-title">Terms</div>
+  <div class="two-col">
+  <div class="field-group" >
+    <div class="field-label">Independent Contractor Status</div>
+    <textarea class="field-textarea" style="min-height:60px" placeholder="Contractor is an independent contractor and not an employee. Contractor is responsible for all taxes and has no employee benefits..."></textarea>
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Ownership / Work for Hire</div>
+    <textarea class="field-textarea" style="min-height:60px" placeholder="All work product created under this agreement shall be considered work for hire and is the sole property of the hiring party upon receipt of full payment..."></textarea>
+  </div>
+</div>
+</div>
+<div class="section">
+  <div class="section-title">Signatures</div>
+  <div class="four-col">
+  <div class="field-group" >
+    <div class="field-label">Hiring Party Signature</div>
+    <input class="field-input" type="text" placeholder="Sign here">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Date</div>
+    <input class="field-input" type="text" placeholder="MM/DD/YYYY">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Contractor Signature</div>
+    <input class="field-input" type="text" placeholder="Sign here">
+  </div>
+  <div class="field-group" >
+    <div class="field-label">Date</div>
+    <input class="field-input" type="text" placeholder="MM/DD/YYYY">
+  </div>
+</div>
+</div>
+
+  <div class="page-footer" style="margin-top:32px">
+    <div class="footer-brand"><span>How It's Filmed</span> — howitsfilmed.com</div>
+    <div>Freelance Contractor Agreement</div>
+  </div>
+</div>
+<script>
+const MAX_STACK=50;let undoStack=[],redoStack=[],isRestoring=false,debounceTimer=null;
+function captureState(){return JSON.stringify(Array.from(document.querySelectorAll('input[type="text"],input[type="number"],input[type="date"],input[type="time"],input[type="tel"],input[type="email"],textarea,select')).map(e=>({v:e.tagName==='SELECT'?e.selectedIndex:e.value})));}
+function restoreState(s){isRestoring=true;const d=JSON.parse(s),f=document.querySelectorAll('input[type="text"],input[type="number"],input[type="date"],input[type="time"],input[type="tel"],input[type="email"],textarea,select');d.forEach((e,i)=>{const el=f[i];if(!el)return;el.tagName==='SELECT'?el.selectedIndex=e.v:el.value=e.v;});isRestoring=false;updateBtns();}
+function pushState(s){if(isRestoring)return;undoStack.push(s||captureState());if(undoStack.length>MAX_STACK)undoStack.shift();redoStack=[];updateBtns();}
+function doUndo(){if(!undoStack.length)return;redoStack.push(captureState());restoreState(undoStack.pop());flash('Undone');}
+function doRedo(){if(!redoStack.length)return;undoStack.push(captureState());if(undoStack.length>MAX_STACK)undoStack.shift();restoreState(redoStack.pop());flash('Redone');}
+function updateBtns(){document.getElementById('btn-undo').disabled=!undoStack.length;document.getElementById('btn-redo').disabled=!redoStack.length;}
+function flash(m){const e=document.getElementById('undo-indicator');e.textContent=m;e.classList.add('flash');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('flash'),1200);}
+function attachUndoListeners(el){if(el.tagName==='SELECT'){el.addEventListener('change',()=>{if(!isRestoring)pushState();});}else{el.addEventListener('focus',()=>{if(!isRestoring)el._sf=captureState();});el.addEventListener('input',()=>{if(isRestoring)return;clearTimeout(debounceTimer);debounceTimer=setTimeout(()=>{if(el._sf!==undefined){undoStack.push(el._sf);if(undoStack.length>MAX_STACK)undoStack.shift();el._sf=captureState();redoStack=[];updateBtns();}},600);});}}
+document.querySelectorAll('input,textarea,select').forEach(attachUndoListeners);
+document.addEventListener('keydown',e=>{const m=navigator.platform.toUpperCase().includes('MAC')?e.metaKey:e.ctrlKey;if(!m)return;if(e.key==='z'&&!e.shiftKey){e.preventDefault();doUndo();}if(e.key==='z'&&e.shiftKey){e.preventDefault();doRedo();}});
+updateBtns();
+function saveFile(){const clone=document.documentElement.cloneNode(true);const li=Array.from(document.querySelectorAll('input,select,textarea'));const ci=Array.from(clone.querySelectorAll('input,select,textarea'));li.forEach((l,i)=>{const c=ci[i];if(!c)return;if(l.tagName==='SELECT'){Array.from(c.options).forEach((o,j)=>{l.options[j]&&l.options[j].selected?o.setAttribute('selected','selected'):o.removeAttribute('selected');});}else{c.setAttribute('value',l.value);}});clone.querySelector('#toolbar')?.remove();const b=new Blob(['<!DOCTYPE html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);const p=document.querySelector('.meta-value')?.value.trim().replace(/[^a-z0-9_\-\s]/gi,'').replace(/\s+/g,'-')||'HIF';a.download=p+'-Freelance-Contractor-Agreement.html';document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function toggleTheme(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark');}
+document.documentElement.setAttribute('data-theme','light');
+</script>
+
+</body>
+</html>
