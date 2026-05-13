@@ -1113,8 +1113,110 @@ html.light {
       .cta-buttons { flex-direction: column; }
     }
   </style>
+  <script>
+    // HIF Homepage Gate — same monthly code as /app
+    (function() {
+      function getCurrentMonth() {
+        var d = new Date();
+        return d.getFullYear() + '-' + (d.getMonth() + 1);
+      }
+      if (localStorage.getItem('hif_home_granted') === 'true' &&
+          localStorage.getItem('hif_home_month') === getCurrentMonth()) {
+        document.documentElement.classList.add('hif-unlocked');
+      } else {
+        document.documentElement.classList.add('hif-locked');
+      }
+    })();
+  </script>
+  <style>
+    html.hif-locked body > *:not(#hif-home-gate) { display: none !important; }
+    html.hif-unlocked #hif-home-gate { display: none !important; }
+    #hif-home-gate {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #0a0a0c;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .hg-card {
+      background: #141418;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 36px 28px;
+      width: 100%; max-width: 360px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    }
+    .hg-logo {
+      font-size: 13px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #e41e2b; margin-bottom: 8px;
+    }
+    .hg-title {
+      font-size: 20px; font-weight: 800; color: #f1f5f9;
+      margin-bottom: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .hg-sub { font-size: 13px; color: #64748b; margin-bottom: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .hg-input {
+      width: 100%; padding: 12px 16px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; color: #f1f5f9; font-size: 15px; font-weight: 600;
+      text-align: center; letter-spacing: 0.1em; text-transform: uppercase;
+      outline: none; margin-bottom: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .hg-input:focus { border-color: #e41e2b; }
+    .hg-btn {
+      width: 100%; padding: 13px;
+      background: #e41e2b; color: white;
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .hg-btn:hover { background: #c91824; }
+    .hg-error { color: #ef4444; font-size: 12px; margin-top: 8px; display: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  </style>
 </head>
 <body>
+
+  <!-- HOME GATE -->
+  <div id="hif-home-gate">
+    <div class="hg-card">
+      <div class="hg-logo">How It's Filmed</div>
+      <div class="hg-title">Members Only</div>
+      <div class="hg-sub">Enter your access code to continue.</div>
+      <input class="hg-input" id="hg-input" type="text" placeholder="Access code" autocomplete="off" />
+      <button class="hg-btn" onclick="hgSubmit()">Enter</button>
+      <div class="hg-error" id="hg-error">Incorrect code. Try again.</div>
+    </div>
+  </div>
+  <script>
+    var HG_CODE = 'HIF2605'; // ← Update monthly
+    function getCurrentMonth() {
+      var d = new Date();
+      return d.getFullYear() + '-' + (d.getMonth() + 1);
+    }
+    function hgSubmit() {
+      var val = document.getElementById('hg-input').value.trim().toUpperCase();
+      if (val === HG_CODE) {
+        localStorage.setItem('hif_home_granted', 'true');
+        localStorage.setItem('hif_home_month', getCurrentMonth());
+        document.getElementById('hif-home-gate').style.display = 'none';
+        document.documentElement.classList.remove('hif-locked');
+        document.documentElement.classList.add('hif-unlocked');
+      } else {
+        document.getElementById('hg-error').style.display = 'block';
+        document.getElementById('hg-input').focus();
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var inp = document.getElementById('hg-input');
+      if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') hgSubmit(); });
+    });
+  </script>
 
   <!-- ──────────────────── NAV ──────────────────── -->
   <nav class="nav">
