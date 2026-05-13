@@ -123,17 +123,26 @@ select.td-input option{background:#191919}
 
 /* PRINT */
 @media print{
-  body{background:#fff;color:#000;font-size:11pt}
-  .header,.header-actions,.scene-del,.shot-del,.add-shot-btn,.scenes-header .btn,.btn-ghost,.btn-primary,.no-print{display:none!important}
-  .scene-block{border:1px solid #ccc;page-break-inside:avoid;margin-bottom:12pt}
-  .scene-header{background:#f0f0f0;border-bottom:1px solid #ccc}
-  .form-control,.td-input{border:none;background:transparent;color:#000;padding:2px 4px}
-  .shot-num-badge{background:#eee;color:#333;border:1px solid #ccc}
-  .shots-table th{border-bottom:1px solid #ccc;color:#666}
-  .shots-table tr td{border-bottom:1px solid #f0f0f0}
-  .project-card{border:1px solid #ccc;background:#fff}
-  .section-label{color:#cc0000}
-  .scene-num{background:#fee;color:#cc0000;border:1px solid #fcc}
+  @page{size:letter landscape;margin:0.55in 0.65in}
+  @page:right{@bottom-right{content:"Page " counter(page) " of " counter(pages);font-size:8pt;color:#999;font-family:'Inter',sans-serif}}
+  body{background:#fff;color:#000;font-size:9pt;font-family:'Inter',sans-serif;line-height:1.4}
+  .header,.header-actions,.scene-del,.shot-del,.add-shot-btn,.scenes-header .btn,.btn-ghost,.btn-primary,.no-print,.toast{display:none!important}
+  .main{padding:0;max-width:100%}
+  .project-card{border:1px solid #ccc;background:#fff;border-radius:0;padding:8pt 10pt;margin-bottom:10pt;page-break-inside:avoid}
+  .section-label{color:#cc0000;font-size:8.5pt;margin-bottom:6pt}
+  .form-control,.td-input{border:none;border-bottom:1px solid #ddd;background:transparent;color:#000;padding:1px 2px;font-size:9pt;border-radius:0}
+  .form-group label{font-size:7pt;color:#888;letter-spacing:.06em}
+  .form-grid{grid-template-columns:repeat(5,1fr);gap:6pt}
+  .scene-block{border:1px solid #ccc;page-break-inside:avoid;margin-bottom:10pt;border-radius:0}
+  .scene-header{background:#f5f5f5;border-bottom:1px solid #ccc;padding:8pt 12pt}
+  .scene-num{background:#fee;color:#cc0000;border:1px solid #fcc;font-size:10pt;padding:2pt 7pt}
+  .scene-fields{grid-template-columns:repeat(4,1fr);gap:8pt}
+  .shots-wrap{padding:8pt 12pt}
+  .shots-table{width:100%;border-collapse:collapse}
+  .shots-table thead{display:table-header-group}
+  .shots-table th{border-top:1.5pt solid #bbb;border-bottom:1.5pt solid #bbb;color:#555;font-size:7.5pt;padding:4pt 5pt;background:#f9f9f9}
+  .shots-table tr td{border-bottom:0.5pt solid #e8e8e8;padding:4pt 5pt;vertical-align:middle}
+  .shot-num-badge{background:#eee;color:#333;border:1px solid #ccc;font-size:9pt;padding:2pt 5pt}
   .print-header{display:block!important}
 }
 .print-header{display:none}
@@ -249,9 +258,12 @@ select.td-input option{background:#191919}
 <main class="main">
 
   <!-- Print header (hidden on screen) -->
-  <div class="print-header" style="margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #000">
-    <div style="font-size:22pt;font-weight:700;letter-spacing:.04em">SHOT LIST</div>
-    <div id="print-meta" style="font-size:10pt;color:#666;margin-top:4px"></div>
+  <div class="print-header" style="margin-bottom:12pt;padding-bottom:10pt;border-bottom:2.5pt solid #cc0000;display:flex;align-items:flex-end;justify-content:space-between">
+    <div>
+      <div style="font-family:'Bebas Neue','Inter',sans-serif;font-size:26pt;font-weight:700;letter-spacing:.06em;color:#000;line-height:1">SHOT LIST</div>
+      <div id="print-meta" style="font-size:9pt;color:#666;margin-top:3pt;letter-spacing:.02em"></div>
+    </div>
+    <div style="font-size:8pt;color:#aaa;text-align:right;padding-bottom:2pt;letter-spacing:.08em;text-transform:uppercase">How It's Filmed Pro</div>
   </div>
 
   <!-- Project Info -->
