@@ -268,8 +268,80 @@ hr.divider{border:none;border-top:1px solid var(--border2);margin:14px 0}
 @keyframes flashGreen{0%{color:var(--green)}100%{color:var(--text-muted)}}
 .copy-flash{animation:flashGreen .8s ease-out forwards}
 </style>
+  <script>
+    (function() {
+      function getCurrentMonth() {
+        var d = new Date();
+        return d.getFullYear() + '-' + (d.getMonth() + 1);
+      }
+      if (localStorage.getItem('hif_access_granted') === 'true' &&
+          localStorage.getItem('hif_access_month') === getCurrentMonth()) {
+        document.documentElement.classList.add('hif-unlocked');
+      } else {
+        document.documentElement.classList.add('hif-locked');
+      }
+    })();
+  </script>
+  <style>
+    html.hif-locked body > *:not(#hif-gate) { display: none !important; }
+    html.hif-unlocked #hif-gate { display: none !important; }
+    #hif-gate {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #0a0a0c;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .hg-card {
+      background: #141418;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 36px 28px;
+      width: 100%; max-width: 360px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    }
+    .hg-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #e41e2b; margin-bottom: 8px; font-family: -apple-system, sans-serif; }
+    .hg-title { font-size: 20px; font-weight: 800; color: #f1f5f9; margin-bottom: 6px; font-family: -apple-system, sans-serif; }
+    .hg-sub { font-size: 13px; color: #64748b; margin-bottom: 24px; font-family: -apple-system, sans-serif; }
+    .hg-input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #f1f5f9; font-size: 15px; font-weight: 600; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; outline: none; margin-bottom: 12px; font-family: -apple-system, sans-serif; }
+    .hg-input:focus { border-color: #e41e2b; }
+    .hg-btn { width: 100%; padding: 13px; background: #e41e2b; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: -apple-system, sans-serif; }
+    .hg-btn:hover { background: #c91824; }
+    .hg-error { color: #ef4444; font-size: 12px; margin-top: 8px; display: none; font-family: -apple-system, sans-serif; }
+  </style>
 </head>
 <body>
+  <div id="hif-gate">
+    <div class="hg-card">
+      <div class="hg-logo">How It's Filmed</div>
+      <div class="hg-title">Members Only</div>
+      <div class="hg-sub">Enter your access code to continue.</div>
+      <input class="hg-input" id="hg-input" type="text" placeholder="Access code" autocomplete="off" />
+      <button class="hg-btn" onclick="hgSubmit()">Enter</button>
+      <div class="hg-error" id="hg-error">Incorrect code. Try again.</div>
+    </div>
+  </div>
+  <script>
+    var HG_CODE = 'HIF2605';
+    function getCurrentMonth() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1); }
+    function hgSubmit() {
+      var val = document.getElementById('hg-input').value.trim().toUpperCase();
+      if (val === HG_CODE) {
+        localStorage.setItem('hif_access_granted', 'true');
+        localStorage.setItem('hif_access_month', getCurrentMonth());
+        document.getElementById('hif-gate').style.display = 'none';
+        document.documentElement.classList.remove('hif-locked');
+        document.documentElement.classList.add('hif-unlocked');
+      } else {
+        document.getElementById('hg-error').style.display = 'block';
+        document.getElementById('hg-input').focus();
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var inp = document.getElementById('hg-input');
+      if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') hgSubmit(); });
+    });
+  </script>
 
 <!-- HEADER -->
 <div class="header">
@@ -638,34 +710,36 @@ function onFpsChange(){
   recalcAll();
   convFromTc(); convFromFrames(); convOffset();
   refreshReport();
+  save();
 }
 function onProjName(){
   S.projName=document.getElementById('projName').value.trim();
   const el=document.getElementById('hProject');
   el.textContent=S.projName?'— '+S.projName:'';
+  save();
 }
 
 function addCam(){
   const inp=document.getElementById('camInput');
   const name=inp.value.trim();if(!name)return;
   S.cams.push({id:uid(),name});inp.value='';
-  renderCams(); renderPairs(); renderGrid();
+  renderCams(); renderPairs(); renderGrid(); save();
 }
 function addRec(){
   const inp=document.getElementById('recInput');
   const name=inp.value.trim();if(!name)return;
   S.recs.push({id:uid(),name});inp.value='';
-  renderRecs(); renderPairs();
+  renderRecs(); renderPairs(); save();
 }
 function rmCam(id){
   S.cams=S.cams.filter(c=>c.id!==id);
   S.pairs=S.pairs.filter(p=>p.camId!==id);
-  renderCams(); renderPairs(); renderGrid();
+  renderCams(); renderPairs(); renderGrid(); save();
 }
 function rmRec(id){
   S.recs=S.recs.filter(r=>r.id!==id);
   S.pairs=S.pairs.filter(p=>p.recId!==id);
-  renderRecs(); renderPairs();
+  renderRecs(); renderPairs(); save();
 }
 
 function renderCams(){
@@ -691,24 +765,24 @@ function addPair(){
   renderPairs();
   addPoint(id);
 }
-function rmPair(id){S.pairs=S.pairs.filter(p=>p.id!==id);renderPairs();refreshReport();}
+function rmPair(id){S.pairs=S.pairs.filter(p=>p.id!==id);renderPairs();refreshReport();save();}
 
 function addPoint(pairId){
   const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
   pair.points.push({id:uid(), label:'Sync Point '+(pair.points.length+1), camTc:'', audioTc:'', offsetF:null, offsetS:null});
-  renderPairs();
+  renderPairs(); save();
 }
 function rmPoint(pairId, ptId){
   const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
   pair.points=pair.points.filter(pt=>pt.id!==ptId);
-  renderPairs();refreshReport();
+  renderPairs();refreshReport();save();
 }
 
 function pairCamChange(pairId, camId){
-  const p=S.pairs.find(x=>x.id===pairId);if(p)p.camId=+camId;renderPairs();
+  const p=S.pairs.find(x=>x.id===pairId);if(p)p.camId=+camId;renderPairs();save();
 }
 function pairRecChange(pairId, recId){
-  const p=S.pairs.find(x=>x.id===pairId);if(p)p.recId=+recId;renderPairs();
+  const p=S.pairs.find(x=>x.id===pairId);if(p)p.recId=+recId;renderPairs();save();
 }
 
 function onTcInput(pairId, ptId, field, val){
@@ -717,12 +791,12 @@ function onTcInput(pairId, ptId, field, val){
   pt[field]=val;
   calcPt(pt);
   updatePtResult(pairId, ptId, pt);
-  refreshReport();
+  refreshReport(); save();
 }
 function onLabelChange(pairId, ptId, val){
   const pair=S.pairs.find(p=>p.id===pairId);if(!pair)return;
   const pt=pair.points.find(x=>x.id===ptId);if(pt)pt.label=val;
-  refreshReport();
+  refreshReport(); save();
 }
 function calcPt(pt){
   if(!tcComplete(pt.camTc)||!tcComplete(pt.audioTc)){pt.offsetF=null;pt.offsetS=null;return;}
@@ -834,8 +908,8 @@ function buildPtResult(pt){
 // CHECKLIST
 // ══════════════════════════════════════════════════════
 function initCl(){CL_ITEMS.forEach(i=>{if(!(i.k in S.cl))S.cl[i.k]=false;});renderCl();}
-function toggleCl(k){S.cl[k]=!S.cl[k];renderCl();}
-function resetChecklist(){CL_ITEMS.forEach(i=>S.cl[i.k]=false);renderCl();}
+function toggleCl(k){S.cl[k]=!S.cl[k];renderCl();save();}
+function resetChecklist(){CL_ITEMS.forEach(i=>S.cl[i.k]=false);renderCl();save();}
 function renderCl(){
   const done=CL_ITEMS.filter(i=>S.cl[i.k]).length, tot=CL_ITEMS.length;
   document.getElementById('clBar').style.width=`${(done/tot)*100}%`;
@@ -856,12 +930,12 @@ function addScene(){
   const name=prompt('Scene / Clip name:',`Scene ${S.scenes.length+1}`);
   if(!name||!name.trim())return;
   S.scenes.push({id:uid(),name:name.trim()});
-  renderGrid(); refreshReport();
+  renderGrid(); refreshReport(); save();
 }
 function rmScene(id){
   S.scenes=S.scenes.filter(s=>s.id!==id);
   Object.keys(S.cells).forEach(k=>{if(k.endsWith('_'+id))delete S.cells[k];});
-  renderGrid(); refreshReport();
+  renderGrid(); refreshReport(); save();
 }
 
 function renderGrid(){
@@ -929,7 +1003,7 @@ function saveCell(){
   if(!_modalKey)return;
   const v=parseFloat(document.getElementById('modalOffset').value);
   S.cells[_modalKey]={status:_modalStatus, offset:isNaN(v)?null:v};
-  closeModal(); renderGrid(); refreshReport();
+  closeModal(); renderGrid(); refreshReport(); save();
 }
 document.getElementById('cellModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 
@@ -1038,13 +1112,45 @@ function esc(s){
 }
 
 // ══════════════════════════════════════════════════════
+// AUTO-SAVE / LOAD
+// ══════════════════════════════════════════════════════
+const SAVE_KEY = 'hif-audio-sync';
+
+function save(){
+  try{
+    localStorage.setItem(SAVE_KEY, JSON.stringify({ state: S, nextId: _id }));
+  }catch(e){}
+}
+
+function loadSaved(){
+  try{
+    const raw = localStorage.getItem(SAVE_KEY);
+    if(!raw) return false;
+    const d = JSON.parse(raw);
+    if(!d.state) return false;
+    Object.assign(S, d.state);
+    if(d.nextId) _id = d.nextId;
+    return true;
+  }catch(e){ return false; }
+}
+
+// ══════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════
 function init(){
+  const restored = loadSaved();
+  // Restore UI from state
+  if(restored){
+    document.getElementById('projName').value = S.projName || '';
+    const fpsSel = document.getElementById('fpsSelect');
+    if(fpsSel) fpsSel.value = String(S.fps);
+    document.getElementById('hFps').textContent = S.fps + ' fps';
+    const hProj = document.getElementById('hProject');
+    if(hProj) hProj.textContent = S.projName ? '— ' + S.projName : '';
+    renderCams(); renderRecs(); renderPairs(); renderGrid();
+  }
   initCl();
   refreshReport();
-  // Seed with an example so the tool doesn't feel blank
-  // (User can clear these out immediately)
 }
 init();
 </script>

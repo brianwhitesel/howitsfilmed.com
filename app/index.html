@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <title>HIF Pro — Tool Suite</title>
+  <link rel="manifest" href="/app/manifest.json" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="HIF Pro" />
   <script>
     /* ── ACCESS CONTROL — runs before first paint to avoid any flash ── */
     (function () {
@@ -716,6 +721,186 @@ html.light {
       .gate-card { padding: 28px 20px; }
       .gate-title { font-size: 24px; }
     }
+
+    /* ── WELCOME OVERLAY ── */
+    #hif-welcome {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    #hif-welcome.visible { opacity: 1; }
+    #hif-welcome.dismissed {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .welcome-card {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .welcome-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .welcome-logo-svg { height: 28px; width: auto; }
+
+    .welcome-eyebrow {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .welcome-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      letter-spacing: 0.04em;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .welcome-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 36px;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .welcome-question {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .welcome-phases {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-phase-btn {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .welcome-phase-btn:hover { transform: translateY(-2px); }
+    .welcome-phase-btn[data-phase="pre"]:hover     { border-color: #3B82F6; box-shadow: 0 6px 20px rgba(59,130,246,0.15); }
+    .welcome-phase-btn[data-phase="onset"]:hover   { border-color: #F97316; box-shadow: 0 6px 20px rgba(249,115,22,0.15); }
+    .welcome-phase-btn[data-phase="post"]:hover    { border-color: #A855F7; box-shadow: 0 6px 20px rgba(168,85,247,0.15); }
+    .welcome-phase-btn[data-phase="business"]:hover { border-color: #14B8A6; box-shadow: 0 6px 20px rgba(20,184,166,0.15); }
+
+    .welcome-phase-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+    }
+    .welcome-phase-btn[data-phase="pre"]      .welcome-phase-num { color: #3B82F6; }
+    .welcome-phase-btn[data-phase="onset"]    .welcome-phase-num { color: #F97316; }
+    .welcome-phase-btn[data-phase="post"]     .welcome-phase-num { color: #A855F7; }
+    .welcome-phase-btn[data-phase="business"] .welcome-phase-num { color: #14B8A6; }
+
+    .welcome-phase-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .welcome-phase-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .welcome-phase-count {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: inline-block;
+    }
+    .welcome-phase-btn[data-phase="pre"]      .welcome-phase-count { background: #1d3a6e; color: #93c5fd; }
+    .welcome-phase-btn[data-phase="onset"]    .welcome-phase-count { background: #4a2000; color: #fdba74; }
+    .welcome-phase-btn[data-phase="post"]     .welcome-phase-count { background: #2d1b69; color: #d8b4fe; }
+    .welcome-phase-btn[data-phase="business"] .welcome-phase-count { background: #0d3330; color: #5eead4; }
+
+    .welcome-skip {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 8px 16px;
+      transition: color 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .welcome-skip:hover { color: var(--text-muted); }
+
+    .welcome-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .welcome-stat {
+      text-align: center;
+    }
+    .welcome-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .welcome-stat-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .welcome-phases { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .welcome-phase-btn { padding: 12px 10px; }
+      .welcome-phase-name { font-size: 14px; }
+      .welcome-stats { gap: 16px; }
+      .welcome-stat-num { font-size: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -768,6 +953,55 @@ html.light {
       <div class="gate-error" id="hif-code-error">
         Incorrect access code. Check your Whop community for this month's code.
       </div>
+    </div>
+  </div>
+
+  <!-- ══ WELCOME OVERLAY ══════════════════════════════════════════════════ -->
+  <div id="hif-welcome">
+    <div class="welcome-card">
+
+      <!-- Logo -->
+      <div class="welcome-logo-wrap">
+        <svg class="welcome-logo-svg" viewBox="0 0 570 212" xmlns="http://www.w3.org/2000/svg">
+          <path class="logo-ink" style="fill:#fafafa" d="M0,146.71v65.52h17.14v-27.31h29.23v27.31h17.14v-65.52H46.37v22.77H17.14v-22.77H0Z"/>
+          <path class="logo-ink" style="fill:#fafafa" d="M78.49,146.71v65.52h17.14v-65.52h-17.14Z"/>
+          <path class="logo-ink" style="fill:#fafafa" d="M163.89,146.71l-17.52,25.05-17.52-25.05h-20.29l27.69,38.01v27.51h20.29v-27.51l27.69-38.01h-20.34Z"/>
+          <circle class="logo-dot" style="fill:#FF3333" cx="198" cy="199" r="13"/>
+          <path class="logo-ink" style="fill:#fafafa" d="M344.18,146.71v65.52h17.14v-27.31h29.23v27.31h17.14v-65.52h-17.14v22.77h-29.23v-22.77h-17.14Z"/>
+          <path class="logo-ink" style="fill:#fafafa" d="M422.67,146.71v65.52h17.14v-65.52h-17.14Z"/>
+          <path class="logo-ink" style="fill:#fafafa" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+          <path class="logo-ink" style="fill:#fafafa" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+        </svg>
+      </div>
+
+      <div class="welcome-eyebrow">PRO MEMBER ACCESS</div>
+      <div class="welcome-headline">Welcome to<br>HIF Pro</div>
+      <div class="welcome-sub">62 professional filmmaking tools, organized by workflow phase. Built by filmmakers, for filmmakers.</div>
+
+      <!-- Stats -->
+      <div class="welcome-stats">
+        <div class="welcome-stat">
+          <div class="welcome-stat-num">62</div>
+          <div class="welcome-stat-label">Tools & Templates</div>
+        </div>
+        <div class="welcome-stat">
+          <div class="welcome-stat-num">4</div>
+          <div class="welcome-stat-label">Workflow Phases</div>
+        </div>
+        <div class="welcome-stat">
+          <div class="welcome-stat-num">12</div>
+          <div class="welcome-stat-label">Interactive Tools</div>
+        </div>
+      </div>
+
+      <div class="welcome-question">What are you working on today?</div>
+
+      <!-- Phase tiles -->
+      <div class="welcome-phases" id="welcome-phases">
+        <!-- rendered by JS using PHASES + ITEMS data -->
+      </div>
+
+      <button class="welcome-skip" onclick="dismissWelcome('all')">Skip — Browse everything →</button>
     </div>
   </div>
 
@@ -1100,11 +1334,177 @@ html.light {
 
     document.getElementById('searchInput').addEventListener('input', e => {
       searchQuery = e.target.value;
+      // Clear hash when searching
+      if (e.target.value && window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
       render();
     });
 
+    // ── HASH ROUTING ──────────────────────────────────────────────────
+    const VALID_PHASES = ['all', 'pre', 'onset', 'post', 'business'];
+
+    function parseHash() {
+      const h = window.location.hash.replace('#', '').toLowerCase();
+      if (!h || h === 'hub' || h === 'all') return 'all';
+      if (VALID_PHASES.includes(h)) return h;
+      return 'all';
+    }
+
+    function setHash(phase) {
+      const hash = (phase === 'all') ? '#hub' : '#' + phase;
+      if (window.location.hash !== hash) {
+        history.pushState(null, '', hash);
+      }
+    }
+
+    // Override selectPhase + goHome to update hash
+    const _origSelectPhase = window.selectPhase;
+    window.selectPhase = function(phaseId) {
+      setHash(phaseId);
+      _origSelectPhase(phaseId);
+    };
+
+    window.goHome = function() {
+      setHash('all');
+      document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.phase-btn[data-phase="all"]').classList.add('active');
+      activePhase = 'all';
+      render();
+    };
+
+    // Back/forward button support
+    window.addEventListener('popstate', () => {
+      const phase = parseHash();
+      document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`.phase-btn[data-phase="${phase}"]`);
+      if (btn) btn.classList.add('active');
+      activePhase = phase;
+      render();
+    });
+
+    // ── WELCOME SCREEN ────────────────────────────────────────────────
+    const WELCOME_KEY = 'hif_welcomed_v1';
+
+    function getCurrentAccessMonth() {
+      try {
+        return localStorage.getItem('hif_access_month') || '';
+      } catch(e) { return ''; }
+    }
+
+    function hasBeenWelcomed() {
+      // Reset welcome each time access month rotates (new monthly code)
+      try {
+        const stored = localStorage.getItem(WELCOME_KEY);
+        if (!stored) return false;
+        const { month } = JSON.parse(stored);
+        return month === getCurrentAccessMonth();
+      } catch(e) { return false; }
+    }
+
+    function markWelcomed() {
+      try {
+        localStorage.setItem(WELCOME_KEY, JSON.stringify({ month: getCurrentAccessMonth() }));
+      } catch(e) {}
+    }
+
+    window.dismissWelcome = function(phaseId) {
+      const overlay = document.getElementById('hif-welcome');
+      overlay.classList.remove('visible');
+      overlay.classList.add('dismissed');
+      markWelcomed();
+      // Route to selected phase
+      if (phaseId && phaseId !== 'all') {
+        setTimeout(() => window.selectPhase(phaseId), 200);
+      }
+      setTimeout(() => { overlay.style.display = 'none'; }, 350);
+    };
+
+    function buildWelcomeTiles() {
+      const container = document.getElementById('welcome-phases');
+      if (!container) return;
+      container.innerHTML = PHASES.map(phase => {
+        const count = ITEMS.filter(t => t.phase === phase.id).length;
+        return `
+          <button class="welcome-phase-btn" data-phase="${phase.id}" onclick="dismissWelcome('${phase.id}')">
+            <div class="welcome-phase-num">PHASE ${phase.num}</div>
+            <div class="welcome-phase-name">${phase.name}</div>
+            <div class="welcome-phase-desc">${phase.desc}</div>
+            <div class="welcome-phase-count">${count} items</div>
+          </button>`;
+      }).join('');
+    }
+
+    function showWelcome() {
+      buildWelcomeTiles();
+      const overlay = document.getElementById('hif-welcome');
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+      });
+    }
+
     // ── INIT ──────────────────────────────────────────────────────────
+    // 1. Apply hash-based initial state
+    (function applyInitialHash() {
+      const phase = parseHash();
+      if (phase !== 'all') {
+        document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.querySelector(`.phase-btn[data-phase="${phase}"]`);
+        if (btn) btn.classList.add('active');
+        activePhase = phase;
+      }
+    })();
+
+    // 2. Render the app
     render();
+
+    // 3. Show welcome screen if member hasn't seen it this month
+    // Small delay so the app renders behind it first
+    if (!hasBeenWelcomed() && document.documentElement.classList.contains('hif-unlocked')) {
+      setTimeout(showWelcome, 150);
+    }
+
+    // Also hook into the gate unlock to show welcome on first login
+    const _origGrantAccess = window._hifGrantAccess;
+    document.addEventListener('hif-unlocked', () => {
+      if (!hasBeenWelcomed()) {
+        setTimeout(showWelcome, 300);
+      }
+    });
+
+    // Allow ?reset-welcome in URL to test welcome screen
+    if (window.location.search.includes('reset-welcome')) {
+      try { localStorage.removeItem(WELCOME_KEY); } catch(e) {}
+      setTimeout(showWelcome, 300);
+    }
+
+    // ── PWA: Register service worker ─────────────────────────────────────────
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/app/sw.js', { scope: '/app/' })
+          .then(reg => {
+            console.log('[HIF SW] Registered, scope:', reg.scope);
+            // Once active, kick off background caching of all tools + templates
+            const sw = reg.installing || reg.waiting || reg.active;
+            if (sw) {
+              // Wait for the SW to be active before sending cache-all message
+              const sendCacheAll = () => {
+                if (reg.active) {
+                  reg.active.postMessage({ type: 'CACHE_ALL' });
+                }
+              };
+              if (reg.active) {
+                sendCacheAll();
+              } else {
+                navigator.serviceWorker.ready.then(sendCacheAll);
+              }
+            }
+          })
+          .catch(err => console.log('[HIF SW] Registration failed:', err));
+      });
+    }
+
   </script>
 </body>
 </html>
