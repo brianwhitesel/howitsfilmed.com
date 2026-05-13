@@ -1114,17 +1114,26 @@ function esc(s){
 // ══════════════════════════════════════════════════════
 // AUTO-SAVE / LOAD
 // ══════════════════════════════════════════════════════
-const SAVE_KEY = 'hif-audio-sync';
+
+    // ── PROJECT-AWARE STORAGE ────────────────────────────────────────────────
+    function getActiveKey(base) {
+      try {
+        var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+        return (p && p.id) ? base + '__' + p.id : base;
+      } catch(e) { return base; }
+    }
+
+    const SAVE_KEY = 'hif-audio-sync';
 
 function save(){
   try{
-    localStorage.setItem(SAVE_KEY, JSON.stringify({ state: S, nextId: _id }));
+    localStorage.setItem(getActiveKey(SAVE_KEY), JSON.stringify({ state: S, nextId: _id }));
   }catch(e){}
 }
 
 function loadSaved(){
   try{
-    const raw = localStorage.getItem(SAVE_KEY);
+    const raw = localStorage.getItem(getActiveKey(SAVE_KEY));
     if(!raw) return false;
     const d = JSON.parse(raw);
     if(!d.state) return false;

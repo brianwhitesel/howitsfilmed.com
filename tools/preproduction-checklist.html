@@ -456,9 +456,18 @@ function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&l
 function toast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500); }
 
 // ── PERSISTENCE ──────────────────────────────────────────────────
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   try{
-    localStorage.setItem('hif-prepro-checklist',JSON.stringify({
+    localStorage.setItem(getActiveKey('hif-prepro-checklist'),JSON.stringify({
       phases,
       proj:{ name:document.getElementById('proj-name')?.value||'', date:document.getElementById('proj-date')?.value||'' }
     }));
@@ -467,7 +476,7 @@ function save() {
 
 function load() {
   try{
-    const raw = localStorage.getItem('hif-prepro-checklist');
+    const raw = localStorage.getItem(getActiveKey('hif-prepro-checklist'));
     if(!raw){ initPhases(); return; }
     const data = JSON.parse(raw);
     // Merge saved state with defaults (so new default items appear)

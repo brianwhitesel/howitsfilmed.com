@@ -500,6 +500,15 @@ document.querySelectorAll('#projTitle,#projCompany,#projAD,#projDays,#projStart,
   el.addEventListener('input', save);
 });
 
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   state.project = {
     title:   document.getElementById('projTitle').value,
@@ -509,12 +518,12 @@ function save() {
     start:   document.getElementById('projStart').value,
     prep:    document.getElementById('projPrep').value,
   };
-  try { localStorage.setItem('hif_dood', JSON.stringify(state)); } catch(e){}
+  try { localStorage.setItem(getActiveKey('hif_dood'), JSON.stringify(state)); } catch(e){}
 }
 
 function load() {
   try {
-    const raw = localStorage.getItem('hif_dood');
+    const raw = localStorage.getItem(getActiveKey('hif_dood'));
     if (!raw) return;
     const s = JSON.parse(raw);
     state = s;

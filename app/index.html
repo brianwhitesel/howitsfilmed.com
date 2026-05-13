@@ -170,6 +170,108 @@ html.light {
     .search-input::placeholder { color: var(--text-dim); }
     .search-input:focus { border-color: var(--accent); }
 
+    /* ── PROJECT SWITCHER ── */
+    .project-switcher {
+      flex-shrink: 0;
+      position: relative;
+    }
+    .project-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 12px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      max-width: 160px;
+    }
+    .project-btn:hover { border-color: #555; }
+    .project-btn-icon { font-size: 13px; flex-shrink: 0; }
+    .project-btn-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-muted);
+    }
+    .project-btn-chevron { flex-shrink: 0; color: var(--text-dim); font-size: 10px; }
+    .project-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      width: 220px;
+      background: #1a1a1f;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      z-index: 200;
+      display: none;
+      overflow: hidden;
+    }
+    .project-dropdown.open { display: block; }
+    .project-dropdown-head {
+      padding: 10px 14px 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+    }
+    .project-list { padding: 4px 0; max-height: 200px; overflow-y: auto; }
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: background 0.1s;
+    }
+    .project-item:hover { background: var(--surface2); color: var(--text); }
+    .project-item.active { color: #fff; }
+    .project-item-check { font-size: 11px; width: 14px; color: #F97316; }
+    .project-item-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+    .project-item-del {
+      font-size: 14px;
+      color: var(--text-dim);
+      opacity: 0;
+      padding: 0 2px;
+      transition: opacity 0.1s;
+    }
+    .project-item:hover .project-item-del { opacity: 0.5; }
+    .project-item-del:hover { opacity: 1 !important; color: #ef4444; }
+    .project-dropdown-footer {
+      padding: 8px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-new-project {
+      width: 100%;
+      background: none;
+      border: 1px dashed var(--border2);
+      border-radius: 6px;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      padding: 7px;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .btn-new-project:hover { border-color: #F97316; color: #F97316; }
+    @media (max-width: 600px) {
+      .project-switcher { display: none; }
+    }
+
     .badge-count {
       flex-shrink: 0;
       background: var(--accent-dim);
@@ -184,43 +286,133 @@ html.light {
     }
 
     /* ── PHASE NAV BAR ── */
+    /* ── PHASE DROPDOWN ── */
     .phase-nav-wrap {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      padding: 0 20px;
     }
-    .phase-nav-wrap::-webkit-scrollbar { display: none; }
     .phase-nav {
       max-width: 1280px;
       margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 10px 20px;
-      white-space: nowrap;
+      gap: 12px;
+      height: 52px;
     }
-    .phase-btn {
+
+    /* Tier filter chips */
+    .tier-chips {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+    }
+    .tier-chip {
       background: transparent;
       border: 1px solid var(--border2);
       border-radius: 20px;
-      color: var(--text-muted);
+      color: var(--text-dim);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .tier-chip:hover { color: var(--text-muted); border-color: #444; }
+    .tier-chip.active { color: #fff; border-color: transparent; background: #2a2a2a; }
+    .tier-chip.active.tools  { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.4); color: #fb923c; }
+    .tier-chip.active.tpls   { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.4); color: #93c5fd; }
+
+    /* Phase select dropdown */
+    .phase-select-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .phase-select-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+    .phase-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      color: var(--text);
       cursor: pointer;
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 500;
-      padding: 6px 14px;
-      transition: all 0.15s;
+      padding: 7px 36px 7px 14px;
+      outline: none;
+      transition: border-color 0.15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      min-width: 200px;
+    }
+    .phase-select:hover { border-color: #444; }
+    .phase-select:focus { border-color: #555; }
+    .phase-select option { background: #1a1a1f; }
+    .phase-select[data-phase="all"]      { border-color: rgba(255,255,255,0.2); }
+    .phase-select[data-phase="pre"]      { border-color: rgba(59,130,246,0.5); color: #93c5fd; }
+    .phase-select[data-phase="onset"]    { border-color: rgba(249,115,22,0.5); color: #fdba74; }
+    .phase-select[data-phase="post"]     { border-color: rgba(168,85,247,0.5); color: #d8b4fe; }
+    .phase-select[data-phase="business"] { border-color: rgba(20,184,166,0.5); color: #5eead4; }
+
+    /* phase-btn removed — replaced by #phaseSelect dropdown */
+    .phase-btn { display: none; }
+
+    /* ── TIER SECTION HEADERS ── */
+    .tier-section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+    }
+    .tier-section-head-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       white-space: nowrap;
     }
-    .phase-btn:hover { border-color: #444; color: var(--text); }
-    .phase-btn.active { color: #fff; border-color: transparent; }
-    .phase-btn[data-phase="all"].active           { background: #333; color: #fff; }
-    .phase-btn[data-phase="pre"].active           { background: #1d3a6e; border-color: #3B82F6; color: #93c5fd; }
-    .phase-btn[data-phase="onset"].active         { background: #4a2000; border-color: #F97316; color: #fdba74; }
-    .phase-btn[data-phase="post"].active          { background: #2d1b69; border-color: #A855F7; color: #d8b4fe; }
-    .phase-btn[data-phase="business"].active      { background: #0d3330; border-color: #14B8A6; color: #5eead4; }
+    .tier-section-head-label.tpl  { color: #6b7db8; }
+    .tier-section-head-label.tool { color: #F97316; }
+    .tier-section-head-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .tier-section-head-count {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .tier-section + .tier-section { margin-top: 32px; }
+
+    /* Tool card accent */
+    .card[data-cat="interactive-tools"]::before { background: #F97316 !important; opacity: 1 !important; }
+    .card[data-cat="interactive-tools"] { border-color: rgba(249,115,22,0.18); }
+    .card[data-cat="interactive-tools"]:hover { border-color: rgba(249,115,22,0.45); }
+
+    /* Tool/template badge pill distinction */
+    .card-pill.tool-pill {
+      background: rgba(249,115,22,0.14);
+      border-color: rgba(249,115,22,0.3);
+      color: #fb923c;
+    }
 
     /* ── MAIN CONTENT ── */
     .main {
@@ -1047,6 +1239,22 @@ html.light {
           />
         </div>
 
+        <!-- Project Switcher -->
+        <div class="project-switcher" id="projectSwitcher">
+          <button class="project-btn" onclick="toggleProjectDropdown(event)" title="Switch project">
+            <span class="project-btn-icon">📁</span>
+            <span class="project-btn-name" id="projectBtnName">My Project</span>
+            <span class="project-btn-chevron">▾</span>
+          </button>
+          <div class="project-dropdown" id="projectDropdown">
+            <div class="project-dropdown-head">Projects</div>
+            <div class="project-list" id="projectList"></div>
+            <div class="project-dropdown-footer">
+              <button class="btn-new-project" onclick="createProject()">+ New Project</button>
+            </div>
+          </div>
+        </div>
+
         <div class="badge-count">62 Items</div>
       </div>
     </header>
@@ -1054,11 +1262,21 @@ html.light {
     <!-- PHASE NAV -->
     <div class="phase-nav-wrap">
       <div class="phase-nav">
-        <button class="phase-btn active" data-phase="all">All Phases</button>
-        <button class="phase-btn" data-phase="pre">01 — Pre-Production</button>
-        <button class="phase-btn" data-phase="onset">02 — On-Set</button>
-        <button class="phase-btn" data-phase="post">03 — Post-Production</button>
-        <button class="phase-btn" data-phase="business">04 — Business &amp; Admin</button>
+        <div class="phase-select-wrap">
+          <span class="phase-select-label">Phase</span>
+          <select class="phase-select" id="phaseSelect" data-phase="all" onchange="onPhaseSelectChange(this)">
+            <option value="all">All Phases</option>
+            <option value="pre">01 — Pre-Production</option>
+            <option value="onset">02 — On-Set / Production</option>
+            <option value="post">03 — Post-Production</option>
+            <option value="business">04 — Business &amp; Admin</option>
+          </select>
+        </div>
+        <div class="tier-chips" id="tierChips">
+          <button class="tier-chip active" data-tier="all" onclick="onTierChip(this)">All</button>
+          <button class="tier-chip tpls" data-tier="templates" onclick="onTierChip(this)">Templates</button>
+          <button class="tier-chip tools" data-tier="tools" onclick="onTierChip(this)">⚡ Tools</button>
+        </div>
       </div>
     </div>
 
@@ -1212,6 +1430,7 @@ html.light {
 
     // ── STATE ─────────────────────────────────────────────────────────
     let activePhase = 'all';
+    let activeTier  = 'all';
     let searchQuery = '';
 
     // ── CARD HTML ─────────────────────────────────────────────────────
@@ -1220,7 +1439,7 @@ html.light {
         <div class="card ${t.exists ? '' : 'coming-soon'}" data-cat="${t.cat}">
           <div class="card-top">
             <span class="card-num">No.${t.num}</span>
-            <span class="card-pill">${t.label}</span>
+            <span class="card-pill${t.cat === 'interactive-tools' ? ' tool-pill' : ''}">${t.cat === 'interactive-tools' ? '⚡ ' + t.label : t.label}</span>
           </div>
           <div class="card-name">${t.name}</div>
           <div class="card-desc">${t.desc}</div>
@@ -1290,10 +1509,44 @@ html.light {
         return;
       }
 
-      // PHASE VIEW: items in selected phase with back button
+      // PHASE VIEW: items in selected phase with tier filtering
       const phaseItems = ITEMS.filter(t => t.phase === activePhase);
       const phase = PHASES.find(p => p.id === activePhase);
-      meta.textContent = `${phaseItems.length} item${phaseItems.length !== 1 ? 's' : ''}`;
+      const phaseTools = phaseItems.filter(t => t.cat === 'interactive-tools');
+      const phaseTpls  = phaseItems.filter(t => t.cat !== 'interactive-tools');
+
+      // Apply tier filter
+      let visibleItems;
+      if      (activeTier === 'tools')     visibleItems = phaseTools;
+      else if (activeTier === 'templates') visibleItems = phaseTpls;
+      else                                 visibleItems = phaseItems;
+
+      meta.textContent = `${visibleItems.length} item${visibleItems.length !== 1 ? 's' : ''}`;
+
+      // Build tiered sections or flat grid
+      let gridHTML;
+      if (activeTier === 'all' && phaseTools.length > 0 && phaseTpls.length > 0) {
+        gridHTML = `
+          <div class="tier-section">
+            <div class="tier-section-head">
+              <span class="tier-section-head-label tpl">Templates</span>
+              <div class="tier-section-head-rule"></div>
+              <span class="tier-section-head-count">${phaseTpls.length}</span>
+            </div>
+            <div class="grid">${phaseTpls.map(cardHTML).join('')}</div>
+          </div>
+          <div class="tier-section">
+            <div class="tier-section-head">
+              <span class="tier-section-head-label tool">⚡ Interactive Tools</span>
+              <div class="tier-section-head-rule"></div>
+              <span class="tier-section-head-count">${phaseTools.length}</span>
+            </div>
+            <div class="grid">${phaseTools.map(cardHTML).join('')}</div>
+          </div>`;
+      } else {
+        gridHTML = `<div class="grid">${visibleItems.map(cardHTML).join('')}</div>`;
+      }
+
       container.innerHTML = `
         <div class="phase-header">
           <button class="phase-header-back" onclick="goHome()">← All Phases</button>
@@ -1302,35 +1555,36 @@ html.light {
             <div class="phase-header-sub">${phase.desc}</div>
           </div>
         </div>
-        <div class="grid">${phaseItems.map(cardHTML).join('')}</div>`;
+        ${gridHTML}`;
     }
 
     // ── SELECT PHASE ──────────────────────────────────────────────────
     window.selectPhase = function(phaseId) {
-      document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.querySelector(`.phase-btn[data-phase="${phaseId}"]`);
-      if (btn) btn.classList.add('active');
       activePhase = phaseId;
+      const sel = document.getElementById('phaseSelect');
+      if (sel) { sel.value = phaseId; sel.dataset.phase = phaseId; }
       render();
     };
 
     // ── GO HOME ───────────────────────────────────────────────────────
     window.goHome = function() {
-      document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('.phase-btn[data-phase="all"]').classList.add('active');
       activePhase = 'all';
+      const sel = document.getElementById('phaseSelect');
+      if (sel) { sel.value = 'all'; sel.dataset.phase = 'all'; }
       render();
     };
 
     // ── EVENTS ────────────────────────────────────────────────────────
-    document.querySelectorAll('.phase-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activePhase = btn.dataset.phase;
-        render();
-      });
-    });
+    window.onPhaseSelectChange = function(sel) {
+      window.selectPhase(sel.value);
+    };
+
+    window.onTierChip = function(btn) {
+      document.querySelectorAll('.tier-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      activeTier = btn.dataset.tier;
+      render();
+    };
 
     document.getElementById('searchInput').addEventListener('input', e => {
       searchQuery = e.target.value;
@@ -1342,6 +1596,134 @@ html.light {
     });
 
     // ── HASH ROUTING ──────────────────────────────────────────────────
+    // ── PROJECT MANAGEMENT ───────────────────────────────────────────────────
+    const PROJECTS_KEY  = 'hif_projects';
+    const ACTIVE_PRJ_KEY = 'hif_active_project';
+
+    function loadProjects() {
+      try { return JSON.parse(localStorage.getItem(PROJECTS_KEY)) || []; }
+      catch(e) { return []; }
+    }
+
+    function saveProjects(projects) {
+      try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects)); } catch(e) {}
+    }
+
+    function getActiveProject() {
+      try {
+        const p = JSON.parse(localStorage.getItem(ACTIVE_PRJ_KEY));
+        return p && p.id ? p : null;
+      } catch(e) { return null; }
+    }
+
+    function setActiveProject(project) {
+      try {
+        localStorage.setItem(ACTIVE_PRJ_KEY, JSON.stringify({ id: project.id, name: project.name }));
+      } catch(e) {}
+    }
+
+    function ensureDefaultProject() {
+      let projects = loadProjects();
+      if (!projects.length) {
+        const defaultProj = { id: 'default', name: 'My Project', created: Date.now() };
+        projects = [defaultProj];
+        saveProjects(projects);
+      }
+      if (!getActiveProject()) {
+        setActiveProject(projects[0]);
+      }
+      return loadProjects();
+    }
+
+    function renderProjectList() {
+      const projects = loadProjects();
+      const active   = getActiveProject();
+      const list     = document.getElementById('projectList');
+      if (!list) return;
+
+      list.innerHTML = projects.map(p => `
+        <div class="project-item${active && active.id === p.id ? ' active' : ''}"
+             onclick="switchProject('${p.id}')">
+          <span class="project-item-check">${active && active.id === p.id ? '●' : ''}</span>
+          <span class="project-item-name">${escHtml(p.name)}</span>
+          ${p.id !== 'default' ? `<span class="project-item-del" onclick="deleteProject(event,'${p.id}')" title="Delete">✕</span>` : ''}
+        </div>
+      `).join('');
+    }
+
+    function updateProjectButton() {
+      const active = getActiveProject();
+      const btn = document.getElementById('projectBtnName');
+      if (btn && active) btn.textContent = active.name;
+    }
+
+    function toggleProjectDropdown(e) {
+      e.stopPropagation();
+      const dd = document.getElementById('projectDropdown');
+      if (!dd) return;
+      const isOpen = dd.classList.contains('open');
+      if (!isOpen) {
+        renderProjectList();
+        dd.classList.add('open');
+      } else {
+        dd.classList.remove('open');
+      }
+    }
+
+    function switchProject(id) {
+      const projects = loadProjects();
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      setActiveProject(p);
+      updateProjectButton();
+      document.getElementById('projectDropdown').classList.remove('open');
+    }
+
+    function createProject() {
+      const name = prompt('Project name:', 'New Project');
+      if (!name || !name.trim()) return;
+      const id = 'p_' + Date.now();
+      const projects = loadProjects();
+      const newProj = { id, name: name.trim(), created: Date.now() };
+      projects.push(newProj);
+      saveProjects(projects);
+      setActiveProject(newProj);
+      updateProjectButton();
+      renderProjectList();
+    }
+
+    function deleteProject(e, id) {
+      e.stopPropagation();
+      const projects = loadProjects();
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      if (!confirm(`Delete project "${p.name}"? The data inside won't be deleted, just the project entry.`)) return;
+      const filtered = projects.filter(x => x.id !== id);
+      saveProjects(filtered);
+      // If we deleted the active one, switch to default
+      const active = getActiveProject();
+      if (active && active.id === id) {
+        const fallback = filtered[0] || { id: 'default', name: 'My Project' };
+        setActiveProject(fallback);
+        updateProjectButton();
+      }
+      renderProjectList();
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      const dd = document.getElementById('projectDropdown');
+      if (dd) dd.classList.remove('open');
+    });
+
+    // Init projects on load
+    ensureDefaultProject();
+    updateProjectButton();
+
     const VALID_PHASES = ['all', 'pre', 'onset', 'post', 'business'];
 
     function parseHash() {
@@ -1367,19 +1749,18 @@ html.light {
 
     window.goHome = function() {
       setHash('all');
-      document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('.phase-btn[data-phase="all"]').classList.add('active');
       activePhase = 'all';
+      const sel = document.getElementById('phaseSelect');
+      if (sel) { sel.value = 'all'; sel.dataset.phase = 'all'; }
       render();
     };
 
     // Back/forward button support
     window.addEventListener('popstate', () => {
       const phase = parseHash();
-      document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.querySelector(`.phase-btn[data-phase="${phase}"]`);
-      if (btn) btn.classList.add('active');
       activePhase = phase;
+      const sel = document.getElementById('phaseSelect');
+      if (sel) { sel.value = phase; sel.dataset.phase = phase; }
       render();
     });
 
@@ -1449,10 +1830,9 @@ html.light {
     (function applyInitialHash() {
       const phase = parseHash();
       if (phase !== 'all') {
-        document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
-        const btn = document.querySelector(`.phase-btn[data-phase="${phase}"]`);
-        if (btn) btn.classList.add('active');
         activePhase = phase;
+        const sel = document.getElementById('phaseSelect');
+        if (sel) { sel.value = phase; sel.dataset.phase = phase; }
       }
     })();
 

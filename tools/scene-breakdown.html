@@ -540,9 +540,18 @@ function printAll() {
 }
 
 // ── PERSISTENCE ──────────────────────────────────────────────────
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   try{
-    localStorage.setItem('hif-scene-breakdown',JSON.stringify({
+    localStorage.setItem(getActiveKey('hif-scene-breakdown'),JSON.stringify({
       scenes,activeId,nextId,
       proj:{
         name:document.getElementById('proj-name')?.value||'',
@@ -555,7 +564,7 @@ function save() {
 
 function load() {
   try{
-    const raw=localStorage.getItem('hif-scene-breakdown');
+    const raw=localStorage.getItem(getActiveKey('hif-scene-breakdown'));
     if(!raw) return;
     const data=JSON.parse(raw);
     scenes=data.scenes||[];

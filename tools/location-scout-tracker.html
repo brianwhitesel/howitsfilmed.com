@@ -474,6 +474,15 @@ function escHtml(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   state.project = {
     title: document.getElementById('projTitle').value,
@@ -481,12 +490,12 @@ function save() {
     dates: document.getElementById('projDates').value,
     city:  document.getElementById('projCity').value,
   };
-  try { localStorage.setItem('hif_locations', JSON.stringify(state)); } catch(e){}
+  try { localStorage.setItem(getActiveKey('hif_locations'), JSON.stringify(state)); } catch(e){}
 }
 
 function load() {
   try {
-    const raw = localStorage.getItem('hif_locations');
+    const raw = localStorage.getItem(getActiveKey('hif_locations'));
     if (!raw) return;
     const s = JSON.parse(raw);
     state = s;

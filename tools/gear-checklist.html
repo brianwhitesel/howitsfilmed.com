@@ -400,9 +400,18 @@ function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&l
 function toast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500); }
 
 // ── PERSISTENCE ──────────────────────────────────────────────────
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   try{
-    localStorage.setItem('hif-gear-checklist',JSON.stringify({
+    localStorage.setItem(getActiveKey('hif-gear-checklist'),JSON.stringify({
       categories,
       proj:{
         name:document.getElementById('proj-name')?.value||'',
@@ -415,7 +424,7 @@ function save() {
 
 function load() {
   try{
-    const raw=localStorage.getItem('hif-gear-checklist');
+    const raw=localStorage.getItem(getActiveKey('hif-gear-checklist'));
     if(!raw){ initCats(); return; }
     const data=JSON.parse(raw);
     categories=data.categories||[];

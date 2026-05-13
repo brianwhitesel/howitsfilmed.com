@@ -487,6 +487,15 @@ function clearAll() {
   renderAll(); save();
 }
 
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   state.project = {
     title:    document.getElementById('projTitle').value,
@@ -497,12 +506,12 @@ function save() {
     currency: document.getElementById('projCurrency').value,
   };
   state.contingencyPct = parseFloat(document.getElementById('contingencyPct')?.value) || 10;
-  try { localStorage.setItem('hif_budget', JSON.stringify(state)); } catch(e){}
+  try { localStorage.setItem(getActiveKey('hif_budget'), JSON.stringify(state)); } catch(e){}
 }
 
 function load() {
   try {
-    const raw = localStorage.getItem('hif_budget');
+    const raw = localStorage.getItem(getActiveKey('hif_budget'));
     if (!raw) return;
     const s = JSON.parse(raw);
     state = s;

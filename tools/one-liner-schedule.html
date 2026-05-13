@@ -907,7 +907,16 @@ html.light {
 /* ───────────────────────────────────────────
    CONSTANTS & DEFAULTS
 ─────────────────────────────────────────── */
-const STORE_KEY = 'hif-one-liner-v2';
+
+    // ── PROJECT-AWARE STORAGE ────────────────────────────────────────────────
+    function getActiveKey(base) {
+      try {
+        var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+        return (p && p.id) ? base + '__' + p.id : base;
+      } catch(e) { return base; }
+    }
+
+    const STORE_KEY = 'hif-one-liner-v2';
 
 const COLORS = [
   { name:'White',  hex:'#FFFFFF', label:'Day Interior',       dark:true  },
@@ -1013,14 +1022,14 @@ let saveTimer = null;
 function save() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch(e){}
+    try { localStorage.setItem(getActiveKey(STORE_KEY), JSON.stringify(S)); } catch(e){}
     flash('autosave-badge');
   }, 400);
 }
 
 function load() {
   try {
-    const raw = localStorage.getItem(STORE_KEY);
+    const raw = localStorage.getItem(getActiveKey(STORE_KEY));
     if (raw) S = { ...S, ...JSON.parse(raw) };
   } catch(e) {}
 }

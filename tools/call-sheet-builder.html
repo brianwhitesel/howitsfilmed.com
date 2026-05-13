@@ -467,10 +467,19 @@ function clearAll() {
 
 const PROJ_FIELDS = ['cs-project','cs-date','cs-director','cs-producer','cs-dp','cs-location','cs-hospital','cs-weather','cs-parking','cs-calltime','cs-notes'];
 
+
+  // ── PROJECT-AWARE STORAGE ──────────────────────────────────────────────────
+  function getActiveKey(base) {
+    try {
+      var p = JSON.parse(localStorage.getItem('hif_active_project') || 'null');
+      return (p && p.id) ? base + '__' + p.id : base;
+    } catch(e) { return base; }
+  }
+
 function save() {
   const proj = {};
   PROJ_FIELDS.forEach(id=>{ proj[id]=document.getElementById(id)?.value||''; });
-  try{ localStorage.setItem('hif-call-sheet',JSON.stringify({...state,proj})); }catch(e){}
+  try{ localStorage.setItem(getActiveKey('hif-call-sheet'),JSON.stringify({...state,proj})); }catch(e){}
   // update print meta
   const meta = document.getElementById('cs-print-meta');
   if(meta) meta.textContent=[proj['cs-project'],proj['cs-date']&&`Date: ${proj['cs-date']}`,proj['cs-director']&&`Director: ${proj['cs-director']}`,proj['cs-calltime']&&`General Call: ${proj['cs-calltime']}`].filter(Boolean).join('  ·  ');
@@ -478,7 +487,7 @@ function save() {
 
 function load() {
   try{
-    const raw = localStorage.getItem('hif-call-sheet');
+    const raw = localStorage.getItem(getActiveKey('hif-call-sheet'));
     if(!raw) return;
     const data = JSON.parse(raw);
     if(data.proj) PROJ_FIELDS.forEach(id=>{ if(document.getElementById(id)) document.getElementById(id).value=data.proj[id]||''; });
