@@ -68,6 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 .btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}.btn-ghost:hover{border-color:#444;color:var(--text)}
 .btn-sm{padding:6px 12px;font-size:12px}
 .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:var(--accent-dim)}
+.btn-ai{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;border:none}.btn-ai:hover{background:linear-gradient(135deg,#6d28d9,#8b5cf6)}
 
 .main{max-width:1100px;margin:0 auto;padding:24px 20px;display:flex;flex-direction:column;gap:20px}
 
@@ -132,6 +133,19 @@ textarea.form-control{resize:vertical;min-height:72px}
 
 @media(max-width:700px){.header-title{display:none}.form-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.form-grid{grid-template-columns:1fr}.header-actions .btn span{display:none}}
+@media(max-width:400px){
+  .header-inner{gap:6px;padding:0 12px}
+  .logo-text{font-size:16px}
+  .back-btn{font-size:12px;gap:4px}
+  .btn-sm{padding:5px 8px;font-size:11px}
+  .main{padding:14px 10px;gap:12px}
+  .card{padding:14px}
+  .calltime-banner{flex-wrap:wrap;gap:6px;padding:12px 14px}
+  .calltime-input{width:140px;font-size:22px}
+  .calltime-note{width:100%;font-size:11px;margin-top:2px}
+  .dyn-table-wrap{-webkit-overflow-scrolling:touch;border-radius:6px}
+  .section-label{font-size:12px}
+}
 </style>
   <script>
     (function() {
@@ -217,6 +231,10 @@ textarea.form-control{resize:vertical;min-height:72px}
     <div class="logo-text">HOW IT'S <span>FILMED</span></div>
     <div class="header-title">CALL SHEET BUILDER</div>
     <div class="header-actions">
+      <button class="btn btn-ai btn-sm" onclick="openAI()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" fill="currentColor"/></svg>
+        <span>AI Fill</span>
+      </button>
       <button class="btn btn-ghost btn-sm" onclick="clearAll()">
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         <span>Clear</span>
@@ -379,6 +397,28 @@ textarea.form-control{resize:vertical;min-height:72px}
 
 </main>
 
+<!-- AI Fill Modal -->
+<div id="ai-modal" onclick="if(event.target===this)closeAI()" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.88);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:28px 24px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.08em;color:#f1f5f9">✦ AI FILL — CALL SHEET</div>
+      <button onclick="closeAI()" style="background:none;border:none;color:#555;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px">✕</button>
+    </div>
+    <div id="ai-key-section">
+      <div style="font-size:11px;font-weight:600;color:#666;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Claude API Key</div>
+      <input id="ai-apikey" type="password" placeholder="sk-ant-api03-..." autocomplete="off" style="width:100%;background:#191919;border:1px solid #2a2a2a;border-radius:6px;color:#fafafa;padding:9px 12px;font-size:13px;outline:none;font-family:'Inter',sans-serif;margin-bottom:6px"/>
+      <div style="font-size:11px;color:#444;margin-bottom:18px">Stored locally — never leaves your device. <a href="https://console.anthropic.com" target="_blank" style="color:#8b5cf6;text-decoration:none">Get a key →</a> &nbsp;·&nbsp; <a href="#" onclick="clearAIKey();return false" style="color:#555;text-decoration:none">Forget saved key</a></div>
+    </div>
+    <div style="font-size:11px;font-weight:600;color:#666;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Describe Your Shoot</div>
+    <textarea id="ai-desc" placeholder="e.g. Commercial shoot for ABC Fitness on June 14 at Columbus Convention Center. 7am call. Director is Jane Smith, DP is John Doe. 6 crew, 3 talent. Interior and exterior shots, wrap by 6pm." rows="5" style="width:100%;background:#191919;border:1px solid #2a2a2a;border-radius:6px;color:#fafafa;padding:10px 12px;font-size:13px;resize:vertical;outline:none;font-family:'Inter',sans-serif;line-height:1.55;margin-bottom:18px"></textarea>
+    <div style="display:flex;gap:10px">
+      <button onclick="closeAI()" style="flex:1;padding:11px;background:transparent;border:1px solid #2a2a2a;border-radius:6px;color:#666;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">Cancel</button>
+      <button id="ai-submit-btn" onclick="submitAI()" style="flex:2;padding:11px;background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.02em">✦ Fill Sheet</button>
+    </div>
+    <div id="ai-error" style="color:#ef4444;font-size:12px;margin-top:10px;display:none;line-height:1.5"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -522,6 +562,152 @@ window.addEventListener('DOMContentLoaded',()=>{
   if(state.cast.length===0){ addRow('cast');addRow('cast'); }
   if(state.schedule.length===0){ addRow('schedule');addRow('schedule'); }
 });
+
+// ── AI FILL ───────────────────────────────────────────────────────
+function openAI() {
+  const modal = document.getElementById('ai-modal');
+  modal.style.display = 'flex';
+  document.getElementById('ai-error').style.display = 'none';
+  // Show key section only if no key saved
+  const hasKey = !!localStorage.getItem('hif_claude_key');
+  document.getElementById('ai-key-section').style.display = hasKey ? 'none' : 'block';
+  if(!hasKey) document.getElementById('ai-apikey').focus();
+  else document.getElementById('ai-desc').focus();
+}
+
+function closeAI() {
+  document.getElementById('ai-modal').style.display = 'none';
+}
+
+function clearAIKey() {
+  localStorage.removeItem('hif_claude_key');
+  document.getElementById('ai-key-section').style.display = 'block';
+  document.getElementById('ai-apikey').value = '';
+  document.getElementById('ai-apikey').focus();
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeAI(); });
+
+async function submitAI() {
+  const btn = document.getElementById('ai-submit-btn');
+  const errEl = document.getElementById('ai-error');
+  errEl.style.display = 'none';
+
+  const keyInput = document.getElementById('ai-apikey');
+  let apiKey = localStorage.getItem('hif_claude_key') || (keyInput?.value?.trim()) || '';
+  if(!apiKey) {
+    errEl.textContent = 'Enter your Claude API key above.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const desc = document.getElementById('ai-desc').value.trim();
+  if(!desc) {
+    errEl.textContent = 'Describe your shoot first.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Save key on first use
+  if(keyInput?.value?.trim()) {
+    localStorage.setItem('hif_claude_key', apiKey);
+    document.getElementById('ai-key-section').style.display = 'none';
+  }
+
+  const origText = btn.innerHTML;
+  btn.innerHTML = '⏳ Thinking...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1200,
+        messages: [{
+          role: 'user',
+          content: `You are a professional film production coordinator. Based on the shoot description below, return ONLY a valid JSON object to fill a call sheet. Use these exact keys (only include ones you can infer):
+
+project (string), date (YYYY-MM-DD), director (string), producer (string), dp (string), location (string), hospital (string), weather (string), parking (string), calltime (HH:MM 24hr format), notes (string),
+crew: [{name, role, calltime (HH:MM), phone, notes}],
+cast: [{name, character, calltime (HH:MM), onset (HH:MM), scenes, notes}],
+schedule: [{scene, pages, cast, location, dn (DAY|NIGHT|DAWN|DUSK), desc, time}]
+
+For crew and cast: if counts are mentioned but no names, create placeholder rows. Return ONLY JSON, no explanation.
+
+Shoot description: ${desc}`
+        }]
+      })
+    });
+
+    if(!res.ok) {
+      const err = await res.json().catch(()=>({}));
+      if(res.status===401) throw new Error('Invalid API key. Check your key and try again.');
+      throw new Error(err?.error?.message || `API error ${res.status}`);
+    }
+
+    const data = await res.json();
+    const text = data.content?.[0]?.text || '';
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if(!jsonMatch) throw new Error('Unexpected response from AI. Try rephrasing your description.');
+
+    const filled = JSON.parse(jsonMatch[0]);
+    fillFromAI(filled);
+    closeAI();
+    toast('✦ Call sheet filled by AI!');
+
+  } catch(e) {
+    errEl.textContent = e.message || 'Something went wrong. Check your key and try again.';
+    errEl.style.display = 'block';
+  } finally {
+    btn.innerHTML = origText;
+    btn.disabled = false;
+  }
+}
+
+function fillFromAI(data) {
+  const fieldMap = {
+    project:'cs-project', date:'cs-date', director:'cs-director',
+    producer:'cs-producer', dp:'cs-dp', location:'cs-location',
+    hospital:'cs-hospital', weather:'cs-weather', parking:'cs-parking',
+    calltime:'cs-calltime', notes:'cs-notes'
+  };
+  Object.entries(fieldMap).forEach(([key,id])=>{
+    if(data[key] !== undefined && data[key] !== '') {
+      const el = document.getElementById(id);
+      if(el) el.value = data[key];
+    }
+  });
+
+  // Clear and refill table rows from AI data
+  ['crew','cast','schedule'].forEach(type=>{
+    if(!Array.isArray(data[type]) || !data[type].length) return;
+    state[type] = [];
+    document.getElementById(ROW_CONFIGS[type].body).innerHTML = '';
+    data[type].forEach(r=>{
+      const id = state.nextId++;
+      const def = {...ROW_CONFIGS[type].default};
+      const row = {id};
+      Object.keys(def).forEach(k=>{ row[k] = r[k] ?? def[k]; });
+      if(type==='schedule' && !['DAY','NIGHT','DAWN','DUSK'].includes(row.dn)) row.dn='DAY';
+      state[type].push(row);
+      document.getElementById(ROW_CONFIGS[type].body).insertAdjacentHTML('beforeend', ROW_CONFIGS[type].render(row,id));
+    });
+  });
+
+  // Ensure at least empty fallback rows
+  if(state.crew.length===0){ addRow('crew');addRow('crew');addRow('crew'); }
+  if(state.cast.length===0){ addRow('cast');addRow('cast'); }
+  if(state.schedule.length===0){ addRow('schedule');addRow('schedule'); }
+
+  save();
+}
 </script>
 </body>
 </html>
