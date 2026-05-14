@@ -375,11 +375,12 @@ html.light {
 
     /* ── PHASE NAV MOBILE ── */
     @media (max-width: 560px) {
-      .phase-nav { height: auto; padding: 8px 0; flex-wrap: wrap; gap: 8px; }
+      .phase-nav-wrap { padding: 0 12px; }
+      .phase-nav { height: auto; padding: 8px 0; flex-wrap: nowrap; gap: 8px; align-items: center; }
       .phase-select-label { display: none; }
-      .phase-select { min-width: 0; flex: 1; font-size: 12px; padding: 6px 28px 6px 10px; }
-      .tier-chips { margin-left: 0; width: 100%; justify-content: flex-start; }
-      .tier-chip { font-size: 10px; padding: 4px 10px; }
+      .phase-select { min-width: 0; width: 130px; flex-shrink: 0; font-size: 12px; padding: 6px 24px 6px 10px; }
+      .tier-chips { margin-left: auto; flex-shrink: 0; gap: 4px; justify-content: flex-end; }
+      .tier-chip { font-size: 11px; padding: 5px 10px; }
     }
 
     /* ── TIER SECTION HEADERS ── */
