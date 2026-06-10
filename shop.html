@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — How It's Filmed</title>
+  <meta name="description" content="Template packs, production tools, and membership — built by filmmakers for filmmakers. Coming soon to Whop." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
+:root {
+  --bg: #080c14;
+  --surface: rgba(255,255,255,0.04);
+  --surface2: rgba(255,255,255,0.07);
+  --surface3: rgba(255,255,255,0.10);
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #f1f5f9;
+  --dim: #94a3b8;
+  --muted: #4b5e78;
+  --accent: #e41e2b;
+  --blue: #3b82f6;
+  --green: #34d369;
+  --teal: #14b8a6;
+  --amber: #f59e0b;
+  --purple: #8b5cf6;
+  --font-head: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.15s ease;
+}
+html.light {
+  --bg: #f0f2f5;
+  --surface: rgba(255,255,255,0.85);
+  --surface2: rgba(255,255,255,0.95);
+  --surface3: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text: #0d1117;
+  --dim: #475569;
+  --muted: #94a3b8;
+}
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --red: #FF3333;
+      --red-dark: #cc2222;
+      --red-glow: rgba(255,51,51,0.15);
+      --red-subtle: rgba(255,51,51,0.08);
+      --bg: #0a0a0c;
+      --bg2: #111114;
+      --bg3: #161619;
+      --surface: rgba(255,255,255,0.04);
+      --surface2: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #f0f0f0;
+      --dim: #999;
+      --muted: #555;
+      --white: #ffffff;
+      --font-display: 'Bebas Neue', 'Impact', sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --radius: 12px;
+      --max: 900px;
+      --transition: 0.2s ease;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(10,10,12,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 19px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      flex-shrink: 0;
+      margin-right: auto;
+    }
+    .nav-logo-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+      margin-right: 32px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dim);
+      letter-spacing: 0.02em;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: var(--red);
+      color: var(--white);
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background var(--transition);
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+    @media (max-width: 640px) {
+      .nav { padding: 0 20px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── PAGE WRAP ── */
+    .page { padding-top: 64px; }
+
+    /* ── HERO ── */
+    .shop-hero {
+      padding: 80px 40px 64px;
+      max-width: var(--max);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .shop-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 9vw, 88px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+    .shop-hero h1 span { color: var(--red); }
+    .shop-hero p {
+      font-size: 18px;
+      color: var(--dim);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+    @media (max-width: 640px) {
+      .shop-hero { padding: 48px 20px 40px; }
+    }
+
+    /* ── COMING SOON BADGE ── */
+    .coming-soon-bar {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px 40px;
+      background: var(--red-subtle);
+      border-bottom: 1px solid rgba(255,51,51,0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cs-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .cs-text {
+      font-size: 13px;
+      color: var(--red);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cs-sub {
+      font-size: 13px;
+      color: var(--dim);
+      margin-left: auto;
+    }
+    @media (max-width: 640px) {
+      .coming-soon-bar { padding: 16px 20px; }
+      .cs-sub { display: none; }
+    }
+
+    /* ── PRODUCT GRID ── */
+    .products-section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 64px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .product-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .product-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+    }
+    .product-card.featured {
+      border-color: rgba(255,51,51,0.3);
+      background: linear-gradient(160deg, #130a0a 0%, var(--bg2) 60%);
+    }
+    .product-card.featured:hover { border-color: rgba(255,51,51,0.5); }
+    .featured-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: var(--red);
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .product-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-thumb-icon {
+      font-size: 36px;
+      opacity: 0.3;
+    }
+    .product-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--red-subtle) 0%, transparent 60%);
+    }
+    .product-body {
+      padding: 20px;
+    }
+    .product-tag {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .product-desc {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .product-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .product-price.tbd { color: var(--muted); font-size: 14px; font-family: var(--font-body); letter-spacing: 0; }
+    .product-btn {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border2);
+      color: var(--dim);
+      cursor: default;
+    }
+    .product-card.featured .product-btn {
+      border-color: rgba(255,51,51,0.4);
+      color: var(--red);
+    }
+    @media (max-width: 700px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .products-section { padding: 48px 20px; }
+    }
+
+    /* ── MEMBERSHIP ── */
+    .membership-section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 64px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .membership-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,51,51,0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .mem-left {
+      padding: 40px;
+      border-right: 1px solid var(--border);
+    }
+    .mem-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .mem-title {
+      font-family: var(--font-display);
+      font-size: 42px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .mem-desc {
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .mem-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .mem-price {
+      font-family: var(--font-display);
+      font-size: 52px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+    .mem-period { font-size: 14px; color: var(--dim); }
+    .mem-tbd {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .mem-right {
+      padding: 40px;
+    }
+    .mem-includes-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 16px;
+    }
+    .mem-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mem-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+    .mem-features li::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .mem-features li strong { color: var(--text); }
+    @media (max-width: 640px) {
+      .membership-card { grid-template-columns: 1fr; }
+      .mem-left { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 20px; }
+      .mem-right { padding: 28px 20px; }
+      .membership-section { padding: 48px 20px; }
+    }
+
+    /* ── NOTIFY SECTION ── */
+    .notify-section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 64px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .notify-inner {
+      background: linear-gradient(135deg, #13080a 0%, var(--bg2) 100%);
+      border: 1px solid rgba(255,51,51,0.2);
+      border-radius: 16px;
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .notify-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .notify-inner h2 span { color: var(--red); }
+    .notify-inner p {
+      font-size: 15px;
+      color: var(--dim);
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto 32px;
+    }
+    .notify-form {
+      display: flex;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .notify-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .notify-input::placeholder { color: var(--muted); }
+    .notify-input:focus { border-color: rgba(255,51,51,0.5); }
+    .notify-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .notify-btn:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .notify-btn:active { transform: translateY(0); }
+    .notify-success {
+      display: none;
+      font-size: 14px;
+      color: var(--dim);
+      margin-top: 16px;
+    }
+    .notify-success span { color: var(--red); }
+    @media (max-width: 500px) {
+      .notify-form { flex-direction: column; }
+      .notify-inner { padding: 32px 20px; }
+      .notify-section { padding: 48px 20px; }
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+    .footer-logo-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--dim); }
+    @media (max-width: 640px) {
+      .footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/index.html" class="nav-logo">
+      <div class="nav-logo-dot"></div>
+      HOW IT'S FILMED
+    </a>
+    <ul class="nav-links">
+      <li><a href="/index.html">App</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/shop.html" class="active">Shop</a></li>
+    </ul>
+    <a href="/app" class="nav-cta">Open App</a>
+  </nav>
+
+  <!-- Hero -->
+  <div class="shop-hero">
+    <div class="eyebrow">The Shop</div>
+    <h1>TOOLS<br>BUILT ON<br><span>SET.</span></h1>
+    <p>Template packs, production resources, and a membership for serious filmmakers. Built from real shoots. Launching on Whop.</p>
+  </div>
+
+  <!-- Coming Soon Bar -->
+  <div class="coming-soon-bar">
+    <div class="cs-dot"></div>
+    <div class="cs-text">Launching on Whop</div>
+    <div class="cs-sub">Drop your email below to get notified first</div>
+  </div>
+
+  <!-- Products -->
+  <div class="products-section">
+    <div class="section-label">What's Coming</div>
+    <div class="product-grid">
+
+      <div class="product-card featured">
+        <div class="featured-badge">Most Wanted</div>
+        <div class="product-thumb">
+          <div class="product-thumb-overlay"></div>
+          <div class="product-thumb-icon">🎬</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tag">Template Pack</div>
+          <div class="product-name">PRODUCTION STARTER KIT</div>
+          <div class="product-desc">Call sheets, shot lists, pre-production checklists, and scheduling templates. Everything you need to stop starting from scratch.</div>
+          <div class="product-price-row">
+            <span class="product-price">$29</span>
+            <a class="product-btn" href="https://whop.com/checkout/plan_g3SngnpQF5yKn/" target="_blank" style="text-decoration:none;">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          <div class="product-thumb-overlay"></div>
+          <div class="product-thumb-icon">🎙</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tag">Template Pack</div>
+          <div class="product-name">INTERVIEW SYSTEM</div>
+          <div class="product-desc">Question banks, release forms, b-roll shoot guides, and a full interview setup checklist. Plug-and-play for branded content.</div>
+          <div class="product-price-row">
+            <span class="product-price">$19</span>
+            <a class="product-btn" href="https://whop.com/checkout/plan_CyjDd5NTJf2Ja/" target="_blank" style="text-decoration:none;">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          <div class="product-thumb-overlay"></div>
+          <div class="product-thumb-icon">📋</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tag">Template Pack</div>
+          <div class="product-name">CLIENT WORKFLOW PACK</div>
+          <div class="product-desc">Proposals, project briefs, revision request forms, and delivery SOPs. Turn one-time clients into repeat ones.</div>
+          <div class="product-price-row">
+            <span class="product-price">$24</span>
+            <a class="product-btn" href="https://whop.com/checkout/plan_Bn1fnF5IMmVrG/" target="_blank" style="text-decoration:none;">Get Access</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Membership -->
+  <div class="membership-section">
+    <div class="section-label">Membership</div>
+    <div class="membership-card">
+      <div class="mem-left">
+        <div class="mem-label">HIF Pass</div>
+        <div class="mem-title">EVERYTHING.<br>ONE PRICE.</div>
+        <div class="mem-desc">Full access to the app, every template pack, community, and new drops as they come out. Stop buying gear. Start buying systems.</div>
+        <div class="mem-price-row">
+          <div class="mem-tbd">Pricing TBD at launch</div>
+        </div>
+      </div>
+      <div class="mem-right">
+        <div class="mem-includes-label">Membership Includes</div>
+        <ul class="mem-features">
+          <li><strong>Full app access</strong> — all 100+ production tools, no paywalls</li>
+          <li><strong>Every template pack</strong> — current and future drops included</li>
+          <li><strong>Member community</strong> — filmmakers sharing real work and real feedback</li>
+          <li><strong>Early access</strong> — new tools ship to members first</li>
+          <li><strong>Monthly resource drops</strong> — curated field reports, workflows, and guides</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notify -->
+  <div class="notify-section">
+    <div class="notify-inner">
+      <h2>BE FIRST<br><span>IN LINE.</span></h2>
+      <p>We're building on Whop. Drop your email and you'll hear about launch day before anyone else.</p>
+      <form class="notify-form" onsubmit="handleNotify(event)">
+        <input type="email" class="notify-input" placeholder="your@email.com" required />
+        <button type="submit" class="notify-btn">Notify Me</button>
+      </form>
+      <div class="notify-success" id="notifySuccess">You're in. <span>We'll hit you when it's live.</span></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <div class="footer-logo-dot"></div>
+      HOW IT'S FILMED
+    </div>
+    <div class="footer-copy">© 2026 How It's Filmed. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="/index.html">App</a>
+      <a href="/about.html">About</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function handleNotify(e) {
+    e.preventDefault();
+    const form = e.target;
+    const input = form.querySelector('.notify-input');
+    const btn = form.querySelector('.notify-btn');
+    btn.textContent = '✓ Done';
+    btn.style.background = '#2a7a4a';
+    input.disabled = true;
+    btn.disabled = true;
+    document.getElementById('notifySuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>

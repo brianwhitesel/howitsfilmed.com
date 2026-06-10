@@ -2,46 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>HIF Pro — Tool Suite</title>
+  <title>HIF Assistant — How It's Filmed</title>
   <link rel="manifest" href="/app/manifest.json" />
-  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="theme-color" content="#0a0a0a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="HIF Pro" />
+
+  <!-- ── ACCESS CONTROL — runs before first paint (Whop embed or monthly code) ── -->
   <script>
-    /* ── ACCESS CONTROL — runs before first paint to avoid any flash ── */
     (function () {
-      function getCurrentMonth() {
-        var d = new Date();
-        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+      function getCurrentMonth(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+      function isWhopEmbed(){
+        try{ if(window.location.ancestorOrigins && Array.from(window.location.ancestorOrigins).some(function(o){return o.indexOf('whop.com')>-1;})) return true; }catch(e){}
+        return document.referrer.indexOf('whop.com')>-1;
       }
-      function isWhopEmbed() {
-        try {
-          if (window.location.ancestorOrigins &&
-              Array.from(window.location.ancestorOrigins).some(function (o) { return o.includes('whop.com'); })) {
-            return true;
-          }
-        } catch (e) {}
-        return document.referrer.includes('whop.com');
+      function hasValidAccess(){
+        try{ return localStorage.getItem('hif_access_granted')==='true' && localStorage.getItem('hif_access_month')===getCurrentMonth(); }catch(e){ return false; }
       }
-      function hasValidAccess() {
-        try {
-          return localStorage.getItem('hif_access_granted') === 'true' &&
-                 localStorage.getItem('hif_access_month') === getCurrentMonth();
-        } catch (e) { return false; }
-      }
-      if (isWhopEmbed() || hasValidAccess()) {
-        document.documentElement.classList.add('hif-unlocked');
-      } else {
-        document.documentElement.classList.add('hif-locked');
-      }
+      document.documentElement.classList.add((isWhopEmbed()||hasValidAccess())?'hif-unlocked':'hif-locked');
     })();
   </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
 /* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
 :root {
@@ -79,1306 +67,232 @@ html.light {
   --muted: #94a3b8;
 }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root{
+    --bg:#0a0a0c; --panel:#111114; --panel2:#16161a; --line:#1e1e24; --line2:#2a2a30;
+    --text:#f0f0f0; --dim:#9aa3b2; --muted:#737d8c; --accent:#FF3333;
+    --green:#4ade80; --blue:#3b82f6; --radius:14px;
+    --font:'Inter',sans-serif; --display:'Bebas Neue',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;}
 
-    :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --surface2: #191919;
-      --surface3: #222222;
-      --accent: #FF3333;
-      --accent-dim: rgba(255,51,51,0.12);
-      --text: #fafafa;
-      --text-muted: #888888;
-      --text-dim: #555555;
-      --border: #222222;
-      --border2: #2a2a2a;
-      --radius: 10px;
-      --radius-sm: 6px;
+  /* ── GATE ── */
+  #hif-gate{display:none;}
+  html.hif-locked{overflow:hidden;}
+  html.hif-locked #hif-gate{display:flex;position:fixed;inset:0;z-index:99999;background:var(--bg);align-items:center;justify-content:center;padding:24px;}
+  html.hif-locked #hif-app{display:none;}
+  html.hif-unlocked #hif-gate{display:none;}
+  .gcard{max-width:390px;width:100%;text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:38px 30px;}
+  .gbadge{display:inline-block;background:rgba(255,51,51,.12);border:1px solid rgba(255,51,51,.3);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:18px;}
+  .gcard h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px;}
+  .gcard p{font-size:13px;color:var(--dim);margin-bottom:22px;}
+  .gcta{display:block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px;border-radius:10px;margin-bottom:18px;}
+  .gdiv{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
+  .grow{display:flex;gap:8px;}
+  .grow input{flex:1;background:var(--panel2);border:1px solid var(--line2);border-radius:9px;padding:11px 13px;color:var(--text);font-size:16px;outline:none;}
+  .grow input:focus{border-color:var(--accent);}
+  .grow button{background:var(--accent);border:0;color:#fff;font-weight:700;border-radius:9px;padding:0 18px;cursor:pointer;font-size:14px;}
+  .gerr{color:#f87171;font-size:12px;margin-top:10px;min-height:14px;}
 
-      --phase-pre:      #3B82F6;
-      --phase-onset:    #F97316;
-      --phase-post:     #A855F7;
-      --phase-business: #14B8A6;
-    }
+  /* ── APP SHELL ── */
+  #hif-app{display:flex;flex-direction:column;min-height:100%;}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(10,10,12,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px 18px;}
+  .logo-svg{height:26px;width:auto;flex-shrink:0;}
+  .logo-dot{fill:var(--accent);} .logo-ink{fill:var(--text);} .logo-bg-counter{fill:var(--bg);}
+  .tabs{display:flex;gap:4px;margin-left:auto;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px;}
+  .tab{border:0;background:transparent;color:var(--dim);font-family:var(--font);font-size:13px;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer;transition:.15s;}
+  .tab.active{background:var(--accent);color:#fff;}
 
-    html { scroll-behavior: smooth; }
+  .stage{flex:1;max-width:760px;width:100%;margin:0 auto;padding:0 18px;display:flex;flex-direction:column;}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
+  /* ── ASSISTANT ── */
+  #assistantView{display:flex;flex-direction:column;flex:1;padding-bottom:18px;}
+  .chat{flex:1;display:flex;flex-direction:column;gap:14px;padding:26px 0 12px;}
+  .msg{display:flex;gap:10px;max-width:100%;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .msg .av{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+  .msg.bot .av{background:rgba(255,51,51,.12);border:1px solid rgba(255,51,51,.3);}
+  .msg.user{flex-direction:row-reverse;}
+  .msg.user .av{background:var(--panel2);border:1px solid var(--line2);}
+  .bubble{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 16px;font-size:14px;color:#dfe3ea;}
+  .msg.user .bubble{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .bubble p{margin:0 0 8px;} .bubble p:last-child{margin:0;}
+  .bubble b{color:#fff;font-weight:700;}
+  .bubble .src{display:block;margin-top:8px;font-size:11px;color:var(--muted);}
 
-    /* ── WHOP BANNER ── */
-    .whop-banner {
-      background: linear-gradient(90deg, #1a1a1a 0%, #1f1416 100%);
-      border-bottom: 1px solid #2a1a1a;
-      text-align: center;
-      padding: 9px 16px;
-      font-size: 12px;
-      color: #bbb;
-      letter-spacing: 0.02em;
-    }
-    .whop-banner strong { color: var(--accent); font-weight: 600; }
+  /* result cards inside chat */
+  .reslist{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .rescard{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:11px 13px;text-decoration:none;transition:.15s;}
+  .rescard:hover{border-color:rgba(255,51,51,.4);transform:translateX(2px);}
+  .rescard .ic{width:34px;height:34px;border-radius:8px;background:rgba(255,51,51,.1);border:1px solid rgba(255,51,51,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rescard .ic svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;}
+  .rescard .rc-body{flex:1;min-width:0;}
+  .rescard .rc-name{font-size:13px;font-weight:700;color:var(--text);}
+  .rescard .rc-name .pill{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:rgba(255,51,51,.1);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle;}
+  .rescard .rc-desc{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rescard .rc-arrow{color:var(--muted);font-size:16px;flex-shrink:0;}
 
-    /* ── STICKY HEADER ── */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-    }
-    .header-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      height: 64px;
-    }
+  /* quick chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{background:var(--panel);border:1px solid var(--line2);color:#dfe3ea;font-family:var(--font);font-size:13px;font-weight:600;padding:9px 14px;border-radius:20px;cursor:pointer;transition:.15s;}
+  .chip:hover{border-color:var(--accent);color:#fff;}
+  .chip .e{margin-right:6px;}
 
-    .logo-wrap { flex-shrink: 0; display: flex; align-items: center; }
-    .logo-svg { height: 34px; width: auto; }
-    .logo-ink  { fill: #fafafa; }
-    .logo-dot  { fill: #FF3333; }
-    .logo-bg-counter { fill: #1a1a1a; }
+  /* composer */
+  .composer{position:sticky;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:12px 0 18px;}
+  .composer-row{display:flex;gap:9px;align-items:flex-end;}
+  .composer textarea{flex:1;resize:none;background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:13px 15px;color:var(--text);font-family:var(--font);font-size:15px;line-height:1.4;outline:none;max-height:120px;}
+  .composer textarea:focus{border-color:var(--accent);}
+  .composer textarea::placeholder{color:var(--muted);}
+  .send{width:46px;height:46px;flex-shrink:0;border:0;border-radius:13px;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .send svg{width:18px;height:18px;fill:#fff;}
+  .send:disabled{opacity:.4;cursor:default;}
 
-    .search-wrap { flex: 1; min-width: 0; }
-    .search-input {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      padding: 9px 14px 9px 38px;
-      outline: none;
-      transition: border-color 0.15s;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7' stroke='%23666' stroke-width='2'/%3E%3Cpath d='m16.5 16.5 4 4' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 12px center;
-    }
-    .search-input::placeholder { color: var(--text-dim); }
-    .search-input:focus { border-color: var(--accent); }
+  /* ── LIBRARY ── */
+  #libraryView{display:none;padding:22px 0 40px;}
+  #libraryView.show{display:block;}
+  .lib-search{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:13px 16px;color:var(--text);font-size:15px;font-family:var(--font);outline:none;margin-bottom:14px;}
+  .lib-search:focus{border-color:var(--accent);}
+  .lib-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:14px;scrollbar-width:none;}
+  .lib-tabs::-webkit-scrollbar{display:none;}
+  .lib-tab{flex-shrink:0;background:var(--panel);border:1px solid var(--line);color:var(--dim);font-family:var(--font);font-size:12px;font-weight:600;padding:8px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;}
+  .lib-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .libmeta{font-size:12px;color:var(--muted);margin-bottom:12px;}
+  .lib-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .lib-controls .libmeta{margin-bottom:0;}
+  .lib-sortrow{display:flex;align-items:center;gap:8px;}
+  .lib-sortrow label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+  .lib-sort{background:var(--panel);border:1px solid var(--line2);color:var(--dim);font-family:var(--font);font-size:12px;font-weight:600;padding:7px 24px 7px 10px;border-radius:9px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239aa3b2' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;}
+  .lib-sort:focus{border-color:var(--accent);}
+  .rescard .fav-star{flex-shrink:0;font-size:17px;line-height:1;cursor:pointer;color:var(--muted);background:none;border:0;padding:3px 5px;border-radius:6px;transition:.15s;}
+  .rescard .fav-star.on{color:#f5c518;}
+  .rescard .fav-star:hover{color:#f5c518;}
+  .lib-empty{grid-column:1/-1;font-size:13px;color:var(--dim);padding:26px 14px;text-align:center;line-height:1.7;background:var(--panel);border:1px solid var(--line);border-radius:12px;}
+  .lib-empty .e{font-size:22px;display:block;margin-bottom:8px;}
 
-    /* ── PROJECT SWITCHER ── */
-    .project-switcher {
-      flex-shrink: 0;
-      position: relative;
-    }
-    .project-btn {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      color: var(--text);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 7px 12px;
-      transition: all 0.15s;
-      white-space: nowrap;
-      max-width: 160px;
-    }
-    .project-btn:hover { border-color: #555; }
-    .project-btn-icon { font-size: 13px; flex-shrink: 0; }
-    .project-btn-name {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: var(--text-muted);
-    }
-    .project-btn-chevron { flex-shrink: 0; color: var(--text-dim); font-size: 10px; }
-    .project-dropdown {
-      position: absolute;
-      top: calc(100% + 6px);
-      right: 0;
-      width: 220px;
-      background: #1a1a1f;
-      border: 1px solid var(--border2);
-      border-radius: 10px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-      z-index: 200;
-      display: none;
-      overflow: hidden;
-    }
-    .project-dropdown.open { display: block; }
-    .project-dropdown-head {
-      padding: 10px 14px 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      border-bottom: 1px solid var(--border);
-    }
-    .project-list { padding: 4px 0; max-height: 200px; overflow-y: auto; }
-    .project-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: var(--text-muted);
-      transition: background 0.1s;
-    }
-    .project-item:hover { background: var(--surface2); color: var(--text); }
-    .project-item.active { color: #fff; }
-    .project-item-check { font-size: 11px; width: 14px; color: #F97316; }
-    .project-item-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
-    .project-item-del {
-      font-size: 14px;
-      color: var(--text-dim);
-      opacity: 0;
-      padding: 0 2px;
-      transition: opacity 0.1s;
-    }
-    .project-item:hover .project-item-del { opacity: 0.5; }
-    .project-item-del:hover { opacity: 1 !important; color: #ef4444; }
-    .project-dropdown-footer {
-      padding: 8px 14px;
-      border-top: 1px solid var(--border);
-    }
-    .btn-new-project {
-      width: 100%;
-      background: none;
-      border: 1px dashed var(--border2);
-      border-radius: 6px;
-      color: var(--text-dim);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      padding: 7px;
-      text-align: center;
-      transition: all 0.15s;
-    }
-    .btn-new-project:hover { border-color: #F97316; color: #F97316; }
-    @media (max-width: 600px) {
-      .project-switcher { display: none; }
-    }
+  .foot{text-align:center;font-size:11px;color:var(--muted);padding:18px;}
+  .foot span{color:var(--accent);}
 
-    .badge-count {
-      flex-shrink: 0;
-      background: var(--accent-dim);
-      border: 1px solid rgba(255,51,51,0.25);
-      color: var(--accent);
-      border-radius: 20px;
-      padding: 5px 14px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 15px;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-    }
-
-    /* ── PHASE NAV BAR ── */
-    /* ── PHASE DROPDOWN ── */
-    .phase-nav-wrap {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-    }
-    .phase-nav {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      height: 52px;
-    }
-
-    /* Tier filter chips */
-    .tier-chips {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-left: auto;
-    }
-    .tier-chip {
-      background: transparent;
-      border: 1px solid var(--border2);
-      border-radius: 20px;
-      color: var(--text-dim);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 4px 12px;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .tier-chip:hover { color: var(--text-muted); border-color: #444; }
-    .tier-chip.active { color: #fff; border-color: transparent; background: #2a2a2a; }
-    .tier-chip.active.tools  { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.4); color: #fb923c; }
-    .tier-chip.active.tpls   { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.4); color: #93c5fd; }
-
-    /* Phase select dropdown */
-    .phase-select-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .phase-select-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      white-space: nowrap;
-    }
-    .phase-select {
-      appearance: none;
-      -webkit-appearance: none;
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      color: var(--text);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 7px 36px 7px 14px;
-      outline: none;
-      transition: border-color 0.15s;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      min-width: 200px;
-    }
-    .phase-select:hover { border-color: #444; }
-    .phase-select:focus { border-color: #555; }
-    .phase-select option { background: #1a1a1f; }
-    .phase-select[data-phase="all"]      { border-color: rgba(255,255,255,0.2); }
-    .phase-select[data-phase="pre"]      { border-color: rgba(59,130,246,0.5); color: #93c5fd; }
-    .phase-select[data-phase="onset"]    { border-color: rgba(249,115,22,0.5); color: #fdba74; }
-    .phase-select[data-phase="post"]     { border-color: rgba(168,85,247,0.5); color: #d8b4fe; }
-    .phase-select[data-phase="business"] { border-color: rgba(20,184,166,0.5); color: #5eead4; }
-
-    /* phase-btn removed — replaced by #phaseSelect dropdown */
-    .phase-btn { display: none; }
-
-    /* ── PHASE NAV MOBILE ── */
-    @media (max-width: 560px) {
-      .phase-nav-wrap { padding: 0 12px; }
-      .phase-nav { height: auto; padding: 8px 0; flex-wrap: nowrap; gap: 8px; align-items: center; }
-      .phase-select-label { display: none; }
-      .phase-select { min-width: 0; width: 130px; flex-shrink: 0; font-size: 12px; padding: 6px 24px 6px 10px; }
-      .tier-chips { margin-left: auto; flex-shrink: 0; gap: 4px; justify-content: flex-end; }
-      .tier-chip { font-size: 11px; padding: 5px 10px; }
-    }
-
-    /* ── TIER SECTION HEADERS ── */
-    .tier-section-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 0 16px;
-    }
-    .tier-section-head-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .tier-section-head-label.tpl  { color: #6b7db8; }
-    .tier-section-head-label.tool { color: #F97316; }
-    .tier-section-head-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    .tier-section-head-count {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-    .tier-section + .tier-section { margin-top: 32px; }
-
-    /* Tool card accent */
-    .card[data-cat="interactive-tools"]::before { background: #F97316 !important; opacity: 1 !important; }
-    .card[data-cat="interactive-tools"] { border-color: rgba(249,115,22,0.18); }
-    .card[data-cat="interactive-tools"]:hover { border-color: rgba(249,115,22,0.45); }
-
-    /* Tool/template badge pill distinction */
-    .card-pill.tool-pill {
-      background: rgba(249,115,22,0.14);
-      border-color: rgba(249,115,22,0.3);
-      color: #fb923c;
-    }
-
-    /* ── MAIN CONTENT ── */
-    .main {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 28px 20px 60px;
-    }
-
-    .results-meta {
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-bottom: 20px;
-      min-height: 18px;
-    }
-
-    .empty-state {
-      display: none;
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--text-muted);
-    }
-    .empty-state svg { margin-bottom: 16px; opacity: 0.3; }
-    .empty-state p { font-size: 15px; }
-
-    /* ── PHASE SECTION ── */
-    .phase-section {
-      margin-bottom: 48px;
-    }
-    .phase-section:last-child { margin-bottom: 0; }
-
-    .phase-section-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      user-select: none;
-    }
-    .phase-section-header:hover .phase-section-title { opacity: 0.85; }
-
-    .phase-num-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 15px;
-      letter-spacing: 0.04em;
-      flex-shrink: 0;
-      border: 2px solid;
-    }
-    .phase-section[data-phase="pre"] .phase-num-badge          { background: rgba(59,130,246,0.12); border-color: #3B82F6; color: #93c5fd; }
-    .phase-section[data-phase="onset"] .phase-num-badge        { background: rgba(249,115,22,0.12); border-color: #F97316; color: #fdba74; }
-    .phase-section[data-phase="post"] .phase-num-badge         { background: rgba(168,85,247,0.12); border-color: #A855F7; color: #d8b4fe; }
-    .phase-section[data-phase="business"] .phase-num-badge     { background: rgba(20,184,166,0.12); border-color: #14B8A6; color: #5eead4; }
-
-    .phase-section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 0.06em;
-      color: var(--text);
-      flex: 1;
-    }
-
-    .phase-item-count {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 3px 10px;
-      border-radius: 10px;
-    }
-    .phase-section[data-phase="pre"] .phase-item-count          { background: #1d3a6e; color: #93c5fd; }
-    .phase-section[data-phase="onset"] .phase-item-count        { background: #4a2000; color: #fdba74; }
-    .phase-section[data-phase="post"] .phase-item-count         { background: #2d1b69; color: #d8b4fe; }
-    .phase-section[data-phase="business"] .phase-item-count     { background: #0d3330; color: #5eead4; }
-
-    .phase-toggle-icon {
-      color: var(--text-dim);
-      font-size: 16px;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-    }
-    .phase-section.collapsed .phase-toggle-icon { transform: rotate(-90deg); }
-    .phase-section.collapsed .phase-section-body { display: none; }
-
-    .phase-divider-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin: 24px 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .phase-divider-label::before,
-    .phase-divider-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── HUB TILES ── */
-    .hub-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 600px) { .hub-grid { grid-template-columns: 1fr; } }
-
-    .hub-tile {
-      display: flex;
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      cursor: pointer;
-      overflow: hidden;
-      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-      min-height: 160px;
-    }
-    .hub-tile:hover { transform: translateY(-2px); }
-    .hub-tile[data-phase="pre"]:hover      { border-color: #3B82F6; box-shadow: 0 4px 24px rgba(59,130,246,0.12); }
-    .hub-tile[data-phase="onset"]:hover    { border-color: #F97316; box-shadow: 0 4px 24px rgba(249,115,22,0.12); }
-    .hub-tile[data-phase="post"]:hover     { border-color: #A855F7; box-shadow: 0 4px 24px rgba(168,85,247,0.12); }
-    .hub-tile[data-phase="business"]:hover { border-color: #14B8A6; box-shadow: 0 4px 24px rgba(20,184,166,0.12); }
-
-    .hub-tile-accent { width: 5px; flex-shrink: 0; }
-    .hub-tile[data-phase="pre"]      .hub-tile-accent { background: #3B82F6; }
-    .hub-tile[data-phase="onset"]    .hub-tile-accent { background: #F97316; }
-    .hub-tile[data-phase="post"]     .hub-tile-accent { background: #A855F7; }
-    .hub-tile[data-phase="business"] .hub-tile-accent { background: #14B8A6; }
-
-    .hub-tile-content {
-      flex: 1;
-      padding: 22px 20px;
-      display: flex;
-      flex-direction: column;
-    }
-    .hub-tile-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      margin-bottom: 6px;
-    }
-    .hub-tile[data-phase="pre"]      .hub-tile-num { color: #3B82F6; }
-    .hub-tile[data-phase="onset"]    .hub-tile-num { color: #F97316; }
-    .hub-tile[data-phase="post"]     .hub-tile-num { color: #A855F7; }
-    .hub-tile[data-phase="business"] .hub-tile-num { color: #14B8A6; }
-
-    .hub-tile-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .hub-tile-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      flex: 1;
-      line-height: 1.5;
-    }
-    .hub-tile-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-    .hub-tile-count {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 3px 10px;
-      border-radius: 10px;
-    }
-    .hub-tile[data-phase="pre"]      .hub-tile-count { background: #1d3a6e; color: #93c5fd; }
-    .hub-tile[data-phase="onset"]    .hub-tile-count { background: #4a2000; color: #fdba74; }
-    .hub-tile[data-phase="post"]     .hub-tile-count { background: #2d1b69; color: #d8b4fe; }
-    .hub-tile[data-phase="business"] .hub-tile-count { background: #0d3330; color: #5eead4; }
-
-    .hub-tile-arrow {
-      font-size: 12px;
-      color: var(--text-dim);
-      font-weight: 500;
-      transition: color 0.15s;
-    }
-    .hub-tile:hover .hub-tile-arrow { color: var(--text); }
-
-    /* ── PHASE HEADER (drill-in view) ── */
-    .phase-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--border);
-    }
-    .phase-header-back {
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      padding: 6px 12px;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .phase-header-back:hover { color: var(--text); border-color: #555; }
-    .phase-header-info { flex: 1; }
-    .phase-header-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      letter-spacing: 0.05em;
-      color: var(--text);
-    }
-    .phase-header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-    /* ── TEMPLATE GRID ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: border-color 0.15s, transform 0.15s;
-      position: relative;
-      overflow: hidden;
-    }
-    .card:hover { border-color: #333; transform: translateY(-1px); }
-    .card.coming-soon { opacity: 0.55; }
-    .card.coming-soon:hover { transform: none; }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-    .card:hover::before { opacity: 1; }
-    .card[data-cat="pre-production"]::before    { background: #3B82F6; }
-    .card[data-cat="on-set"]::before            { background: #F97316; }
-    .card[data-cat="post-production"]::before   { background: #A855F7; }
-    .card[data-cat="client-business"]::before   { background: #14B8A6; }
-    .card[data-cat="gear-equipment"]::before    { background: #EAB308; }
-    .card[data-cat="social-delivery"]::before   { background: #EC4899; }
-    .card[data-cat="finance-planning"]::before  { background: #22C55E; }
-    .card[data-cat="interactive-tools"]::before { background: #FF3333; }
-
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .card-num {
-      font-size: 11px;
-      color: var(--text-dim);
-      font-weight: 500;
-      letter-spacing: 0.04em;
-    }
-    .card-pill {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 2px 8px;
-      border-radius: 10px;
-      text-transform: uppercase;
-    }
-    [data-cat="pre-production"]  .card-pill { background: #1d3a6e; color: #93c5fd; }
-    [data-cat="on-set"]          .card-pill { background: #4a2000; color: #fdba74; }
-    [data-cat="post-production"] .card-pill { background: #2d1b69; color: #d8b4fe; }
-    [data-cat="client-business"] .card-pill { background: #0d3330; color: #5eead4; }
-    [data-cat="gear-equipment"]  .card-pill { background: #3d2f00; color: #fde68a; }
-    [data-cat="social-delivery"] .card-pill { background: #4a0d2e; color: #f9a8d4; }
-    [data-cat="finance-planning"] .card-pill { background: #0f3320; color: #86efac; }
-    [data-cat="interactive-tools"] .card-pill { background: #2a0505; color: #ff8080; }
-
-    .card-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 0.04em;
-      line-height: 1.1;
-      color: var(--text);
-    }
-    .card-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.45;
-      flex: 1;
-    }
-    .card-footer {
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .btn-open {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      padding: 7px 16px;
-      border-radius: 6px;
-      transition: background 0.15s, opacity 0.15s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-open:hover { background: #e02020; }
-    .btn-open:active { opacity: 0.85; }
-
-    .coming-soon-tag {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--text-dim);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: var(--surface3);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 3px 8px;
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 28px 20px;
-      font-size: 12px;
-      color: var(--text-dim);
-      letter-spacing: 0.04em;
-    }
-    .footer a { color: var(--accent); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-
-    /* ── RESPONSIVE HEADER ── */
-    @media (max-width: 640px) {
-      .header-inner { height: 56px; gap: 12px; }
-      .logo-svg { height: 26px; }
-      .badge-count { display: none; }
-      .search-input { font-size: 13px; padding: 8px 12px 8px 34px; }
-    }
-
-    /* ── ACCESS GATE ── */
-    #hif-gate { display: flex; }
-    #hif-app  { display: none; }
-    html.hif-unlocked #hif-gate { display: none; }
-    html.hif-unlocked #hif-app  { display: block; }
-    html.hif-locked   #hif-gate { display: flex; }
-    html.hif-locked   #hif-app  { display: none; }
-    html.hif-locked   #hif-welcome { display: none; }
-
-    #hif-gate {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background: var(--bg);
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .gate-logo { margin-bottom: 32px; }
-    .gate-card {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: 16px;
-      padding: 40px 36px;
-      max-width: 440px;
-      width: 100%;
-    }
-    .gate-badge {
-      display: inline-block;
-      background: rgba(255,51,51,0.12);
-      border: 1px solid rgba(255,51,51,0.3);
-      border-radius: 4px;
-      color: var(--accent);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      padding: 3px 12px;
-      margin-bottom: 20px;
-    }
-    .gate-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 30px;
-      letter-spacing: 0.06em;
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 14px;
-    }
-    .gate-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-    .gate-link {
-      display: inline-block;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      margin-bottom: 28px;
-      transition: opacity 0.15s;
-    }
-    .gate-link:hover { opacity: 0.8; text-decoration: underline; }
-    .gate-divider {
-      border: none;
-      border-top: 1px solid var(--border2);
-      margin: 0 0 24px;
-    }
-    .gate-code-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 10px;
-    }
-    .gate-code-row { display: flex; gap: 8px; }
-    .gate-code-input {
-      flex: 1;
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 10px 14px;
-      outline: none;
-      transition: border-color 0.15s;
-      min-width: 0;
-    }
-    .gate-code-input::placeholder {
-      color: var(--text-dim);
-      text-transform: none;
-      letter-spacing: normal;
-      font-weight: 400;
-      font-size: 13px;
-    }
-    .gate-code-input:focus { border-color: var(--accent); }
-    .gate-code-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: background 0.15s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .gate-code-btn:hover { background: #e02020; }
-    .gate-code-btn:active { opacity: 0.85; }
-    .gate-error {
-      display: none;
-      font-size: 12px;
-      color: #ff6b6b;
-      margin-top: 10px;
-      line-height: 1.45;
-    }
-    @media (max-width: 480px) {
-      .gate-card { padding: 28px 20px; }
-      .gate-title { font-size: 24px; }
-    }
-
-    /* ── WELCOME OVERLAY ── */
-    #hif-welcome {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(10,10,10,0.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 20px;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-    #hif-welcome.visible { opacity: 1; }
-    #hif-welcome.dismissed {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .welcome-card {
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-    }
-
-    .welcome-logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
-    .welcome-logo-svg { height: 56px; width: auto; }
-
-    .welcome-eyebrow {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .welcome-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 8vw, 3rem);
-      letter-spacing: 0.04em;
-      color: var(--text);
-      line-height: 1.05;
-      margin-bottom: 12px;
-    }
-
-    .welcome-sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 36px;
-      max-width: 360px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .welcome-question {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 0.10em;
-      color: var(--text);
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .welcome-phases {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .welcome-phase-btn {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      padding: 16px 14px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.15s;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .welcome-phase-btn:hover { transform: translateY(-2px); }
-    .welcome-phase-btn[data-phase="pre"]:hover     { border-color: #3B82F6; box-shadow: 0 6px 20px rgba(59,130,246,0.15); }
-    .welcome-phase-btn[data-phase="onset"]:hover   { border-color: #F97316; box-shadow: 0 6px 20px rgba(249,115,22,0.15); }
-    .welcome-phase-btn[data-phase="post"]:hover    { border-color: #A855F7; box-shadow: 0 6px 20px rgba(168,85,247,0.15); }
-    .welcome-phase-btn[data-phase="business"]:hover { border-color: #14B8A6; box-shadow: 0 6px 20px rgba(20,184,166,0.15); }
-
-    .welcome-phase-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-    }
-    .welcome-phase-btn[data-phase="pre"]      .welcome-phase-num { color: #3B82F6; }
-    .welcome-phase-btn[data-phase="onset"]    .welcome-phase-num { color: #F97316; }
-    .welcome-phase-btn[data-phase="post"]     .welcome-phase-num { color: #A855F7; }
-    .welcome-phase-btn[data-phase="business"] .welcome-phase-num { color: #14B8A6; }
-
-    .welcome-phase-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 17px;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      line-height: 1.1;
-    }
-
-    .welcome-phase-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin-top: 2px;
-    }
-
-    .welcome-phase-count {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      padding: 2px 8px;
-      border-radius: 8px;
-      margin-top: 8px;
-      display: inline-block;
-    }
-    .welcome-phase-btn[data-phase="pre"]      .welcome-phase-count { background: #1d3a6e; color: #93c5fd; }
-    .welcome-phase-btn[data-phase="onset"]    .welcome-phase-count { background: #4a2000; color: #fdba74; }
-    .welcome-phase-btn[data-phase="post"]     .welcome-phase-count { background: #2d1b69; color: #d8b4fe; }
-    .welcome-phase-btn[data-phase="business"] .welcome-phase-count { background: #0d3330; color: #5eead4; }
-
-    .welcome-skip {
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      cursor: pointer;
-      padding: 8px 16px;
-      transition: color 0.15s;
-      letter-spacing: 0.02em;
-    }
-    .welcome-skip:hover { color: var(--text-muted); }
-
-    .welcome-stats {
-      display: flex;
-      justify-content: center;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 12px;
-      padding: 16px 8px;
-      gap: 24px;
-      margin-bottom: 32px;
-    }
-    .welcome-stat {
-      text-align: center;
-    }
-    .welcome-stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 38px;
-      letter-spacing: 0.04em;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .welcome-stat-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 3px;
-    }
-
-    @media (max-width: 480px) {
-      .welcome-phases { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .welcome-phase-btn { padding: 12px 10px; }
-      .welcome-phase-name { font-size: 14px; }
-      .welcome-stats { gap: 16px; }
-      .welcome-stat-num { font-size: 32px; }
-    }
+  /* ── accessibility & interaction polish ── */
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .tab:focus-visible,.chip:focus-visible,.lib-tab:focus-visible,.rescard:focus-visible,.send:focus-visible,.gcta:focus-visible,.grow button:focus-visible,.grow input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .rescard:focus-visible{border-color:var(--accent);}
+  .send:hover{background:#e62e2e;}
+  .send:active{transform:scale(.95);}
+  .gcta:hover{background:#e62e2e;}
+  .grow button:hover{background:#e62e2e;}
+  .tab{min-height:40px;}
+  .chip{min-height:44px;display:inline-flex;align-items:center;}
+  .lib-tab{min-height:44px;display:inline-flex;align-items:center;transition:.15s;}
+  .lib-tab:hover{border-color:var(--accent);color:var(--text);}
+  .chip:active,.lib-tab:active,.rescard:active{transform:scale(.98);}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+  }
+  /* ── responsive / iframe sizing (keeps formatting consistent at any width) ── */
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  #hif-app{width:100%;}
+  @media (max-width:600px){
+    .topbar-inner{padding:10px 13px;gap:9px;}
+    .logo-svg{height:22px;}
+    .tab{padding:6px 11px;font-size:12px;}
+    .stage{padding:0 13px;}
+    .chat{padding:18px 0 10px;}
+    .bubble{font-size:13.5px;padding:12px 14px;}
+    .composer textarea{font-size:16px;}
+    .grid{grid-template-columns:1fr;}
+  }
   </style>
 </head>
 <body>
 
-  <!-- ══ ACCESS GATE ══════════════════════════════════════════════════════ -->
-  <div id="hif-gate">
-    <div class="gate-logo">
-      <svg height="44" viewBox="15 22 640 268" xmlns="http://www.w3.org/2000/svg" aria-label="How It's Filmed">
-        <path fill="#FF3333" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
-        <path fill="#fafafa" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
-        <path fill="#fafafa" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
-        <path fill="#1a1a1a" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
-        <path fill="#fafafa" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
-        <path fill="#fafafa" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
-        <path fill="#fafafa" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
-        <path fill="#fafafa" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
-        <path fill="#fafafa" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
-        <path fill="#fafafa" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
-        <path fill="#fafafa" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
-        <path fill="#fafafa" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
-        <path fill="#fafafa" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
-        <path fill="#fafafa" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
-        <path fill="#fafafa" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
-        <path fill="#fafafa" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
-        <path fill="#fafafa" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
+<!-- ── GATE OVERLAY ── -->
+<div id="hif-gate" role="dialog" aria-modal="true">
+  <div class="gcard">
+    <div class="gbadge">How It's Filmed — Pro</div>
+    <h2>This is a members area</h2>
+    <p>The HIF Assistant and the full tool suite are part of your How It's Filmed Pro membership.</p>
+    <a class="gcta" href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Unlock Pro Access →</a>
+    <div class="gdiv">Already a member?</div>
+    <div class="grow">
+      <input id="hif-code-input" type="text" autocomplete="off" placeholder="This month's access code" aria-label="Member access code" />
+      <button id="hif-code-submit">Unlock</button>
+    </div>
+    <div class="gerr" id="hif-code-error"></div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="hif-app">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <svg class="logo-svg" viewBox="15 22 640 268" xmlns="http://www.w3.org/2000/svg" aria-label="How It's Filmed">
+        <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
+        <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
+        <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
+        <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
+        <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
+        <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
+        <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
+        <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
+        <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
+        <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
+        <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
+        <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
+        <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
+        <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
+        <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
       </svg>
-    </div>
-
-    <div class="gate-card">
-      <div class="gate-badge">Members Only</div>
-      <div class="gate-title">How It's Filmed<br>Tool Suite</div>
-      <div class="gate-subtitle">This tool is available exclusively to<br>How It's Filmed members.</div>
-      <a class="gate-link" href="https://whop.com/how-its-filmed" target="_blank" rel="noopener">
-        Access your tools at whop.com/how-its-filmed ↗
-      </a>
-      <hr class="gate-divider">
-      <div class="gate-code-label">Member Access Code</div>
-      <div class="gate-code-row">
-        <input
-          class="gate-code-input"
-          id="hif-code-input"
-          type="text"
-          placeholder="Enter this month's code"
-          maxlength="20"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button class="gate-code-btn" id="hif-code-submit">Unlock</button>
-      </div>
-      <div class="gate-error" id="hif-code-error">
-        Incorrect access code. Check your Whop community for this month's code.
+      <div class="tabs">
+        <button class="tab active" id="tabAssistant" onclick="showView('assistant')">Assistant</button>
+        <button class="tab" id="tabLibrary" onclick="showView('library')">Library</button>
       </div>
     </div>
   </div>
 
-  <!-- ══ WELCOME OVERLAY ══════════════════════════════════════════════════ -->
-  <div id="hif-welcome">
-    <div class="welcome-card">
-
-      <!-- Logo -->
-      <div class="welcome-logo-wrap">
-        <svg class="welcome-logo-svg" viewBox="15 22 640 268" xmlns="http://www.w3.org/2000/svg" aria-label="How It's Filmed">
-          <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
-          <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
-          <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
-          <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
-          <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
-          <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
-          <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
-          <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
-          <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
-          <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
-          <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
-          <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
-          <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
-          <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
-          <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
-          <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
-          <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
-        </svg>
-      </div>
-
-      <div class="welcome-eyebrow">PRO MEMBER ACCESS</div>
-      <div class="welcome-headline">Welcome to<br>HIF Pro</div>
-      <div class="welcome-sub">100 professional filmmaking tools, organized by workflow phase. Built by filmmakers, for filmmakers.</div>
-
-      <!-- Stats -->
-      <div class="welcome-stats">
-        <div class="welcome-stat">
-          <div class="welcome-stat-num">100</div>
-          <div class="welcome-stat-label">Tools & Templates</div>
-        </div>
-        <div class="welcome-stat">
-          <div class="welcome-stat-num">4</div>
-          <div class="welcome-stat-label">Workflow Phases</div>
-        </div>
-        <div class="welcome-stat">
-          <div class="welcome-stat-num">13</div>
-          <div class="welcome-stat-label">Interactive Tools</div>
+  <div class="stage">
+    <!-- ASSISTANT -->
+    <div id="assistantView">
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="composer">
+        <div class="composer-row">
+          <textarea id="input" rows="1" placeholder="Ask me anything, or tell me what you're working on…" aria-label="Message the assistant"></textarea>
+          <button class="send" id="send" onclick="onSend()" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-7-8-3z"/></svg></button>
         </div>
       </div>
-
-      <div class="welcome-question">What are you working on today?</div>
-
-      <!-- Phase tiles -->
-      <div class="welcome-phases" id="welcome-phases">
-        <!-- rendered by JS using PHASES + ITEMS data -->
-      </div>
-
-      <button class="welcome-skip" onclick="dismissWelcome('all')">Skip — Browse everything →</button>
-    </div>
-  </div>
-
-  <!-- ══ APP CONTENT ══════════════════════════════════════════════════════ -->
-  <div id="hif-app">
-
-    <div class="whop-banner">
-      You're viewing this as part of your <strong>How It's Filmed</strong> membership. Welcome.
     </div>
 
-    <header class="header">
-      <div class="header-inner">
-        <div class="logo-wrap">
-          <svg class="logo-svg" viewBox="15 22 640 268" xmlns="http://www.w3.org/2000/svg" aria-label="How It's Filmed">
-            <path class="logo-dot" d="M147.69,78.64c35.9.47,63.97,28.96,63.59,64.55-.38,35.63-29.16,63.58-64.95,63.1-35.61-.48-63.14-29.45-62.62-65.89.49-33.91,29.8-62.2,63.98-61.76Z"/>
-            <path class="logo-ink" d="M644.27,214.86c0,12.22.07,24.43-.02,36.65-.13,17.5-11.08,28.4-28.46,28.42-22.21.03-44.43.02-66.64-.01-8.95-.01-14.39-4.75-14.47-12.47-.09-7.91,5.55-12.91,14.68-12.92,21.47-.03,42.95-.13,64.42.09,4.25.04,5.25-1.21,5.21-5.32-.2-23.69-.11-47.38-.12-71.07,0-2.95-.16-5.92,1.07-8.73,2.4-5.45,8.21-8.5,14.11-7.37,5.98,1.14,10.08,5.96,10.17,12.76.18,13.32.05,26.65.05,39.98Z"/>
-            <path class="logo-ink" d="M20.49,88.97c0-11.85-.04-23.71.01-35.56.08-18.68,10.66-29.32,29.21-29.35,22.41-.04,44.82-.06,67.23.02,6.84.02,11.77,3.95,12.94,9.88,1.15,5.78-1.53,11.32-6.64,14-2.77,1.45-5.73,1.3-8.68,1.3-20.93.01-41.86.11-62.79-.09-4.44-.04-6.06.95-6.01,5.8.26,24.26.15,48.52.11,72.78-.01,8.14-3.72,13.32-10.14,14.47-8.46,1.52-15.07-4.05-15.2-13.24-.19-13.33-.05-26.67-.05-40Z"/>
-            <path class="logo-bg-counter" d="M319.42,145.65c-5.91,0-11.82-.1-17.73.05-2.65.06-3.95-.36-3.9-3.54.18-12.74.17-25.49,0-38.23-.04-3.15,1.25-3.63,3.93-3.6,11.64.1,23.28-.18,34.91.1,12.83.31,22.4,10.66,22.23,23.52-.15,11.82-10.39,21.58-22.81,21.7-5.54.05-11.08,0-16.62,0Z"/>
-            <path class="logo-ink" d="M257.5,83.25v18.74h15.27v-18.74h13.48v51.56h-13.48v-19.93h-15.27v19.93h-13.48v-51.56h13.48Z"/>
-            <path class="logo-ink" d="M344.16,108.33c0,16.46-9.62,27.17-24.49,27.17s-24.29-10.21-24.29-25.98,9.72-26.97,24.79-26.97,23.99,10.11,23.99,25.78ZM330.28,108.93c0-8.13-3.97-13.29-10.31-13.29s-10.71,5.26-10.71,13.58,4.07,13.19,10.61,13.19,10.41-5.16,10.41-13.48Z"/>
-            <path class="logo-ink" d="M414.95,83.25l-11.8,51.56h-9.62l-10.51-29.05-10.51,29.05h-9.62l-11.8-51.56h13.78l5.06,25.18,8.43-25.18h9.32l8.53,25.18,4.96-25.18h13.78Z"/>
-            <path class="logo-ink" d="M453.02,83.25v51.56h-13.48v-51.56h13.48Z"/>
-            <path class="logo-ink" d="M499.02,83.25v12.89h-11.5v38.67h-13.48v-38.67h-11.5v-12.89h36.49Z"/>
-            <path class="logo-ink" d="M522.03,72.93v11.01l-7.73,11.3h-5.75v-22.31h13.48Z"/>
-            <path class="logo-ink" d="M525.81,129.45l5.65-11.2c4.26,3.07,9.32,4.76,13.48,4.76,3.77,0,5.55-1.09,5.55-2.78,0-5.85-23.3-6.25-23.3-22.71,0-8.63,7.04-14.97,18.44-14.97,7.44,0,12.79,2.28,17.85,5.65l-5.45,11.01c-3.77-2.28-7.93-4.16-12.49-4.16-3.17,0-4.56,1.19-4.56,2.58,0,6.05,23.3,4.96,23.3,22.31,0,9.62-7.24,15.57-18.74,15.57-7.63,0-14.48-2.18-19.73-6.05Z"/>
-            <path class="logo-ink" d="M291.68,146.71v16.38h-29.23v12.6h21.93v16.38h-21.93v20.16h-17.14v-65.52h46.37Z"/>
-            <path class="logo-ink" d="M320.91,146.71v65.52h-17.14v-65.52h17.14Z"/>
-            <path class="logo-ink" d="M350.14,146.71v49.14h19.4v16.38h-36.54v-65.52h17.14Z"/>
-            <path class="logo-ink" d="M393.99,178.59v33.64h-17.14v-65.52h17.01l17.14,28.1,17.14-28.1h17.01v65.52h-17.14v-33.52l-14.62,23.94h-4.79l-14.62-24.07Z"/>
-            <path class="logo-ink" d="M503.61,146.71v16.25h-29.23v8.69h21.93v15.37h-21.93v8.95h29.23v16.25h-46.37v-65.52h46.37Z"/>
-            <path class="logo-ink" d="M515.7,146.71h17.26c9.32,0,36.92,0,36.92,32.38s-26.21,33.14-36.04,33.14h-18.15v-65.52ZM532.84,162.96v33.01h1.26c8.32,0,18.15,0,18.15-16.88s-11.09-16.13-19.03-16.13h-.38Z"/>
-          </svg>
-        </div>
-
-        <div class="search-wrap">
-          <input
-            class="search-input"
-            type="search"
-            id="searchInput"
-            placeholder="Search all tools &amp; templates…"
-            autocomplete="off"
-            spellcheck="false"
-          />
-        </div>
-
-        <!-- Project Switcher -->
-        <div class="project-switcher" id="projectSwitcher">
-          <button class="project-btn" onclick="toggleProjectDropdown(event)" title="Switch project">
-            <span class="project-btn-icon">📁</span>
-            <span class="project-btn-name" id="projectBtnName">My Project</span>
-            <span class="project-btn-chevron">▾</span>
-          </button>
-          <div class="project-dropdown" id="projectDropdown">
-            <div class="project-dropdown-head">Projects</div>
-            <div class="project-list" id="projectList"></div>
-            <div class="project-dropdown-footer">
-              <button class="btn-new-project" onclick="createProject()">+ New Project</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="badge-count">100 Items</div>
-      </div>
-    </header>
-
-    <!-- PHASE NAV -->
-    <div class="phase-nav-wrap">
-      <div class="phase-nav">
-        <div class="phase-select-wrap">
-          <span class="phase-select-label">Phase</span>
-          <select class="phase-select" id="phaseSelect" data-phase="all" onchange="onPhaseSelectChange(this)">
-            <option value="all">All Phases</option>
-            <option value="pre">01 — Pre-Production</option>
-            <option value="onset">02 — On-Set / Production</option>
-            <option value="post">03 — Post-Production</option>
-            <option value="business">04 — Business &amp; Admin</option>
+    <!-- LIBRARY -->
+    <div id="libraryView">
+      <input class="lib-search" id="libSearch" type="search" placeholder="Search all tools & templates…" oninput="renderLibrary()" aria-label="Search library" />
+      <div class="lib-tabs" id="libTabs"></div>
+      <div class="lib-controls">
+        <div class="libmeta" id="libMeta"></div>
+        <div class="lib-sortrow">
+          <label for="libSort">Sort</label>
+          <select class="lib-sort" id="libSort" onchange="renderLibrary()" aria-label="Sort library">
+            <option value="name">A–Z</option>
+            <option value="phase">By phase</option>
+            <option value="type">Tools first</option>
           </select>
         </div>
-        <div class="tier-chips" id="tierChips">
-          <button class="tier-chip active" data-tier="all" onclick="onTierChip(this)">All</button>
-          <button class="tier-chip tpls" data-tier="templates" onclick="onTierChip(this)">Templates</button>
-          <button class="tier-chip tools" data-tier="tools" onclick="onTierChip(this)">⚡ Tools</button>
-        </div>
       </div>
+      <div class="grid" id="libGrid"></div>
     </div>
+  </div>
 
-    <!-- MAIN -->
-    <main class="main">
-      <div class="results-meta" id="resultsMeta"></div>
-      <div id="phaseView"></div>
-      <div class="empty-state" id="emptyState">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
-          <path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M8 11h6M11 8v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <p>No items match your search.</p>
-      </div>
-    </main>
+  <div class="foot">How It's Filmed <span>•</span> Pro Assistant</div>
+</div>
 
-    <footer class="footer">
-      How It's Filmed &nbsp;·&nbsp; <a href="https://howitsfilmed.com" target="_blank">howitsfilmed.com</a> &nbsp;·&nbsp; Pro Tool Suite
-    </footer>
-
-  </div><!-- /#hif-app -->
-
-  <script>
-    // ── ACCESS CODE GATE ──────────────────────────────────────────────
-    const ACCESS_CODE = 'HIF2605'; // ← Update monthly (e.g. HIF2606 for June 2026)
-
-    (function initGate() {
-      function getCurrentMonth() {
-        const d = new Date();
-        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-      }
-      function grantAccess() {
-        try {
-          localStorage.setItem('hif_access_granted', 'true');
-          localStorage.setItem('hif_access_month', getCurrentMonth());
-        } catch (e) {}
-        document.documentElement.classList.remove('hif-locked');
-        document.documentElement.classList.add('hif-unlocked');
-      }
-      const submitBtn = document.getElementById('hif-code-submit');
-      const codeInput = document.getElementById('hif-code-input');
-      const errorMsg  = document.getElementById('hif-code-error');
-      if (submitBtn) {
-        submitBtn.addEventListener('click', function () {
-          const entered = codeInput.value.trim().toUpperCase();
-          if (entered === ACCESS_CODE) {
-            grantAccess();
-          } else {
-            errorMsg.style.display = 'block';
-          }
-        });
-      }
-      if (codeInput) {
-        codeInput.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') submitBtn.click();
-        });
-        codeInput.addEventListener('input', function () {
-          errorMsg.style.display = 'none';
-        });
-      }
-    })();
-
-    // ── PHASE CONFIG ──────────────────────────────────────────────────
-    const PHASES = [
-      { id: 'pre',      num: '01', name: 'Pre-Production',     desc: 'Planning, scheduling, and prep' },
-      { id: 'onset',    num: '02', name: 'On-Set / Production', desc: 'Shoot day documents and tracking' },
-      { id: 'post',     num: '03', name: 'Post-Production',    desc: 'Editing, delivery, and distribution' },
-      { id: 'business', num: '04', name: 'Business & Admin',   desc: 'Client work, finance, and operations' },
-    ];
-
-    // ── TEMPLATE DATA ─────────────────────────────────────────────────
-    // phase: 'pre' | 'onset' | 'post' | 'business'
-    // cat:   category for legacy filter support
-    const ITEMS = [
+<script>
+/* ════════════ CATALOG (100 tools + templates) ════════════ */
+const ITEMS = [
 
       // ━━━━ PRE-PRODUCTION TEMPLATES ━━━━
-      { num:'01', name:'Shot List',                  cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-01-Shot-List.html',                   exists:true,  desc:'Plan every shot before you roll camera.' },
+      { num:'01', name:'Shot List',                  cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-01-Shot-List.html',                   exists:true,  desc:'Plan every shot — framing, movement, and lens — before you roll camera.' },
       { num:'05', name:'Mood Board',                 cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-05-Mood-Board.html',                  exists:true,  desc:'Set the visual tone and style direction for your project.' },
       { num:'09', name:'Production Schedule',        cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-09-Production-Schedule.html',         exists:true,  desc:'Map out your full shoot timeline day by day.' },
       { num:'15', name:'Pre-Production Checklist',   cat:'pre-production',   phase:'pre',      label:'Pre-Production',   file:'../templates/HIF-Template-15-Pre-Production-Checklist.html',   exists:true,  desc:'Nothing gets missed before the cameras start rolling.' },
@@ -1406,16 +320,16 @@ html.light {
       { num:'T10', name:'Production Calendar',       cat:'interactive-tools', phase:'pre',     label:'Interactive Tool', file:'../tools/production-calendar.html',                             exists:true,  desc:'Monthly calendar view for your full production. Color-coded Shoot Days, Scouts, Meetings, and Delivery.' },
 
       // ━━━━ ON-SET TEMPLATES ━━━━
-      { num:'02', name:'Call Sheet',                 cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-02-Call-Sheet.html',                  exists:true,  desc:'Keep your crew and talent aligned on shoot day.' },
-      { num:'06', name:'Location Scout',             cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-06-Location-Scout.html',              exists:true,  desc:'Document and compare potential shoot locations.' },
+      { num:'02', name:'Call Sheet',                 cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-02-Call-Sheet.html',                  exists:true,  desc:'Crew, talent, locations, and timing — keep everyone aligned on shoot day.' },
+      { num:'06', name:'Location Scout',             cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-06-Location-Scout.html',              exists:true,  desc:'Document, photograph, and compare potential shoot locations side by side.' },
       { num:'07', name:'Talent Release',             cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-07-Talent-Release.html',              exists:true,  desc:'Get signed releases from everyone who appears on camera.' },
       { num:'08', name:'Equipment Checklist',        cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-08-Equipment-Checklist.html',         exists:true,  desc:'Pack and verify every piece of gear before the shoot.' },
       { num:'14', name:'Interview Shot Guide',       cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-14-Interview-Shot-Guide.html',        exists:true,  desc:'Standardize your interview setups and camera angles.' },
       { num:'17', name:'BTS Photo Log',              cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-17-BTS-Photo-Log.html',               exists:true,  desc:'Track behind-the-scenes content captured during production.' },
       { num:'19', name:'Audio Sound Notes',          cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-19-Audio-Sound-Notes.html',           exists:true,  desc:'Log sound sources, levels, and issues during production.' },
-      { num:'21', name:'Talent Release Form',        cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-21.html',                             exists:true,  desc:'Alternate talent release format for on-camera subjects.' },
-      { num:'22', name:'Location Scout Log',         cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-22.html',                             exists:true,  desc:'Log and evaluate potential shooting locations in detail.' },
-      { num:'26', name:'Call Sheet (v2)',             cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-26.html',                             exists:true,  desc:'Updated call sheet with expanded crew and timing fields.' },
+      { num:'21', name:'Talent Release Form',        cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-21.html',                             exists:true,  desc:'Standalone signed release covering image rights, usage, and territory for on-camera subjects.' },
+      { num:'22', name:'Location Scout Log',         cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-22.html',                             exists:true,  desc:'Log and evaluate potential shooting locations with access, power, sound, and lighting notes.' },
+      { num:'26', name:'Call Sheet — Expanded',       cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-26.html',                             exists:true,  desc:'Expanded call sheet with full crew, talent, granular timing, weather, and parking fields.' },
       { num:'32', name:'Continuity Log',             cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-32.html',                             exists:true,  desc:'Ensure visual consistency across every scene and take.' },
       { num:'33', name:'Camera Report',              cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-33.html',                             exists:true,  desc:'Document camera settings, media, and footage per roll.' },
       { num:'34', name:'Sound Report',               cat:'on-set',           phase:'onset',    label:'On-Set',           file:'../templates/HIF-Template-34.html',                             exists:true,  desc:'Track all audio recording details for post-production.' },
@@ -1428,11 +342,11 @@ html.light {
 
       // ━━━━ ON-SET INTERACTIVE TOOLS ━━━━
       { num:'T11', name:'Audio Sync Assistant',      cat:'interactive-tools', phase:'onset',   label:'Interactive Tool', file:'../tools/audio-sync-assistant.html',                            exists:true,  desc:'Align dual-system audio by syncing clap points with frame-accurate precision.' },
-      { num:'T12', name:'Day Out of Days',           cat:'interactive-tools', phase:'onset',   label:'Interactive Tool', file:'../tools/day-out-of-days.html',                                 exists:true,  desc:'Build a cast schedule grid with W / H / T / SW / WF / SWF status per shooting day. Auto-totals work days per actor.' },
+      { num:'T12', name:'Day Out of Days',           cat:'interactive-tools', phase:'onset',   label:'Interactive Tool', file:'../tools/day-out-of-days.html',                                 exists:true,  desc:'Cast scheduling grid using standard SAG codes (Work, Hold, Travel, Start, Finish) with auto-totaled work days per actor.' },
 
       // ━━━━ POST-PRODUCTION TEMPLATES ━━━━
-      { num:'12', name:'Color Grade Notes',          cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-12-Color-Grade-Notes.html',           exists:true,  desc:'Communicate your look and grade direction clearly.' },
-      { num:'18', name:'Post-Production Timeline',   cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-18-Post-Production-Timeline.html',   exists:true,  desc:'Schedule edit, review, and delivery milestones.' },
+      { num:'12', name:'Color Grade Notes',          cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-12-Color-Grade-Notes.html',           exists:true,  desc:'Communicate your look, reference frames, and grade direction clearly to your colorist.' },
+      { num:'18', name:'Post-Production Timeline',   cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-18-Post-Production-Timeline.html',   exists:true,  desc:'Schedule edit, review, and delivery milestones so post never slips.' },
       { num:'27', name:'Delivery Checklist',         cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-27.html',                             exists:true,  desc:'Ensure every deliverable is export-ready and on spec.' },
       { num:'28', name:'Project Wrap Report',        cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-28.html',                             exists:true,  desc:'Document project outcomes, wins, and lessons learned.' },
       { num:'36', name:'VFX Shot List',              cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-36.html',                             exists:true,  desc:'Track every visual effects shot through to completion.' },
@@ -1448,18 +362,19 @@ html.light {
       { num:'54', name:'Version Control Log',       cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-54.html',                             exists:true,  desc:'Log every cut version with runtime, changes, and approval status.' },
       { num:'55', name:'Final Delivery Specs',      cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-55.html',                             exists:true,  desc:'Document exact export specs and track every deliverable through to client confirmation.' },
       { num:'56', name:'Sound Mix Notes',           cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-56.html',                             exists:true,  desc:'Log audio issues, track-by-track fixes, and final mix decisions for each session.' },
-      { num:'57', name:'Chapter &amp; Segment Breakdown', cat:'post-production', phase:'post', label:'Post-Production', file:'../templates/HIF-Template-57.html',                            exists:true,  desc:'Map your edit into labeled chapters with in/out points, duration, and story notes.' },
+      { num:'57', name:'Chapter & Segment Breakdown', cat:'post-production', phase:'post', label:'Post-Production', file:'../templates/HIF-Template-57.html',                            exists:true,  desc:'Map your edit into labeled chapters with in/out points, duration, and story notes.' },
       { num:'58', name:'Social Launch Plan',        cat:'post-production',  phase:'post',     label:'Post-Production',  file:'../templates/HIF-Template-58.html',                             exists:true,  desc:'Plan each platform cut, caption, post time, and launch checklist in one doc.' },
 
       // ━━━━ BUSINESS INTERACTIVE TOOLS ━━━━
       { num:'T13', name:'Invoice Generator',          cat:'interactive-tools', phase:'business', label:'Interactive Tool', file:'../tools/invoice-generator.html',                              exists:true,  desc:'Build a professional invoice with auto-calculated totals, deposit tracking, tax, and clean PDF export.' },
+      { num:'T14', name:'Pricing & Quote Calculator', cat:'interactive-tools', phase:'business', label:'Interactive Tool', file:'../tools/pricing-quote-calculator.html',                       exists:true,  desc:'Build a client-ready project quote by phase with filmmaking presets, deposit split, and a clean branded PDF.' },
 
       // ━━━━ BUSINESS & ADMIN ━━━━
       { num:'03', name:'Client Proposal',            cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-03-Client-Proposal.html',            exists:true,  desc:'Win the project with a professional, branded proposal.' },
-      { num:'04', name:'Invoice',                    cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-04-Invoice.html',                    exists:true,  desc:'Get paid on time with a clean, professional invoice.' },
+      { num:'04', name:'Invoice',                    cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-04-Invoice.html',                    exists:true,  desc:'Get paid on time with a clean, itemized, professional invoice.' },
       { num:'10', name:'Client Onboarding',          cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-10-Client-Onboarding.html',          exists:true,  desc:'Set expectations and start the client relationship right.' },
       { num:'13', name:'Service Agreement',          cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-13-Service-Agreement.html',          exists:true,  desc:'Protect yourself with a clear, professional contract.' },
-      { num:'30', name:'Invoice (v2)',               cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-30.html',                            exists:true,  desc:'Updated invoice format with expanded line items.' },
+      { num:'30', name:'Invoice — Detailed',         cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-30.html',                            exists:true,  desc:'Itemized invoice format with expanded line items, taxes, and payment terms.' },
       { num:'41', name:'Testimonial Request',        cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-41.html',                            exists:true,  desc:'Make it easy for happy clients to leave a great review.' },
       { num:'48', name:'End-of-Year Business Review',cat:'client-business',  phase:'business', label:'Client & Business', file:'../templates/HIF-Template-48.html',                            exists:true,  desc:'Reflect on your business performance and set next-year goals.' },
       { num:'11', name:'Budget Tracker',             cat:'finance-planning', phase:'business', label:'Finance & Planning', file:'../templates/HIF-Template-11-Budget-Tracker.html',            exists:true,  desc:'Track every dollar in and out of your production budget.' },
@@ -1494,463 +409,433 @@ html.light {
       { num:'87', name:'Post-Production Budget Tracker',   cat:'post-production',     phase:'post',      label:'Post-Production',   file:'../templates/HIF-Template-87.html', exists:true,  desc:'Track every post-production vendor and freelancer invoice from budgeted to paid.' },
     ];
 
-    // ── STATE ─────────────────────────────────────────────────────────
-    let activePhase = 'all';
-    let activeTier  = 'all';
-    let searchQuery = '';
+/* ════════════ KNOWLEDGE BASE (filmmaking support) ════════════ */
+const KB = [
+  { t:'Lighting an interview', k:['light','lighting','three point','3 point','key light','fill','backlight','soft','hard shadow','window light','flat'],
+    a:"<p>Start with the classic three-point setup: a <b>key light</b> at ~45° above and to one side, a softer <b>fill</b> on the opposite side at 50–75% of key power, and a <b>backlight</b> behind the subject to separate them from the background.</p><p>No kit? A big window as your key with a white reflector as fill is still one of the best looks for a solo shooter. Shoot perpendicular to the window — never straight into or away from it.</p>", rel:['Interview Prep Sheet','Gear Checklist'] },
+  { t:'Lav vs boom mic', k:['lav','boom','mic','microphone','audio','sound','which mic','clothing noise'],
+    a:"<p>Quick rule: <b>lav</b> for moving subjects, solo operators, and noisy rooms (set-and-forget, better isolation). <b>Boom</b> for the most cinematic, clothing-noise-free sound when you have someone to operate it.</p><p>When you can, run both — boom as primary, lav as backup. Never rely on a single audio source.</p>", rel:['Audio Sync Assistant'] },
+  { t:'Setting audio levels & room tone', k:['levels','db','clipping','peaking','room tone','ambient','noise floor','record audio'],
+    a:"<p>Set levels so dialogue peaks around <b>-12 to -6 dBFS</b> — never touching 0. Always record <b>30–60 seconds of room tone</b> (everyone silent) at the end; your editor needs it to patch cuts and remove noise cleanly.</p>", rel:['Audio Sync Assistant'] },
+  { t:'How much B-roll to shoot', k:['b-roll','broll','b roll','coverage','cutaways','how much footage'],
+    a:"<p>Shoot <b>3–5× more B-roll than you think you need</b>. You can never have too much coverage; you can absolutely have too little. Prioritize: environment wides, subject in action, hands/details, candid face reactions, and transitions (walking in, sitting down).</p>", rel:['Shot List Generator','Shot List'] },
+  { t:'Composition & framing', k:['composition','rule of thirds','framing','headroom','noseroom','eye level','depth','center'],
+    a:"<p>Put the eyes on the upper-third line, leave a little headroom, and give space in the direction the subject faces. Shoot at <b>eye level</b> unless you have a reason not to. For depth, push the subject away from the background — distance is what kills the flat \"webcam\" look.</p>", rel:['Shot List Generator'] },
+  { t:'Which focal length / lens', k:['focal length','lens','24mm','35mm','50mm','85mm','mm','compression','which lens'],
+    a:"<p>Rough guide: <b>24–35mm</b> for wide/environmental, <b>50mm</b> for a natural look, <b>85mm</b> for the flattering, compressed portrait/interview look (the most \"professional\" feel), and <b>100mm+</b> for tight, cinematic B-cam close-ups.</p>", rel:['Shot List'] },
+  { t:'Exposure, ND & white balance', k:['exposure','expose','nd filter','neutral density','white balance','kelvin','histogram','overexposed','shutter'],
+    a:"<p>Lock shutter to ~2× your frame rate (1/50 at 24/25fps), use <b>ND filters</b> outdoors to keep your aperture where you want it, and check exposure on the <b>histogram</b> — expose for the face, not the background. Match white balance across all lights (don't mix daylight and tungsten unintentionally).</p>", rel:['Gear Checklist'] },
+  { t:'Gear: what to actually bring', k:['gear','equipment','what to bring','pack','kit','checklist','batteries','cards'],
+    a:"<p>Don't let gear be the bottleneck. Cover the essentials: camera + backup, the right lenses, ND filters, external audio, a light + modifier, support (tripod/gimbal), and <b>more batteries and cards than you think you need</b>. Run the Gear Checklist so nothing gets left behind.</p>", rel:['Gear Checklist','Equipment Checklist'] },
+  { t:'The gear-focus trap / where to start', k:['where do i start','beginner','start','new','gear focus','better camera','overwhelmed','getting started'],
+    a:"<p>The gap between amateur and cinematic footage is almost never the camera — it's a system. Start with the shot you're trying to get and work backward: story → framing → light → sound → edit. Use what you own. Plan the shoot, then execute.</p><p>Tell me what you're filming and I'll point you to the exact tools to plan it.</p>", rel:['Pre-Production Checklist','Shot List Generator'] },
+  { t:'Pricing & quoting a client', k:['price','pricing','quote','how much charge','rate','day rate','cost','charge'],
+    a:"<p>Price the outcome, not the hours. Anchor to the value of the deliverable, build in pre-pro, shoot, edit, and revisions, and always take a <b>50% deposit</b> before any work starts. Put it in a proposal so the number lives next to the scope.</p><p>I'm not a financial advisor — but the tools below give you a structure to quote confidently. Start with the <b>Pricing &amp; Quote Calculator</b> — it builds the job by phase and splits out the deposit for you.</p>", rel:['Pricing & Quote Calculator','Client Proposal','Project Rate Card'] },
+  { t:'Deposits & getting paid', k:['deposit','getting paid','payment','invoice','net 30','late payment','unpaid'],
+    a:"<p>No signed contract, no start. No deposit, no shoot date. Invoice clearly with payment terms, and <b>don't deliver final files until the balance clears</b>. If a payment goes late, a firm, templated notice usually solves it.</p>", rel:['Pricing & Quote Calculator','Invoice Generator','Late Payment Notice'] },
+  { t:'Handling revisions & scope creep', k:['revision','revisions','scope creep','changes','feedback','rounds','client wants'],
+    a:"<p>State the included rounds up front (\"Round 1 of 2\"). Collect <b>all</b> feedback from every approver before you touch the edit, and ask for timestamped notes. When a request goes beyond scope, don't say yes — say \"that's outside our scope, happy to quote it as an add-on.\" Every time.</p>", rel:['Client Revision Tracker','Client Feedback Form'] },
+  { t:'Client proposals & contracts', k:['proposal','contract','agreement','onboarding','brief','sow','statement of work'],
+    a:"<p>A good proposal sets scope, deliverables, timeline, revision rounds, and price in one place — it's your boundary document when scope creep hits. Pair it with a signed service agreement and a creative brief so everyone's aligned before production.</p>", rel:['Client Proposal','Service Agreement','Client Creative Brief'] },
+  { t:'Interview questions & getting good answers', k:['interview','questions','what to ask','subject','talking head','answers','testimonial'],
+    a:"<p>Open with easy warm-ups, then mine for story. Ask subjects to <b>answer in complete sentences</b> that restate the question (so you don't need your voice in the edit), and after they finish, <b>wait 3–5 seconds</b> — the silence pulls out their most honest lines. Avoid yes/no questions; start with \"What,\" \"How,\" or \"Walk me through.\"</p>", rel:['Interview Shot Guide','Interview Prep Sheet'] },
+  { t:'Delivery specs & file formats', k:['export','delivery','format','codec','resolution','h264','prores','aspect ratio','9:16','1080','4k'],
+    a:"<p>Export H.264 MP4 for most platforms: 1920×1080 or 4K at 16:9 for YouTube, <b>1080×1920 vertical</b> for Reels/TikTok, and a ProRes master for archive. Name files consistently: <code>Client_Project_Version_Date</code>.</p>", rel:['Final Delivery Specs','Post-Production Delivery Checklist'] },
+  { t:'Backing up footage (3-2-1)', k:['backup','back up','footage','3-2-1','data','offload','cards','lose footage','storage','ssd'],
+    a:"<p>Follow the <b>3-2-1 rule</b>: 3 copies, on 2 types of media, with 1 offsite. Never reformat a card on set until you've confirmed two separate backups exist. One card failure is bad luck; no backup is negligence.</p>", rel:['Footage Backup Log','Footage Ingestion Log'] },
+  { t:'Color grading basics', k:['color','grade','grading','lut','log','color correction','look'],
+    a:"<p>Correct first (balance exposure and white balance so it looks natural), then grade for look. Shoot in a log/flat profile if your camera supports it for more latitude, and keep notes on your settings so the look stays consistent across a project.</p>", rel:['Color Grade Notes','Color Reference Sheet'] },
+  { t:'Planning a shoot / call sheets', k:['plan','planning','call sheet','schedule','pre production','prep','logistics','crew'],
+    a:"<p>Lock the plan before the day: shot list, schedule with <b>20% buffer time</b>, and a call sheet with location, parking, call times, and contacts sent to everyone. The shoots that run on time are the ones that planned to run early.</p>", rel:['Call Sheet Builder','Production Calendar','Pre-Production Checklist'] },
+  { t:'Posting & repurposing for social', k:['social','reels','tiktok','post','repurpose','captions','vertical','clips','cut down'],
+    a:"<p>Plan your social cuts <b>before</b> you shoot so you capture vertical-friendly framing and moments built for short-form. One hero piece should break into multiple platform-native cuts. Keep a caption bank so posting stays consistent.</p>", rel:['Social Cut Planner','Social Caption Bank'] },
+  { t:'Frame rate & slow motion', k:['frame rate','fps','24fps','30fps','60fps','120','slow motion','slowmo','slow-mo'],
+    a:"<p>Shoot <b>24fps</b> for the cinematic standard, <b>30fps</b> for broadcast/social, and <b>60fps+</b> when you want smooth slow motion (conform 60 into a 24/30 timeline for ~2.5x slow-mo). Keep shutter at ~2x your frame rate for natural motion blur.</p>", rel:['Shot List'] },
+  { t:'Stabilization & smooth movement', k:['gimbal','stabilize','stabilization','handheld','shaky','smooth','jitter','movement'],
+    a:"<p>Smooth movement is intention, not luck: lock the gimbal balance before you roll, walk heel-to-toe (ninja walk), and keep moves slow and deliberate. No gimbal? A wider lens, two hands, and bracing against your body hides a lot of shake — and a locked-off tripod shot always beats bad handheld.</p>", rel:['Gear Checklist'] },
+  { t:'Focus & staying sharp', k:['focus','autofocus','out of focus','soft','focus pull','sharp','blurry'],
+    a:"<p>For interviews, focus on the <b>near eye</b>. Stopping down a touch (f/2.8–f/4 instead of f/1.4) gives you margin if the subject sways. If your autofocus is reliable, use face/eye-detect; if not, mark focus manually and don't let the subject drift off their mark.</p>", rel:['Shot List'] },
+  { t:'Shooting in low light', k:['low light','dark','night','iso','noise','grain','dim','underexposed'],
+    a:"<p>Add light before you add ISO. Raise ISO only to your camera's clean ceiling, open your aperture, and drop to 1/48–1/50 shutter at 24fps. Even one practical or a small panel bounced off a wall beats a noisy, underexposed image.</p>", rel:['Gear Checklist'] },
+  { t:'Music & licensing', k:['music','song','track','license','licensing','copyright','royalty free','where to get music'],
+    a:"<p>Never pull music off Spotify/YouTube for client work — it's a copyright claim waiting to happen. Use a licensed library (Artlist, Musicbed, Epidemic) and keep proof of license per track. Track what you used so you can renew or clear it later.</p>", rel:['Music & Licensing Tracker','Licensing & Rights Tracker'] },
+  { t:'Aspect ratios & reframing for social', k:['aspect ratio','16:9','9:16','1:1','vertical','horizontal','reframe','crop','safe area'],
+    a:"<p>Shoot a little wider than you need so you can reframe to <b>9:16</b> vertical and <b>1:1</b> square in post without losing the subject. Keep important action out of the extreme edges, and plan your vertical cuts before the shoot so you frame for them on the day.</p>", rel:['Social Cut Planner','Final Delivery Specs'] },
+  { t:'Multi-camera sync', k:['multicam','multi cam','multi-camera','two cameras','sync footage','sync cameras','dual','b cam'],
+    a:"<p>Sync by timecode if your gear supports it; otherwise a single <b>clap</b> at the top of each setup (or syncing to a common audio waveform) does the job. Put your A and B cams on different focal lengths so the cut has variety, not just two versions of the same frame.</p>", rel:['Audio Sync Assistant','Multi-Camera Setup Sheet'] },
+  { t:'Green screen / chroma key', k:['green screen','greenscreen','chroma','chroma key','keying','key out','background replace'],
+    a:"<p>Light the screen <b>evenly and separately</b> from your subject, and keep the subject several feet off the screen to avoid green spill. Even lighting in-camera saves hours of keying pain in post. Avoid green/blue wardrobe to match your screen.</p>", rel:['Color Grade Notes'] },
+  { t:'Directing talent & non-actors', k:['direct','directing','talent','non actor','non-actor','nervous','perform','comfortable','coaching'],
+    a:"<p>Get a real conversation going before you roll — five minutes of normal talk relaxes people more than any technique. Give direction in feelings and intentions (\"you just heard good news\"), not line readings, and reassure them that restarts are fine. Comfort on camera is your job, not theirs.</p>", rel:['Interview Prep Sheet'] },
+  { t:'Wardrobe guidance', k:['wardrobe','what to wear','clothing','outfit','colors to wear','patterns','dress'],
+    a:"<p>Tell subjects: solid colors, avoid tight patterns (they moiré on camera), and skip pure white and pure black. Layers and texture read well. Send this guidance days ahead, not on shoot morning.</p>", rel:['Wardrobe Log','Interview Prep Sheet'] },
+  { t:'Editing workflow & staying organized', k:['edit workflow','editing process','organize','selects','logging','project organization','folders','ingest'],
+    a:"<p>Ingest and back up first, then log your selects before you build anything — marking the best takes up front saves you from rewatching everything mid-edit. Keep a consistent folder structure (footage / audio / music / graphics / exports) on every project so you can find anything months later.</p>", rel:['Footage Ingestion Log','Edit Session Notes','Post-Production Timeline'] },
+  { t:'Getting your first clients', k:['first client','get clients','find clients','book work','land clients','portfolio','reel','no clients'],
+    a:"<p>Make the work you want to be hired for, even spec or trade, and cut it into a tight reel. Then go narrow: one niche, local outreach, and a clear proposal so the buyer sees scope and price in one place. Referrals compound — over-deliver on the first few and ask for intros.</p>", rel:['Client Proposal','Brand Video Brief'] },
+  { t:'Usage rights & ownership', k:['usage rights','rights','license footage','who owns','ownership','exclusive','buyout','footage rights'],
+    a:"<p>Spell out usage in the agreement: what the client can use, where, and for how long. Decide up front whether you're licensing the footage or doing a full buyout, and keep raw footage rights with you unless it's explicitly sold. Ambiguity here is where disputes start.</p>", rel:['Licensing & Rights Tracker','Service Agreement'] },
+  { t:'Titles, lower thirds & captions', k:['lower third','lower-third','title','caption','captions','subtitle','text on screen','graphics','name tag'],
+    a:"<p>Keep lower thirds clean and on-brand — name and role, readable for ~3 seconds, inside the safe area. Burn in captions for social (most people watch muted), and keep a caption/subtitle log so versions stay consistent across cuts.</p>", rel:['Subtitle & Caption Log'] },
 
-    // ── CARD HTML ─────────────────────────────────────────────────────
-    function cardHTML(t) {
-      return `
-        <div class="card ${t.exists ? '' : 'coming-soon'}" data-cat="${t.cat}">
-          <div class="card-top">
-            <span class="card-num">No.${t.num}</span>
-            <span class="card-pill${t.cat === 'interactive-tools' ? ' tool-pill' : ''}">${t.cat === 'interactive-tools' ? '⚡ ' + t.label : t.label}</span>
-          </div>
-          <div class="card-name">${t.name}</div>
-          <div class="card-desc">${t.desc}</div>
-          <div class="card-footer">
-            ${t.exists
-              ? `<a class="btn-open" href="${t.file}" target="_blank" rel="noopener">Open ↗</a>`
-              : `<span class="btn-open" style="background:#2a2a2a;color:#666;cursor:default;">Open</span>
-                 <span class="coming-soon-tag">Coming Soon</span>`
-            }
-          </div>
-        </div>`;
-    }
+  // ── member-requested topics (business + craft) ──
+  { t:'What camera or gear should I buy', k:['what camera','which camera','should i buy','upgrade','new camera','gear to buy','best camera','what gear','camera recommendation','lens to buy','invest in','better camera'],
+    a:"<p>Clients never ask what you shot on. Before a new body, put money into <b>glass, audio, and light</b> — that's what actually shows on screen. Buy for the work you're booking now, not the work you imagine, and rent the expensive stuff until a paid job justifies owning it.</p>", rel:['Gear Checklist','Film Budget Builder'] },
+  { t:'Reaching out to land clients', k:['outreach','cold email','cold dm','reach out','pitch','how to reach','dm businesses','email script','find leads','prospect','get booked','book clients','message clients'],
+    a:"<p>Lead with a specific idea for <b>them</b>, not your resume. Keep it short: one clear observation, one relevant sample link, one ask. Follow up twice, spaced a few days apart. Going narrow — one niche, local — beats spraying everyone.</p>", rel:['Client Proposal','Pricing & Quote Calculator','Brand Video Brief'] },
+  { t:'How long should the video be', k:['how long','video length','duration','runtime','how many seconds','length of video','too long','ideal length','how long should'],
+    a:"<p>By platform: <b>Reels/TikTok 15–45s</b>, YouTube 3–8 min, a brand/promo hero around <b>60–90s</b> with shorter pull-cuts, testimonials 60–120s. Cut to the story, not to a number — and plan your social cuts before the shoot so you frame for them.</p>", rel:['Social Cut Planner','Post-Production Timeline'] },
+  { t:'What to charge for a specific video', k:['what to charge','how much for a','charge for a brand','wedding price','event price','charge for a wedding','pricing a brand video','what should i charge','typical rate','going rate','how much do you charge'],
+    a:"<p>There's no flat rate — you price the <b>scope</b>. Anchor a day rate, add pre-pro and edit time, then layer in deliverables and usage. Most freelancers land a single brand video in the low-to-mid four figures, but your market and scope move that a lot. Build it line by line so you stop guessing.</p>", rel:['Pricing & Quote Calculator','Project Rate Card','Client Proposal'] },
+  { t:'Retainers and recurring client work', k:['retainer','recurring','monthly client','ongoing work','content package','subscription','recurring revenue','monthly package','keep clients','steady work'],
+    a:"<p>The steadiest income in this business. Pitch a <b>monthly package</b> — a set number of deliverables for a set fee — to clients who need a constant stream of content. It smooths cash flow and beats chasing one-off gigs. Lock the monthly scope so it can't quietly balloon.</p>", rel:['Pricing & Quote Calculator','Client Proposal','Service Agreement'] },
+  { t:'Delivering final files to clients', k:['deliver files','send files','wetransfer','frame io','frame.io','download link','how to deliver','hand off','send final','review link','dropbox','google drive'],
+    a:"<p>Send a <b>review link</b> for approvals so feedback comes back timestamped, then deliver finals as a clean download with consistent file names. Release the finals only once the balance clears, and log exactly what you handed over.</p>", rel:['Final Delivery Specs','Client Feedback Form','Asset Delivery Manifest'] },
+  { t:'Following up when a client goes quiet', k:['follow up','ghost','ghosted','no reply','went quiet','chase client','client stopped','not responding','silence','bump','no response'],
+    a:"<p>Silence is usually busy, not no. Send a short, friendly bump with a clear next step and a soft deadline ('holding your date through Friday'). Two follow-ups, a few days apart, then move on. Asking for the <b>deposit</b> filters serious clients fast.</p>", rel:['Pricing & Quote Calculator','Client Proposal'] },
+  { t:'Packaging and upselling your services', k:['package','packages','tiers','upsell','add on','add-on','good better best','bundle services','three options','menu','pricing options'],
+    a:"<p>Give three tiers — good / better / best — so the decision is 'which,' not 'if.' Anchor with a premium option, make the middle one the obvious pick, and list add-ons (extra cuts, drone, rush) so an upgrade is one yes away. Put it all in the quote.</p>", rel:['Pricing & Quote Calculator','Project Rate Card','Client Proposal'] },
+  { t:'Recording clean audio outdoors', k:['wind','outdoor audio','outside sound','windscreen','dead cat','wind noise','noisy location','street noise','record outside','outdoor sound'],
+    a:"<p>Get the mic close and shielded — a furry windscreen (dead cat) on anything outdoors, foam at the bare minimum. Hide a lav under a light layer to beat wind, pick sheltered spots, and always grab ambient/room tone. You can't fully fix wind in post, so kill it on set.</p>", rel:['Audio Sound Notes','Gear Checklist'] },
+  { t:'Shooting run-and-gun events and weddings', k:['event','wedding','run and gun','run-and-gun','live event','one shot','no second take','fast moving','documentary style','cant control','unrepeatable'],
+    a:"<p>You can't redo it, so plan coverage and protect the moments that matter. Shoot for the edit — wide for context, tight for emotion, cutaways for transitions — keep audio rolling, and carry backup batteries, cards, and a second body. A shot list stops you missing the obvious.</p>", rel:['Shot List Generator','Call Sheet Builder','Gear Checklist'] },
+  { t:'Power and batteries on a shoot', k:['battery','batteries','run out of power','how many batteries','power management','dead battery','v-mount','charging','charge batteries','power on set'],
+    a:"<p>Bring more than you think — at least <b>double</b> your estimate for camera, mics, and monitors, plus chargers and a power strip. Label charged vs dead, top up at every break, and pack a power bank for wireless gear. Nothing ends a shoot faster than dead batteries.</p>", rel:['Gear Checklist','Equipment Checklist'] },
+  { t:'Growing on social as a filmmaker', k:['social media','grow','followers','instagram','post content','what to post','build audience','grow account','content strategy','go viral','audience','tiktok growth'],
+    a:"<p>Post the work <b>and</b> the process — behind-the-scenes, before/afters, and quick tips out-perform polished finals because they teach and hook. Stay consistent, win the first second, and design every shoot to throw off vertical clips. Your feed is your portfolio and your lead engine.</p>", rel:['Social Cut Planner','Social Caption Bank','Social Launch Plan'] },
+  { t:'When to use camera movement', k:['camera movement','move the camera','push in','dolly','pan','tilt','when to move','static','locked off','motivated movement','slider','gimbal move'],
+    a:"<p>Move with intent or lock it off. A slow push-in builds emotion, a reveal motivates a pan, handheld adds energy to action — but unmotivated movement just reads as restless. When in doubt, a clean static frame beats wobbly movement every time.</p>", rel:['Shot List Generator'] },
+  { t:'How long editing takes', k:['how long edit','editing time','post timeline','how long post','edit estimate','turnaround','delivery time','how many hours edit','schedule post','edit takes'],
+    a:"<p>Budget more than you'd guess — a tight 60–90s brand piece is often a full day-plus once you log, assemble, refine, and grade, and revisions add to that. Quote a realistic turnaround <b>with buffer</b>, map the milestones, and never promise a date you can't protect.</p>", rel:['Post-Production Timeline','Edit Session Notes'] },
+  { t:'Business setup, insurance and taxes', k:['llc','business setup','insurance','taxes','tax','register business','liability','self employed','set aside','sole proprietor','legal setup','certificate of insurance'],
+    a:"<p>Treat it like a business early: a separate bank account, roughly <b>25–30% set aside</b> for taxes, and liability/gear insurance (many venues require a certificate). I'm not a lawyer or accountant — confirm the specifics for your area — but a signed contract on every job is non-negotiable.</p>", rel:['Service Agreement','Freelance Contractor Agreement'] },
+  { t:'Building a reel that books work', k:['reel','demo reel','showreel','portfolio','what to put','best work','sizzle','highlight reel','show clients','edit a reel'],
+    a:"<p>Lead with your single best 5 seconds and keep it short — quality over quantity. Show the kind of work you <b>want to be hired for</b> (spec counts), cut to music with rhythm, and tailor a focused selection to each pitch instead of one generic reel for everyone.</p>", rel:['Brand Video Brief','Client Proposal'] },
+  { t:'Shooting solo as a one-person crew', k:['solo','one person','by myself','no crew','run solo','single operator','alone','one man','self shoot','solo shooter','shoot alone'],
+    a:"<p>Simplify so you can actually run it — lav the subject, a key light plus a window, and lock the camera so you can focus on the conversation. Get your safety wide first, then grab tighter angles and cutaways. A shot list is your second set of hands.</p>", rel:['Shot List Generator','Interview Prep Sheet','Gear Checklist'] },
+  { t:'When a client asks for a lower price', k:['cheaper','lower price','discount','too expensive','negotiate','out of budget','reduce price','can you do it for','haggle','budget is','lower the price'],
+    a:"<p>Never just drop the number — drop the <b>scope</b> to match. Offer a smaller version (fewer cuts, one location, no add-ons) so price tracks value, or hold firm and let them choose. Discounting for nothing trains clients to expect it and quietly kills your rate.</p>", rel:['Pricing & Quote Calculator','Project Change Order','Client Proposal'] },
+];
 
-    // ── RENDER ────────────────────────────────────────────────────────
-    function render() {
-      const q = searchQuery.toLowerCase().trim();
-      const container = document.getElementById('phaseView');
-      const empty = document.getElementById('emptyState');
-      const meta = document.getElementById('resultsMeta');
+/* ════════════ ENGINE ════════════ */
+var TOOL_ICON = '<svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>';
+var DOC_ICON  = '<svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zM14 2v6h6"/></svg>';
 
-      // SEARCH: flat global results
-      if (q) {
-        const filtered = ITEMS.filter(t =>
-          t.name.toLowerCase().includes(q) ||
-          t.label.toLowerCase().includes(q) ||
-          t.desc.toLowerCase().includes(q) ||
-          t.num.toLowerCase().includes(q)
-        );
-        if (filtered.length === 0) {
-          container.innerHTML = '';
-          empty.style.display = 'block';
-          meta.textContent = '';
-          return;
-        }
-        empty.style.display = 'none';
-        meta.textContent = `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
-        container.innerHTML = `<div class="grid">${filtered.map(cardHTML).join('')}</div>`;
-        return;
-      }
+/* ── REAL-AI (optional): paste your deployed Cloudflare Worker URL to enable
+   free-form Claude answers. Leave '' to use the built-in guided assistant. ── */
+var WORKER_URL = '';
+var convo = [];
+function mdToHtml(t){
+  var e=String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  e=e.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+  return e.split(/\n{2,}/).map(function(p){return '<p>'+p.replace(/\n/g,'<br>')+'</p>';}).join('');
+}
 
-      empty.style.display = 'none';
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+function isTool(it){return (it.cat==='interactive-tools') || /Interactive Tool/i.test(it.label||'');}
 
-      // HUB VIEW: show category tiles
-      if (activePhase === 'all') {
-        meta.textContent = `${PHASES.length} categories · ${ITEMS.length} items`;
-        container.innerHTML = `<div class="hub-grid">${PHASES.map(phase => {
-          const count = ITEMS.filter(t => t.phase === phase.id).length;
-          const toolCount = ITEMS.filter(t => t.phase === phase.id && t.cat === 'interactive-tools').length;
-          const tplCount = count - toolCount;
-          const sub = toolCount > 0
-            ? `${tplCount} templates · ${toolCount} interactive tools`
-            : `${tplCount} templates`;
-          return `
-            <div class="hub-tile" data-phase="${phase.id}" onclick="selectPhase('${phase.id}')">
-              <div class="hub-tile-accent"></div>
-              <div class="hub-tile-content">
-                <div class="hub-tile-num">PHASE ${phase.num}</div>
-                <div class="hub-tile-name">${phase.name}</div>
-                <div class="hub-tile-desc">${phase.desc}</div>
-                <div class="hub-tile-footer">
-                  <span class="hub-tile-count">${count} items</span>
-                  <span class="hub-tile-arrow">Browse →</span>
-                </div>
-              </div>
-            </div>`;
-        }).join('')}</div>`;
-        return;
-      }
+function findItem(name){
+  var n=norm(name);
+  return ITEMS.find(function(i){return norm(i.name)===n;}) ||
+         ITEMS.find(function(i){return norm(i.name).indexOf(n)>-1 || n.indexOf(norm(i.name))>-1;});
+}
 
-      // PHASE VIEW: items in selected phase with tier filtering
-      const phaseItems = ITEMS.filter(t => t.phase === activePhase);
-      const phase = PHASES.find(p => p.id === activePhase);
-      const phaseTools = phaseItems.filter(t => t.cat === 'interactive-tools');
-      const phaseTpls  = phaseItems.filter(t => t.cat !== 'interactive-tools');
-
-      // Apply tier filter
-      let visibleItems;
-      if      (activeTier === 'tools')     visibleItems = phaseTools;
-      else if (activeTier === 'templates') visibleItems = phaseTpls;
-      else                                 visibleItems = phaseItems;
-
-      meta.textContent = `${visibleItems.length} item${visibleItems.length !== 1 ? 's' : ''}`;
-
-      // Build tiered sections or flat grid
-      let gridHTML;
-      if (activeTier === 'all' && phaseTools.length > 0 && phaseTpls.length > 0) {
-        gridHTML = `
-          <div class="tier-section">
-            <div class="tier-section-head">
-              <span class="tier-section-head-label tpl">Templates</span>
-              <div class="tier-section-head-rule"></div>
-              <span class="tier-section-head-count">${phaseTpls.length}</span>
-            </div>
-            <div class="grid">${phaseTpls.map(cardHTML).join('')}</div>
-          </div>
-          <div class="tier-section">
-            <div class="tier-section-head">
-              <span class="tier-section-head-label tool">⚡ Interactive Tools</span>
-              <div class="tier-section-head-rule"></div>
-              <span class="tier-section-head-count">${phaseTools.length}</span>
-            </div>
-            <div class="grid">${phaseTools.map(cardHTML).join('')}</div>
-          </div>`;
-      } else {
-        gridHTML = `<div class="grid">${visibleItems.map(cardHTML).join('')}</div>`;
-      }
-
-      container.innerHTML = `
-        <div class="phase-header">
-          <button class="phase-header-back" onclick="goHome()">← All Phases</button>
-          <div class="phase-header-info">
-            <div class="phase-header-title">${phase.name}</div>
-            <div class="phase-header-sub">${phase.desc}</div>
-          </div>
-        </div>
-        ${gridHTML}`;
-    }
-
-    // ── SELECT PHASE ──────────────────────────────────────────────────
-    window.selectPhase = function(phaseId) {
-      activePhase = phaseId;
-      const sel = document.getElementById('phaseSelect');
-      if (sel) { sel.value = phaseId; sel.dataset.phase = phaseId; }
-      render();
-    };
-
-    // ── GO HOME ───────────────────────────────────────────────────────
-    window.goHome = function() {
-      activePhase = 'all';
-      const sel = document.getElementById('phaseSelect');
-      if (sel) { sel.value = 'all'; sel.dataset.phase = 'all'; }
-      render();
-    };
-
-    // ── EVENTS ────────────────────────────────────────────────────────
-    window.onPhaseSelectChange = function(sel) {
-      window.selectPhase(sel.value);
-    };
-
-    window.onTierChip = function(btn) {
-      document.querySelectorAll('.tier-chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      activeTier = btn.dataset.tier;
-      render();
-    };
-
-    document.getElementById('searchInput').addEventListener('input', e => {
-      searchQuery = e.target.value;
-      // Clear hash when searching
-      if (e.target.value && window.location.hash) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
-      render();
+/* score catalog items against a query */
+function scoreItems(q){
+  var toks=norm(q).split(' ').filter(Boolean);
+  if(!toks.length) return [];
+  return ITEMS.map(function(it){
+    var hay=norm(it.name+' '+it.desc+' '+it.label+' '+it.cat);
+    var s=0;
+    toks.forEach(function(t){
+      if(t.length<3) return;
+      if(norm(it.name).indexOf(t)>-1) s+=3;
+      else if(hay.indexOf(t)>-1) s+=1;
     });
+    if(s>0 && isTool(it)) s+=0.5; // gently prefer tools (only when already matched)
+    return {it:it,s:s};
+  }).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;}).map(function(x){return x.it;});
+}
 
-    // ── HASH ROUTING ──────────────────────────────────────────────────
-    // ── PROJECT MANAGEMENT ───────────────────────────────────────────────────
-    const PROJECTS_KEY  = 'hif_projects';
-    const ACTIVE_PRJ_KEY = 'hif_active_project';
-
-    function loadProjects() {
-      try { return JSON.parse(localStorage.getItem(PROJECTS_KEY)) || []; }
-      catch(e) { return []; }
-    }
-
-    function saveProjects(projects) {
-      try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects)); } catch(e) {}
-    }
-
-    function getActiveProject() {
-      try {
-        const p = JSON.parse(localStorage.getItem(ACTIVE_PRJ_KEY));
-        return p && p.id ? p : null;
-      } catch(e) { return null; }
-    }
-
-    function setActiveProject(project) {
-      try {
-        localStorage.setItem(ACTIVE_PRJ_KEY, JSON.stringify({ id: project.id, name: project.name }));
-      } catch(e) {}
-    }
-
-    function ensureDefaultProject() {
-      let projects = loadProjects();
-      if (!projects.length) {
-        const defaultProj = { id: 'default', name: 'My Project', created: Date.now() };
-        projects = [defaultProj];
-        saveProjects(projects);
-      }
-      if (!getActiveProject()) {
-        setActiveProject(projects[0]);
-      }
-      return loadProjects();
-    }
-
-    function renderProjectList() {
-      const projects = loadProjects();
-      const active   = getActiveProject();
-      const list     = document.getElementById('projectList');
-      if (!list) return;
-
-      list.innerHTML = projects.map(p => `
-        <div class="project-item${active && active.id === p.id ? ' active' : ''}"
-             onclick="switchProject('${p.id}')">
-          <span class="project-item-check">${active && active.id === p.id ? '●' : ''}</span>
-          <span class="project-item-name">${escHtml(p.name)}</span>
-          ${p.id !== 'default' ? `<span class="project-item-del" onclick="deleteProject(event,'${p.id}')" title="Delete">✕</span>` : ''}
-        </div>
-      `).join('');
-    }
-
-    function updateProjectButton() {
-      const active = getActiveProject();
-      const btn = document.getElementById('projectBtnName');
-      if (btn && active) btn.textContent = active.name;
-    }
-
-    function toggleProjectDropdown(e) {
-      e.stopPropagation();
-      const dd = document.getElementById('projectDropdown');
-      if (!dd) return;
-      const isOpen = dd.classList.contains('open');
-      if (!isOpen) {
-        renderProjectList();
-        dd.classList.add('open');
-      } else {
-        dd.classList.remove('open');
-      }
-    }
-
-    function switchProject(id) {
-      const projects = loadProjects();
-      const p = projects.find(x => x.id === id);
-      if (!p) return;
-      setActiveProject(p);
-      updateProjectButton();
-      document.getElementById('projectDropdown').classList.remove('open');
-    }
-
-    function createProject() {
-      const name = prompt('Project name:', 'New Project');
-      if (!name || !name.trim()) return;
-      const id = 'p_' + Date.now();
-      const projects = loadProjects();
-      const newProj = { id, name: name.trim(), created: Date.now() };
-      projects.push(newProj);
-      saveProjects(projects);
-      setActiveProject(newProj);
-      updateProjectButton();
-      renderProjectList();
-    }
-
-    function deleteProject(e, id) {
-      e.stopPropagation();
-      const projects = loadProjects();
-      const p = projects.find(x => x.id === id);
-      if (!p) return;
-      if (!confirm(`Delete project "${p.name}"? The data inside won't be deleted, just the project entry.`)) return;
-      const filtered = projects.filter(x => x.id !== id);
-      saveProjects(filtered);
-      // If we deleted the active one, switch to default
-      const active = getActiveProject();
-      if (active && active.id === id) {
-        const fallback = filtered[0] || { id: 'default', name: 'My Project' };
-        setActiveProject(fallback);
-        updateProjectButton();
-      }
-      renderProjectList();
-    }
-
-    function escHtml(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', () => {
-      const dd = document.getElementById('projectDropdown');
-      if (dd) dd.classList.remove('open');
+/* score KB entries against a query */
+function scoreKB(q){
+  var toks=norm(q).split(' ').filter(Boolean);
+  var nq=norm(q);
+  return KB.map(function(e){
+    var s=0;
+    e.k.forEach(function(kw){
+      var nk=norm(kw);
+      if(nq.indexOf(nk)>-1) s += (nk.indexOf(' ')>-1?3:1.5); // phrase match worth more
     });
+    return {e:e,s:s};
+  }).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;});
+}
 
-    // Init projects on load
-    ensureDefaultProject();
-    updateProjectButton();
+var PHASE_INTENT={
+  pre:{title:"Let's plan it.",blurb:"Here are the go-to tools for pre-production. Tap any to open it.",phase:'pre'},
+  onset:{title:"On set today — let's keep it tight.",blurb:"Your on-set essentials:",phase:'onset'},
+  post:{title:"Into the edit.",blurb:"Post-production tools to stay organized through delivery:",phase:'post'},
+  business:{title:"The business side.",blurb:"Proposals, invoices, and client workflow — get paid and stay protected:",phase:'business'}
+};
 
-    const VALID_PHASES = ['all', 'pre', 'onset', 'post', 'business'];
+function topForPhase(phase,n){
+  var pref=ITEMS.filter(function(i){return i.phase===phase && isTool(i);});
+  var rest=ITEMS.filter(function(i){return i.phase===phase && !isTool(i);});
+  return pref.concat(rest).slice(0,n||5);
+}
 
-    function parseHash() {
-      const h = window.location.hash.replace('#', '').toLowerCase();
-      if (!h || h === 'hub' || h === 'all') return 'all';
-      if (VALID_PHASES.includes(h)) return h;
-      return 'all';
-    }
+/* ──────── chat rendering ──────── */
+var chatEl;
+function addMsg(role,html){
+  var m=document.createElement('div'); m.className='msg '+role;
+  var av=document.createElement('div'); av.className='av'; av.textContent=role==='bot'?'🎬':'🙂'; av.setAttribute('aria-hidden','true');
+  var b=document.createElement('div'); b.className='bubble'; b.innerHTML=html;
+  m.appendChild(av); m.appendChild(b); chatEl.appendChild(m);
+  scrollDown(); return b;
+}
+function cardsHTML(items){
+  if(!items||!items.length) return '';
+  var h='<div class="reslist">';
+  items.forEach(function(it){
+    if(!it) return;
+    var tool=isTool(it);
+    h+='<a class="rescard" href="'+it.file+'" target="_blank" rel="noopener" onclick="recordUse(\''+(it.num||'')+'\')">'+
+         '<span class="ic">'+(tool?TOOL_ICON:DOC_ICON)+'</span>'+
+         '<span class="rc-body"><span class="rc-name">'+it.name+(tool?'<span class="pill">Tool</span>':'')+'</span>'+
+         '<span class="rc-desc">'+(it.desc||it.label)+'</span></span>'+
+         '<span class="rc-arrow" aria-hidden="true">›</span></a>';
+  });
+  return h+'</div>';
+}
+function chipRow(chips){
+  var h='<div class="chips">';
+  chips.forEach(function(c){ h+='<button class="chip" onclick="quick(\''+c.intent+'\')">'+(c.e?'<span class="e">'+c.e+'</span>':'')+c.label+'</button>'; });
+  return h+'</div>';
+}
+function scrollDown(){ requestAnimationFrame(function(){ window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); }); }
 
-    function setHash(phase) {
-      const hash = (phase === 'all') ? '#hub' : '#' + phase;
-      if (window.location.hash !== hash) {
-        history.pushState(null, '', hash);
-      }
-    }
+/* ──────── intents ──────── */
+function greet(){
+  var b=addMsg('bot',"<p>Hey — I'm your How It's Filmed assistant. Tell me what you're working on and I'll point you to the right tool, or just ask me a filmmaking question.</p><p>Where are you right now?</p>");
+  b.insertAdjacentHTML('beforeend', chipRow([
+    {e:'🗒️',label:'Planning a shoot',intent:'pre'},
+    {e:'🎥',label:"On set today",intent:'onset'},
+    {e:'✂️',label:'Editing / post',intent:'post'},
+    {e:'💼',label:'Clients & getting paid',intent:'business'},
+    {e:'💡',label:'Ask a question',intent:'ask'}
+  ]));
+}
+function quick(intent){
+  if(intent==='ask'){ addMsg('user','I have a question'); botAsk(); return; }
+  if(PHASE_INTENT[intent]){
+    var p=PHASE_INTENT[intent];
+    addMsg('user', {pre:'Planning a shoot',onset:"I'm on set today",post:'Editing / post',business:'Clients & getting paid'}[intent]);
+    var b=addMsg('bot','<p><b>'+p.title+'</b></p><p>'+p.blurb+'</p>');
+    b.insertAdjacentHTML('beforeend', cardsHTML(topForPhase(p.phase,5)));
+    b.insertAdjacentHTML('beforeend','<span class="src">Want everything? Open the <b>Library</b> tab up top.</span>');
+  }
+}
+function botAsk(){
+  var b=addMsg('bot',"<p>Go for it — ask me about lighting, audio, interviews, pricing, delivery specs, anything. A few people start with:</p>");
+  b.insertAdjacentHTML('beforeend', chipRow([
+    {label:'How do I light an interview?',intent:'q:how do I light an interview'},
+    {label:'Lav or boom mic?',intent:'q:lav vs boom mic'},
+    {label:'How do I price a client?',intent:'q:how do I price a client'},
+    {label:'What are the delivery specs?',intent:'q:delivery specs formats'}
+  ]));
+}
+/* allow chips to inject a real question */
+var _origQuick=quick;
+quick=function(intent){
+  if(intent && intent.indexOf('q:')===0){ var q=intent.slice(2); addMsg('user',q); respond(q); return; }
+  _origQuick(intent);
+};
 
-    // Override selectPhase + goHome to update hash
-    const _origSelectPhase = window.selectPhase;
-    window.selectPhase = function(phaseId) {
-      setHash(phaseId);
-      _origSelectPhase(phaseId);
-    };
+/* ──────── main responder ──────── */
+/* build a "you might also ask" chip set from the next-best topics, topped up with evergreens */
+function nextQChips(answered, q){
+  var chips=[];
+  scoreKB(q).forEach(function(x){ if(x.e!==answered && x.s>=1.5 && chips.length<3){ chips.push({label:x.e.t, intent:'q:'+x.e.t}); } });
+  var pool=[
+    {label:'How do I price a client?',intent:'q:how do I price a client'},
+    {label:'How much B-roll should I shoot?',intent:'q:how much b-roll coverage'},
+    {label:'What are the delivery specs?',intent:'q:delivery export specs formats'},
+    {label:'How do I get my first clients?',intent:'q:how do I get my first clients'}
+  ];
+  for(var i=0;i<pool.length && chips.length<3;i++){ var lbl=pool[i].label; if(!chips.some(function(c){return c.label===lbl;})) chips.push(pool[i]); }
+  return chips;
+}
 
-    window.goHome = function() {
-      setHash('all');
-      activePhase = 'all';
-      const sel = document.getElementById('phaseSelect');
-      if (sel) { sel.value = 'all'; sel.dataset.phase = 'all'; }
-      render();
-    };
+function guidedRespond(q){
+  var kb=scoreKB(q);
+  var items=scoreItems(q);
+  var best=kb[0];
 
-    // Back/forward button support
-    window.addEventListener('popstate', () => {
-      const phase = parseHash();
-      activePhase = phase;
-      const sel = document.getElementById('phaseSelect');
-      if (sel) { sel.value = phase; sel.dataset.phase = phase; }
-      render();
+  // strong knowledge match → answer + its related tools + suggested next questions
+  if(best && best.s>=1.5){
+    var rel=(best.e.rel||[]).map(findItem).filter(Boolean);
+    // trust the curated picks; only blend in direct catalog hits when we're short
+    if(rel.length<2){ items.slice(0,3).forEach(function(it){ if(rel.indexOf(it)<0) rel.push(it); }); }
+    // surface interactive tools ahead of static templates in the recommendations
+    rel.sort(function(a,bb){ return (isTool(bb)?1:0)-(isTool(a)?1:0); });
+    var b=addMsg('bot', best.e.a);
+    if(rel.length){ b.insertAdjacentHTML('beforeend', cardsHTML(rel.slice(0,4))); }
+    var nx=nextQChips(best.e,q);
+    if(nx.length){ b.insertAdjacentHTML('beforeend','<span class="src">You might also ask:</span>'); b.insertAdjacentHTML('beforeend', chipRow(nx)); }
+    return;
+  }
+  // otherwise, treat as a tool/template search
+  if(items.length){
+    var b2=addMsg('bot','<p>Here\'s what fits — tap to open:</p>');
+    b2.insertAdjacentHTML('beforeend', cardsHTML(items.slice(0,5)));
+    if(items.length>5){ b2.insertAdjacentHTML('beforeend','<span class="src">'+(items.length-5)+' more in the <b>Library</b> tab.</span>'); }
+    return;
+  }
+  // nothing matched
+  var b3=addMsg('bot',"<p>I didn't catch a match for that. Try rephrasing, or browse everything in the <b>Library</b> tab. A few things I'm good at:</p>");
+  b3.insertAdjacentHTML('beforeend', chipRow([
+    {label:'Light an interview',intent:'q:how do I light an interview'},
+    {label:'Plan a shoot',intent:'pre'},
+    {label:'Price a client',intent:'q:how do I price a client'},
+    {label:'Delivery specs',intent:'q:delivery specs formats'}
+  ]));
+}
+
+/* ──────── responder dispatch (AI if configured, else guided) ──────── */
+function respond(q){ if(WORKER_URL){ aiRespond(q); } else { guidedRespond(q); } }
+function aiRespond(q){
+  convo.push({role:'user',content:q});
+  var bubble=addMsg('bot','<span style="opacity:.5">typing…</span>');
+  fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:convo})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var text=(d&&d.reply)?d.reply:null; if(!text) throw new Error('no reply');
+      convo.push({role:'assistant',content:text});
+      bubble.innerHTML=mdToHtml(text);
+      var items=scoreItems(q).slice(0,3);
+      if(items.length) bubble.insertAdjacentHTML('beforeend', cardsHTML(items));
+      scrollDown();
+    })
+    .catch(function(){ var m=bubble.closest('.msg'); if(m)m.remove(); guidedRespond(q); });
+}
+
+/* ──────── composer ──────── */
+var inputEl, sendBtn;
+function onSend(){
+  var q=(inputEl.value||'').trim(); if(!q) return;
+  addMsg('user', q.replace(/</g,'&lt;'));
+  inputEl.value=''; autosize();
+  setTimeout(function(){ respond(q); }, 180);
+}
+function autosize(){ inputEl.style.height='auto'; inputEl.style.height=Math.min(inputEl.scrollHeight,120)+'px'; if(sendBtn){ sendBtn.disabled=!(inputEl.value||'').trim(); } }
+
+/* ──────── view switching ──────── */
+function showView(v){
+  var a=document.getElementById('assistantView'), l=document.getElementById('libraryView');
+  document.getElementById('tabAssistant').classList.toggle('active',v==='assistant');
+  document.getElementById('tabLibrary').classList.toggle('active',v==='library');
+  if(v==='library'){ a.style.display='none'; l.classList.add('show'); if(!l.dataset.built){ buildLibrary(); l.dataset.built='1'; } }
+  else { a.style.display='flex'; l.classList.remove('show'); }
+  window.scrollTo({top:0});
+}
+
+/* ──────── library: storage helpers (favorites + recently used) ──────── */
+var FAV_KEY='hif_lib_favorites', RECENT_KEY='hif_lib_recent';
+function libGet(k){ try{ return JSON.parse(localStorage.getItem(k)||'[]')||[]; }catch(e){ return []; } }
+function libSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function itemByNum(n){ for(var i=0;i<ITEMS.length;i++){ if(ITEMS[i].num===n) return ITEMS[i]; } return null; }
+function isFav(num){ return libGet(FAV_KEY).indexOf(num)>-1; }
+function toggleFav(num,ev){ if(ev){ev.preventDefault();ev.stopPropagation();} var f=libGet(FAV_KEY); var i=f.indexOf(num); if(i>-1)f.splice(i,1); else f.unshift(num); libSet(FAV_KEY,f); renderLibrary(); }
+function recordUse(num){ if(!num) return; var r=libGet(RECENT_KEY).filter(function(x){return x!==num;}); r.unshift(num); if(r.length>16)r=r.slice(0,16); libSet(RECENT_KEY,r); }
+
+/* ──────── library ──────── */
+var LIB_PHASES=[{id:'all',label:'All'},{id:'fav',label:'★ Favorites'},{id:'recent',label:'Recently used'},{id:'pre',label:'Pre-Production'},{id:'onset',label:'On-Set'},{id:'post',label:'Post'},{id:'business',label:'Business'},{id:'tools',label:'⚡ Tools only'}];
+var PHASE_ORDER={pre:0,onset:1,post:2,business:3};
+var libPhase='all';
+function buildLibrary(){
+  var tabs=document.getElementById('libTabs');
+  tabs.innerHTML=LIB_PHASES.map(function(p){return '<button class="lib-tab'+(p.id==='all'?' active':'')+'" data-p="'+p.id+'" onclick="setLibPhase(\''+p.id+'\')">'+p.label+'</button>';}).join('');
+  renderLibrary();
+}
+function setLibPhase(p){ libPhase=p; document.querySelectorAll('.lib-tab').forEach(function(t){t.classList.toggle('active',t.dataset.p===p);}); renderLibrary(); }
+function libCardHTML(it){
+  var tool=isTool(it); var fav=isFav(it.num);
+  return '<a class="rescard" href="'+it.file+'" target="_blank" rel="noopener" onclick="recordUse(\''+it.num+'\')">'+
+    '<span class="ic">'+(tool?TOOL_ICON:DOC_ICON)+'</span>'+
+    '<span class="rc-body"><span class="rc-name">'+it.name+(tool?'<span class="pill">Tool</span>':'')+'</span>'+
+    '<span class="rc-desc">'+(it.desc||it.label)+'</span></span>'+
+    '<span class="fav-star'+(fav?' on':'')+'" role="button" tabindex="0" aria-label="'+(fav?'Remove from favorites':'Add to favorites')+'" onclick="toggleFav(\''+it.num+'\',event)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){toggleFav(\''+it.num+'\',event);}">'+(fav?'★':'☆')+'</span></a>';
+}
+function renderLibrary(){
+  var q=norm(document.getElementById('libSearch').value);
+  var sortEl=document.getElementById('libSort'); var sort=sortEl?sortEl.value:'name';
+  var grid=document.getElementById('libGrid');
+  var list, ordered=false;
+  if(libPhase==='fav'){ list=libGet(FAV_KEY).map(itemByNum).filter(Boolean); ordered=true; }
+  else if(libPhase==='recent'){ list=libGet(RECENT_KEY).map(itemByNum).filter(Boolean); ordered=true; }
+  else {
+    list=ITEMS.filter(function(it){
+      if(libPhase==='tools' && !isTool(it)) return false;
+      if(libPhase!=='all' && libPhase!=='tools' && it.phase!==libPhase) return false;
+      return true;
     });
+  }
+  if(q){ list=list.filter(function(it){ return norm(it.name+' '+it.desc+' '+it.label).indexOf(q)>-1; }); }
+  if(!ordered){
+    list=list.slice();
+    if(sort==='phase'){ list.sort(function(a,b){var d=(PHASE_ORDER[a.phase]==null?9:PHASE_ORDER[a.phase])-(PHASE_ORDER[b.phase]==null?9:PHASE_ORDER[b.phase]); return d||a.name.localeCompare(b.name);}); }
+    else if(sort==='type'){ list.sort(function(a,b){var d=(isTool(b)?1:0)-(isTool(a)?1:0); return d||a.name.localeCompare(b.name);}); }
+    else { list.sort(function(a,b){return a.name.localeCompare(b.name);}); }
+  }
+  document.getElementById('libMeta').textContent=list.length+' item'+(list.length===1?'':'s');
+  if(!list.length){
+    grid.innerHTML = libPhase==='fav'
+      ? '<div class="lib-empty"><span class="e">☆</span>No favorites yet. Tap the star on any item to pin it here.</div>'
+      : libPhase==='recent'
+      ? '<div class="lib-empty"><span class="e">🕘</span>Nothing opened yet. Tools and templates you open will show up here.</div>'
+      : '<div class="lib-empty"><span class="e">🔍</span>No matches. Try a different keyword.</div>';
+    return;
+  }
+  grid.innerHTML=list.map(libCardHTML).join('');
+}
 
-    // ── WELCOME SCREEN ────────────────────────────────────────────────
-    const WELCOME_KEY = 'hif_welcomed_v1';
-
-    function getCurrentAccessMonth() {
-      try {
-        return localStorage.getItem('hif_access_month') || '';
-      } catch(e) { return ''; }
+/* ──────── gate code ──────── */
+(function(){
+  var CODE='HIF2606'; /* update monthly — keep in sync with the tool pages */
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  function wire(){
+    var btn=document.getElementById('hif-code-submit'),inp=document.getElementById('hif-code-input'),err=document.getElementById('hif-code-error');
+    if(!btn) return;
+    function go(){
+      if((inp.value||'').trim().toUpperCase()===CODE){
+        try{localStorage.setItem('hif_access_granted','true');localStorage.setItem('hif_access_month',m());}catch(e){}
+        var h=document.documentElement;h.classList.remove('hif-locked');h.classList.add('hif-unlocked');
+        boot();
+      } else { err.textContent='Incorrect code. Check your Whop community for this month’s code.'; }
     }
+    btn.addEventListener('click',go);
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+  }
+  wire();
+})();
 
-    function hasBeenWelcomed() {
-      // Reset welcome each time access month rotates (new monthly code)
-      try {
-        const stored = localStorage.getItem(WELCOME_KEY);
-        if (!stored) return false;
-        const { month } = JSON.parse(stored);
-        return month === getCurrentAccessMonth();
-      } catch(e) { return false; }
-    }
+/* ──────── boot ──────── */
+var _booted=false;
+function boot(){
+  if(_booted) return; _booted=true;
+  chatEl=document.getElementById('chat');
+  inputEl=document.getElementById('input');
+  sendBtn=document.getElementById('send');
+  sendBtn.disabled=true;
+  inputEl.addEventListener('input',autosize);
+  inputEl.addEventListener('keydown',function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); onSend(); } });
+  greet();
+}
+document.addEventListener('DOMContentLoaded',function(){ if(!document.documentElement.classList.contains('hif-locked')) boot(); });
+if(document.readyState!=='loading' && !document.documentElement.classList.contains('hif-locked')) boot();
 
-    function markWelcomed() {
-      try {
-        localStorage.setItem(WELCOME_KEY, JSON.stringify({ month: getCurrentAccessMonth() }));
-      } catch(e) {}
-    }
-
-    window.dismissWelcome = function(phaseId) {
-      const overlay = document.getElementById('hif-welcome');
-      overlay.classList.remove('visible');
-      overlay.classList.add('dismissed');
-      markWelcomed();
-      // Route to selected phase
-      if (phaseId && phaseId !== 'all') {
-        setTimeout(() => window.selectPhase(phaseId), 200);
-      }
-      setTimeout(() => { overlay.style.display = 'none'; }, 350);
-    };
-
-    function buildWelcomeTiles() {
-      const container = document.getElementById('welcome-phases');
-      if (!container) return;
-      container.innerHTML = PHASES.map(phase => {
-        const count = ITEMS.filter(t => t.phase === phase.id).length;
-        return `
-          <button class="welcome-phase-btn" data-phase="${phase.id}" onclick="dismissWelcome('${phase.id}')">
-            <div class="welcome-phase-num">PHASE ${phase.num}</div>
-            <div class="welcome-phase-name">${phase.name}</div>
-            <div class="welcome-phase-desc">${phase.desc}</div>
-            <div class="welcome-phase-count">${count} items</div>
-          </button>`;
-      }).join('');
-    }
-
-    function showWelcome() {
-      buildWelcomeTiles();
-      const overlay = document.getElementById('hif-welcome');
-      overlay.style.display = 'flex';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => overlay.classList.add('visible'));
-      });
-    }
-
-    // ── INIT ──────────────────────────────────────────────────────────
-    // 1. Apply hash-based initial state
-    (function applyInitialHash() {
-      const phase = parseHash();
-      if (phase !== 'all') {
-        activePhase = phase;
-        const sel = document.getElementById('phaseSelect');
-        if (sel) { sel.value = phase; sel.dataset.phase = phase; }
-      }
-    })();
-
-    // 2. Render the app
-    render();
-
-    // 3. Show welcome screen if member hasn't seen it this month
-    // Small delay so the app renders behind it first
-    if (!hasBeenWelcomed() && document.documentElement.classList.contains('hif-unlocked')) {
-      setTimeout(showWelcome, 150);
-    }
-
-    // Also hook into the gate unlock to show welcome on first login
-    const _origGrantAccess = window._hifGrantAccess;
-    document.addEventListener('hif-unlocked', () => {
-      if (!hasBeenWelcomed()) {
-        setTimeout(showWelcome, 300);
-      }
-    });
-
-    // Allow ?reset-welcome in URL to test welcome screen
-    if (window.location.search.includes('reset-welcome')) {
-      try { localStorage.removeItem(WELCOME_KEY); } catch(e) {}
-      setTimeout(showWelcome, 300);
-    }
-
-    // ── PWA: Register service worker ─────────────────────────────────────────
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/app/sw.js', { scope: '/app/' })
-          .then(reg => {
-            console.log('[HIF SW] Registered, scope:', reg.scope);
-            // Once active, kick off background caching of all tools + templates
-            const sw = reg.installing || reg.waiting || reg.active;
-            if (sw) {
-              // Wait for the SW to be active before sending cache-all message
-              const sendCacheAll = () => {
-                if (reg.active) {
-                  reg.active.postMessage({ type: 'CACHE_ALL' });
-                }
-              };
-              if (reg.active) {
-                sendCacheAll();
-              } else {
-                navigator.serviceWorker.ready.then(sendCacheAll);
-              }
-            }
-          })
-          .catch(err => console.log('[HIF SW] Registration failed:', err));
-      });
-    }
-
-  </script>
+/* ──────── service worker (PWA) ──────── */
+if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('/app/sw.js').catch(function(){}); }); }
+</script>
 </body>
 </html>

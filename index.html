@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How It's Filmed — Film Like a Pro. Post Like One Too.</title>
-  <meta name="description" content="Filmmaking education for creators who refuse to choose between cinematic quality and social media consistency. Templates, courses, and systems from working filmmakers." />
+  <title>How It's Filmed — The Filmmaker's Toolkit</title>
+  <meta name="description" content="100+ professional filmmaking tools and templates for content creators. Shot lists, call sheets, budgets, schedules — everything a real production runs on. Free to start." />
+  <meta property="og:title" content="How It's Filmed — The Filmmaker's Toolkit" />
+  <meta property="og:description" content="100+ professional filmmaking tools for creators. Free to start." />
+  <meta property="og:url" content="https://howitsfilmed.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -44,9 +47,10 @@ html.light {
   --muted: #94a3b8;
 }
 
-    /* ──────────────────────────────────────────
-       ROOT & RESET
-    ────────────────────────────────────────── */
+    /* ── RESET & ROOT ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
     :root {
       --red: #FF3333;
       --red-dark: #cc2222;
@@ -58,7 +62,7 @@ html.light {
       --surface: rgba(255,255,255,0.04);
       --surface2: rgba(255,255,255,0.07);
       --border: rgba(255,255,255,0.08);
-      --border2: rgba(255,255,255,0.13);
+      --border2: rgba(255,255,255,0.14);
       --text: #f0f0f0;
       --dim: #999;
       --muted: #555;
@@ -66,18 +70,9 @@ html.light {
       --font-display: 'Bebas Neue', 'Impact', sans-serif;
       --font-body: 'Inter', -apple-system, sans-serif;
       --radius: 12px;
-      --radius-sm: 8px;
       --max: 1100px;
       --transition: 0.2s ease;
     }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
@@ -91,24 +86,19 @@ html.light {
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ──────────────────────────────────────────
-       NAV
-    ────────────────────────────────────────── */
+    /* ── NAV ── */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       padding: 0 40px;
       height: 64px;
-      background: rgba(10,10,12,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(10,10,12,0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      transition: var(--transition);
     }
 
     .nav-logo {
@@ -116,15 +106,18 @@ html.light {
       align-items: center;
       gap: 10px;
       font-family: var(--font-display);
-      font-size: 20px;
+      font-size: 19px;
       letter-spacing: 0.08em;
       color: var(--white);
       flex-shrink: 0;
+      margin-right: auto;
     }
 
-    .nav-logo-mark {
-      width: 30px;
-      height: 30px;
+    .nav-logo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
       flex-shrink: 0;
     }
 
@@ -132,15 +125,15 @@ html.light {
       display: flex;
       align-items: center;
       gap: 32px;
-      margin: 0 auto;
       list-style: none;
+      margin-right: 32px;
     }
 
     .nav-links a {
       font-size: 13px;
       font-weight: 500;
       color: var(--dim);
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
       transition: color var(--transition);
     }
 
@@ -148,51 +141,47 @@ html.light {
 
     .nav-cta {
       background: var(--red);
-      color: var(--white) !important;
+      color: var(--white);
       padding: 9px 20px;
       border-radius: 6px;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.02em;
-      transition: background var(--transition) !important;
-      flex-shrink: 0;
+      transition: background var(--transition);
+      white-space: nowrap;
     }
 
-    .nav-cta:hover { background: var(--red-dark) !important; }
+    .nav-cta:hover { background: var(--red-dark); }
 
-    /* ──────────────────────────────────────────
-       HERO
-    ────────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
       padding: 120px 40px 80px;
       position: relative;
       overflow: hidden;
     }
 
-    /* Cinematic background texture */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(255,51,51,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 20% 70%, rgba(255,255,255,0.02) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 60% at 65% 40%, rgba(255,51,51,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 10% 80%, rgba(255,255,255,0.015) 0%, transparent 50%);
       pointer-events: none;
     }
 
-    /* Film grain overlay */
+    /* film grain */
     .hero::after {
       content: '';
       position: absolute;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
-      opacity: 0.4;
+      opacity: 0.35;
     }
 
     .hero-inner {
@@ -207,12 +196,11 @@ html.light {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
-    .hero-eyebrow-dot {
-      width: 8px;
-      height: 8px;
+    .eyebrow-dot {
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--red);
       animation: pulse 2s ease-in-out infinite;
@@ -220,43 +208,43 @@ html.light {
 
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
 
-    .hero-eyebrow-text {
+    .eyebrow-text {
       font-size: 12px;
       font-weight: 600;
       color: var(--dim);
-      letter-spacing: 0.14em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
     }
 
     .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(64px, 10vw, 132px);
+      font-size: clamp(68px, 11vw, 140px);
       line-height: 0.92;
       letter-spacing: 0.02em;
       color: var(--white);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .hero-headline .red { color: var(--red); }
 
-    .hero-subheadline {
+    .hero-sub-headline {
       font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 68px);
+      font-size: clamp(30px, 5vw, 64px);
       line-height: 0.95;
       letter-spacing: 0.02em;
       color: var(--dim);
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
-    .hero-sub {
+    .hero-body {
       font-size: 17px;
       color: var(--dim);
-      max-width: 560px;
+      max-width: 520px;
       line-height: 1.7;
-      margin-bottom: 40px;
+      margin-bottom: 44px;
     }
 
     .hero-ctas {
@@ -264,7 +252,7 @@ html.light {
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 52px;
+      margin-bottom: 56px;
     }
 
     .btn-primary {
@@ -273,7 +261,7 @@ html.light {
       gap: 8px;
       background: var(--red);
       color: var(--white);
-      padding: 14px 28px;
+      padding: 15px 30px;
       border-radius: 7px;
       font-size: 15px;
       font-weight: 600;
@@ -281,10 +269,7 @@ html.light {
       transition: background var(--transition), transform var(--transition);
     }
 
-    .btn-primary:hover {
-      background: var(--red-dark);
-      transform: translateY(-1px);
-    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
 
     .btn-secondary {
       display: inline-flex;
@@ -292,66 +277,53 @@ html.light {
       gap: 8px;
       background: transparent;
       color: var(--text);
-      padding: 13px 26px;
+      padding: 14px 28px;
       border-radius: 7px;
       border: 1px solid var(--border2);
       font-size: 15px;
       font-weight: 500;
-      letter-spacing: 0.02em;
       transition: border-color var(--transition), background var(--transition);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--dim);
-      background: var(--surface);
+    .btn-secondary:hover { border-color: var(--dim); background: var(--surface); }
+
+    .free-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+      letter-spacing: 0.02em;
     }
 
-    .hero-social-proof {
+    .hero-proof {
       display: flex;
       align-items: center;
       gap: 28px;
       flex-wrap: wrap;
     }
 
-    .proof-badge {
+    .proof-item {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .proof-badge-icon {
-      width: 36px;
-      height: 36px;
+    .proof-icon {
+      width: 36px; height: 36px;
       border-radius: 8px;
       background: var(--surface2);
       border: 1px solid var(--border2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red);
+      flex-shrink: 0;
     }
 
-    .proof-badge-text .proof-num {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--white);
-    }
+    .proof-icon svg { width: 17px; height: 17px; display: block; }
+    .proof-num { font-size: 14px; font-weight: 700; color: var(--white); line-height: 1.2; }
+    .proof-lbl { font-size: 11px; color: var(--dim); }
+    .proof-div { width: 1px; height: 28px; background: var(--border); }
 
-    .proof-badge-text .proof-label {
-      font-size: 11px;
-      color: var(--dim);
-    }
-
-    .proof-divider {
-      width: 1px;
-      height: 28px;
-      background: var(--border);
-    }
-
-    /* ──────────────────────────────────────────
-       PROOF STRIP
-    ────────────────────────────────────────── */
-    .proof-strip {
+    /* ── TRUST STRIP ── */
+    .trust-strip {
       background: var(--bg2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -359,50 +331,160 @@ html.light {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 48px;
+      gap: 40px;
       flex-wrap: wrap;
     }
 
-    .strip-item {
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--dim);
+    }
+
+    .trust-num { font-size: 14px; font-weight: 700; color: var(--text); }
+    .trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+
+    /* ── PRICING DECISION REASSURANCE BAR ── */
+    .pricing-trust {
+      margin-top: 32px;
+      padding: 20px 28px;
+      background: linear-gradient(135deg, var(--red-subtle) 0%, var(--surface) 70%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px 36px;
+      flex-wrap: wrap;
+    }
+    .pt-item {
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 13px;
       color: var(--dim);
+      line-height: 1.3;
+    }
+    .pt-item svg { width: 17px; height: 17px; flex-shrink: 0; stroke: var(--red); }
+    .pt-strong { color: var(--text); font-weight: 700; }
+    .pt-div { width: 1px; height: 26px; background: var(--border2); }
+    @media (max-width: 760px) {
+      .pricing-trust { gap: 12px 0; padding: 18px 20px; flex-direction: column; align-items: flex-start; }
+      .pt-div { display: none; }
     }
 
-    .strip-item .strip-num {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
+    /* ── FREE TIER BANNER ── */
+    .free-banner {
+      padding: 64px 40px;
+      background: linear-gradient(135deg, rgba(255,51,51,0.06) 0%, transparent 60%);
+      border-bottom: 1px solid var(--border);
     }
 
-    .strip-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--muted);
-    }
-
-    /* ──────────────────────────────────────────
-       SECTION COMMONS
-    ────────────────────────────────────────── */
-    .section {
-      padding: 96px 40px;
-    }
-
-    .section-inner {
+    .free-banner-inner {
       max-width: var(--max);
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
     }
+
+    .free-banner-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .free-banner-label::before {
+      content: '';
+      display: block;
+      width: 18px; height: 1px;
+      background: var(--red);
+    }
+
+    .free-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .free-banner p {
+      font-size: 15px;
+      color: var(--dim);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 28px;
+    }
+
+    .free-tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .free-tool-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: border-color var(--transition);
+    }
+
+    .free-tool-row:hover { border-color: var(--border2); }
+
+    .free-tool-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: var(--red-subtle);
+      border: 1px solid rgba(255,51,51,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red);
+      flex-shrink: 0;
+    }
+
+    .free-tool-icon svg { width: 18px; height: 18px; display: block; }
+    .free-tool-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .free-tool-desc { font-size: 12px; color: var(--dim); margin-top: 2px; }
+
+    .free-tool-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: var(--red-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION COMMONS ── */
+    .section { padding: 96px 40px; }
+
+    .section-inner { max-width: var(--max); margin: 0 auto; }
 
     .section-label {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-weight: 700;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       color: var(--red);
       margin-bottom: 16px;
@@ -411,30 +493,27 @@ html.light {
     .section-label::before {
       content: '';
       display: block;
-      width: 20px;
-      height: 1px;
+      width: 18px; height: 1px;
       background: var(--red);
     }
 
     .section-heading {
       font-family: var(--font-display);
-      font-size: clamp(36px, 5vw, 58px);
+      font-size: clamp(36px, 5vw, 60px);
       line-height: 1.0;
       letter-spacing: 0.02em;
       color: var(--white);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .section-sub {
       font-size: 16px;
       color: var(--dim);
-      max-width: 560px;
+      max-width: 540px;
       line-height: 1.7;
     }
 
-    /* ──────────────────────────────────────────
-       THE PROBLEM SECTION
-    ────────────────────────────────────────── */
+    /* ── PROBLEM ── */
     .problem-section {
       background: var(--bg2);
       border-top: 1px solid var(--border);
@@ -444,11 +523,9 @@ html.light {
     .problem-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 64px;
       align-items: center;
     }
-
-    .problem-left {}
 
     .problem-quote {
       font-family: var(--font-display);
@@ -456,209 +533,77 @@ html.light {
       line-height: 1.05;
       letter-spacing: 0.02em;
       color: var(--white);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
-    .problem-quote .strikethrough {
+    .problem-quote .strike {
       text-decoration: line-through;
       color: var(--muted);
     }
 
     .problem-body {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--dim);
       line-height: 1.75;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
-    .problem-body strong {
-      color: var(--text);
-      font-weight: 600;
-    }
+    .problem-body strong { color: var(--text); font-weight: 600; }
 
-    .problem-right {
+    .problem-cards {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .problem-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 22px;
-    }
-
-    .problem-card.right-card {
       border-left: 3px solid var(--red);
+      border-radius: var(--radius);
+      padding: 18px 20px;
     }
 
-    .problem-card-label {
+    .problem-card-tag {
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .problem-card h4 {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
       margin-bottom: 6px;
     }
 
-    .problem-card p {
-      font-size: 13px;
-      color: var(--dim);
-      line-height: 1.6;
-    }
+    .problem-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .problem-card p { font-size: 13px; color: var(--dim); line-height: 1.6; }
 
-    /* ──────────────────────────────────────────
-       OFFERS SECTION
-    ────────────────────────────────────────── */
-    .offers-grid {
+    /* ── TOOLS SHOWCASE ── */
+    .tools-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 52px;
+      gap: 14px;
+      margin-top: 48px;
     }
 
-    .offer-card {
+    .tool-card {
       background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      transition: border-color var(--transition), transform var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .offer-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--red);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .offer-card:hover {
-      border-color: var(--border2);
-      transform: translateY(-3px);
-    }
-
-    .offer-card:hover::before { opacity: 1; }
-
-    .offer-num {
-      font-family: var(--font-display);
-      font-size: 52px;
-      color: rgba(255,255,255,0.05);
-      line-height: 1;
-      margin-bottom: 16px;
-      letter-spacing: 0.02em;
-    }
-
-    .offer-icon {
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-
-    .offer-card h3 {
-      font-family: var(--font-display);
-      font-size: 28px;
-      letter-spacing: 0.03em;
-      color: var(--white);
-      margin-bottom: 12px;
-      line-height: 1.0;
-    }
-
-    .offer-card p {
-      font-size: 14px;
-      color: var(--dim);
-      line-height: 1.65;
-      flex: 1;
-      margin-bottom: 24px;
-    }
-
-    .offer-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--red);
-      letter-spacing: 0.02em;
-      transition: gap var(--transition);
-    }
-
-    .offer-link:hover { gap: 10px; }
-
-    /* ──────────────────────────────────────────
-       TEMPLATES SECTION
-    ────────────────────────────────────────── */
-    .templates-section {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-    }
-
-    .templates-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 40px;
-    }
-
-    .templates-header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .templates-count {
-      font-size: 13px;
-      color: var(--dim);
-    }
-
-    .templates-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .template-card {
-      background: var(--bg3);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px 20px 16px;
+      padding: 22px 20px;
       display: flex;
       flex-direction: column;
-      transition: border-color var(--transition), background var(--transition);
-      cursor: pointer;
+      gap: 12px;
+      transition: border-color var(--transition), transform var(--transition);
     }
 
-    .template-card:hover {
-      border-color: var(--border2);
-      background: rgba(255,255,255,0.05);
-    }
+    .tool-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 
-    .template-card-top {
+    .tool-card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
     }
 
-    .template-tag {
+    .tool-tag {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -669,60 +614,277 @@ html.light {
       border-radius: 4px;
     }
 
-    .template-num {
-      font-size: 11px;
+    .tool-tier {
+      font-size: 10px;
       color: var(--muted);
-      font-weight: 500;
-    }
-
-    .template-card h4 {
-      font-size: 15px;
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
-      letter-spacing: -0.01em;
     }
 
-    .template-card p {
-      font-size: 12px;
-      color: var(--dim);
-      line-height: 1.55;
-      flex: 1;
-      margin-bottom: 14px;
-    }
+    .tool-card h4 { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .tool-card p { font-size: 12px; color: var(--dim); line-height: 1.55; flex: 1; }
 
-    .template-card-footer {
+    .tool-card-footer {
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 12px;
+    }
+
+    .tool-format { font-size: 11px; color: var(--muted); }
+    .tool-open { font-size: 12px; font-weight: 600; color: var(--red); }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--bg2);
       border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
-    .template-format {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .template-get {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--red);
-    }
-
-    .templates-cta-row {
+    .pricing-toggle {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+      margin: 28px 0 52px;
     }
 
-    /* ──────────────────────────────────────────
-       METHODOLOGY SECTION
-    ────────────────────────────────────────── */
-    .method-section {
-      border-top: 1px solid var(--border);
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dim);
     }
 
+    .toggle-track {
+      width: 44px; height: 24px;
+      border-radius: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      position: relative;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .toggle-track.on { background: var(--red); border-color: var(--red); }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--white);
+      transition: left var(--transition);
+    }
+
+    .toggle-track.on .toggle-thumb { left: 23px; }
+
+    .save-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--red);
+      background: var(--red-subtle);
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .price-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .price-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+
+    .price-card.featured {
+      border-color: var(--red);
+      background: linear-gradient(180deg, rgba(255,51,51,0.05) 0%, var(--bg3) 40%);
+    }
+
+    .price-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--red);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 14px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .price-tier-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .price-tier-tagline {
+      font-size: 12px;
+      color: var(--dim);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .price-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .price-dollar { font-size: 16px; font-weight: 700; color: var(--dim); margin-top: 6px; }
+    .price-num { font-family: var(--font-display); font-size: 52px; letter-spacing: 0.01em; color: var(--white); line-height: 1; }
+    .price-period { font-size: 13px; color: var(--muted); }
+    .price-annual { font-size: 12px; color: var(--dim); margin-bottom: 24px; height: 18px; }
+
+    .price-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    .price-includes {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .price-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--dim);
+      line-height: 1.45;
+    }
+
+    .price-features li::before {
+      content: '';
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--red);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 7l3 3 5-5' stroke='%23FF3333' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/cover;
+    }
+
+    .price-features li.coming::before {
+      border-color: var(--muted);
+      background: none;
+    }
+
+    .price-features li.coming { color: var(--muted); }
+
+    .price-cta {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: all var(--transition);
+    }
+
+    .price-cta.free {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text);
+    }
+
+    .price-cta.free:hover { background: var(--surface); border-color: var(--dim); }
+
+    .price-cta.paid {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .price-cta.paid:hover { background: var(--red-dark); }
+
+    .price-cta.featured-cta {
+      background: var(--white);
+      color: #0a0a0c;
+    }
+
+    .price-cta.featured-cta:hover { background: #e0e0e0; }
+
+    .pricing-more {
+      margin-top: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .pricing-more-left h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .pricing-more-left p {
+      font-size: 13px;
+      color: var(--dim);
+    }
+
+    .pricing-more-tiers {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tier-pill {
+      padding: 6px 14px;
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+
+    .tier-pill.active {
+      border-color: var(--red);
+      color: var(--red);
+      background: var(--red-subtle);
+    }
+
+    /* ── METHODOLOGY ── */
     .method-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -730,13 +892,10 @@ html.light {
       align-items: start;
     }
 
-    .method-left {}
-
     .method-steps {
-      margin-top: 40px;
+      margin-top: 36px;
       display: flex;
       flex-direction: column;
-      gap: 0;
     }
 
     .method-step {
@@ -750,7 +909,7 @@ html.light {
 
     .method-step-num {
       font-family: var(--font-display);
-      font-size: 36px;
+      font-size: 38px;
       color: var(--red);
       line-height: 1;
       flex-shrink: 0;
@@ -758,96 +917,63 @@ html.light {
       padding-top: 2px;
     }
 
-    .method-step-body {}
+    .method-step h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .method-step p { font-size: 13px; color: var(--dim); line-height: 1.6; }
 
-    .method-step-body h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-      letter-spacing: -0.01em;
-    }
-
-    .method-step-body p {
-      font-size: 13px;
-      color: var(--dim);
-      line-height: 1.6;
-    }
-
-    .method-right {
-      padding-top: 80px;
-    }
-
-    .frame-display {
+    .frame-box {
       background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
+      margin-top: 80px;
     }
 
     .frame-header {
       background: var(--red);
-      padding: 18px 24px;
+      padding: 16px 22px;
     }
 
-    .frame-header .frame-label {
+    .frame-header-label {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2px;
     }
 
     .frame-header h3 {
       font-family: var(--font-display);
-      font-size: 28px;
+      font-size: 26px;
       color: var(--white);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
-    .frame-letters {
-      padding: 0;
-    }
-
-    .frame-letter-row {
+    .frame-row {
       display: flex;
       align-items: center;
       gap: 0;
-      padding: 18px 24px;
+      padding: 16px 22px;
       border-bottom: 1px solid var(--border);
       transition: background var(--transition);
     }
 
-    .frame-letter-row:last-child { border-bottom: none; }
-    .frame-letter-row:hover { background: var(--surface); }
+    .frame-row:last-child { border-bottom: none; }
+    .frame-row:hover { background: var(--surface); }
 
-    .frame-letter-char {
+    .frame-letter {
       font-family: var(--font-display);
-      font-size: 42px;
+      font-size: 40px;
       color: var(--red);
-      width: 52px;
+      width: 48px;
       flex-shrink: 0;
       line-height: 1;
     }
 
-    .frame-letter-info {}
+    .frame-word { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .frame-desc { font-size: 12px; color: var(--dim); }
 
-    .frame-letter-word {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-
-    .frame-letter-desc {
-      font-size: 12px;
-      color: var(--dim);
-    }
-
-    /* ──────────────────────────────────────────
-       ABOUT SECTION
-    ────────────────────────────────────────── */
+    /* ── ABOUT / FOUNDER ── */
     .about-section {
       background: var(--bg2);
       border-top: 1px solid var(--border);
@@ -859,7 +985,7 @@ html.light {
       grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: start;
-      margin-top: 52px;
+      margin-top: 48px;
     }
 
     .founder-card {
@@ -869,50 +995,35 @@ html.light {
       overflow: hidden;
     }
 
-    .founder-top {
-      padding: 28px 28px 20px;
-    }
+    .founder-body { padding: 28px; }
 
-    .founder-name-row {
+    .founder-row {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .founder-avatar {
-      width: 48px;
-      height: 48px;
+      width: 48px; height: 48px;
       border-radius: 50%;
       background: var(--red-subtle);
       border: 2px solid var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-family: var(--font-display);
       font-size: 22px;
       color: var(--red);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       flex-shrink: 0;
     }
 
-    .founder-id {}
-
-    .founder-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .founder-role {
-      font-size: 12px;
-      color: var(--dim);
-    }
+    .founder-name { font-size: 17px; font-weight: 700; color: var(--text); }
+    .founder-role { font-size: 12px; color: var(--dim); }
 
     .founder-bio {
       font-size: 14px;
       color: var(--dim);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     .founder-stats {
@@ -922,22 +1033,70 @@ html.light {
       gap: 24px;
     }
 
-    .founder-stat {}
+    .founder-stat .fs-num { font-size: 17px; font-weight: 700; color: var(--text); }
+    .founder-stat .fs-lbl { font-size: 11px; color: var(--dim); }
 
-    .founder-stat .fs-num {
-      font-size: 17px;
-      font-weight: 700;
+    .cc2-badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px;
+      margin-bottom: 16px;
+    }
+
+    .cc2-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .cc2-stat { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .cc2-desc { font-size: 13px; color: var(--dim); line-height: 1.5; }
+
+    /* ── FAQ ── */
+    .faq-list { margin-top: 44px; display: flex; flex-direction: column; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
       color: var(--text);
+      transition: color var(--transition);
     }
 
-    .founder-stat .fs-label {
-      font-size: 11px;
+    .faq-q:hover { color: var(--white); }
+
+    .faq-icon {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+      color: var(--red);
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1;
+      transition: transform var(--transition);
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-a {
+      font-size: 14px;
       color: var(--dim);
+      line-height: 1.75;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.2s ease;
     }
 
-    /* ──────────────────────────────────────────
-       FINAL CTA
-    ────────────────────────────────────────── */
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding-bottom: 20px;
+    }
+
+    /* ── FINAL CTA ── */
     .cta-section {
       padding: 100px 40px;
       position: relative;
@@ -947,21 +1106,15 @@ html.light {
 
     .cta-section::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(255,51,51,0.1) 0%, transparent 60%);
     }
 
-    .cta-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 640px;
-      margin: 0 auto;
-    }
+    .cta-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
 
     .cta-eyebrow {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--red);
@@ -974,7 +1127,7 @@ html.light {
 
     .cta-headline {
       font-family: var(--font-display);
-      font-size: clamp(40px, 6vw, 74px);
+      font-size: clamp(40px, 6vw, 76px);
       line-height: 1.0;
       letter-spacing: 0.02em;
       color: var(--white);
@@ -988,20 +1141,13 @@ html.light {
       line-height: 1.7;
     }
 
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
+    .cta-buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
 
-    /* ──────────────────────────────────────────
-       FOOTER
-    ────────────────────────────────────────── */
+    /* ── FOOTER ── */
     .footer {
       background: var(--bg2);
       border-top: 1px solid var(--border);
-      padding: 40px 40px;
+      padding: 40px;
     }
 
     .footer-inner {
@@ -1017,33 +1163,21 @@ html.light {
     .footer-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .footer-brand-mark {
-      width: 24px;
-      height: 24px;
-    }
-
-    .footer-brand-name {
+      gap: 8px;
       font-family: var(--font-display);
       font-size: 18px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       color: var(--text);
     }
 
-    .footer-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
+    .footer-brand-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
     }
 
-    .footer-links a {
-      font-size: 13px;
-      color: var(--dim);
-      transition: color var(--transition);
-    }
-
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--dim); transition: color var(--transition); }
     .footer-links a:hover { color: var(--text); }
 
     .footer-legal {
@@ -1056,241 +1190,311 @@ html.light {
       margin-top: 8px;
     }
 
-    /* ──────────────────────────────────────────
-       INSTAGRAM HANDLE BADGE
-    ────────────────────────────────────────── */
-    .ig-badge {
+    /* ── STICKY MOBILE CTA ── */
+    .sticky-cta {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 90;
+      display: none;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(10,10,12,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border2);
+      transform: translateY(110%);
+      transition: transform 0.28s ease;
+      pointer-events: none;
+    }
+
+    .sticky-cta.show {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sticky-cta-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .sticky-cta-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sticky-cta-headline {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    .sticky-cta-sub {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+    }
+
+    .sticky-cta-btn {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: 20px;
-      padding: 5px 12px 5px 8px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--dim);
-      transition: border-color var(--transition);
-    }
-
-    .ig-badge:hover { border-color: var(--dim); }
-
-    .ig-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
+      gap: 6px;
       background: var(--red);
+      color: var(--white);
+      padding: 11px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background var(--transition);
     }
 
-    /* ──────────────────────────────────────────
-       RESPONSIVE
-    ────────────────────────────────────────── */
+    .sticky-cta-btn:active { background: var(--red-dark); }
+
+    /* ── EXIT-INTENT MODAL (desktop only) ── */
+    .exit-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(5,5,7,0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .exit-overlay.show { display: flex; opacity: 1; }
+
+    .exit-card {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      background: linear-gradient(180deg, rgba(255,51,51,0.06) 0%, var(--bg2) 42%);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      padding: 40px 36px 34px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.6);
+      transform: translateY(12px) scale(0.98);
+      transition: transform 0.24s ease;
+    }
+
+    .exit-overlay.show .exit-card { transform: translateY(0) scale(1); }
+
+    /* viewfinder brackets */
+    .exit-card::before,
+    .exit-card::after {
+      content: '';
+      position: absolute;
+      width: 22px; height: 22px;
+      border: 2px solid var(--red);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .exit-card::before {
+      top: 14px; left: 14px;
+      border-right: none; border-bottom: none;
+      border-top-left-radius: 6px;
+    }
+    .exit-card::after {
+      bottom: 14px; right: 14px;
+      border-left: none; border-top: none;
+      border-bottom-right-radius: 6px;
+    }
+
+    .exit-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      color: var(--dim);
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition);
+    }
+    .exit-close:hover { color: var(--text); border-color: var(--dim); }
+    .exit-close svg { width: 15px; height: 15px; display: block; }
+    .exit-close:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+    .exit-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+    .exit-eyebrow .eyebrow-dot { animation: pulse 2s ease-in-out infinite; }
+
+    .exit-card h3 {
+      font-family: var(--font-display);
+      font-size: 38px;
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .exit-card p {
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .exit-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+    .exit-tool {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .exit-tool svg {
+      width: 15px; height: 15px;
+      color: var(--red);
+      flex-shrink: 0;
+    }
+
+    .exit-card .btn-primary { width: 100%; justify-content: center; }
+
+    .exit-note {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 900px) {
-      .nav { padding: 0 24px; }
+      .nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 24px 64px; }
-      .section { padding: 64px 24px; }
-      .proof-strip { padding: 16px 24px; gap: 20px; }
+      .hero, .section { padding-left: 24px; padding-right: 24px; }
+      .hero { padding-top: 96px; padding-bottom: 60px; }
+      .section { padding-top: 64px; padding-bottom: 64px; }
+      .trust-strip { padding: 14px 24px; gap: 18px; }
+      .free-banner { padding: 48px 24px; }
+      .free-banner-inner,
       .problem-grid,
       .method-layout,
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .method-right { padding-top: 0; }
-      .templates-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .templates-header-right { align-items: flex-start; }
-      .offers-grid { grid-template-columns: 1fr; }
-      .templates-grid { grid-template-columns: 1fr 1fr; }
+      .frame-box { margin-top: 0; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer { padding: 32px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .footer-links { flex-wrap: wrap; gap: 16px; }
       .cta-section { padding: 72px 24px; }
-      .footer { padding: 32px 24px; }
+      .pricing-more { flex-direction: column; align-items: flex-start; }
     }
 
-    @media (max-width: 560px) {
-      .hero-headline { font-size: 52px; }
-      .templates-grid { grid-template-columns: 1fr; }
-      .hero-social-proof { gap: 16px; }
-      .proof-strip { gap: 16px; }
+    @media (max-width: 600px) {
+      .hero-headline { font-size: 58px; }
+      .tools-grid,
+      .pricing-grid { grid-template-columns: 1fr; }
+      .hero-proof { gap: 16px; }
+      .trust-strip { gap: 14px; }
       .cta-buttons { flex-direction: column; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .sticky-cta { display: block; }
+      body { padding-bottom: 76px; }
     }
-  </style>
-  <script>
-    // HIF Homepage Gate — same monthly code as /app
-    (function() {
-      function getCurrentMonth() {
-        var d = new Date();
-        return d.getFullYear() + '-' + (d.getMonth() + 1);
-      }
-      if (localStorage.getItem('hif_home_granted') === 'true' &&
-          localStorage.getItem('hif_home_month') === getCurrentMonth()) {
-        document.documentElement.classList.add('hif-unlocked');
-      } else {
-        document.documentElement.classList.add('hif-locked');
-      }
-    })();
-  </script>
-  <style>
-    html.hif-locked body > *:not(#hif-home-gate) { display: none !important; }
-    html.hif-unlocked #hif-home-gate { display: none !important; }
-    #hif-home-gate {
-      position: fixed; inset: 0; z-index: 99999;
-      background: #0a0a0c;
-      display: flex; align-items: center; justify-content: center;
-      padding: 24px;
-    }
-    .hg-card {
-      background: #141418;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 36px 28px;
-      width: 100%; max-width: 360px;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(0,0,0,0.6);
-    }
-    .hg-logo {
-      font-size: 13px; font-weight: 800;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: #e41e2b; margin-bottom: 8px;
-    }
-    .hg-title {
-      font-size: 20px; font-weight: 800; color: #f1f5f9;
-      margin-bottom: 6px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    .hg-sub { font-size: 13px; color: #64748b; margin-bottom: 24px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    .hg-input {
-      width: 100%; padding: 12px 16px;
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px; color: #f1f5f9; font-size: 15px; font-weight: 600;
-      text-align: center; letter-spacing: 0.1em; text-transform: uppercase;
-      outline: none; margin-bottom: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    .hg-input:focus { border-color: #e41e2b; }
-    .hg-btn {
-      width: 100%; padding: 13px;
-      background: #e41e2b; color: white;
-      border: none; border-radius: 8px;
-      font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
-      cursor: pointer;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    .hg-btn:hover { background: #c91824; }
-    .hg-error { color: #ef4444; font-size: 12px; margin-top: 8px; display: none;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
   </style>
 </head>
 <body>
 
-  <!-- HOME GATE -->
-  <div id="hif-home-gate">
-    <div class="hg-card">
-      <div class="hg-logo">How It's Filmed</div>
-      <div class="hg-title">Members Only</div>
-      <div class="hg-sub">Enter your access code to continue.</div>
-      <input class="hg-input" id="hg-input" type="text" placeholder="Access code" autocomplete="off" />
-      <button class="hg-btn" onclick="hgSubmit()">Enter</button>
-      <div class="hg-error" id="hg-error">Incorrect code. Try again.</div>
-    </div>
-  </div>
-  <script>
-    var HG_CODE = 'HIF2605'; // ← Update monthly
-    function getCurrentMonth() {
-      var d = new Date();
-      return d.getFullYear() + '-' + (d.getMonth() + 1);
-    }
-    function hgSubmit() {
-      var val = document.getElementById('hg-input').value.trim().toUpperCase();
-      if (val === HG_CODE) {
-        localStorage.setItem('hif_home_granted', 'true');
-        localStorage.setItem('hif_home_month', getCurrentMonth());
-        document.getElementById('hif-home-gate').style.display = 'none';
-        document.documentElement.classList.remove('hif-locked');
-        document.documentElement.classList.add('hif-unlocked');
-      } else {
-        document.getElementById('hg-error').style.display = 'block';
-        document.getElementById('hg-input').focus();
-      }
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      var inp = document.getElementById('hg-input');
-      if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') hgSubmit(); });
-    });
-  </script>
-
-  <!-- ──────────────────── NAV ──────────────────── -->
+  <!-- NAV -->
   <nav class="nav">
     <a href="#" class="nav-logo">
-      <!-- HIF Logo Mark SVG (simplified) -->
-      <svg class="nav-logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="30" r="28" fill="#FF3333" opacity="0.15" stroke="#FF3333" stroke-width="1.5"/>
-        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#FF3333" letter-spacing="1">HIF</text>
-      </svg>
+      <div class="nav-logo-dot"></div>
       HOW IT'S FILMED
     </a>
-
     <ul class="nav-links">
-      <li><a href="#templates">Templates</a></li>
-      <li><a href="#course">The Course</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener">@howitsfilmed</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/shop.html">Shop</a></li>
     </ul>
-
-    <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="nav-links" style="margin:0;">
-      <li style="list-style:none;"><a href="https://whop.com/howitsfilmed" class="nav-cta">Get the Templates</a></li>
-    </a>
+    <a href="app/index.html" class="nav-cta" data-track="nav_cta">Start Free →</a>
   </nav>
 
 
-  <!-- ──────────────────── HERO ──────────────────── -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
 
       <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
-        <span class="hero-eyebrow-text">Filmmaking Education · 170K Followers · @howitsfilmed</span>
+        <div class="eyebrow-dot"></div>
+        <span class="eyebrow-text">The Filmmaker's Toolkit · Free to Start</span>
       </div>
 
       <h1 class="hero-headline">
-        FILM LIKE<br>A <span class="red">PRO.</span>
+        THE TOOLS<br>PROS <span class="red">RUN ON.</span>
       </h1>
-      <h2 class="hero-subheadline">POST LIKE ONE TOO.</h2>
+      <h2 class="hero-sub-headline">NOW YOURS TO USE.</h2>
 
-      <p class="hero-sub">
-        The filmmaking education brand for creators who refuse to choose between cinematic quality and social media consistency. Built by working filmmakers. Proven at scale.
+      <p class="hero-body">
+        Shot lists, call sheets, budgets, schedules, and 96 more. Every document a real production runs on. Start with 3 free today, unlock all 100 for $30/mo when you're ready.
       </p>
 
       <div class="hero-ctas">
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-primary">
-          Get the Templates →
-        </a>
-        <a href="#course" class="btn-secondary">
-          See the Course
-        </a>
+        <a href="app/index.html" class="btn-primary" data-track="hero_primary">Get 3 Free Tools →</a>
+        <a href="#pricing" class="btn-secondary" data-track="hero_secondary">See All Plans</a>
       </div>
+      <div class="free-note">No credit card. Free tools stay free. Cancel anytime if you upgrade.</div>
 
-      <div class="hero-social-proof">
-        <div class="proof-badge">
-          <div class="proof-badge-icon">📸</div>
-          <div class="proof-badge-text">
-            <div class="proof-num">170K+</div>
-            <div class="proof-label">Instagram Followers</div>
+      <div class="hero-proof" style="margin-top: 48px;">
+        <div class="proof-item">
+          <div class="proof-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><line x1="8.5" y1="12" x2="15.5" y2="12"/><line x1="8.5" y1="16" x2="13.5" y2="16"/></svg>
+          </div>
+          <div>
+            <div class="proof-num">100+</div>
+            <div class="proof-lbl">Filmmaking Tools</div>
           </div>
         </div>
-        <div class="proof-divider"></div>
-        <div class="proof-badge">
-          <div class="proof-badge-icon">📋</div>
-          <div class="proof-badge-text">
-            <div class="proof-num">30</div>
-            <div class="proof-label">Pro Templates</div>
+        <div class="proof-div"></div>
+        <div class="proof-item">
+          <div class="proof-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l1.5-2h5L16 6"/><circle cx="12" cy="13" r="3.5"/></svg>
+          </div>
+          <div>
+            <div class="proof-num">175K+</div>
+            <div class="proof-lbl">Filmmakers on Instagram</div>
           </div>
         </div>
-        <div class="proof-divider"></div>
-        <div class="proof-badge">
-          <div class="proof-badge-icon">🎬</div>
-          <div class="proof-badge-text">
+        <div class="proof-div"></div>
+        <div class="proof-item">
+          <div class="proof-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
             <div class="proof-num">5+ Yrs</div>
-            <div class="proof-label">Professional Filmmaking</div>
+            <div class="proof-lbl">Real Production Experience</div>
           </div>
         </div>
       </div>
@@ -1299,416 +1503,741 @@ html.light {
   </section>
 
 
-  <!-- ──────────────────── PROOF STRIP ──────────────────── -->
-  <div class="proof-strip">
-    <div class="strip-item">
-      <span class="strip-num">170K</span>
-      <span>Instagram filmmakers</span>
-    </div>
-    <div class="strip-dot"></div>
-    <div class="strip-item">
-      <span class="strip-num">30</span>
-      <span>professional templates</span>
-    </div>
-    <div class="strip-dot"></div>
-    <div class="strip-item">
-      <span class="strip-num">1</span>
-      <span>filmmaking system that covers it all</span>
-    </div>
-    <div class="strip-dot"></div>
-    <div class="strip-item">
-      <span>built by working filmmakers</span>
-    </div>
-    <div class="strip-dot"></div>
-    <a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener" class="ig-badge">
-      <span class="ig-dot"></span>
-      @howitsfilmed
-    </a>
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item"><span class="trust-num">100+</span>&nbsp;tools &amp; templates</div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">Free tier — no credit card</div>
+    <div class="trust-dot"></div>
+    <div class="trust-item"><span class="trust-num">175K</span>&nbsp;filmmakers follow @howitsfilmed</div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">Built by working creators, not theorists</div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">New tools added every month</div>
   </div>
 
 
-  <!-- ──────────────────── THE PROBLEM ──────────────────── -->
+  <!-- FREE TIER BANNER -->
+  <section class="free-banner">
+    <div class="free-banner-inner">
+      <div>
+        <div class="free-banner-label">Free Forever</div>
+        <h2>START WITH THE<br>ESSENTIALS.</h2>
+        <p>Three of the most-used tools in any filmmaker's workflow — yours at no cost, no expiration, no strings. Get running on your first shoot today.</p>
+        <a href="app/index.html" class="btn-primary" data-track="free_banner_cta">Access Free Tools →</a>
+      </div>
+      <div class="free-tools-list">
+        <div class="free-tool-row">
+          <div class="free-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><line x1="8.5" y1="12" x2="15.5" y2="12"/><line x1="8.5" y1="16" x2="13.5" y2="16"/></svg>
+          </div>
+          <div>
+            <div class="free-tool-name">Shot List Generator</div>
+            <div class="free-tool-desc">Build a complete shot list for any project in minutes</div>
+          </div>
+          <div class="free-tool-badge">Free</div>
+        </div>
+        <div class="free-tool-row">
+          <div class="free-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="free-tool-name">Call Sheet Builder</div>
+            <div class="free-tool-desc">Professional call sheets for any crew size</div>
+          </div>
+          <div class="free-tool-badge">Free</div>
+        </div>
+        <div class="free-tool-row">
+          <div class="free-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <div>
+            <div class="free-tool-name">Pre-Production Checklist</div>
+            <div class="free-tool-desc">Never miss a step before the cameras roll</div>
+          </div>
+          <div class="free-tool-badge">Free</div>
+        </div>
+        <div class="free-tool-row" style="opacity: 0.5;">
+          <div class="free-tool-icon" style="border-color: rgba(255,255,255,0.1); background: var(--surface);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div>
+            <div class="free-tool-name" style="color: var(--dim);">97 more tools</div>
+            <div class="free-tool-desc">Unlock with a paid plan</div>
+          </div>
+          <div class="free-tool-badge" style="background: var(--surface); color: var(--dim); border: 1px solid var(--border);">Upgrade</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- THE PROBLEM -->
   <section class="section problem-section">
     <div class="section-inner">
       <div class="problem-grid">
-
-        <div class="problem-left">
-          <div class="section-label">The Gear Focus Fallacy</div>
+        <div>
+          <div class="section-label">The Real Problem</div>
           <div class="problem-quote">
-            Better gear doesn't fix your footage.<br>
-            <span class="strikethrough">A better camera</span><br>
+            Better gear doesn't fix<br>
+            <span class="strike">a better camera.</span><br>
             A better system does.
           </div>
-          <p class="problem-body">
-            Most filmmakers believe the next upgrade will close the gap between what they shoot and what they see from creators they admire. So they save, spend, and their footage still looks flat. <strong>The problem was never the gear.</strong>
-          </p>
-          <p class="problem-body">
-            HIF is built around a different premise: the creators who produce cinematic work consistently don't have better cameras. They have a better system — for how they think before they shoot, how they execute on location, and how they run a content operation over time.
-          </p>
+          <p class="problem-body">Most filmmakers think the next upgrade will close the gap. So they save, spend, and their footage still falls flat. <strong>The problem was never the gear.</strong></p>
+          <p class="problem-body">The creators producing cinematic work consistently don't have better cameras. They have better systems — for how they think before they shoot, how they execute on set, and how they run a content operation over time.</p>
         </div>
-
-        <div class="problem-right">
-          <div class="problem-card right-card">
-            <div class="problem-card-label">The wrong path</div>
+        <div class="problem-cards">
+          <div class="problem-card">
+            <div class="problem-card-tag">Wrong path</div>
             <h4>Gear upgrades → still flat footage</h4>
-            <p>New camera, same results. The gap isn't in your equipment — it's in your framework. No amount of spending fixes a missing system.</p>
+            <p>New camera, same results. The gap isn't in your equipment — it's in your process.</p>
           </div>
-          <div class="problem-card right-card">
-            <div class="problem-card-label">The missing piece</div>
-            <h4>Technical skills without operational knowledge</h4>
-            <p>You can shoot beautifully in a controlled setup and still have no idea how to turn it into a consistent social media presence. Most filmmaking education stops at the shot.</p>
+          <div class="problem-card">
+            <div class="problem-card-tag">Missing piece</div>
+            <h4>Technical skill without operational systems</h4>
+            <p>You can shoot beautifully in a controlled setup and still have no repeatable workflow. Most filmmaking education stops at the shot.</p>
           </div>
-          <div class="problem-card right-card">
-            <div class="problem-card-label">What HIF fixes</div>
-            <h4>Preparation + technique + operations = the full system</h4>
-            <p>Three layers, built in sequence. Mental framework first. Filmmaking craft second. Social media operations third. Together, they're nearly impossible to compete with.</p>
+          <div class="problem-card">
+            <div class="problem-card-tag">What HIF gives you</div>
+            <h4>The full production system — ready to use</h4>
+            <p>Every tool and template a real production depends on, pre-built and ready. Stop rebuilding the same documents on every shoot.</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ──────────────────── WHAT HIF OFFERS ──────────────────── -->
-  <section class="section" id="course">
+  <!-- TOOLS SHOWCASE -->
+  <section class="section" id="tools">
     <div class="section-inner">
-      <div class="section-label">What HIF Offers</div>
-      <h2 class="section-heading">THREE WAYS TO<br>LEVEL UP.</h2>
-      <p class="section-sub">Templates, a course, and a community — all built around the same methodology. You don't need more gear. You need a system.</p>
+      <div class="section-label">What's Inside</div>
+      <h2 class="section-heading">BUILT FOR EVERY<br>PART OF THE JOB.</h2>
+      <p class="section-sub">From pre-production planning to post-production delivery — tools that work across every phase of a production.</p>
 
-      <div class="offers-grid">
-
-        <div class="offer-card">
-          <div class="offer-num">01</div>
-          <div class="offer-icon">📋</div>
-          <h3>FILMMAKING TEMPLATES</h3>
-          <p>30 professional templates built from real on-set systems: shot lists, call sheets, client proposals, mood boards, color grade notes, budget trackers, and more. The artifacts of a working filmmaking operation — made available to you.</p>
-          <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="offer-link">
-            Browse the template store →
-          </a>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <div class="tool-tag">Pre-Production</div>
+            <div class="tool-tier">Free</div>
+          </div>
+          <h4>Shot List Generator</h4>
+          <p>Build a complete, scene-by-scene shot list with camera angles, movement notes, and lens choices. Export-ready in minutes.</p>
+          <div class="tool-card-footer">
+            <div class="tool-format">Interactive Tool</div>
+            <div class="tool-open">Free →</div>
+          </div>
         </div>
-
-        <div class="offer-card">
-          <div class="offer-num">02</div>
-          <div class="offer-icon">🎬</div>
-          <h3>THE CINEMATIC SYSTEM</h3>
-          <p>A beginner filmmaking course built around the FRAME Method and Visual Depth Architecture. Five modules. One framework. From flat, amateur footage to cinematic quality — without buying new gear. This is where the full HIF methodology lives.</p>
-          <a href="#course-detail" class="offer-link">
-            See the course →
-          </a>
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <div class="tool-tag">Production</div>
+            <div class="tool-tier">Free</div>
+          </div>
+          <h4>Call Sheet Builder</h4>
+          <p>Professional crew call sheets with crew lists, scene info, location details, and contact blocks. Looks like it came from a real studio.</p>
+          <div class="tool-card-footer">
+            <div class="tool-format">Interactive Tool</div>
+            <div class="tool-open">Free →</div>
+          </div>
         </div>
-
-        <div class="offer-card">
-          <div class="offer-num">03</div>
-          <div class="offer-icon">📸</div>
-          <h3>@HOWITSFILMED</h3>
-          <p>170K filmmakers, cinematographers, and creators who followed because they want to make better-looking video. Free filmmaking education, technique breakdowns, and behind-the-scenes from the people who teach it. Follow to stay current.</p>
-          <a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener" class="offer-link">
-            Follow on Instagram →
-          </a>
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <div class="tool-tag">Pre-Production</div>
+            <div class="tool-tier">Starter</div>
+          </div>
+          <h4>Film Budget Builder</h4>
+          <p>Line-item budget tracking across every department. Know exactly where your money is going before you spend it.</p>
+          <div class="tool-card-footer">
+            <div class="tool-format">Interactive Tool</div>
+            <div class="tool-open">Starter →</div>
+          </div>
         </div>
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <div class="tool-tag">Production</div>
+            <div class="tool-tier">Starter</div>
+          </div>
+          <h4>Scene Breakdown Sheet</h4>
+          <p>Break down each scene by cast, props, wardrobe, and special requirements. The tool that keeps directors and ADs aligned.</p>
+          <div class="tool-card-footer">
+            <div class="tool-format">Interactive Tool</div>
+            <div class="tool-open">Starter →</div>
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <div class="tool-tag">Pre-Production</div>
+            <div class="tool-tier">Creator</div>
+          </div>
+          <h4>Production Calendar</h4>
+          <p>Full shoot calendar with phase planning, milestone tracking, and day-by-day breakdowns. Built for creators who juggle multiple projects.</p>
+          <div class="tool-card-footer">
+            <div class="tool-format">Interactive Tool</div>
+            <div class="tool-open">Creator →</div>
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <div class="tool-tag">Post-Production</div>
+            <div class="tool-tier">Creator</div>
+          </div>
+          <h4>Invoice Generator</h4>
+          <p>Professional invoices for client projects — line items, payment terms, branding. Stop sending receipts that look like you made them at midnight.</p>
+          <div class="tool-card-footer">
+            <div class="tool-format">Interactive Tool</div>
+            <div class="tool-open">Creator →</div>
+          </div>
+        </div>
+      </div>
 
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="app/index.html" class="btn-secondary">See all 100+ tools →</a>
       </div>
     </div>
   </section>
 
 
-  <!-- ──────────────────── TEMPLATES ──────────────────── -->
-  <section class="section templates-section" id="templates">
+  <!-- PRICING -->
+  <section class="section pricing-section" id="pricing">
     <div class="section-inner">
-      <div class="templates-header">
-        <div>
-          <div class="section-label">The Template Store</div>
-          <h2 class="section-heading">30 PROFESSIONAL<br>FILMMAKING TEMPLATES.</h2>
+      <div class="section-label">Pricing</div>
+      <h2 class="section-heading">START FREE.<br>SCALE WITH YOU.</h2>
+      <p class="section-sub">Every plan includes the core toolkit. Upgrade as your productions grow — no contracts, cancel anytime.</p>
+
+      <div class="pricing-grid" style="margin-top: 48px;">
+
+        <!-- FREE -->
+        <div class="price-card">
+          <div class="price-tier-name">FREE</div>
+          <div class="price-tier-tagline">The 3 tools every filmmaker needs on every shoot.</div>
+          <div class="price-amount">
+            <div class="price-dollar">$</div>
+            <div class="price-num">0</div>
+          </div>
+          <div class="price-annual">&nbsp;</div>
+          <div class="price-divider"></div>
+          <div class="price-includes">Includes</div>
+          <ul class="price-features">
+            <li>Shot List Generator</li>
+            <li>Call Sheet Builder</li>
+            <li>Pre-Production Checklist</li>
+            <li>5 downloadable templates</li>
+            <li>No credit card required</li>
+          </ul>
+          <a href="app/index.html" class="price-cta free" data-track="pricing_free">Start Free →</a>
         </div>
-        <div class="templates-header-right">
-          <span class="templates-count">Showing 6 of 30</span>
-          <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-secondary" style="font-size:13px; padding:9px 18px;">See all 30 →</a>
+
+        <!-- STARTER -->
+        <div class="price-card">
+          <div class="price-tier-name">STARTER</div>
+          <div class="price-tier-tagline">The full template library for serious creators.</div>
+          <div class="price-amount">
+            <div class="price-dollar">$</div>
+            <div class="price-num">10</div>
+            <div class="price-period">/mo</div>
+          </div>
+          <div class="price-annual" id="starter-annual" style="color: var(--dim); font-size: 12px;">$96/yr — save $24</div>
+          <div class="price-divider"></div>
+          <div class="price-includes">Everything in Free, plus</div>
+          <ul class="price-features">
+            <li>50+ professional templates</li>
+            <li>Gear Checklist tool</li>
+            <li>Location Scout Tracker</li>
+            <li>Mood Board template</li>
+            <li>Talent Release forms</li>
+            <li>Budget Tracker template</li>
+            <li>New templates monthly</li>
+          </ul>
+          <a href="app/index.html" class="price-cta paid" data-track="pricing_starter">Get Starter →</a>
+        </div>
+
+        <!-- CREATOR -->
+        <div class="price-card featured">
+          <div class="price-tier-name">CREATOR</div>
+          <div class="price-tier-tagline">The full interactive toolkit for working filmmakers.</div>
+          <div class="price-amount">
+            <div class="price-dollar">$</div>
+            <div class="price-num">20</div>
+            <div class="price-period">/mo</div>
+          </div>
+          <div class="price-annual" style="color: var(--dim); font-size: 12px;">$192/yr — save $48</div>
+          <div class="price-divider"></div>
+          <div class="price-includes">Everything in Starter, plus</div>
+          <ul class="price-features">
+            <li>All 12 interactive tools</li>
+            <li>Film Budget Builder</li>
+            <li>Scene Breakdown tool</li>
+            <li>Production Calendar</li>
+            <li>Day Out of Days scheduler</li>
+            <li>Invoice Generator</li>
+            <li>Audio Sync Assistant</li>
+            <li>Early access to new tools</li>
+          </ul>
+          <a href="app/index.html" class="price-cta featured-cta" data-track="pricing_creator">Get Creator →</a>
+        </div>
+
+        <!-- PRO -->
+        <div class="price-card">
+          <div class="price-tier-name">PRO</div>
+          <div class="price-tier-tagline">The complete HIF toolkit — every tool, every template.</div>
+          <div class="price-amount">
+            <div class="price-dollar">$</div>
+            <div class="price-num">30</div>
+            <div class="price-period">/mo</div>
+          </div>
+          <div class="price-annual" style="color: var(--dim); font-size: 12px;">$288/yr — save $72</div>
+          <div class="price-divider"></div>
+          <div class="price-includes">Everything in Creator, plus</div>
+          <ul class="price-features">
+            <li>HIF Pro app (all 100 tools)</li>
+            <li>Full template library (all 87+)</li>
+            <li>Priority email support</li>
+            <li>Tool request voting</li>
+            <li>Behind-the-scenes content drops</li>
+            <li class="coming">Community access (coming soon)</li>
+            <li class="coming">Course library (coming soon)</li>
+          </ul>
+          <a href="app/index.html" class="price-cta paid" data-track="pricing_pro">Get Pro →</a>
+        </div>
+
+      </div>
+
+      <!-- DECISION REASSURANCE BAR -->
+      <div class="pricing-trust">
+        <div class="pt-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span><span class="pt-strong">175K filmmakers</span> follow @howitsfilmed</span>
+        </div>
+        <div class="pt-div"></div>
+        <div class="pt-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+          <span>Built by working filmmakers, <span class="pt-strong">not theorists</span></span>
+        </div>
+        <div class="pt-div"></div>
+        <div class="pt-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          <span><span class="pt-strong">Cancel anytime.</span> No contracts</span>
         </div>
       </div>
 
-      <div class="templates-grid">
-
-        <div class="template-card">
-          <div class="template-card-top">
-            <span class="template-tag">Pre-Production</span>
-            <span class="template-num">#01</span>
-          </div>
-          <h4>Shot List</h4>
-          <p>A professional shot list template built for fast on-location execution. Organize every shot, angle, and setup before you arrive — so you're not figuring it out on the clock.</p>
-          <div class="template-card-footer">
-            <span class="template-format">HTML · Printable</span>
-            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
-          </div>
+      <!-- MORE TIERS COMING -->
+      <div class="pricing-more">
+        <div class="pricing-more-left">
+          <h4>Growing your team? Need coaching? More coming.</h4>
+          <p>Higher tiers for community access, group coaching, and 1-on-1 mentorship are in development. Join the list to be notified first.</p>
         </div>
-
-        <div class="template-card">
-          <div class="template-card-top">
-            <span class="template-tag">Production</span>
-            <span class="template-num">#02</span>
-          </div>
-          <h4>Call Sheet</h4>
-          <p>Everything your crew needs to know, in one clean document. Crew contacts, schedule, location, equipment, and shoot notes — formatted for a professional production day.</p>
-          <div class="template-card-footer">
-            <span class="template-format">HTML · Printable</span>
-            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
-          </div>
+        <div class="pricing-more-tiers">
+          <div class="tier-pill active">Free</div>
+          <div class="tier-pill active">$10</div>
+          <div class="tier-pill active">$20</div>
+          <div class="tier-pill active">$30</div>
+          <div class="tier-pill">$50 — soon</div>
+          <div class="tier-pill">$100 — soon</div>
+          <div class="tier-pill">$250 — soon</div>
+          <div class="tier-pill">$500 — soon</div>
+          <div class="tier-pill">$1K — soon</div>
         </div>
-
-        <div class="template-card">
-          <div class="template-card-top">
-            <span class="template-tag">Client</span>
-            <span class="template-num">#03</span>
-          </div>
-          <h4>Client Proposal</h4>
-          <p>Close more projects with a proposal that looks as professional as your work. Scope, deliverables, timeline, pricing, and terms — all in one polished document.</p>
-          <div class="template-card-footer">
-            <span class="template-format">HTML · Printable</span>
-            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
-          </div>
-        </div>
-
-        <div class="template-card">
-          <div class="template-card-top">
-            <span class="template-tag">Creative</span>
-            <span class="template-num">#05</span>
-          </div>
-          <h4>Mood Board</h4>
-          <p>Present your creative vision to clients before a single shot is taken. Reference images, color palettes, tone notes, and visual direction — organized for the pitch meeting.</p>
-          <div class="template-card-footer">
-            <span class="template-format">HTML · Printable</span>
-            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
-          </div>
-        </div>
-
-        <div class="template-card">
-          <div class="template-card-top">
-            <span class="template-tag">Finance</span>
-            <span class="template-num">#11</span>
-          </div>
-          <h4>Budget Tracker</h4>
-          <p>Know your numbers before, during, and after every project. Track gear costs, talent, location fees, and post-production expenses against your quoted budget — in real time.</p>
-          <div class="template-card-footer">
-            <span class="template-format">HTML · Printable</span>
-            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
-          </div>
-        </div>
-
-        <div class="template-card">
-          <div class="template-card-top">
-            <span class="template-tag">Post</span>
-            <span class="template-num">#12</span>
-          </div>
-          <h4>Color Grade Notes</h4>
-          <p>Document your color grade decisions shot by shot. LUT selections, correction notes, reference stills, and delivery specs — the notes that make consistency possible across a full project.</p>
-          <div class="template-card-footer">
-            <span class="template-format">HTML · Printable</span>
-            <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="template-get">Get this →</a>
-          </div>
-        </div>
-
       </div>
 
-      <div class="templates-cta-row">
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-primary">
-          See all 30 templates on Whop →
-        </a>
-      </div>
     </div>
   </section>
 
 
-  <!-- ──────────────────── METHODOLOGY ──────────────────── -->
-  <section class="section method-section" id="course-detail">
+  <!-- METHODOLOGY -->
+  <section class="section">
     <div class="section-inner">
       <div class="method-layout">
-
-        <div class="method-left">
-          <div class="section-label">The Cinematic System</div>
-          <h2 class="section-heading">THE SYSTEM<br>BEHIND THE<br>SHOT.</h2>
-          <p class="section-sub" style="margin-bottom: 0;">HIF's course teaches three interconnected tiers — not a list of techniques. A methodology that works together.</p>
-
+        <div>
+          <div class="section-label">The HIF Method</div>
+          <h2 class="section-heading">THREE LAYERS.<br>ONE SYSTEM.</h2>
+          <p class="section-sub">HIF is built around a sequence, not a list of tips. Most filmmaking content teaches tricks. This builds the whole framework.</p>
           <div class="method-steps">
             <div class="method-step">
               <div class="method-step-num">01</div>
-              <div class="method-step-body">
-                <h4>The Preparation System</h4>
-                <p>Before any camera is touched, learn how to think about a shoot. Pre-visualize shots, build the mental checklist that makes execution automatic, and develop the discipline that separates creators who show up ready from those who figure it out on arrival.</p>
+              <div>
+                <h4>Mental Framework First</h4>
+                <p>Before you touch a camera — how you think about a scene determines everything that comes after. The FRAME method starts here.</p>
               </div>
             </div>
             <div class="method-step">
               <div class="method-step-num">02</div>
-              <div class="method-step-body">
-                <h4>Technical Filmmaking Skills</h4>
-                <p>Camera, lighting, composition, color, audio — built for real-world, run-and-gun conditions. Not studio theory. How to get the cinematic shot when there's no time to overthink it.</p>
+              <div>
+                <h4>Filmmaking Craft Second</h4>
+                <p>Technical execution: composition, movement, light, lens choices. The tools give your craft structure and repeatability.</p>
               </div>
             </div>
             <div class="method-step">
               <div class="method-step-num">03</div>
-              <div class="method-step-body">
-                <h4>Social Media Operations</h4>
-                <p>What separates HIF from every other filmmaking educator. How to build a posting cadence, adapt cinematic content across platforms, and think about growth as a long-term operation — not a series of viral gambles.</p>
+              <div>
+                <h4>Content Operations Third</h4>
+                <p>Turning one-off shoots into a consistent social media operation. The part nobody teaches — and the reason most creators burn out.</p>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="method-right">
-          <div class="frame-display">
-            <div class="frame-header">
-              <div class="frame-label">The Core Framework</div>
-              <h3>THE FRAME METHOD</h3>
+        <div class="frame-box">
+          <div class="frame-header">
+            <div class="frame-header-label">The Framework</div>
+            <h3>THE FRAME METHOD</h3>
+          </div>
+          <div class="frame-row">
+            <div class="frame-letter">F</div>
+            <div>
+              <div class="frame-word">Focus</div>
+              <div class="frame-desc">What is this shot actually saying? Define it before you frame it.</div>
             </div>
-            <div class="frame-letters">
-              <div class="frame-letter-row">
-                <div class="frame-letter-char">F</div>
-                <div class="frame-letter-info">
-                  <div class="frame-letter-word">Foundation</div>
-                  <div class="frame-letter-desc">Manual camera settings — exposure, aperture, shutter, ISO. The non-negotiable starting point.</div>
-                </div>
-              </div>
-              <div class="frame-letter-row">
-                <div class="frame-letter-char">R</div>
-                <div class="frame-letter-info">
-                  <div class="frame-letter-word">Radiance</div>
-                  <div class="frame-letter-desc">Lighting — how to shape, control, and use light to create depth and cinematic quality in any environment.</div>
-                </div>
-              </div>
-              <div class="frame-letter-row">
-                <div class="frame-letter-char">A</div>
-                <div class="frame-letter-info">
-                  <div class="frame-letter-word">Angles</div>
-                  <div class="frame-letter-desc">Composition and camera movement — how to frame shots with intention under real production pressure.</div>
-                </div>
-              </div>
-              <div class="frame-letter-row">
-                <div class="frame-letter-char">M</div>
-                <div class="frame-letter-info">
-                  <div class="frame-letter-word">Mastery</div>
-                  <div class="frame-letter-desc">Color grading — the difference between flat and finished. Practical, not academic.</div>
-                </div>
-              </div>
-              <div class="frame-letter-row">
-                <div class="frame-letter-char">E</div>
-                <div class="frame-letter-info">
-                  <div class="frame-letter-word">Expression</div>
-                  <div class="frame-letter-desc">Audio — the most overlooked element in beginner filmmaking. Fix this and everything else gets better.</div>
-                </div>
-              </div>
+          </div>
+          <div class="frame-row">
+            <div class="frame-letter">R</div>
+            <div>
+              <div class="frame-word">Relationship</div>
+              <div class="frame-desc">How does this shot connect to what came before and after?</div>
+            </div>
+          </div>
+          <div class="frame-row">
+            <div class="frame-letter">A</div>
+            <div>
+              <div class="frame-word">Atmosphere</div>
+              <div class="frame-desc">What does the light, color, and environment communicate?</div>
+            </div>
+          </div>
+          <div class="frame-row">
+            <div class="frame-letter">M</div>
+            <div>
+              <div class="frame-word">Movement</div>
+              <div class="frame-desc">Is there motion? Does it serve the story or distract from it?</div>
+            </div>
+          </div>
+          <div class="frame-row">
+            <div class="frame-letter">E</div>
+            <div>
+              <div class="frame-word">Emotion</div>
+              <div class="frame-desc">What should the audience feel? Design backward from the feeling.</div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ──────────────────── ABOUT ──────────────────── -->
+  <!-- ABOUT -->
   <section class="section about-section" id="about">
     <div class="section-inner">
-      <div class="section-label">The Founders</div>
-      <h2 class="section-heading">BUILT BY PEOPLE<br>WHO ACTUALLY DID IT.</h2>
-      <p class="section-sub">Not tutorial creators who never ran a real content operation. Two co-owners with verifiable, at-scale experience in both professional filmmaking and social media.</p>
-
+      <div class="section-label">Who Built This</div>
+      <h2 class="section-heading">BUILT BY SOMEONE<br>WHO'S DONE IT.</h2>
+      <p class="section-sub">Not a course designed by committee. Tools built by a creator who ran a real content operation at scale — and documented every system along the way.</p>
       <div class="about-grid">
-
         <div class="founder-card">
-          <div class="founder-top">
-            <div class="founder-name-row">
+          <div class="founder-body">
+            <div class="founder-row">
               <div class="founder-avatar">BW</div>
-              <div class="founder-id">
+              <div>
                 <div class="founder-name">Brian Whitesel</div>
-                <div class="founder-role">Co-Founder · Products & Strategy</div>
+                <div class="founder-role">Founder, How It's Filmed</div>
               </div>
             </div>
-            <p class="founder-bio">Brian spent five years as the content architect behind Card Collector 2 — building a multi-platform video operation across YouTube, Instagram, Facebook, and TikTok from scratch. Nearly 1,250 consecutive days of YouTube Shorts. The whole time, he was also the person behind the camera, developing a run-and-gun filmmaking style built for speed and precision. CC2 tried to hire someone who could do what Brian does. They couldn't find one. That gap is what HIF teaches.</p>
+            <div class="founder-bio">
+              Former content manager at CardCollector2 — one of YouTube's most recognized sports card channels. Five years building a production system that scaled to 229K+ subscribers, hundreds of uploads, and consistent growth without burning out the team. HIF is the system I wished existed when I started.
+            </div>
           </div>
           <div class="founder-stats">
             <div class="founder-stat">
-              <div class="fs-num">5+ yrs</div>
-              <div class="fs-label">Professional filmmaking</div>
+              <div class="fs-num">5 yrs</div>
+              <div class="fs-lbl">Content operations</div>
             </div>
             <div class="founder-stat">
-              <div class="fs-num">1,250+</div>
-              <div class="fs-label">Consecutive days posting</div>
+              <div class="fs-num">229K+</div>
+              <div class="fs-lbl">Subscribers reached</div>
+            </div>
+            <div class="founder-stat">
+              <div class="fs-num">100+</div>
+              <div class="fs-lbl">Tools built</div>
             </div>
           </div>
         </div>
-
-        <div class="founder-card">
-          <div class="founder-top">
-            <div class="founder-name-row">
-              <div class="founder-avatar">RW</div>
-              <div class="founder-id">
-                <div class="founder-name">Reese White</div>
-                <div class="founder-role">Co-Founder · Content & Community</div>
-              </div>
-            </div>
-            <p class="founder-bio">Reese co-owns the @howitsfilmed Instagram account and brings real production experience to the brand. As the face and content director of HIF, Reese is the connection between the methodology and the audience — the person who has lived the education in the field and can translate it authentically. When Brian builds the systems, Reese is the proof that they work.</p>
+        <div>
+          <div class="cc2-badge">
+            <div class="cc2-tag">Experience at Scale</div>
+            <div class="cc2-stat">229K+ subscribers</div>
+            <div class="cc2-desc">5 years managing content operations at CardCollector2 — building the exact systems that now power HIF.</div>
           </div>
-          <div class="founder-stats">
-            <div class="founder-stat">
-              <div class="fs-num">170K</div>
-              <div class="fs-label">Shared audience built</div>
-            </div>
-            <div class="founder-stat">
-              <div class="fs-num">50/50</div>
-              <div class="fs-label">Co-ownership, LLC</div>
-            </div>
+          <div class="cc2-badge">
+            <div class="cc2-tag">Community</div>
+            <div class="cc2-stat">175K+ on Instagram</div>
+            <div class="cc2-desc">@howitsfilmed — daily filmmaking education for creators who are serious about their craft.</div>
+          </div>
+          <div class="cc2-badge">
+            <div class="cc2-tag">The Promise</div>
+            <div class="cc2-stat">Tools that actually work on set</div>
+            <div class="cc2-desc">Every tool in HIF was built because someone needed it in a real production. No filler. No theory.</div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ──────────────────── FINAL CTA ──────────────────── -->
+  <!-- FAQ -->
+  <section class="section">
+    <div class="section-inner" style="max-width: 720px;">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-heading">COMMON<br>QUESTIONS.</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What's actually free? What's the catch?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Three fully functional tools — Shot List Generator, Call Sheet Builder, and Pre-Production Checklist — are free forever. No time limit, no trial period, no credit card. The free tools are genuinely useful. The paid tiers unlock the rest of the library.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Why pay when I can find free templates online?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">You can find scattered free templates anywhere. What you can't find for free is 100 tools built to work together, organized by the exact phase of production you're in, and updated every month as real shoots surface new needs. Loose templates cost you the hours of hunting, reformatting, and stitching them into something usable. HIF is that work already done. Start with the 3 free tools and judge the quality before you pay a cent.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do I need filmmaking experience to use these tools?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">No. The tools are built for creators at every level — from first shoots to full productions. If you've never used a call sheet before, you'll understand it immediately. If you've been on professional sets, you'll recognize exactly what these are modeled after.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How is this different from a filmmaking course?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">A course teaches you what to do, then leaves you to build the documents yourself. HIF is the documents. Shot lists, call sheets, budgets, schedules, and 96 more tools you fill in and use on the actual shoot, not theory you watch once and forget. Built by working filmmakers, organized by workflow, made to run a real production from the first day you join.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can I cancel my subscription anytime?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Yes. No contracts, no cancellation fees. Cancel from your account at any time and you keep access until the end of your billing period. Your free tier tools stay available no matter what.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Are new tools added regularly?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Yes — new tools and templates are added monthly. Pro members get voting rights on what gets built next. The library has grown from 12 tools to 100+ and keeps expanding based on what real productions actually need.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What are the higher-priced tiers for?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Tiers above $30/month are in development for community access, group coaching, and 1-on-1 mentorship — essentially the full HIF ecosystem from tools to direct education. Join the Pro plan and you'll be first in line when those launch.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do the tools work on mobile?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Yes. Every tool is built mobile-first — designed to be usable on set from your phone, not just at a desk. The app runs in any browser with no installation required.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FINAL CTA -->
   <section class="cta-section">
     <div class="cta-inner">
       <div class="cta-eyebrow">
-        <span>Start here</span>
+        <div class="eyebrow-dot"></div>
+        Free to Start · No Credit Card
       </div>
-      <h2 class="cta-headline">YOU DON'T NEED<br>MORE GEAR.<br><span style="color: var(--red);">YOU NEED A SYSTEM.</span></h2>
-      <p class="cta-sub">30 professional filmmaking templates and a course built around the methodology that actually closes the gap. Built by working filmmakers. Available now.</p>
+      <h2 class="cta-headline">STOP STARTING<br>FROM SCRATCH.</h2>
+      <p class="cta-sub">Every shot list, call sheet, and production document you need — already built. Start for free today and run your next shoot like a studio.</p>
       <div class="cta-buttons">
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn-primary" style="font-size:16px; padding:16px 32px;">
-          Get the Templates →
-        </a>
-        <a href="#course-detail" class="btn-secondary" style="font-size:16px; padding:15px 30px;">
-          See the Course
-        </a>
+        <a href="app/index.html" class="btn-primary" data-track="final_cta_primary">Access Free Tools →</a>
+        <a href="#pricing" class="btn-secondary" data-track="final_cta_secondary">Compare Plans</a>
       </div>
     </div>
   </section>
 
 
-  <!-- ──────────────────── FOOTER ──────────────────── -->
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <div class="sticky-cta-inner">
+      <div class="sticky-cta-copy">
+        <div class="sticky-cta-headline">Start with 3 free tools</div>
+        <div class="sticky-cta-sub">No credit card. Free forever.</div>
+      </div>
+      <a href="app/index.html" class="sticky-cta-btn" data-track="sticky_cta">Start Free
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </a>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <svg class="footer-brand-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="30" cy="30" r="28" fill="none" stroke="#FF3333" stroke-width="1.5" opacity="0.5"/>
-          <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="'Bebas Neue', Impact, sans-serif" font-size="20" fill="#FF3333" letter-spacing="1">HIF</text>
-        </svg>
-        <span class="footer-brand-name">HOW IT'S FILMED</span>
+        <div class="footer-brand-dot"></div>
+        HOW IT'S FILMED
       </div>
-
       <ul class="footer-links">
-        <li><a href="#templates">Templates</a></li>
-        <li><a href="#course">The Course</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#pricing">Pricing</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="app/index.html">App Login</a></li>
         <li><a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Whop Store</a></li>
       </ul>
-
-      <div class="footer-legal">
-        © 2026 How It's Filmed LLC. All rights reserved. · Built for the filmmakers who are done making excuses about their gear.
-      </div>
+    </div>
+    <div class="footer-inner" style="padding-top: 0;">
+      <div class="footer-legal">© 2026 How It's Filmed. Built for filmmakers and content creators.</div>
     </div>
   </footer>
+
+
+  <script>
+    // ── HIF Lightweight Analytics v1 (no external trackers, no cookies) ──
+    // Stores last 100 events in localStorage. Inspect with hifStats() in console
+    // or append ?hifStats=1 to the URL for a visual overlay on mobile.
+    (function () {
+      var KEY = 'hif_events_v1';
+      var MAX = 100;
+      function load() {
+        try { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+        catch (e) { return []; }
+      }
+      function save(arr) {
+        try { localStorage.setItem(KEY, JSON.stringify(arr.slice(-MAX))); }
+        catch (e) { /* quota or disabled, no-op */ }
+      }
+      function track(name, meta) {
+        var evt = { t: Date.now(), name: name, meta: meta || null, path: location.pathname };
+        var arr = load(); arr.push(evt); save(arr);
+        if (window.console && console.log) console.log('[hif]', name, meta || '');
+      }
+      window.hifTrack = track;
+      window.hifStats = function () {
+        var arr = load();
+        var counts = {};
+        arr.forEach(function (e) { counts[e.name] = (counts[e.name] || 0) + 1; });
+        return { total: arr.length, counts: counts, latest: arr.slice(-10) };
+      };
+      window.hifResetStats = function () { try { localStorage.removeItem(KEY); } catch (e) {} };
+
+      // Session start, once per browser session
+      try {
+        if (!sessionStorage.getItem('hif_session_v1')) {
+          sessionStorage.setItem('hif_session_v1', '1');
+          track('session_start', {
+            ref: document.referrer || '(direct)',
+            w: window.innerWidth,
+            h: window.innerHeight
+          });
+        }
+      } catch (e) {}
+
+      // Delegate clicks on any [data-track] element
+      document.addEventListener('click', function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('[data-track]') : null;
+        if (!el) return;
+        track(el.getAttribute('data-track'), { href: el.getAttribute('href') || null });
+      }, true);
+
+      // Scroll depth milestones (25, 50, 75, 100), each fires once per page load
+      var milestones = [25, 50, 75, 100];
+      var fired = {};
+      var ticking = false;
+      function checkScroll() {
+        ticking = false;
+        var docH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        var winH = window.innerHeight;
+        var pct = Math.round(((window.scrollY + winH) / docH) * 100);
+        for (var i = 0; i < milestones.length; i++) {
+          var m = milestones[i];
+          if (pct >= m && !fired[m]) { fired[m] = 1; track('scroll_depth', { pct: m }); }
+        }
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { window.requestAnimationFrame(checkScroll); ticking = true; }
+      }, { passive: true });
+
+      // Optional on-page debug overlay: append ?hifStats=1 to the URL
+      if (location.search.indexOf('hifStats=1') !== -1) {
+        document.addEventListener('DOMContentLoaded', function () {
+          var stats = window.hifStats();
+          var rows = Object.keys(stats.counts).sort(function (a, b) {
+            return stats.counts[b] - stats.counts[a];
+          }).map(function (k) {
+            return '<div style="display:flex;justify-content:space-between;gap:12px;padding:2px 0"><span>' + k + '</span><b style="color:#FF3333">' + stats.counts[k] + '</b></div>';
+          }).join('');
+          var div = document.createElement('div');
+          div.style.cssText = 'position:fixed;bottom:88px;right:12px;left:12px;max-width:380px;margin:0 auto;background:rgba(10,10,12,0.95);color:#f0f0f0;font:11px/1.4 ui-monospace,Menlo,monospace;border:1px solid #FF3333;border-radius:10px;padding:12px 14px;z-index:9999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,0.5)';
+          div.innerHTML = '<div style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;color:#FF3333">HIF Stats &middot; ' + stats.total + ' events</div>' + (rows || '<div style="color:#999">No events yet. Click around.</div>') + '<div style="margin-top:10px;color:#999;font-size:10px">Run hifResetStats() in console to clear.</div>';
+          document.body.appendChild(div);
+        });
+      }
+    })();
+
+    // FAQ accordion
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) {
+        item.classList.add('open');
+        if (window.hifTrack) {
+          var q = el.firstChild && el.firstChild.nodeValue ? el.firstChild.nodeValue.trim().slice(0, 60) : '';
+          window.hifTrack('faq_open', { q: q });
+        }
+      }
+    }
+
+    // Sticky mobile CTA: show after hero, hide near final CTA section
+    (function () {
+      var sticky = document.getElementById('stickyCta');
+      if (!sticky) return;
+      var hero = document.querySelector('.hero');
+      var finalCta = document.querySelector('.cta-section');
+      var ticking = false;
+      var lastShown = null;
+
+      function update() {
+        ticking = false;
+        // Bail out on desktop. CSS hides it but we also short-circuit the listener.
+        if (window.innerWidth > 600) {
+          if (sticky.classList.contains('show')) sticky.classList.remove('show');
+          return;
+        }
+        var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
+        var finalTop = finalCta ? finalCta.getBoundingClientRect().top : 99999;
+        var scrolled = window.scrollY || window.pageYOffset;
+        // Show after user scrolls past the hero (where the inline CTA disappears),
+        // hide once final CTA section enters the viewport (final CTA already visible).
+        var pastHero = scrolled > (heroBottom - 120);
+        var beforeFinal = finalTop > 320;
+        var shouldShow = pastHero && beforeFinal;
+        if (shouldShow !== lastShown) {
+          sticky.classList.toggle('show', shouldShow);
+          sticky.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+          lastShown = shouldShow;
+        }
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      update();
+    })();
+  </script>
 
 </body>
 </html>
