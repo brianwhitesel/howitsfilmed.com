@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- HIF ACCESS GATE (injected) -->
+<script>
+(function(){
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  function embed(){try{if(window.location.ancestorOrigins&&Array.from(window.location.ancestorOrigins).some(function(o){return o.indexOf('whop.com')>-1;}))return true;}catch(e){}return document.referrer.indexOf('whop.com')>-1;}
+  function ok(){try{return localStorage.getItem('hif_access_granted')==='true'&&localStorage.getItem('hif_access_month')===m();}catch(e){return false;}}
+  document.documentElement.classList.add((embed()||ok())?'hif-unlocked':'hif-locked');
+})();
+</script>
+<style id="hif-gate-style">
+html.hif-locked{overflow:hidden!important;}
+#hif-gate{display:none;}
+html.hif-locked #hif-gate{display:flex;position:fixed;inset:0;z-index:2147483647;background:#0a0a0c;color:#f0f0f0;font-family:'Inter',sans-serif;align-items:center;justify-content:center;padding:24px;}
+#hif-gate .gcard{max-width:380px;width:100%;text-align:center;background:#111114;border:1px solid #1e1e24;border-radius:16px;padding:36px 28px;}
+#hif-gate .gbadge{display:inline-block;background:rgba(255,51,51,.12);border:1px solid rgba(255,51,51,.3);color:#FF3333;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:18px;}
+#hif-gate h2{font-size:21px;font-weight:800;margin:0 0 8px;letter-spacing:-.02em;}
+#hif-gate p{font-size:13px;color:#9aa3b2;margin:0 0 22px;line-height:1.6;}
+#hif-gate a.gcta{display:block;background:#FF3333;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px;border-radius:10px;margin-bottom:18px;}
+#hif-gate .gdiv{font-size:11px;color:#5b6675;text-transform:uppercase;letter-spacing:.1em;margin:0 0 12px;}
+#hif-gate .grow{display:flex;gap:8px;}
+#hif-gate input{flex:1;background:#16161a;border:1px solid #2a2a30;border-radius:9px;padding:11px 13px;color:#f0f0f0;font-size:16px;outline:none;}
+#hif-gate input:focus{border-color:#FF3333;}
+#hif-gate button{background:#FF3333;border:0;color:#fff;font-weight:700;border-radius:9px;padding:0 18px;cursor:pointer;font-size:14px;}
+#hif-gate .gerr{color:#f87171;font-size:12px;margin-top:10px;min-height:14px;}
+</style>
+
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="robots" content="noindex, nofollow"/>
@@ -198,7 +224,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
     </div>
   </div>
   <script>
-    var HG_CODE = 'HIF2605';
+    var HG_CODE = 'HIF2606';
     function getCurrentMonth() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1); }
     function hgSubmit() {
       var val = document.getElementById('hg-input').value.trim().toUpperCase();
@@ -498,5 +524,36 @@ window.addEventListener('DOMContentLoaded',()=>{
   ['proj-name','proj-date'].forEach(id=>document.getElementById(id)?.addEventListener('input',save));
 });
 </script>
+<!-- HIF ACCESS GATE OVERLAY (injected) -->
+<div id="hif-gate" role="dialog" aria-modal="true">
+  <div class="gcard">
+    <div class="gbadge">How It's Filmed — Pro Tool</div>
+    <h2>This tool is for members</h2>
+    <p>Get every How It's Filmed production tool inside the Pro community on Whop.</p>
+    <a class="gcta" href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Unlock Pro Access &rarr;</a>
+    <div class="gdiv">Already a member?</div>
+    <div class="grow">
+      <input id="hif-code-input" type="text" autocomplete="off" placeholder="This month's access code" aria-label="Member access code"/>
+      <button id="hif-code-submit">Unlock</button>
+    </div>
+    <div class="gerr" id="hif-code-error"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var CODE='HIF2606'; /* update monthly to match the HIF Pro app */
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  var btn=document.getElementById('hif-code-submit'),inp=document.getElementById('hif-code-input'),err=document.getElementById('hif-code-error');
+  function go(){
+    if((inp.value||'').trim().toUpperCase()===CODE){
+      try{localStorage.setItem('hif_access_granted','true');localStorage.setItem('hif_access_month',m());}catch(e){}
+      var h=document.documentElement;h.classList.remove('hif-locked');h.classList.add('hif-unlocked');
+    }else{err.textContent='Incorrect code. Check your Whop community for this month\u2019s code.';}
+  }
+  if(btn)btn.addEventListener('click',go);
+  if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+})();
+</script>
+
 </body>
 </html>
