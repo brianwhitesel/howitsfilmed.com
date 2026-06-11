@@ -211,6 +211,19 @@ select.form-control option{background:#191919}
     .hg-btn:hover { background: #c91824; }
     .hg-error { color: #ef4444; font-size: 12px; margin-top: 8px; display: none; font-family: -apple-system, sans-serif; }
   </style>
+<script>
+/* HIF gate reconciliation — runs last in <head> to force ONE correct lock state.
+   Fixes the double-class (hif-locked + hif-unlocked) black screen caused by an older
+   non-padded, non-Whop-aware gate script. Canonical check: Whop embed OR valid monthly code. */
+(function(){
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  function embed(){try{if(window.location.ancestorOrigins&&Array.from(window.location.ancestorOrigins).some(function(o){return o.indexOf('whop.com')>-1;}))return true;}catch(e){}return document.referrer.indexOf('whop.com')>-1;}
+  function ok(){try{return localStorage.getItem('hif_access_granted')==='true'&&localStorage.getItem('hif_access_month')===m();}catch(e){return false;}}
+  var h=document.documentElement;
+  h.classList.remove('hif-locked','hif-unlocked');
+  h.classList.add((embed()||ok())?'hif-unlocked':'hif-locked');
+})();
+</script>
 </head>
 <body>
   <div id="hif-gate">

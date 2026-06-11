@@ -6,6 +6,33 @@ Format: date, lane, what changed, why, expected impact.
 
 ---
 
+## 2026-06-11 — Marketing asset (getting-paid IG carousel)
+
+**Lane:** Marketing asset — IG carousel hook + 3 caption variants for @howitsfilmed
+
+**File touched:** howitsfilmed-deploy/marketing-drafts/20260611-getting-paid-carousel.md (new file)
+
+**What changed**
+- Drafted a 10-slide IG carousel titled "The 6 Documents That Get Filmmakers Paid." Hook slide, six business-document slides on one repeating layout (number, document name, one-line problem, one-line fix), a pivot slide, a proof slide, and a CTA slide pointing at howitsfilmed.com/app. Single layout for slides 2-7 keeps it shoot-ready.
+- The six documents are not invented. Each maps to a real tool live in the app, verified against app/index.html: Client Proposal, Pricing & Quote Calculator, Service Agreement, Talent Release Form, Invoice Generator, Late Payment Notice. That makes the pivot to "these are all in HIF" honest rather than a bolt-on pitch.
+- Wrote three caption variants by attention span: 37-word scroll-native, 92-word story-led, 109-word direct-conversion. All under the 120-word voice cap (verified by script).
+- Posting notes: 9-10am ET weekday window (consistent with the 5/17 carousel), pinned-comment plain link, story poll, Reel-cover and tweet/newsletter cross-format paths, and an 8 percent 24-hour save rate as the validation bar.
+- Voice rules verified by script: zero em-dashes anywhere in the file (including my own headings, which I rewrote to colons/commas after the first grep caught four), zero emojis, plain URL only with no markdown brackets.
+
+**Why**
+- Marketing asset was the most underweighted lane in the rotation, last touched 5/18 (24 days), well outside the 7-day window. The recent window is funnel tightening (6/08), conversion copy (6/07), and UX polish (6/05), so all three live lanes are inside 7 days. Marketing asset is the clean pick and the one that feeds the top of the funnel the other three optimize.
+- Distinct from both prior marketing drafts. The 5/17 carousel was craft-mistakes (pre-production), the 5/18 asset was a free-to-paid email sequence (middle of funnel). This is the business-of-filmmaking angle (getting paid), which is a different pain, a different slice of the tool library, and a different audience trigger. It also reinforces the 6/07 "this is not a course" differentiation: a course teaches the craft, HIF hands you the documents the business runs on, and the business docs are exactly what courses skip.
+- Getting-paid content saves and shares hard with a working-filmmaker audience because the pain is universal and rarely taught. A high-save carousel from a 175K account is still the fastest single lever toward free signups.
+
+**Expected impact**
+- Top-of-funnel signups from the @howitsfilmed audience, routed to the 3 free tools. Feeds every downstream conversion change already shipped: the 5/21 hero (sets the freemium expectation), the 6/07 FAQ objection handling, the 6/08 pricing reassurance bar, and the 5/18 email sequence that converts the signups this drives.
+- Reusable asset: Variant A is a tweet, Variant C a newsletter intro, slide 1 a Reel cover. One draft, several shots on goal.
+- Save rate is the diagnostic. Clear 8 percent in 24 hours and the business-doc angle is validated, in which case the next marketing run should generate a proposal-to-paid follow-up.
+
+**Partnership check:** Marketing draft only. No product changes, no pricing changes, no positioning shift. The $30/mo Pro tier and the 3-free-tools structure referenced are already live, and every document named is an existing tool. Brian decides whether to shoot and post it. No part of Reese's half of the business is affected. Within ship-freely lane.
+
+---
+
 ## 2026-06-08 — Funnel tightening (social-proof placement at the pricing decision point)
 
 **Lane:** Funnel tightening — social proof placement, the one funnel sublane from the 5/22 entry's list (analytics, scroll depth, exit intent, social proof) still untouched
