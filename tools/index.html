@@ -113,7 +113,7 @@ html.light {
     <div class="head">
       <div class="kicker">How It's Filmed — Pro</div>
       <h1>Production Tools</h1>
-      <p>14 interactive tools to plan, run, price, and deliver your shoots. Tap any tool to open it.</p>
+      <p>16 interactive tools to plan, run, price, and deliver your shoots. Tap any tool to open it.</p>
     </div>
     <div class="grid" id="grid"></div>
     <div class="foot">How It's Filmed <span>•</span> Pro Tools</div>
@@ -136,7 +136,9 @@ var TOOLS=[
   {f:'audio-sync-assistant.html',n:'Audio Sync Assistant',d:'Align dual-system audio by syncing clap points with frame accuracy.'},
   {f:'day-out-of-days.html',n:'Day Out of Days',d:'Cast scheduling grid using standard SAG codes with auto-totaled work days.'},
   {f:'invoice-generator.html',n:'Invoice Generator',d:'Professional invoice with auto totals, deposit tracking, tax, and PDF export.'},
-  {f:'pricing-quote-calculator.html',n:'Pricing & Quote Calculator',d:'Build a client-ready project quote by phase, with filmmaking presets, deposit split, and PDF export.'}
+  {f:'pricing-quote-calculator.html',n:'Pricing & Quote Calculator',d:'Build a client-ready project quote by phase, with filmmaking presets, deposit split, and PDF export.'},
+  {f:'content-planner.html',n:'Content Planner',d:'Turn one shoot into a week of content — plan every cut, hook, platform, and post date through an idea-to-posted pipeline.'},
+  {f:'lighting-diagram-builder.html',n:'Lighting Diagram Builder',d:'Map your lighting setup top-down — drag in key, fill, back, and modifiers, label each, and share the diagram with your crew.'}
 ];
 document.getElementById('grid').innerHTML=TOOLS.map(function(t){
   return '<a class="card" href="'+t.f+'"><span class="ic">'+SVG_BOLT+'</span><span><span class="nm">'+t.n+'</span><span class="ds">'+t.d+'</span></span></a>';

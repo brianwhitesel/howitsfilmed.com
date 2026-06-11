@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- HIF ACCESS GATE (pre-paint — Whop embed OR monthly code) -->
+<script>
+(function(){
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  function embed(){try{if(window.location.ancestorOrigins&&Array.from(window.location.ancestorOrigins).some(function(o){return o.indexOf('whop.com')>-1;}))return true;}catch(e){}return document.referrer.indexOf('whop.com')>-1;}
+  function ok(){try{return localStorage.getItem('hif_access_granted')==='true'&&localStorage.getItem('hif_access_month')===m();}catch(e){return false;}}
+  document.documentElement.classList.add((embed()||ok())?'hif-unlocked':'hif-locked');
+})();
+</script>
+<style id="hif-gate-style">
+html.hif-locked{overflow:hidden!important;}
+html.hif-locked body > *:not(#hif-gate){display:none!important;}
+html.hif-unlocked #hif-gate{display:none!important;}
+#hif-gate{display:none;}
+html.hif-locked #hif-gate{display:flex;position:fixed;inset:0;z-index:2147483647;background:#0a0a0c;color:#f0f0f0;font-family:'Inter',sans-serif;align-items:center;justify-content:center;padding:24px;}
+#hif-gate .gcard{max-width:380px;width:100%;text-align:center;background:#111114;border:1px solid #1e1e24;border-radius:16px;padding:36px 28px;}
+#hif-gate .gbadge{display:inline-block;background:rgba(255,51,51,.12);border:1px solid rgba(255,51,51,.3);color:#FF3333;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:18px;}
+#hif-gate h2{font-size:21px;font-weight:800;margin:0 0 8px;letter-spacing:-.02em;}
+#hif-gate p{font-size:13px;color:#9aa3b2;margin:0 0 22px;line-height:1.6;}
+#hif-gate a.gcta{display:block;background:#FF3333;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px;border-radius:10px;margin-bottom:18px;}
+#hif-gate .gdiv{font-size:11px;color:#5b6675;text-transform:uppercase;letter-spacing:.1em;margin:0 0 12px;}
+#hif-gate .grow{display:flex;gap:8px;}
+#hif-gate input{flex:1;background:#16161a;border:1px solid #2a2a30;border-radius:9px;padding:11px 13px;color:#f0f0f0;font-size:16px;outline:none;}
+#hif-gate input:focus{border-color:#FF3333;}
+#hif-gate button{background:#FF3333;border:0;color:#fff;font-weight:700;border-radius:9px;padding:0 18px;cursor:pointer;font-size:14px;}
+#hif-gate .gerr{color:#f87171;font-size:12px;margin-top:10px;min-height:14px;}
+</style>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Lighting Diagram Builder — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111;--surface2:#191919;--surface3:#222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+  --green:#34d369;--blue:#3b82f6;--amber:#f59e0b;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:940px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.header-title{flex:1;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--text-muted);text-align:center}
+.header-actions{display:flex;gap:8px;flex-shrink:0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* LAYOUT */
+.main{max-width:940px;margin:0 auto;padding:24px 20px 60px}
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+.form-control{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:8px 11px;outline:none;width:100%}
+.form-control:focus{border-color:var(--accent)}
+.form-control::placeholder{color:var(--text-dim)}
+
+.tip{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.25);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:11px 14px;font-size:12.5px;color:#9aa3b2;line-height:1.6;margin-bottom:18px}
+.tip b{color:var(--text)}
+
+/* PALETTE */
+.palette{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.pchip{background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;padding:6px 11px;border-radius:16px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+.pchip:hover{border-color:var(--accent)}
+.pchip .pe{font-size:14px}
+.pchip.cat-light{border-color:rgba(245,158,11,.4)}
+.pchip.cat-camera{border-color:rgba(59,130,246,.4)}
+.pchip.cat-subject{border-color:rgba(255,51,51,.45)}
+
+/* STAGE */
+.stage-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:10px;flex-wrap:wrap}
+.stage-meta .hint{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em}
+.stage{position:relative;width:100%;aspect-ratio:16/10;background:
+   radial-gradient(circle at 50% 42%, #1b1b20 0%, #0e0e12 70%),
+   repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 40px),
+   repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 40px);
+  border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;touch-action:none;user-select:none}
+.stage-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:13px;text-align:center;padding:20px;pointer-events:none}
+
+.lx{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;cursor:grab;padding:6px 6px 5px;border-radius:10px;background:rgba(18,18,22,0.9);border:1.5px solid var(--border2);min-width:62px;touch-action:none}
+.lx:active{cursor:grabbing}
+.lx.sel{box-shadow:0 0 0 2px var(--accent-dim);border-color:var(--accent)}
+.lx.cat-subject{border-color:rgba(255,51,51,.55)}
+.lx.cat-camera{border-color:rgba(59,130,246,.5)}
+.lx.cat-light{border-color:rgba(245,158,11,.5)}
+.lx.cat-mod{border-color:rgba(255,255,255,.18)}
+.lx-ic{font-size:19px;line-height:1;pointer-events:none}
+.lx-lb{background:transparent;border:0;color:var(--text);font-family:'Inter',sans-serif;font-weight:600;font-size:11px;text-align:center;width:72px;outline:none;padding:1px}
+.lx-lb:focus{color:#fff}
+.lx-del{position:absolute;top:-8px;right:-8px;width:18px;height:18px;border-radius:50%;background:#2a2a2a;border:1px solid var(--border2);color:var(--text-muted);font-size:12px;line-height:15px;text-align:center;cursor:pointer;padding:0;display:none}
+.lx:hover .lx-del,.lx.sel .lx-del{display:block}
+
+/* PRINT */
+@media print{
+  @page{size:letter landscape;margin:0.5in}
+  body{background:#fff;color:#000;font-family:'Inter',sans-serif}
+  .header,.header-actions,.btn,.no-print,.palette,.tip,.lx-del{display:none!important}
+  .main{padding:0;max-width:100%}
+  .card{border:1px solid #ddd;background:#fff;border-radius:0;padding:10pt;margin-bottom:8pt}
+  .section-label{color:#cc0000}
+  .form-control{border:none;border-bottom:1px solid #ddd;color:#000;font-size:11pt}
+  .stage{background:#fff;border:1.5pt solid #999;
+    background-image:repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 40px),repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 40px);}
+  .stage-empty{display:none}
+  .lx{background:#f4f4f5;border:1.5pt solid #999;color:#000}
+  .lx-lb{color:#000}
+  .lx.cat-subject{border-color:#cc0000} .lx.cat-camera{border-color:#2563eb} .lx.cat-light{border-color:#b45309}
+}
+
+/* MOBILE */
+@media(max-width:700px){.header-title{display:none}}
+@media(max-width:480px){.header-actions .btn span{display:none}}
+@media(max-width:400px){
+  .header-inner{gap:6px;padding:0 12px}.logo-text{font-size:16px}
+  .btn-sm{padding:5px 8px;font-size:11px}.main{padding:14px 10px}.card{padding:14px}
+  .lx{min-width:54px} .lx-lb{width:60px}
+}
+</style>
+</head>
+<body>
+  <!-- GATE OVERLAY -->
+  <div id="hif-gate" role="dialog" aria-modal="true">
+    <div class="gcard">
+      <div class="gbadge">How It's Filmed — Pro Tool</div>
+      <h2>This tool is for members</h2>
+      <p>Get every How It's Filmed production tool inside the Pro community on Whop.</p>
+      <a class="gcta" href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Unlock Pro Access &rarr;</a>
+      <div class="gdiv">Already a member?</div>
+      <div class="grow">
+        <input id="hif-code-input" type="text" autocomplete="off" placeholder="This month's access code" aria-label="Member access code"/>
+        <button id="hif-code-submit">Unlock</button>
+      </div>
+      <div class="gerr" id="hif-code-error"></div>
+    </div>
+  </div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="javascript:history.back()" class="back-btn">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>FILMED</span></div>
+    <div class="header-title">LIGHTING DIAGRAM BUILDER</div>
+    <div class="header-actions">
+      <button class="btn btn-ghost btn-sm no-print" onclick="clearAll()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Clear</span>
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Print / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="tip no-print">
+    <b>Plan the light before you carry it.</b> This is a top-down view of your set. Tap a light, camera, or modifier to drop it in, then drag it where it goes. Double-tap a label to rename it (e.g. "Key — Aputure 600d"). Print or save the diagram to share with your crew.
+  </div>
+
+  <div class="card">
+    <div class="section-label">Setup</div>
+    <input class="form-control" id="setup-name" type="text" placeholder="Setup name — e.g. Interview, 3-point key" oninput="save()" style="margin-bottom:10px"/>
+    <input class="form-control" id="setup-notes" type="text" placeholder="Notes — power, color temp, distances (optional)" oninput="save()"/>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Diagram</div>
+    <div class="palette no-print" id="palette"></div>
+    <div class="stage-meta">
+      <span class="hint">▲ Top-down view — subject faces up</span>
+      <span class="hint no-print">Drag to position · × to remove</span>
+    </div>
+    <div class="stage" id="stage">
+      <div class="stage-empty" id="stageEmpty">Tap a light or camera above to start your diagram.</div>
+    </div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:var(--text);transition:transform .3s;z-index:999;pointer-events:none"></div>
+
+<script>
+// ── TYPES ─────────────────────────────────────────────────
+var TYPES = [
+  {t:'subject',   cat:'subject', icon:'🧍', label:'Subject'},
+  {t:'camera',    cat:'camera',  icon:'🎥', label:'Camera'},
+  {t:'key',       cat:'light',   icon:'🔆', label:'Key Light'},
+  {t:'fill',      cat:'light',   icon:'💡', label:'Fill Light'},
+  {t:'back',      cat:'light',   icon:'✨', label:'Back / Rim'},
+  {t:'bg',        cat:'light',   icon:'🌗', label:'BG Light'},
+  {t:'practical', cat:'mod',     icon:'🪔', label:'Practical'},
+  {t:'reflector', cat:'mod',     icon:'⬜', label:'Reflector'},
+  {t:'window',    cat:'mod',     icon:'🪟', label:'Window'},
+  {t:'flag',      cat:'mod',     icon:'⬛', label:'Flag / Neg'}
+];
+function typeDef(t){ for(var i=0;i<TYPES.length;i++){ if(TYPES[i].t===t) return TYPES[i]; } return TYPES[0]; }
+
+// ── STATE ─────────────────────────────────────────────────
+var els = [];     // {id, t, x, y, label}
+var nextId = 1;
+var selId = null;
+var stage;
+
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function toast(m){ var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');t.style.transform='translateX(-50%) translateY(0)';setTimeout(function(){t.style.transform='translateX(-50%) translateY(80px)';},2000); }
+
+// ── PALETTE ───────────────────────────────────────────────
+function buildPalette(){
+  document.getElementById('palette').innerHTML = TYPES.map(function(d){
+    return '<button class="pchip cat-'+d.cat+'" onclick="addEl(\''+d.t+'\')"><span class="pe">'+d.icon+'</span>'+esc(d.label)+'</button>';
+  }).join('');
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function elHTML(e){
+  var d=typeDef(e.t);
+  return '<div class="lx cat-'+d.cat+(e.id===selId?' sel':'')+'" id="lx-'+e.id+'" data-id="'+e.id+'" style="left:'+e.x+'%;top:'+e.y+'%">'+
+      '<span class="lx-ic">'+d.icon+'</span>'+
+      '<input class="lx-lb" value="'+esc(e.label)+'" oninput="renameEl('+e.id+',this.value)" spellcheck="false"/>'+
+      '<button class="lx-del no-print" onclick="delEl('+e.id+')" aria-label="Remove">&times;</button>'+
+    '</div>';
+}
+function render(){
+  // remove existing element nodes (keep the empty hint node)
+  [].slice.call(stage.querySelectorAll('.lx')).forEach(function(n){ n.remove(); });
+  els.forEach(function(e){ stage.insertAdjacentHTML('beforeend', elHTML(e)); });
+  document.getElementById('stageEmpty').style.display = els.length ? 'none' : 'flex';
+}
+
+function addEl(t){
+  var d=typeDef(t);
+  var n=els.length;
+  // default placements for the first few, then a tidy spiral-ish offset
+  var defaults={subject:[50,52],camera:[50,86],key:[30,32],fill:[70,40],back:[50,18],bg:[50,8]};
+  var pos=defaults[t] || [50 + ((n%5)-2)*9, 46 + (Math.floor(n/5)%3-1)*14];
+  var x=Math.max(4,Math.min(96,pos[0])), y=Math.max(5,Math.min(95,pos[1]));
+  var e={id:nextId++, t:t, x:x, y:y, label:d.label};
+  els.push(e);
+  selId=e.id;
+  render(); save();
+}
+function delEl(id){
+  els=els.filter(function(e){return e.id!==id;});
+  if(selId===id) selId=null;
+  render(); save();
+}
+function renameEl(id,val){
+  var e=els.filter(function(x){return x.id===id;})[0];
+  if(e){ e.label=val; save(); }
+}
+function selectEl(id){
+  selId=id;
+  [].slice.call(stage.querySelectorAll('.lx')).forEach(function(n){ n.classList.toggle('sel', parseInt(n.dataset.id)===id); });
+}
+
+// ── DRAG (pointer events: mouse + touch) ──────────────────
+var dragId=null, dragDX=0, dragDY=0;
+function pointerDown(ev){
+  var node = ev.target.closest ? ev.target.closest('.lx') : null;
+  if(!node) return;
+  if(ev.target.closest('.lx-lb') || ev.target.closest('.lx-del')) return; // editing/removing, not dragging
+  var id=parseInt(node.dataset.id);
+  selectEl(id);
+  var e=els.filter(function(x){return x.id===id;})[0]; if(!e) return;
+  var r=stage.getBoundingClientRect();
+  dragId=id;
+  dragDX = ev.clientX - (r.left + e.x/100*r.width);
+  dragDY = ev.clientY - (r.top + e.y/100*r.height);
+  try{ node.setPointerCapture(ev.pointerId); }catch(_){}
+  ev.preventDefault();
+}
+function pointerMove(ev){
+  if(dragId==null) return;
+  var e=els.filter(function(x){return x.id===dragId;})[0]; if(!e) return;
+  var r=stage.getBoundingClientRect();
+  var x=((ev.clientX-dragDX-r.left)/r.width)*100;
+  var y=((ev.clientY-dragDY-r.top)/r.height)*100;
+  e.x=Math.max(3,Math.min(97,x));
+  e.y=Math.max(4,Math.min(96,y));
+  var node=document.getElementById('lx-'+dragId);
+  if(node){ node.style.left=e.x+'%'; node.style.top=e.y+'%'; }
+}
+function pointerUp(){ if(dragId!=null){ dragId=null; save(); } }
+
+// ── STORAGE (project-aware) ───────────────────────────────
+function getActiveKey(base){
+  try { var p=JSON.parse(localStorage.getItem('hif_active_project')||'null'); return (p&&p.id)?base+'__'+p.id:base; }
+  catch(e){ return base; }
+}
+function save(){
+  try{ localStorage.setItem(getActiveKey('hif-lighting'), JSON.stringify({
+    els:els, nextId:nextId,
+    name:document.getElementById('setup-name').value,
+    notes:document.getElementById('setup-notes').value
+  })); }catch(e){}
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(getActiveKey('hif-lighting'));
+    if(!raw) return false;
+    var data=JSON.parse(raw);
+    els=data.els||[]; nextId=data.nextId||(els.length+1);
+    document.getElementById('setup-name').value=data.name||'';
+    document.getElementById('setup-notes').value=data.notes||'';
+    return true;
+  }catch(e){ return false; }
+}
+function clearAll(){
+  if(!confirm('Clear the diagram? This cannot be undone.')) return;
+  els=[]; nextId=1; selId=null;
+  document.getElementById('setup-name').value='';
+  document.getElementById('setup-notes').value='';
+  render(); save();
+  toast('Cleared.');
+}
+
+// ── INIT ──────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  stage=document.getElementById('stage');
+  buildPalette();
+  var had=load();
+  if(!had || !els.length){
+    if(!had){ els=[]; nextId=1; addEl('subject'); addEl('camera'); addEl('key'); }
+  }
+  render();
+  stage.addEventListener('pointerdown', pointerDown);
+  document.addEventListener('pointermove', pointerMove);
+  document.addEventListener('pointerup', pointerUp);
+  document.addEventListener('pointercancel', pointerUp);
+});
+
+// ── GATE WIRE ─────────────────────────────────────────────
+(function(){
+  var CODE='HIF2606'; /* update monthly to match the HIF Pro app */
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  var btn=document.getElementById('hif-code-submit'),inp=document.getElementById('hif-code-input'),err=document.getElementById('hif-code-error');
+  function go(){
+    if((inp.value||'').trim().toUpperCase()===CODE){
+      try{localStorage.setItem('hif_access_granted','true');localStorage.setItem('hif_access_month',m());}catch(e){}
+      var h=document.documentElement;h.classList.remove('hif-locked');h.classList.add('hif-unlocked');
+    }else{err.textContent='Incorrect code. Check your Whop community for this month’s code.';}
+  }
+  if(btn)btn.addEventListener('click',go);
+  if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+})();
+</script>
+
+</body>
+</html>

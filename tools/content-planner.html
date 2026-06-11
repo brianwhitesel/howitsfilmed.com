@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- HIF ACCESS GATE (pre-paint — Whop embed OR monthly code) -->
+<script>
+(function(){
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  function embed(){try{if(window.location.ancestorOrigins&&Array.from(window.location.ancestorOrigins).some(function(o){return o.indexOf('whop.com')>-1;}))return true;}catch(e){}return document.referrer.indexOf('whop.com')>-1;}
+  function ok(){try{return localStorage.getItem('hif_access_granted')==='true'&&localStorage.getItem('hif_access_month')===m();}catch(e){return false;}}
+  document.documentElement.classList.add((embed()||ok())?'hif-unlocked':'hif-locked');
+})();
+</script>
+<style id="hif-gate-style">
+html.hif-locked{overflow:hidden!important;}
+html.hif-locked body > *:not(#hif-gate){display:none!important;}
+html.hif-unlocked #hif-gate{display:none!important;}
+#hif-gate{display:none;}
+html.hif-locked #hif-gate{display:flex;position:fixed;inset:0;z-index:2147483647;background:#0a0a0c;color:#f0f0f0;font-family:'Inter',sans-serif;align-items:center;justify-content:center;padding:24px;}
+#hif-gate .gcard{max-width:380px;width:100%;text-align:center;background:#111114;border:1px solid #1e1e24;border-radius:16px;padding:36px 28px;}
+#hif-gate .gbadge{display:inline-block;background:rgba(255,51,51,.12);border:1px solid rgba(255,51,51,.3);color:#FF3333;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:18px;}
+#hif-gate h2{font-size:21px;font-weight:800;margin:0 0 8px;letter-spacing:-.02em;}
+#hif-gate p{font-size:13px;color:#9aa3b2;margin:0 0 22px;line-height:1.6;}
+#hif-gate a.gcta{display:block;background:#FF3333;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px;border-radius:10px;margin-bottom:18px;}
+#hif-gate .gdiv{font-size:11px;color:#5b6675;text-transform:uppercase;letter-spacing:.1em;margin:0 0 12px;}
+#hif-gate .grow{display:flex;gap:8px;}
+#hif-gate input{flex:1;background:#16161a;border:1px solid #2a2a30;border-radius:9px;padding:11px 13px;color:#f0f0f0;font-size:16px;outline:none;}
+#hif-gate input:focus{border-color:#FF3333;}
+#hif-gate button{background:#FF3333;border:0;color:#fff;font-weight:700;border-radius:9px;padding:0 18px;cursor:pointer;font-size:14px;}
+#hif-gate .gerr{color:#f87171;font-size:12px;margin-top:10px;min-height:14px;}
+</style>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Content Planner — How It's Filmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111;--surface2:#191919;--surface3:#222;
+  --accent:#FF3333;--accent-dim:rgba(255,51,51,0.12);
+  --text:#fafafa;--text-muted:#888;--text-dim:#555;
+  --border:#222;--border2:#2a2a2a;--radius:10px;--radius-sm:6px;
+  --green:#34d369;--blue:#3b82f6;--amber:#f59e0b;--purple:#8b5cf6;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+/* HEADER */
+.header{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+.back-btn{color:var(--text-muted);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s;flex-shrink:0}
+.back-btn:hover{color:var(--text)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;flex-shrink:0}
+.logo-text span{color:var(--accent)}
+.header-title{flex:1;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:var(--text-muted);text-align:center}
+.header-actions{display:flex;gap:8px;flex-shrink:0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#e02020}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:#444;color:var(--text)}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* LAYOUT */
+.main{max-width:980px;margin:0 auto;padding:24px 20px 60px}
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:14px}
+
+.tip{background:var(--accent-dim);border:1px solid rgba(255,51,51,0.25);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:11px 14px;font-size:12.5px;color:#9aa3b2;line-height:1.6;margin-bottom:18px}
+.tip b{color:var(--text)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+.stat{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:13px 14px;cursor:pointer;transition:.15s;text-align:left}
+.stat:hover{border-color:var(--border2);background:var(--surface2)}
+.stat.active{border-color:var(--accent);background:var(--accent-dim)}
+.stat .n{font-size:24px;font-weight:800;line-height:1;color:var(--text)}
+.stat .l{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:5px}
+.stat .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.dot-idea{background:var(--text-muted)} .dot-progress{background:var(--amber)} .dot-scheduled{background:var(--blue)} .dot-posted{background:var(--green)} .dot-all{background:var(--accent)}
+
+/* PRESETS */
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.preset{background:var(--surface2);border:1px solid var(--border2);color:var(--text-muted);font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:16px;cursor:pointer;transition:.15s}
+.preset:hover{border-color:var(--accent);color:var(--text)}
+.preset::before{content:"+ ";color:var(--accent);font-weight:800}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto}
+.items-table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:720px}
+.items-table thead th{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid var(--border2);text-align:left}
+.items-table tbody tr{box-shadow:inset 3px 0 var(--border2)}
+.items-table tbody tr[data-status="idea"]{box-shadow:inset 3px 0 var(--text-dim)}
+.items-table tbody tr[data-status="scripted"],.items-table tbody tr[data-status="filmed"],.items-table tbody tr[data-status="editing"]{box-shadow:inset 3px 0 var(--amber)}
+.items-table tbody tr[data-status="scheduled"]{box-shadow:inset 3px 0 var(--blue)}
+.items-table tbody tr[data-status="posted"]{box-shadow:inset 3px 0 var(--green)}
+.items-table tbody td{padding:5px 4px;vertical-align:middle;border-bottom:1px solid rgba(255,255,255,0.04)}
+.td-input{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;padding:6px 8px;outline:none;transition:border-color .15s;width:100%}
+.td-input:focus{border-color:var(--accent)}
+.td-input::placeholder{color:var(--text-dim)}
+select.td-input{cursor:pointer;padding:6px 4px}
+.row-del{background:none;border:none;color:var(--text-dim);cursor:pointer;padding:4px;border-radius:4px;transition:color .15s}
+.row-del:hover{color:#ff6666}
+.add-row-btn{display:flex;align-items:center;gap:6px;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;background:none;border:none;padding:0;transition:opacity .15s;margin-top:12px}
+.add-row-btn:hover{opacity:.75}
+.col-date{width:13%} .col-plat{width:17%} .col-fmt{width:14%} .col-hook{width:34%} .col-status{width:16%} .col-del{width:6%}
+.empty{padding:30px 14px;text-align:center;color:var(--text-dim);font-size:13px;line-height:1.7}
+.empty .e{font-size:24px;display:block;margin-bottom:8px}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 20px;font-size:13px;color:var(--text);transition:transform .3s;z-index:999;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* PRINT */
+@media print{
+  @page{size:letter landscape;margin:0.5in}
+  body{background:#fff;color:#000;font-size:9pt;font-family:'Inter',sans-serif}
+  .header,.header-actions,.row-del,.add-row-btn,.btn,.no-print,.toast,.presets,.tip{display:none!important}
+  .main{padding:0;max-width:100%}
+  .card{border:1px solid #ddd;background:#fff;border-radius:0;padding:10pt;margin-bottom:8pt}
+  .section-label{color:#cc0000;font-size:9pt;margin-bottom:8pt}
+  .stats{display:flex;gap:10pt;margin-bottom:8pt}
+  .stat{border:1px solid #ddd;padding:6pt 10pt}
+  .stat .n{color:#000;font-size:16pt} .stat .l{color:#555}
+  .td-input{border:none;border-bottom:1px solid #ddd;background:transparent;color:#000;padding:1px 2px;font-size:8.5pt;border-radius:0}
+  select.td-input{-webkit-appearance:none;appearance:none}
+  .items-table thead th{border-bottom:1.5pt solid #bbb;border-top:1.5pt solid #bbb;color:#555;background:#f7f7f7;padding:4pt;font-size:7.5pt}
+  .items-table tbody td{border-bottom:0.5pt solid #e8e8e8;padding:3pt 4pt}
+  .items-table tbody tr{box-shadow:none!important}
+}
+
+/* MOBILE */
+@media(max-width:760px){
+  .header-title{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .header-actions .btn span{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .header-inner{gap:6px;padding:0 12px}
+  .logo-text{font-size:16px}
+  .btn-sm{padding:5px 8px;font-size:11px}
+  .main{padding:14px 10px}
+  .card{padding:14px}
+}
+</style>
+</head>
+<body>
+  <!-- GATE OVERLAY -->
+  <div id="hif-gate" role="dialog" aria-modal="true">
+    <div class="gcard">
+      <div class="gbadge">How It's Filmed — Pro Tool</div>
+      <h2>This tool is for members</h2>
+      <p>Get every How It's Filmed production tool inside the Pro community on Whop.</p>
+      <a class="gcta" href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Unlock Pro Access &rarr;</a>
+      <div class="gdiv">Already a member?</div>
+      <div class="grow">
+        <input id="hif-code-input" type="text" autocomplete="off" placeholder="This month's access code" aria-label="Member access code"/>
+        <button id="hif-code-submit">Unlock</button>
+      </div>
+      <div class="gerr" id="hif-code-error"></div>
+    </div>
+  </div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="javascript:history.back()" class="back-btn">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </a>
+    <div class="logo-text">HOW IT'S <span>FILMED</span></div>
+    <div class="header-title">CONTENT PLANNER</div>
+    <div class="header-actions">
+      <button class="btn btn-ghost btn-sm no-print" onclick="clearAll()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Clear</span>
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Print / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="tip no-print">
+    <b>One shoot = a week of content.</b> Plan every cut, hook, and post date here, then move each one from idea to posted. Tap a quick-add below to drop in a common post type, or build your own.
+  </div>
+
+  <!-- STATS / FILTER -->
+  <div class="stats" id="stats"></div>
+
+  <div class="card">
+    <div class="section-label">Your Content Plan</div>
+    <div class="presets no-print" id="presets"></div>
+    <div class="tbl-wrap">
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th class="col-date">Post Date</th>
+            <th class="col-plat">Platform</th>
+            <th class="col-fmt">Format</th>
+            <th class="col-hook">Hook / Idea</th>
+            <th class="col-status">Status</th>
+            <th class="col-del"></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <button class="add-row-btn no-print" onclick="addPost()">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Add post
+    </button>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────
+var PLATFORMS = ['Instagram Reel','Instagram Post','Instagram Story','TikTok','YouTube','YouTube Short','LinkedIn','X / Twitter','Other'];
+var FORMATS = ['Reel / Short','Carousel','Single Image','Long-form','Story','Other'];
+var STATUSES = [
+  {v:'idea', l:'Idea'},
+  {v:'scripted', l:'Scripted'},
+  {v:'filmed', l:'Filmed'},
+  {v:'editing', l:'Editing'},
+  {v:'scheduled', l:'Scheduled'},
+  {v:'posted', l:'Posted'}
+];
+var PROGRESS = ['scripted','filmed','editing'];
+var PRESETS = [
+  {label:'Reel — Hook + Tip', platform:'Instagram Reel', format:'Reel / Short', hook:'Hook + one quick tip'},
+  {label:'Carousel — Mistakes', platform:'Instagram Post', format:'Carousel', hook:'5 mistakes that kill your footage'},
+  {label:'BTS Short', platform:'YouTube Short', format:'Reel / Short', hook:'Behind the scenes of the shoot'},
+  {label:'Before / After', platform:'Instagram Reel', format:'Reel / Short', hook:'Ungraded vs graded reveal'},
+  {label:'Client Testimonial Cut', platform:'Instagram Reel', format:'Reel / Short', hook:'Client results in 30 seconds'},
+  {label:'Talking-head Reel', platform:'TikTok', format:'Reel / Short', hook:'Answer a common client question'}
+];
+
+// ── STATE ──────────────────────────────────────────────────
+var posts = [];
+var nextId = 1;
+var filter = 'all';
+
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function toast(m){ var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000); }
+function opts(list, sel){ return list.map(function(o){ var v=(typeof o==='string')?o:o.v, l=(typeof o==='string')?o:o.l; return '<option value="'+esc(v)+'"'+(v===sel?' selected':'')+'>'+esc(l)+'</option>'; }).join(''); }
+
+// ── STATS / FILTER ────────────────────────────────────────
+var STAT_DEFS = [
+  {key:'all', label:'All', dot:'all', match:function(){return true;}},
+  {key:'idea', label:'Ideas', dot:'idea', match:function(p){return p.status==='idea';}},
+  {key:'progress', label:'In Progress', dot:'progress', match:function(p){return PROGRESS.indexOf(p.status)>-1;}},
+  {key:'scheduled', label:'Scheduled', dot:'scheduled', match:function(p){return p.status==='scheduled';}},
+  {key:'posted', label:'Posted', dot:'posted', match:function(p){return p.status==='posted';}}
+];
+function buildStats(){
+  document.getElementById('stats').innerHTML = STAT_DEFS.map(function(s){
+    return '<button class="stat'+(filter===s.key?' active':'')+'" data-k="'+s.key+'" onclick="setFilter(\''+s.key+'\')">'+
+      '<div class="n" id="stat-n-'+s.key+'">0</div>'+
+      '<div class="l"><span class="dot dot-'+s.dot+'"></span>'+s.label+'</div></button>';
+  }).join('');
+}
+function updateStats(){
+  STAT_DEFS.forEach(function(s){
+    var n=posts.filter(s.match).length;
+    var el=document.getElementById('stat-n-'+s.key); if(el) el.textContent=n;
+  });
+  document.querySelectorAll('.stat').forEach(function(b){ b.classList.toggle('active', b.dataset.k===filter); });
+}
+function setFilter(k){ filter = (filter===k && k!=='all') ? 'all' : k; renderRows(); }
+
+// ── ROWS ──────────────────────────────────────────────────
+function rowHTML(p){
+  return '<tr id="post-row-'+p.id+'" data-status="'+esc(p.status)+'">'+
+    '<td class="col-date"><input class="td-input" type="date" value="'+esc(p.date)+'" oninput="updatePost('+p.id+",'date',this.value)\"/></td>"+
+    '<td class="col-plat"><select class="td-input" onchange="updatePost('+p.id+",'platform',this.value)\">"+opts(PLATFORMS,p.platform)+'</select></td>'+
+    '<td class="col-fmt"><select class="td-input" onchange="updatePost('+p.id+",'format',this.value)\">"+opts(FORMATS,p.format)+'</select></td>'+
+    '<td class="col-hook"><input class="td-input" type="text" placeholder="What is the hook or idea?" value="'+esc(p.hook)+'" oninput="updatePost('+p.id+",'hook',this.value)\"/></td>"+
+    '<td class="col-status"><select class="td-input" onchange="updatePost('+p.id+",'status',this.value)\">"+opts(STATUSES,p.status)+'</select></td>'+
+    '<td class="col-del"><button class="row-del no-print" onclick="delPost('+p.id+')" aria-label="Delete"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td>'+
+  '</tr>';
+}
+function visiblePosts(){
+  var def=STAT_DEFS.filter(function(s){return s.key===filter;})[0] || STAT_DEFS[0];
+  return posts.filter(def.match);
+}
+function renderRows(){
+  var body=document.getElementById('rows');
+  var list=visiblePosts();
+  if(!posts.length){
+    body.innerHTML='<tr><td colspan="6"><div class="empty"><span class="e">🎬</span>No posts planned yet. Tap a quick-add above or <b>Add post</b> to start turning your footage into a content plan.</div></td></tr>';
+  } else if(!list.length){
+    body.innerHTML='<tr><td colspan="6"><div class="empty"><span class="e">🔍</span>Nothing in this stage. <span style="color:var(--accent);cursor:pointer" onclick="setFilter(\'all\')">Show all posts</span>.</div></td></tr>';
+  } else {
+    body.innerHTML=list.map(rowHTML).join('');
+  }
+  updateStats();
+}
+
+function addPost(date, platform, format, hook, status){
+  var id=nextId++;
+  posts.push({id:id, date:date||'', platform:platform||PLATFORMS[0], format:format||FORMATS[0], hook:hook||'', status:status||'idea'});
+  if(filter!=='all'){ filter='all'; }
+  renderRows(); save();
+  var row=document.getElementById('post-row-'+id);
+  if(row){ var h=row.querySelector('.col-hook input'); if(h && hook==null) h.focus(); }
+  return id;
+}
+function addPreset(idx){
+  var p=PRESETS[idx]; if(!p) return;
+  addPost('', p.platform, p.format, p.hook, 'idea');
+}
+function delPost(id){
+  posts=posts.filter(function(p){return p.id!==id;});
+  renderRows(); save();
+}
+function updatePost(id, field, val){
+  var p=posts.filter(function(x){return x.id===id;})[0];
+  if(!p) return;
+  p[field]=val;
+  if(field==='status'){
+    var row=document.getElementById('post-row-'+id);
+    if(row) row.setAttribute('data-status', val);
+    updateStats();
+    // if a filter is active and this row no longer matches, re-render
+    if(filter!=='all'){ renderRows(); }
+  }
+  save();
+}
+
+// ── STORAGE (project-aware) ───────────────────────────────
+function getActiveKey(base){
+  try { var p=JSON.parse(localStorage.getItem('hif_active_project')||'null'); return (p&&p.id)?base+'__'+p.id:base; }
+  catch(e){ return base; }
+}
+function save(){ try{ localStorage.setItem(getActiveKey('hif-content'), JSON.stringify({posts:posts, nextId:nextId})); }catch(e){} }
+function load(){
+  try{
+    var raw=localStorage.getItem(getActiveKey('hif-content'));
+    if(!raw) return false;
+    var data=JSON.parse(raw);
+    posts=data.posts||[]; nextId=data.nextId||1;
+    return posts.length>0;
+  }catch(e){ return false; }
+}
+function clearAll(){
+  if(!confirm('Clear the whole content plan? This cannot be undone.')) return;
+  posts=[]; nextId=1; filter='all';
+  renderRows(); save();
+  toast('Cleared.');
+}
+
+// ── PRESETS UI ────────────────────────────────────────────
+function buildPresets(){
+  document.getElementById('presets').innerHTML = PRESETS.map(function(p,i){
+    return '<button class="preset" onclick="addPreset('+i+')">'+esc(p.label)+'</button>';
+  }).join('');
+}
+
+// ── INIT ──────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  buildStats(); buildPresets();
+  var had=load();
+  if(!had){ addPost('', PLATFORMS[0], FORMATS[0], '', 'idea'); }
+  else { renderRows(); }
+});
+
+// ── GATE WIRE ─────────────────────────────────────────────
+(function(){
+  var CODE='HIF2606'; /* update monthly to match the HIF Pro app */
+  function m(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+  var btn=document.getElementById('hif-code-submit'),inp=document.getElementById('hif-code-input'),err=document.getElementById('hif-code-error');
+  function go(){
+    if((inp.value||'').trim().toUpperCase()===CODE){
+      try{localStorage.setItem('hif_access_granted','true');localStorage.setItem('hif_access_month',m());}catch(e){}
+      var h=document.documentElement;h.classList.remove('hif-locked');h.classList.add('hif-unlocked');
+    }else{err.textContent='Incorrect code. Check your Whop community for this month’s code.';}
+  }
+  if(btn)btn.addEventListener('click',go);
+  if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+})();
+</script>
+
+</body>
+</html>

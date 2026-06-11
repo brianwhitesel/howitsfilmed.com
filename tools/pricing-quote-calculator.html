@@ -315,6 +315,7 @@ select.td-input{cursor:pointer;padding:6px 4px}
         <input class="form-control" id="from-name" type="text" placeholder="Your Name / Company" oninput="save()"/>
         <input class="form-control" id="from-email" type="email" placeholder="email@yoursite.com" oninput="save()"/>
         <input class="form-control" id="from-phone" type="tel" placeholder="Phone (optional)" oninput="save()"/>
+        <input class="form-control" id="from-tax" type="text" placeholder="Tax ID / EIN (optional)" oninput="save()"/>
       </div>
     </div>
     <div class="card" style="margin-bottom:0">
@@ -386,7 +387,8 @@ select.td-input{cursor:pointer;padding:6px 4px}
           <tr>
             <td>
               <span>Discount</span>
-              <input class="td-input" id="discount" type="number" min="0" step="0.01" placeholder="0.00" style="width:84px;text-align:right;display:inline-block;margin-left:4px" oninput="recalc();save()"/>
+              <select class="td-input" id="disc-mode" style="width:46px;display:inline-block;margin-left:4px;padding:6px 2px" onchange="recalc();save()"><option value="amt">$</option><option value="pct">%</option></select>
+              <input class="td-input" id="discount" type="number" min="0" step="0.01" placeholder="0" style="width:72px;text-align:right;display:inline-block;margin-left:4px" oninput="recalc();save()"/>
             </td>
             <td id="total-discount">$0.00</td>
           </tr>
@@ -565,8 +567,11 @@ function recalc(){
     var el = document.getElementById('sec-sub-'+s.key);
     if(el) el.textContent = fmt0(t);
   });
-  var discount = parseFloat(document.getElementById('discount').value)||0;
+  var discIn = parseFloat(document.getElementById('discount').value)||0;
+  var discMode = document.getElementById('disc-mode').value;
+  var discount = discMode==='pct' ? subtotal * discIn / 100 : discIn;
   if(discount > subtotal) discount = subtotal;
+  if(discount < 0) discount = 0;
   var taxable = subtotal - discount;
   var taxRate = parseFloat(document.getElementById('tax-rate').value)||0;
   var tax = taxable * taxRate / 100;
@@ -591,7 +596,7 @@ function getActiveKey(base){
     return (p && p.id) ? base + '__' + p.id : base;
   } catch(e){ return base; }
 }
-var FIELDS = ['q-number','q-status','q-date','q-valid','from-name','from-email','from-phone','to-name','to-email','to-phone','proj-name','proj-type','proj-delivery','q-terms','discount','tax-rate','deposit-pct'];
+var FIELDS = ['q-number','q-status','q-date','q-valid','from-name','from-email','from-phone','from-tax','to-name','to-email','to-phone','proj-name','proj-type','proj-delivery','q-terms','discount','disc-mode','tax-rate','deposit-pct'];
 
 function save(){
   var proj = {};
@@ -618,7 +623,7 @@ function load(){
 
 function clearAll(){
   if(!confirm('Clear this quote? This cannot be undone.')) return;
-  FIELDS.forEach(function(id){ var el=document.getElementById(id); if(!el) return; if(id==='deposit-pct'){el.value='50';} else if(id==='q-terms'){el.value=DEFAULT_TERMS;} else {el.value='';} });
+  FIELDS.forEach(function(id){ var el=document.getElementById(id); if(!el) return; if(id==='deposit-pct'){el.value='50';} else if(id==='q-terms'){el.value=DEFAULT_TERMS;} else if(id==='disc-mode'){el.value='amt';} else {el.value='';} });
   items = []; nextId = 1;
   SECTIONS.forEach(function(s){ var b=document.getElementById('body-'+s.key); if(b) b.innerHTML=''; });
   recalc(); save();
