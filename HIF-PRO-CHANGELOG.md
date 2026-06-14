@@ -6,6 +6,66 @@ Format: date, lane, what changed, why, expected impact.
 
 ---
 
+## 2026-06-14 — Conversion copy (app gate rewrite, the Whop conversion surface)
+
+**Lane:** Conversion copy — the /app access gate, the actual Whop -> app conversion point
+
+**File touched:** howitsfilmed-deploy/app/index.html
+
+**What changed**
+- Rewrote the gate overlay from a passive lockout notice into a benefit-led conversion surface. The gate is what any non-member sees at howitsfilmed.com/app, and the 6/11 app rebuild reset it to a lockout-first message ("This is a members area" with a one-line "the tool suite is part of your membership" subhead). That tells a visitor they are locked out without showing them what they are locked out of.
+- Title was "This is a members area", now "100 pro tools for every shoot". Leads with the scope and value instead of the lock.
+- Description was "The HIF Assistant and the full tool suite are part of your How It's Filmed Pro membership", now "Templates, calculators, and checklists for every phase of production, plus the HIF Assistant on call whenever you're stuck. Built by working filmmakers, organized by workflow." Names the deliverable types and reuses the page's existing "working filmmakers, organized by workflow" positioning verbatim.
+- Added a four-pill phase row (Pre-Production, On-Set, Post, Business) between the description and the CTA so the visitor sees the production-phase coverage at a glance. These four phases are real and map to the live catalog (Pre-Production, On-Set, Post-Production, and Client/Business + Finance tools).
+- Added a quiet risk-reversal subline under the CTA: "Instant access. Cancel anytime." Cancel-anytime is already stated on the homepage pricing and FAQ, now repeated at the actual payment decision.
+- CTA text and destination unchanged ("Unlock Pro Access ->" to https://whop.com/howitsfilmed). Member access-code entry unchanged below the divider.
+- New CSS scoped to .gpills, .gpill, .gsub. Reuses existing tokens only (--dim, --panel2, --line2, --muted, --accent). No new tokens, fonts, or CDN dependencies. Adjusted .gcta margin-bottom from 18px to 8px so the new subline sits tight under the button.
+- Verified by script: no emoji and no em-dashes in the new copy (the em-dash in the pre-existing "How It's Filmed — Pro" badge and the arrow in the pre-existing CTA were untouched), Python HTML parse clean, gate block structure intact.
+
+**Why**
+- Conversion copy was the oldest revenue-moving lane in the rotation, last touched 6/07 (homepage FAQ), exactly at the 7-day window edge. UX polish (6/12), marketing (6/11), and funnel tightening (6/08) are all inside the window. This run is a different surface than 6/07: the in-app gate, not the homepage.
+- The gate is the single highest-intent surface in the entire funnel. Every non-member who clicks a homepage CTA and lands on /app hits it, and it is the last thing they see before the Whop checkout. A lockout-first message at that exact moment is the most expensive copy on the property to get wrong. The 5/14 run had already fixed this once, but the 6/11 rebuild reset it to passive, so the proven benefit-led pattern was re-applied to the new design tokens.
+- Deliberately did not add a price to the gate. The 6/12 open question to Brian ("HIF Pro card shows no price - intentional?") is still unresolved, so showing a price here would pre-empt a pending decision. Keeping the gate price-free stays consistent with the current gate and avoids touching the partnership-sensitive pricing-display call.
+
+**Expected impact**
+- Higher gate-to-Whop click-through from non-members. The visitor now sees scope (100 tools), phase coverage (four pills), the assistant, and a cancel-anytime safety net at the decision point, instead of a bare lockout.
+- Compounds with the homepage funnel work: the 5/21 hero sets the freemium expectation, the 6/07 FAQ handles objections, the 6/08 pricing reassurance bar reassures at the homepage decision point, and now the gate confirms the offer at the in-app decision point rather than reversing it into a lockout.
+- Reversible by restoring the four original gate strings and deleting the .gpills/.gpill/.gsub CSS.
+
+**Partnership check:** Iterative conversion copy plus a small additive visual (phase pills, risk-reversal subline) using only claims already published elsewhere on the property. No pricing shown or changed, no positioning shift (copy reuses the existing "working filmmakers, organized by workflow" stance), no tools added or removed, no rewrite of the core value prop, CTA destination unchanged. Fully reversible. No part of Reese's half of the business is affected. Within ship-freely lane.
+
+---
+
+## 2026-06-12 — UX polish (homepage brand compliance, emoji removal)
+
+**Lane:** UX polish — design-system / brand-non-negotiable compliance on the homepage
+
+**File touched:** howitsfilmed-deploy/index.html
+
+**What changed**
+- The 6/11 homepage rebuild reintroduced seven emoji glyphs into the live page, which violates the standing brand non-negotiable "no emojis anywhere in files." Replaced all seven with inline SVG icons matching HIF's established stroked red-accent icon style (the same pattern shipped in the 5/15 homepage pass and used in the app's rescard icons: 1.8-1.9px stroke, rounded caps and joins, accent #FF3333).
+- Eyebrow badge: clapperboard glyph before "170K+ filmmakers follow" became a 13px stroked clapperboard SVG, vertically aligned to the text baseline.
+- App showcase feature list: the speech-balloon, hammer, and page glyphs on "The HIF Assistant," "16 interactive tools," and "80+ templates" became 16px stroked chat, wrench, and document SVGs, centered in the existing red-tinted .ic boxes.
+- App chat mock: the two bot avatars (clapperboard glyph) became 15px clapperboard SVGs in accent red, and the user avatar (smiley glyph) became a 14px person SVG in a muted dim stroke (#cdd2da) to match the panel-tinted user bubble. The mock container already carries aria-hidden, so the avatars stay out of the AT tree.
+- Every new SVG is aria-hidden since each sits next to text that already carries the meaning. No new CSS, no new fonts, no new tokens, no markup restructure. The icons drop straight into the existing .eyebrow, .app-feats .ic, and .chat-row .av containers.
+- Verified by script: zero emoji code points and zero high-codepoint emoji entities remain in index.html, all 7 svg tags balanced (7 open / 7 close), Python parse confirms well-formed. The typographic entities already on the page (mdash, rarr, middot, copy, nbsp) are not emoji and were left as-is.
+
+**Why**
+- Lane recency was unusual this run. The 6/11 rebuild of both index.html (homepage) and app/index.html reset most prior conversion, funnel, and analytics work, so the changelog's recent lane history describes a page version that no longer exists. Tonight's earlier builder run already did an in-app a11y pass on app/index.html (search clear button, gate labelledby, code maxlength). That left a live, explicit non-negotiable violation on the homepage, the single highest-traffic surface in the funnel, untouched. Enforcing a standing brand non-negotiable overrides normal lane rotation, and the homepage is a different surface than tonight's in-app work.
+- The "feels like a real agency made it" bar is what underwrites a filmmaker's willingness to pay. Emoji render inconsistently across iOS, macOS, Windows, and Linux and are the most obvious "thrown together" tell. Removing them on the page every IG visitor hits first is the cheapest credibility win available.
+- Chose to match the exact SVG pattern from the 5/15 pass rather than introduce a new icon set, so the homepage and app read as one coherent system.
+
+**Expected impact**
+- No direct conversion-metric claim. This is polish that compounds: it closes the gap between the homepage and the rest of the funnel on the agency-quality standard that supports every paid CTA on the page (Film Crew free, $49 Toolkit, HIF Pro).
+- Crisp, predictable icon rendering on every device, including the mobile IG-bio-link traffic that dominates the audience.
+- Reversible by restoring the seven glyphs. Pure visual swap, no behavior change.
+
+**Partnership check:** Iterative visual polish enforcing an existing brand non-negotiable. No copy changes, no pricing changes, no positioning shift, no tools added or removed, no rewrite of the value prop. The tiered offer structure the rebuild introduced (Film Crew, Toolkit, HIF Pro, Coaching, Course) is untouched. No part of Reese's half of the business is affected. Within ship-freely lane.
+
+**Q sent:** [HIF Pro Q] HIF Pro card shows no price - intentional?
+
+---
+
 ## 2026-06-11 — Marketing asset (getting-paid IG carousel)
 
 **Lane:** Marketing asset — IG carousel hook + 3 caption variants for @howitsfilmed

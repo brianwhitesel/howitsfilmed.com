@@ -6,21 +6,11 @@
   "scope": "/app/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0a0a0f",
-  "theme_color": "#0a0a0f",
+  "background_color": "#0a0a0c",
+  "theme_color": "#0a0a0c",
   "icons": [
-    {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%230a0a0f' rx='32'/%3E%3Ccircle cx='96' cy='96' r='56' fill='none' stroke='%23f97316' stroke-width='8'/%3E%3Ccircle cx='96' cy='96' r='20' fill='%23f97316'/%3E%3Cline x1='96' y1='20' x2='96' y2='40' stroke='%23f97316' stroke-width='6' stroke-linecap='round'/%3E%3Cline x1='96' y1='152' x2='96' y2='172' stroke='%23f97316' stroke-width='6' stroke-linecap='round'/%3E%3Cline x1='20' y1='96' x2='40' y2='96' stroke='%23f97316' stroke-width='6' stroke-linecap='round'/%3E%3Cline x1='152' y1='96' x2='172' y2='96' stroke='%23f97316' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a0a0f' rx='80'/%3E%3Ccircle cx='256' cy='256' r='150' fill='none' stroke='%23f97316' stroke-width='20'/%3E%3Ccircle cx='256' cy='256' r='52' fill='%23f97316'/%3E%3Cline x1='256' y1='40' x2='256' y2='106' stroke='%23f97316' stroke-width='16' stroke-linecap='round'/%3E%3Cline x1='256' y1='406' x2='256' y2='472' stroke='%23f97316' stroke-width='16' stroke-linecap='round'/%3E%3Cline x1='40' y1='256' x2='106' y2='256' stroke='%23f97316' stroke-width='16' stroke-linecap='round'/%3E%3Cline x1='406' y1='256' x2='472' y2='256' stroke='%23f97316' stroke-width='16' stroke-linecap='round'/%3E%3C/svg%3E",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
+    { "src": "/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ],
   "categories": ["productivity", "utilities"],
   "lang": "en-US"
