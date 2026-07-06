@@ -1,418 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>How It's Filmed — Make video that doesn't look like everyone else's</title>
-<meta name="description" content="How It's Filmed is a filmmaking community and toolkit for creators. Join The Film Crew free, grab The Filmmakers Toolkit, or go Pro for the full app and AI assistant." />
-<meta property="og:title" content="How It's Filmed" />
-<meta property="og:description" content="Free filmmaking community, production tools, and coaching for creators who are serious about better video." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It's Filmed — Make videos that don't look like everyone else's</title>
+<meta name="description" content="Filmmaking education, community and toolkit from How It's Filmed. Shot breakdowns, The Filmmaker's Toolkit, HIF Pro, and a free community of 175K+ filmmakers.">
+<meta property="og:title" content="How It's Filmed">
+<meta property="og:description" content="Make videos that don't look like everyone else's. Filmmaking education, community + toolkit.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-/* BW Design System v1 — do not edit manually, maintained by design-system-enforcer */
-:root {
-  --bg: #080c14;
-  --surface: rgba(255,255,255,0.04);
-  --surface2: rgba(255,255,255,0.07);
-  --surface3: rgba(255,255,255,0.10);
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.14);
-  --text: #f1f5f9;
-  --dim: #94a3b8;
-  --muted: #4b5e78;
-  --accent: #e41e2b;
-  --blue: #3b82f6;
-  --green: #34d369;
-  --teal: #14b8a6;
-  --amber: #f59e0b;
-  --purple: #8b5cf6;
-  --font-head: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --transition: 0.15s ease;
-}
-html.light {
-  --bg: #f0f2f5;
-  --surface: rgba(255,255,255,0.85);
-  --surface2: rgba(255,255,255,0.95);
-  --surface3: #ffffff;
-  --border: rgba(0,0,0,0.08);
-  --border2: rgba(0,0,0,0.14);
-  --text: #0d1117;
-  --dim: #475569;
-  --muted: #94a3b8;
-}
-
+/* ============================================================
+   HOW IT'S FILMED — single-file cinematic site
+   Palette: near-black + #FF3333 · Type: Outfit / Inter
+   ============================================================ */
 :root{
-  --bg:#0a0a0c; --panel:#111114; --panel2:#16161a; --line:#1e1e24; --line2:#2a2a30;
-  --text:#f4f4f7; --dim:#9aa3b2; --muted:#5b6675; --accent:#FF3333; --green:#4ade80; --purple:#8b5cf6;
-  --maxw:1080px;
+  --bg:#0a0a0b;
+  --bg-2:#0e0e11;
+  --surface:#141418;
+  --surface-2:#1a1a20;
+  --line:rgba(255,255,255,.08);
+  --text:#f2f1ef;
+  --muted:#a3a2a8;
+  --red:#ff3333;
+  --red-soft:rgba(255,51,51,.14);
+  --red-glow:rgba(255,51,51,.35);
+  --font-display:'Outfit',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --nav-h:68px;
+  --radius:16px;
+  --ease:cubic-bezier(.22,1,.36,1);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-a{color:inherit;text-decoration:none;}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
-.accent{color:var(--accent);}
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,12,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-.nav-inner{max-width:var(--maxw);margin:0 auto;padding:13px 22px;display:flex;align-items:center;gap:18px;}
-.logo{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.01em;font-size:15px;}
-.logo .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);}
-.nav-links{display:flex;gap:24px;margin-left:auto;}
-.nav-links a{font-size:14px;color:var(--dim);font-weight:500;}
-.nav-links a:hover{color:var(--text);}
-.nav-cta{background:var(--accent);color:#fff;font-weight:700;font-size:13px;padding:9px 16px;border-radius:9px;}
-@media(max-width:760px){.nav-links{display:none;}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+::selection{background:var(--red);color:#fff}
 
-/* HERO */
-.hero{position:relative;text-align:center;padding:84px 22px 70px;overflow:hidden;}
-.hero::before{content:"";position:absolute;left:50%;top:35%;width:760px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,51,51,.18),transparent 65%);filter:blur(30px);z-index:0;}
-.hero-inner{position:relative;z-index:1;max-width:780px;margin:0 auto;}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line2);border-radius:30px;padding:6px 15px;font-size:12px;font-weight:600;color:var(--dim);margin-bottom:24px;}
-.eyebrow b{color:var(--text);}
-.hero h1{font-size:clamp(34px,7vw,64px);font-weight:900;letter-spacing:-.035em;line-height:1.02;}
-.hero h1 .strike{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:4px;}
-.hero p{font-size:clamp(15px,2.2vw,18px);color:var(--dim);max-width:560px;margin:22px auto 0;}
-.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px;}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:14px 24px;border-radius:11px;transition:.15s;cursor:pointer;border:0;}
-.btn-primary{background:var(--accent);color:#fff;}
-.btn-primary:hover{background:#e02020;transform:translateY(-1px);}
-.btn-ghost{background:var(--panel);color:var(--text);border:1px solid var(--line2);}
-.btn-ghost:hover{border-color:var(--accent);}
-.hero-proof{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:46px;}
-.hero-proof div{text-align:center;}
-.hero-proof .n{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;color:var(--text);letter-spacing:.02em;}
-.hero-proof .l{font-size:12px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.08em;}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:4px}
 
-/* SECTION */
-.section{padding:72px 0;}
-.section-label{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
-.section h2{font-size:clamp(26px,4.5vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.05;}
-.section .sub{font-size:16px;color:var(--dim);max-width:600px;margin:14px 0 0;}
-.center{text-align:center;}
-.center .sub{margin-left:auto;margin-right:auto;}
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--red);color:#fff;padding:.6rem 1rem;font-weight:600;border-radius:0 0 8px 0;
+}
+.skip-link:focus{left:0}
 
-/* PROBLEM */
-.problem{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-.problem .big{font-size:clamp(22px,3.6vw,32px);font-weight:800;letter-spacing:-.02em;line-height:1.3;max-width:760px;}
-.problem .big span{color:var(--accent);}
-.problem p{color:var(--dim);font-size:16px;margin-top:18px;max-width:640px;}
+/* ---------- Film grain overlay ---------- */
+.grain{
+  position:fixed;inset:-50%;width:200%;height:200%;
+  pointer-events:none;z-index:90;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-/* OFFERS */
-.offers{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px;}
-@media(max-width:780px){.offers{grid-template-columns:1fr;}}
-.offer{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;position:relative;}
-.offer.feature{border-color:rgba(255,51,51,.45);}
-.offer.free{border-color:rgba(74,222,128,.4);}
-.offer.span2{grid-column:span 2;}
-@media(max-width:780px){.offer.span2{grid-column:span 1;}}
-.offer .badge{position:absolute;top:-10px;right:20px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;padding:4px 10px;border-radius:20px;}
-.offer .badge.soon{background:var(--panel2);color:var(--dim);border:1px solid var(--line2);}
-.offer .badge.greenb{background:var(--green);color:#06210f;}
-.offer-name{font-size:20px;font-weight:800;letter-spacing:-.02em;}
-.offer-price{display:flex;align-items:baseline;gap:6px;margin:8px 0 4px;}
-.offer-price .amt{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;letter-spacing:.01em;}
-.offer-price .amt.free{color:var(--green);}
-.offer-price .per{font-size:13px;color:var(--muted);font-weight:500;}
-.offer-desc{font-size:14px;color:var(--dim);margin-bottom:16px;}
-.offer ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;flex:1;}
-.offer li{font-size:13.5px;color:#cdd2da;padding-left:24px;position:relative;line-height:1.45;}
-.offer li::before{content:"";position:absolute;left:2px;top:7px;width:12px;height:12px;border-radius:50%;background:rgba(255,51,51,.15);border:1px solid var(--accent);}
-.offer.free li::before{background:rgba(74,222,128,.15);border-color:var(--green);}
-.offer .btn{width:100%;justify-content:center;font-size:14px;padding:12px;}
-.offer .btn-soon{background:var(--panel2);color:var(--dim);border:1px solid var(--line2);cursor:default;}
+/* ---------- Scroll progress ---------- */
+.progress{
+  position:fixed;top:0;left:0;height:3px;width:100%;z-index:120;
+  background:transparent;
+}
+.progress span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--red),#ff6b4a);
+  box-shadow:0 0 12px var(--red-glow);
+  transition:width .08s linear;
+}
 
-/* APP SHOWCASE */
-.app-show{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;}
-@media(max-width:820px){.app-show{grid-template-columns:1fr;gap:26px;}}
-.app-feats{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:24px;}
-.app-feats li{display:flex;gap:13px;align-items:flex-start;}
-.app-feats .ic{width:34px;height:34px;border-radius:9px;background:rgba(255,51,51,.1);border:1px solid rgba(255,51,51,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
-.app-feats .ft{font-weight:700;font-size:14px;}
-.app-feats .fd{font-size:13px;color:var(--dim);}
-.app-mock{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;}
-.app-mock .bar{display:flex;gap:6px;margin-bottom:14px;}
-.app-mock .bar i{width:9px;height:9px;border-radius:50%;background:var(--line2);}
-.chat-row{display:flex;gap:9px;margin-bottom:11px;}
-.chat-row .av{width:26px;height:26px;border-radius:7px;background:rgba(255,51,51,.12);border:1px solid rgba(255,51,51,.3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-.chat-row.u{flex-direction:row-reverse;}
-.chat-row.u .av{background:var(--panel2);border-color:var(--line2);}
-.bubble{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-size:12.5px;color:#cdd2da;max-width:85%;}
-.chat-row.u .bubble{background:var(--accent);border-color:var(--accent);color:#fff;}
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:110;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1rem,4vw,2.5rem);
+  transition:background .35s var(--ease),border-color .35s var(--ease),backdrop-filter .35s;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(10,10,11,.78);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom-color:var(--line);
+}
+.nav-logo{
+  font-family:var(--font-display);font-weight:800;font-size:1.05rem;
+  letter-spacing:.02em;display:flex;align-items:center;gap:.55rem;
+}
+.nav-logo .dot{
+  width:10px;height:10px;border-radius:2px;background:var(--red);
+  box-shadow:0 0 10px var(--red-glow);display:inline-block;
+  animation:rec-blink 2.4s ease-in-out infinite;
+}
+@keyframes rec-blink{0%,100%{opacity:1}50%{opacity:.35}}
+.nav-links{display:none;align-items:center;gap:2rem;list-style:none}
+.nav-links a{
+  font-size:.85rem;font-weight:500;color:var(--muted);
+  letter-spacing:.04em;transition:color .2s;position:relative;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+  background:var(--red);transition:width .25s var(--ease);
+}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  font-family:var(--font-display);font-weight:600;font-size:.85rem;
+  padding:.55rem 1.15rem;border-radius:999px;
+  background:var(--red);color:#fff;
+  transition:transform .2s var(--ease),box-shadow .2s;
+  display:inline-block;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 22px var(--red-glow)}
+.nav-right{display:flex;align-items:center;gap:1rem}
 
-/* METHOD */
-.frame-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:36px;}
-@media(max-width:780px){.frame-grid{grid-template-columns:1fr;}}
-.frame-card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px 16px;}
-.frame-card .L{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--accent);line-height:1;}
-.frame-card .t{font-weight:700;font-size:14px;margin:6px 0 4px;}
-.frame-card .d{font-size:12px;color:var(--dim);line-height:1.5;}
+.burger{
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:40px;padding:8px;border-radius:8px;
+}
+.burger span{height:2px;width:100%;background:var(--text);border-radius:2px;transition:transform .3s var(--ease),opacity .2s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* ABOUT */
-.about{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:center;}
-@media(max-width:820px){.about{grid-template-columns:1fr;}}
-.about-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px;}
-.about-card .nm{font-size:20px;font-weight:800;}
-.about-card .rl{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:16px;}
-.about-stats{display:flex;gap:24px;margin-top:18px;}
-.about-stats .n{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
-.about-stats .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:4px;}
-.about p{color:var(--dim);font-size:15px;margin-top:14px;}
-.about p b{color:var(--text);}
+.mobile-menu{
+  position:fixed;inset:0;z-index:105;
+  background:rgba(10,10,11,.96);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;
+  opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s;
+}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,7vw,2.2rem);
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--red)}
 
-/* FAQ */
-.faq{max-width:720px;margin:0 auto;}
-.faq-item{border-bottom:1px solid var(--line);padding:20px 0;}
-.faq-q{font-weight:700;font-size:16px;margin-bottom:8px;}
-.faq-a{font-size:14px;color:var(--dim);}
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--font-display);font-weight:600;
+  padding:.95rem 1.9rem;border-radius:999px;font-size:1rem;
+  transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s;
+  will-change:transform;
+}
+.btn-primary{
+  background:var(--red);color:#fff;
+  box-shadow:0 4px 24px rgba(255,51,51,.25);
+}
+.btn-primary:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 10px 34px var(--red-glow)}
+.btn-primary:active{transform:translateY(0) scale(.99)}
+.btn-ghost{
+  border:1px solid var(--line);color:var(--text);
+  background:rgba(255,255,255,.03);
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.btn .arrow{transition:transform .25s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
 
-/* FINAL CTA */
-.final{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:56px 28px;position:relative;overflow:hidden;}
-.final::before{content:"";position:absolute;left:50%;top:40%;width:560px;height:360px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(255,51,51,.16),transparent 65%);filter:blur(30px);}
-.final-inner{position:relative;z-index:1;}
-.final h2{font-size:clamp(26px,5vw,44px);font-weight:900;letter-spacing:-.03em;line-height:1.05;}
-.final p{color:var(--dim);max-width:480px;margin:14px auto 28px;}
+/* ---------- Media placeholder slots ---------- */
+.media-slot{
+  position:relative;overflow:hidden;border-radius:var(--radius);
+  background:
+    radial-gradient(120% 90% at 20% 10%,rgba(255,51,51,.10),transparent 55%),
+    linear-gradient(160deg,#17171c 0%,#0d0d10 70%);
+  border:1px solid var(--line);
+}
+.media-slot::after{
+  content:attr(data-label);
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:1.5rem;
+  font-family:var(--font-display);font-weight:600;font-size:.8rem;
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);
+  z-index:0;
+}
+.media-slot > img,.media-slot > video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+}
 
-/* FOOTER */
-.footer{border-top:1px solid var(--line);padding:34px 22px;margin-top:60px;}
-.footer-inner{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;}
-.footer .logo{font-size:14px;}
-.footer-links{display:flex;gap:22px;font-size:13px;color:var(--dim);}
-.footer-links a:hover{color:var(--text);}
-.footer .cr{font-size:12px;color:var(--muted);width:100%;}
+/* ---------- Sections ---------- */
+section{position:relative}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.section-pad{padding:clamp(4.5rem,10vw,8rem) 0}
+
+.eyebrow{
+  font-family:var(--font-display);font-weight:600;font-size:.78rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--red);
+  display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem;
+}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--red);flex:none}
+h1,h2,h3{font-family:var(--font-display);line-height:1.08;letter-spacing:-.015em}
+h2{font-size:clamp(2rem,5.4vw,3.4rem);font-weight:800}
+.lede{color:var(--muted);font-size:clamp(1rem,2.2vw,1.15rem);max-width:56ch;margin-top:1.15rem}
+
+/* ---------- Reveal animations ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.1s}
+[data-delay="2"]{transition-delay:.2s}
+[data-delay="3"]{transition-delay:.3s}
+[data-delay="4"]{transition-delay:.4s}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;
+}
+.hero-media{
+  position:absolute;inset:-12% 0;z-index:-2;border-radius:0;border:0;
+  will-change:transform;
+}
+.hero-media::after{font-size:.9rem;color:rgba(255,255,255,.18)}
+.hero-scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(to bottom,rgba(10,10,11,.55) 0%,rgba(10,10,11,.25) 40%,rgba(10,10,11,.92) 88%,var(--bg) 100%),
+    radial-gradient(90% 60% at 50% 45%,transparent 30%,rgba(10,10,11,.55) 100%);
+}
+.hero-inner{
+  padding-top:calc(var(--nav-h) + 2rem);
+  padding-bottom:5rem;
+}
+.hero h1{
+  font-size:clamp(2.6rem,8vw,5.4rem);font-weight:800;max-width:14ch;
+}
+.hero h1 em{font-style:normal;color:var(--red);text-shadow:0 0 30px rgba(255,51,51,.35)}
+.hero-sub{
+  color:var(--muted);font-size:clamp(1.02rem,2.4vw,1.25rem);
+  max-width:46ch;margin-top:1.4rem;
+}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.2rem}
+.hero-stat{
+  display:flex;align-items:baseline;gap:.7rem;margin-top:3rem;
+  font-family:var(--font-display);
+}
+.hero-stat .num{
+  font-size:clamp(2rem,5vw,2.8rem);font-weight:800;color:#fff;
+  font-variant-numeric:tabular-nums;
+}
+.hero-stat .num b{color:var(--red);font-weight:800}
+.hero-stat .label{color:var(--muted);font-size:.9rem;font-family:var(--font-body);max-width:22ch;line-height:1.35}
+.scroll-cue{
+  position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);
+  color:var(--muted);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:.55rem;
+}
+.scroll-cue::after{
+  content:"";width:1px;height:34px;
+  background:linear-gradient(to bottom,var(--red),transparent);
+  animation:cue 1.8s var(--ease) infinite;
+}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- ABOUT ---------- */
+.about-grid{
+  display:grid;gap:2.5rem;align-items:center;
+  grid-template-columns:1fr;
+}
+.about-media{aspect-ratio:4/5;max-width:440px}
+.about-points{list-style:none;margin-top:1.8rem;display:grid;gap:1rem}
+.about-points li{
+  display:flex;gap:.9rem;color:var(--muted);font-size:.98rem;
+}
+.about-points li strong{color:var(--text);font-weight:600}
+.about-points .tick{
+  flex:none;width:22px;height:22px;border-radius:6px;margin-top:.15rem;
+  background:var(--red-soft);color:var(--red);
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;
+}
+
+/* ---------- OFFER ---------- */
+.offer{background:linear-gradient(to bottom,var(--bg),var(--bg-2) 30%,var(--bg))}
+.cards{
+  display:grid;gap:1.4rem;margin-top:3rem;
+  grid-template-columns:1fr;
+}
+.card{
+  position:relative;display:flex;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.8rem;overflow:hidden;
+  transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.16);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.card.featured{border-color:rgba(255,51,51,.45)}
+.card.featured:hover{box-shadow:0 20px 60px rgba(255,51,51,.15)}
+.card.featured::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(100% 60% at 50% 0%,rgba(255,51,51,.10),transparent 60%);
+}
+.badge{
+  position:absolute;top:1.1rem;right:1.1rem;
+  font-family:var(--font-display);font-size:.66rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  background:var(--red);color:#fff;padding:.32rem .7rem;border-radius:999px;
+}
+.card-media{aspect-ratio:16/9;margin:-.4rem -.4rem 1.2rem;border-radius:12px}
+.card h3{font-size:1.35rem;font-weight:700}
+.card .price{
+  font-family:var(--font-display);margin-top:.5rem;
+  font-size:1.9rem;font-weight:800;color:#fff;
+}
+.card .price small{font-size:.85rem;font-weight:500;color:var(--muted);margin-left:.35rem}
+.card .desc{color:var(--muted);font-size:.93rem;margin-top:.7rem}
+.card ul{list-style:none;margin:1.2rem 0 1.6rem;display:grid;gap:.55rem}
+.card ul li{
+  font-size:.9rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start;
+}
+.card ul li::before{content:"→";color:var(--red);font-weight:700;flex:none}
+.card .btn{margin-top:auto;justify-content:center}
+
+/* ---------- PROOF ---------- */
+.ig-grid{
+  display:grid;gap:1.2rem;margin-top:3rem;
+  grid-auto-flow:column;grid-auto-columns:82%;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:1rem;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:var(--red) transparent;
+}
+.ig-slot{
+  scroll-snap-align:center;position:relative;
+  min-height:480px;border-radius:var(--radius);
+  background:var(--surface);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.ig-slot::before{
+  content:attr(data-label);position:absolute;
+  font-family:var(--font-display);font-size:.75rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);
+  text-align:center;padding:0 1rem;
+}
+.ig-slot{aspect-ratio:4/5;min-height:0}
+.ig-post{
+  position:relative;display:block;width:100%;height:100%;
+  border-radius:var(--radius);overflow:hidden;z-index:1;
+}
+.ig-post img,.ig-post video{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.ig-post:hover img,.ig-post:hover video{transform:scale(1.04)}
+.ig-post .ig-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1rem;gap:.3rem;
+  background:linear-gradient(to top,rgba(10,10,11,.85) 0%,transparent 55%);
+  opacity:0;transition:opacity .3s;
+}
+.ig-post:hover .ig-overlay,.ig-post:focus-visible .ig-overlay{opacity:1}
+.ig-post .ig-caption{
+  font-size:.78rem;color:var(--text);line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.ig-post .ig-open{font-family:var(--font-display);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.ig-post .ig-type{
+  position:absolute;top:.8rem;right:.8rem;
+  background:rgba(10,10,11,.65);backdrop-filter:blur(6px);
+  border-radius:8px;padding:.25rem .5rem;
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;color:#fff;
+  font-family:var(--font-display);
+}
+
+.proof-stats{display:grid;gap:1.4rem;margin-top:3.5rem;grid-template-columns:1fr}
+.pstat{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.9rem 1.7rem;text-align:center;
+  transition:transform .3s var(--ease),border-color .3s;
+}
+.pstat:hover{transform:translateY(-4px);border-color:rgba(255,51,51,.35)}
+.pnum{
+  display:block;font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2.4rem,6vw,3.2rem);line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;
+}
+.pnum span{color:var(--red)}
+.plabel{display:block;margin-top:.6rem;font-size:.88rem;color:var(--muted)}
+
+/* ---------- COMMUNITY ---------- */
+.community-banner{
+  position:relative;border-radius:calc(var(--radius) + 6px);overflow:hidden;
+  padding:clamp(3rem,8vw,5.5rem) clamp(1.5rem,6vw,4rem);
+  border:1px solid var(--line);
+  min-height:380px;display:flex;flex-direction:column;justify-content:center;
+}
+.community-banner .media-slot{position:absolute;inset:0;border-radius:0;border:0;z-index:0}
+.community-banner .scrim{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(100deg,rgba(10,10,11,.92) 20%,rgba(10,10,11,.55) 65%,rgba(255,51,51,.12) 100%);
+}
+.community-banner .content{position:relative;z-index:2;max-width:520px}
+
+/* ---------- FINAL CTA ---------- */
+.final{
+  text-align:center;
+  background:
+    radial-gradient(60% 50% at 50% 100%,rgba(255,51,51,.13),transparent 70%),
+    var(--bg);
+}
+.final h2{font-size:clamp(2.2rem,6.5vw,4rem);max-width:18ch;margin:0 auto}
+.final .lede{margin-left:auto;margin-right:auto;text-align:center}
+.final .btn{margin-top:2.4rem}
+.final .micro{margin-top:1.1rem;font-size:.8rem;color:var(--muted)}
+
+/* ---------- FOOTER ---------- */
+footer.site{
+  border-top:1px solid var(--line);
+  padding:2.5rem 0 3rem;
+}
+.footer-row{
+  display:flex;flex-direction:column;gap:1.6rem;
+  align-items:flex-start;justify-content:space-between;
+}
+.socials{display:flex;gap:.9rem}
+.socials a{
+  width:42px;height:42px;border-radius:12px;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:color .2s,border-color .2s,transform .2s var(--ease),background .2s;
+}
+.socials a:hover{color:#fff;border-color:var(--red);background:var(--red-soft);transform:translateY(-3px)}
+.socials svg{width:18px;height:18px;fill:currentColor}
+.footer-meta{color:var(--muted);font-size:.8rem;line-height:1.8}
+.footer-meta a{color:var(--text);border-bottom:1px solid var(--line)}
+.footer-meta a:hover{color:var(--red);border-color:var(--red)}
+
+/* ---------- Desktop ---------- */
+@media (min-width:760px){
+  .nav-links{display:flex}
+  .burger{display:none}
+  .about-grid{grid-template-columns:minmax(0,420px) 1fr;gap:4rem}
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .card.featured{transform:scale(1.03)}
+  .card.featured:hover{transform:scale(1.03) translateY(-6px)}
+  .ig-grid{grid-auto-flow:row;grid-auto-columns:unset;grid-template-columns:repeat(3,1fr);overflow:visible}
+  .proof-stats{grid-template-columns:repeat(3,1fr)}
+  .footer-row{flex-direction:row;align-items:center}
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .hero-media{transform:none!important}
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="logo"><span class="dot"></span> HOW IT'S FILMED</a>
-    <div class="nav-links">
-      <a href="#offers">Join</a>
-      <a href="#app">HIF Pro</a>
-      <a href="#method">Method</a>
-      <a href="#about">About</a>
-    </div>
-    <a href="https://whop.com/howitsfilmed/the-film-crew/" target="_blank" rel="noopener" class="nav-cta">Join Free &rarr;</a>
-  </div>
-</nav>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF3333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:3px;flex-shrink:0;"><rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M3 9l3-4.5 3.5 2 3-2 3.5 2"/></svg><b>170K+</b>&nbsp;filmmakers follow How It's Filmed</div>
-    <h1>You don't need <span class="strike">better gear</span>.<br>You need a <span class="accent">community</span>.</h1>
-    <p>How It's Filmed is where creators stop guessing and start making video that doesn't look like everyone else's &mdash; with real tools, real feedback, and a system that actually works.</p>
-    <div class="hero-ctas">
-      <a href="https://whop.com/howitsfilmed/the-film-crew/" target="_blank" rel="noopener" class="btn btn-primary">Join The Film Crew &mdash; Free &rarr;</a>
-      <a href="#app" class="btn btn-ghost">Explore HIF Pro</a>
-    </div>
-    <div class="hero-proof">
-      <div><div class="n">170K+</div><div class="l">Followers</div></div>
-      <div><div class="n">16</div><div class="l">Pro Tools</div></div>
-      <div><div class="n">80+</div><div class="l">Templates</div></div>
-      <div><div class="n">5</div><div class="l">Free to Join</div></div>
-    </div>
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#top" aria-label="How It's Filmed — back to top">
+    <span class="dot" aria-hidden="true"></span>HOW IT'S FILMED
+  </a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#proof">Proof</a></li>
+      <li><a href="#community">Community</a></li>
+    </ul>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener">Get the Toolkit</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
-<!-- PROBLEM -->
-<section class="section problem">
-  <div class="wrap">
-    <div class="section-label">The Real Problem</div>
-    <p class="big">You've watched the tutorials and saved the gear lists &mdash; and your footage <span>still doesn't look the way you pictured it.</span></p>
-    <p>That's not a gear problem. It's a system problem &mdash; and it's fixable. How It's Filmed gives you the planning, the craft, and the workflow that separate work that looks like content from work that looks like film. Use what you already own. Plan the shoot. Execute with intention.</p>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="#about">About</a>
+  <a href="#toolkit">Toolkit</a>
+  <a href="#proof">Proof</a>
+  <a href="#community">Community</a>
+  <a href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener" style="color:var(--red)">Shop on Whop →</a>
+</div>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" aria-label="Intro">
+
+  <!-- ▓▓ MEDIA SLOT 1 — HERO BACKGROUND ▓▓
+       Spec: 16:9 landscape video (muted loop, ~10s, <8MB webm/mp4) or 1920×1080 still.
+       Art direction: moody film set at night — cinema camera silhouette in shallow
+       depth of field, single red practical light / red rim light cutting through haze.
+       Keep the center-left third dark so headline text stays readable.
+       To use: drop <video autoplay muted loop playsinline src="hero.mp4"></video>
+       or <img src="hero.jpg" alt=""> INSIDE the div below. -->
+  <div class="media-slot hero-media" id="heroMedia" data-label="Hero media slot — 16:9 · film set at night, red rim light">
+    <!-- AI-generated BTS film set loop (falls back to CDN if local file missing) -->
+    <video autoplay muted loop playsinline preload="metadata" src="media/HIF-Hero-BTS-Loop.mp4" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3Fx8SorP7usDCd5HhhqhixClIMs/hf_20260703_141223_f0de8b55-eb92-48eb-be12-b19fddf662ed.mp4" aria-hidden="true"></video>
   </div>
-</section>
+  <div class="hero-scrim" aria-hidden="true"></div>
 
-<!-- OFFERS -->
-<section class="section" id="offers">
-  <div class="wrap">
-    <div class="center">
-      <div class="section-label">Ways In</div>
-      <h2>START FREE.<br>GO AS DEEP AS YOU WANT.</h2>
-      <p class="sub">From a free seat in the community to the full Pro toolkit and 1-on-1 coaching &mdash; pick where you're at.</p>
+  <div class="wrap hero-inner">
+    <p class="eyebrow reveal">Filmmaking education · community · toolkit</p>
+    <h1 class="reveal" data-delay="1">Make videos that <em>don't</em> look like everyone else's.</h1>
+    <p class="hero-sub reveal" data-delay="2">Shot breakdowns, tools and a crew of filmmakers who obsess over how great footage actually gets made — so yours stops blending in.</p>
+    <div class="hero-ctas reveal" data-delay="3">
+      <a class="btn btn-primary" href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener">Get the Toolkit <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="#community">Join the free community</a>
     </div>
-
-    <div class="offers">
-      <!-- Film Crew -->
-      <div class="offer free">
-        <span class="badge greenb">Start here</span>
-        <div class="offer-name">The Film Crew</div>
-        <div class="offer-price"><span class="amt free">FREE</span></div>
-        <div class="offer-desc">The free community from How It's Filmed. Your front door.</div>
-        <ul>
-          <li>A real community of filmmakers at every level</li>
-          <li>5 free production templates the moment you join</li>
-          <li>Free starter tools to use on your next shoot</li>
-          <li>Post your work and get feedback</li>
-        </ul>
-        <a href="https://whop.com/howitsfilmed/the-film-crew/" target="_blank" rel="noopener" class="btn btn-primary">Join Free &rarr;</a>
-      </div>
-
-      <!-- The Filmmakers Toolkit -->
-      <div class="offer feature">
-        <span class="badge">Most popular</span>
-        <div class="offer-name">The Filmmakers Toolkit</div>
-        <div class="offer-price"><span class="amt">$49</span><span class="per">one-time</span></div>
-        <div class="offer-desc">Three complete systems that run a shoot from first call to final delivery.</div>
-        <ul>
-          <li><b>Production Starter Kit</b> &mdash; checklists, shot library, gear system</li>
-          <li><b>Interview System</b> &mdash; lighting, audio, and a full question framework</li>
-          <li><b>Client Workflow Pack</b> &mdash; onboarding, briefs, revisions, message templates</li>
-          <li>Lifetime access, yours to keep</li>
-        </ul>
-        <a href="https://whop.com/howitsfilmed/filmmaking-templates/" target="_blank" rel="noopener" class="btn btn-primary">Get the Bundle &rarr;</a>
-      </div>
-
-      <!-- HIF Pro -->
-      <div class="offer">
-        <span class="badge">Membership</span>
-        <div class="offer-name">HIF Pro</div>
-        <div class="offer-price"><span class="amt">Monthly</span><span class="per">subscription</span></div>
-        <div class="offer-desc">Full access to the How It's Filmed app &mdash; the whole toolkit in one place.</div>
-        <ul>
-          <li>All 16 interactive production tools</li>
-          <li>80+ premium templates</li>
-          <li>The HIF Assistant &mdash; answers + routes you to the right tool</li>
-          <li>New tools &amp; templates added regularly</li>
-        </ul>
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn btn-primary">Go Pro &rarr;</a>
-      </div>
-
-      <!-- Coaching -->
-      <div class="offer">
-        <span class="badge soon">Coming soon</span>
-        <div class="offer-name">1-on-1 Coaching</div>
-        <div class="offer-price"><span class="amt">10 Slots</span><span class="per">limited</span></div>
-        <div class="offer-desc">Work directly with Brian to build your creator business faster.</div>
-        <ul>
-          <li>Async coaching via Loom + chat</li>
-          <li>Live strategy calls</li>
-          <li>Direct feedback on your work</li>
-          <li>Accountability that keeps you shipping</li>
-        </ul>
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn btn-ghost">Join the Waitlist</a>
-      </div>
-
-      <!-- Course -->
-      <div class="offer span2">
-        <span class="badge soon">In the works</span>
-        <div class="offer-name">The Creator Filmmaking Course</div>
-        <div class="offer-desc" style="margin-top:8px;">A complete, step-by-step course built for creators &mdash; how to plan, shoot, and post cinematic video that actually grows. Currently in development with the community.</div>
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn btn-ghost" style="align-self:flex-start;width:auto;">Get notified &rarr;</a>
-      </div>
+    <div class="hero-stat reveal" data-delay="4">
+      <span class="num"><span data-count-to="175">0</span><b>K+</b></span>
+      <span class="label">filmmakers follow How It's Filmed on Instagram</span>
     </div>
   </div>
+
+  <div class="scroll-cue" aria-hidden="true">Scroll</div>
 </section>
 
-<!-- APP SHOWCASE -->
-<section class="section" id="app" style="background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-  <div class="wrap app-show">
+<!-- ================= ABOUT ================= -->
+<section class="section-pad" id="about" aria-label="What is How It's Filmed">
+  <div class="wrap about-grid">
+
+    <!-- ▓▓ MEDIA SLOT 2 — ABOUT PORTRAIT ▓▓
+         Spec: 4:5 portrait, 1080×1350.
+         Art direction: behind-the-scenes — filmmaker (Brian) operating a cinema
+         camera on a gimbal or shoulder rig, warm tungsten key + red accent light,
+         cinematic grade, shallow DOF. Should feel like a paused frame from a doc. -->
+    <div class="media-slot about-media reveal" data-label="About media — 4:5 · BTS filmmaker operating camera">
+      <!-- AI-generated placeholder. Consider swapping for a REAL photo of you on set —
+           this is the trust section, and people buy from people. -->
+      <img src="media/HIF-About-BTS-Portrait.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3Fx8SorP7usDCd5HhhqhixClIMs/hf_20260705_151952_83d97b27-fd6b-4acc-85ac-5e9090745b30.png" alt="Filmmaker operating a cinema camera on a gimbal on a dark film set, rimmed by red light" loading="lazy">
+    </div>
+
     <div>
-      <div class="section-label">HIF Pro &middot; The App</div>
-      <h2>YOUR WHOLE PRODUCTION,<br>IN ONE PLACE.</h2>
-      <p class="sub">Open the How It's Filmed app and just ask. The assistant points you to the right tool, answers your filmmaking questions, and the full toolkit is one tap away.</p>
-      <ul class="app-feats">
-        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></span><div><div class="ft">The HIF Assistant</div><div class="fd">Ask anything &mdash; lighting, audio, pricing &mdash; and get routed to the right tool.</div></div></li>
-        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8 6.2 21l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.8 2.8-2.2-2.2 2.8-2.6z"/></svg></span><div><div class="ft">16 interactive tools</div><div class="fd">Shot lists, call sheets, budgets, scene breakdowns, invoices, and more.</div></div></li>
-        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span><div><div class="ft">80+ templates</div><div class="fd">Every phase: pre-production, on-set, post, business, and social.</div></div></li>
+      <p class="eyebrow reveal">What is How It's Filmed</p>
+      <h2 class="reveal" data-delay="1">Film school skips the part you actually need.</h2>
+      <p class="lede reveal" data-delay="2">How It's Filmed reverse-engineers the shots you stop scrolling for — the lighting, the movement, the edit — and turns them into things you can use on your next shoot. No theory dumps. No gear worship. Just how it's actually filmed.</p>
+      <ul class="about-points">
+        <li class="reveal" data-delay="1"><span class="tick">✓</span><span><strong>Breakdowns, not lectures.</strong> See exactly how a shot was lit, rigged and moved — then steal it.</span></li>
+        <li class="reveal" data-delay="2"><span class="tick">✓</span><span><strong>Tools that ship with you.</strong> Templates, references and workflows built for working shooters.</span></li>
+        <li class="reveal" data-delay="3"><span class="tick">✓</span><span><strong>A real crew.</strong> 175K+ filmmakers comparing notes, not competing for clout.</span></li>
       </ul>
-      <div class="hero-ctas" style="justify-content:flex-start;margin-top:28px;">
-        <a href="/app/" class="btn btn-primary">Open the App &rarr;</a>
-        <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener" class="btn btn-ghost">Get HIF Pro</a>
-      </div>
-    </div>
-    <div class="app-mock" aria-hidden="true">
-      <div class="bar"><i></i><i></i><i></i></div>
-      <div class="chat-row"><div class="av"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF3333" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M3 9l3-4.5 3.5 2 3-2 3.5 2"/></svg></div><div class="bubble">Hey &mdash; tell me what you're working on and I'll point you to the right tool.</div></div>
-      <div class="chat-row u"><div class="av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#cdd2da" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg></div><div class="bubble">filming an interview tomorrow</div></div>
-      <div class="chat-row"><div class="av"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF3333" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M3 9l3-4.5 3.5 2 3-2 3.5 2"/></svg></div><div class="bubble">Start with three-point lighting and run both a lav and a boom. Here's the Interview System + Shot List Generator &rarr;</div></div>
     </div>
   </div>
 </section>
 
-<!-- METHOD -->
-<section class="section" id="method">
-  <div class="wrap center">
-    <div class="section-label">The HIF Method</div>
-    <h2>FIVE STEPS. ONE SYSTEM.</h2>
-    <p class="sub">How It's Filmed is built around a sequence, not a list of tips. The FRAME method is the framework behind everything we teach and build.</p>
-    <div class="frame-grid" style="text-align:left;">
-      <div class="frame-card"><div class="L">F</div><div class="t">Find Your Story</div><div class="d">Every shot needs a reason to exist. Start with the story, not the camera.</div></div>
-      <div class="frame-card"><div class="L">R</div><div class="t">Right Gear Mindset</div><div class="d">The camera doesn't make the filmmaker. Use what you already own.</div></div>
-      <div class="frame-card"><div class="L">A</div><div class="t">Audio First</div><div class="d">Bad audio kills good video. Capture clean sound every time.</div></div>
-      <div class="frame-card"><div class="L">M</div><div class="t">Movement with Purpose</div><div class="d">Intentional motion communicates. Random movement distracts.</div></div>
-      <div class="frame-card"><div class="L">E</div><div class="t">Edit with Intention</div><div class="d">The edit is where the film is made. Cut with confidence and finish.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="section" id="about" style="background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-  <div class="wrap about">
-    <div class="about-card">
-      <div class="nm">Brian Whitesel</div>
-      <div class="rl">Founder, How It's Filmed</div>
-      <p style="margin-top:0;">Spent five years running a content operation at scale &mdash; behind the camera and behind the strategy &mdash; and documented every system along the way.</p>
-      <div class="about-stats">
-        <div><div class="n">200K+</div><div class="l">Channel built</div></div>
-        <div><div class="n">170K</div><div class="l">HIF followers</div></div>
-        <div><div class="n">5 yrs</div><div class="l">At scale</div></div>
-      </div>
-    </div>
-    <div>
-      <div class="section-label">Who Built This</div>
-      <h2>BUILT BY SOMEONE<br>WHO'S DONE IT.</h2>
-      <p>How It's Filmed isn't a course designed by committee. It's the toolkit and the system from a creator who actually ran a multi-platform content operation &mdash; <b>thousands of posts, a 200K+ subscriber channel, and a real run-and-gun filmmaking style built for speed.</b></p>
-      <p>The promise is simple: learn to <b>film like a pro and post like one too</b>. That intersection &mdash; genuine craft plus real social-media operations &mdash; is what almost no one else teaches. It's what HIF is built to.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section">
+<!-- ================= OFFER ================= -->
+<section class="offer section-pad" id="toolkit" aria-label="Products">
   <div class="wrap">
-    <div class="center"><div class="section-label">FAQ</div><h2>COMMON QUESTIONS.</h2></div>
-    <div class="faq" style="margin-top:36px;">
-      <div class="faq-item"><div class="faq-q">Is The Film Crew really free?</div><div class="faq-a">Yes. Joining the community is free, and you get 5 production templates plus free starter tools the moment you're in. No card required.</div></div>
-      <div class="faq-item"><div class="faq-q">What's the difference between the $49 bundle and HIF Pro?</div><div class="faq-a">The Filmmakers Toolkit is a one-time purchase of three complete systems you keep forever. HIF Pro is a monthly membership that unlocks the full app &mdash; all 16 tools, 80+ templates, and the HIF Assistant &mdash; with new drops added over time.</div></div>
-      <div class="faq-item"><div class="faq-q">Do I need an expensive camera to get value from this?</div><div class="faq-a">No. The whole point is that the gap between amateur and cinematic footage is a system, not a price tag. Everything here works with the gear you already own.</div></div>
-      <div class="faq-item"><div class="faq-q">When does coaching and the course open?</div><div class="faq-a">Both are in the works. 1-on-1 coaching will open with just 10 slots, and the creator course is being built alongside the community. Join The Film Crew to hear first.</div></div>
+    <p class="eyebrow reveal">The offer</p>
+    <h2 class="reveal" data-delay="1">Pick your lane. Start filming better this week.</h2>
+    <p class="lede reveal" data-delay="2">Everything lives on Whop — one account, instant access.</p>
+
+    <div class="cards">
+
+      <!-- Card 1: Toolkit (featured) -->
+      <article class="card featured reveal" data-delay="1">
+        <span class="badge">Most popular</span>
+        <!-- ▓▓ MEDIA SLOT 3 — TOOLKIT CARD THUMB ▓▓
+             Spec: 16:9, 1280×720.
+             Art direction: flat-lay / mockup of the Toolkit — laptop + phone showing
+             templates and shot-reference cards on a dark desk, red desk-light accent. -->
+        <div class="media-slot card-media" data-label="Toolkit thumb — 16:9 · product mockup on dark desk">
+          <video autoplay muted loop playsinline preload="metadata" src="media/HIF-Toolkit-Walkthrough-v2.mp4" aria-label="Preview of The Filmmaker's Toolkit"></video>
+        </div>
+        <h3>The Filmmaker's Toolkit</h3>
+        <p class="price">$49 <small>one-time · lifetime access</small></p>
+        <p class="desc">The complete HIF system: every template, reference and resource — yours forever, including future updates.</p>
+        <ul>
+          <li>Shot-breakdown library &amp; references</li>
+          <li>Templates, checklists &amp; workflows</li>
+          <li>Lifetime updates — pay once</li>
+        </ul>
+        <a class="btn btn-primary" href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener">Get lifetime access <span class="arrow">→</span></a>
+      </article>
+
+      <!-- Card 2: HIF Pro -->
+      <article class="card reveal" data-delay="2">
+        <!-- ▓▓ MEDIA SLOT 4 — HIF PRO CARD THUMB ▓▓
+             Spec: 16:9, 1280×720.
+             Art direction: phone-in-hand UI mockup of the HIF Pro app, dark UI with
+             red accents, blurred film set in the background. -->
+        <div class="media-slot card-media" data-label="HIF Pro thumb — 16:9 · app UI on phone, set in bg">
+          <video autoplay muted loop playsinline preload="metadata" src="media/HIF-Pro-App-Demo.mp4" aria-label="Demo of the HIF Pro app"></video>
+        </div>
+        <h3>HIF Pro</h3>
+        <p class="price">$39<small>/month</small></p>
+        <p class="desc">The app for filmmakers who want new breakdowns, tools and feedback on tap — updated constantly.</p>
+        <ul>
+          <li>Fresh breakdowns &amp; tools monthly</li>
+          <li>Member-only content &amp; drops</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener">Start HIF Pro <span class="arrow">→</span></a>
+        <a href="/app/" style="margin-top:.8rem;text-align:center;font-size:.8rem;color:var(--muted);text-decoration:underline">Already a member? Open the app →</a>
+      </article>
+
+      <!-- Card 3: Free community -->
+      <article class="card reveal" data-delay="3">
+        <!-- ▓▓ MEDIA SLOT 5 — COMMUNITY CARD THUMB ▓▓
+             Spec: 16:9, 1280×720.
+             Art direction: small film crew on set reviewing a monitor together,
+             laughing / collaborative energy, warm practicals + red accent. -->
+        <div class="media-slot card-media" data-label="Community thumb — 16:9 · crew around a monitor">
+          <video autoplay muted loop playsinline preload="metadata" src="media/HIF-FilmCrew-Welcome.mp4" aria-label="Welcome to The Film Crew community"></video>
+        </div>
+        <h3>The Film Crew</h3>
+        <p class="price">Free<small>forever</small></p>
+        <p class="desc">The HIF community. Ask questions, share work, get feedback from people who actually shoot.</p>
+        <ul>
+          <li>Open discussion &amp; feedback</li>
+          <li>Community challenges</li>
+          <li>First look at new HIF drops</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://whop.com/howitsfilmed/the-film-crew/?a=whitesel" target="_blank" rel="noopener">Join free <span class="arrow">→</span></a>
+      </article>
+
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="section"><div class="wrap">
-  <div class="final"><div class="final-inner">
-    <h2>STOP GUESSING.<br>START MAKING.</h2>
-    <p>Join The Film Crew free, grab the tools, and make something worth posting.</p>
-    <a href="https://whop.com/howitsfilmed/the-film-crew/" target="_blank" rel="noopener" class="btn btn-primary">Join The Film Crew &mdash; Free &rarr;</a>
-  </div></div>
-</div></section>
+<!-- ================= PROOF ================= -->
+<section class="section-pad" id="proof" aria-label="Recent work and testimonials">
+  <div class="wrap">
+    <p class="eyebrow reveal">Proof</p>
+    <h2 class="reveal" data-delay="1">You've probably already seen the work.</h2>
+    <p class="lede reveal" data-delay="2">Recent breakdowns from the feed. Swipe through — this is what 175K+ people show up for.</p>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <a href="/" class="logo"><span class="dot"></span> HOW IT'S FILMED</a>
-    <div class="footer-links">
-      <a href="#offers">Join</a>
-      <a href="#app">HIF Pro</a>
-      <a href="/app/">The App</a>
-      <a href="https://whop.com/howitsfilmed" target="_blank" rel="noopener">Whop</a>
-      <a href="https://instagram.com/howitsfilmed" target="_blank" rel="noopener">Instagram</a>
+    <!-- ============================================================
+         AUTO-UPDATING INSTAGRAM FEED (via Behold.so JSON feed)
+         Setup (5 min, free):
+           1. Go to https://behold.so → sign up → connect the
+              @how.its.filmed Instagram account as a source.
+           2. Create a feed → choose "JSON" as the output type.
+           3. Copy the feed URL and paste it into BEHOLD_FEED_URL
+              in the script at the bottom of this file.
+         Free plan = latest 6 posts, refreshed daily, no token exposed.
+         Until a URL is set, the 6 labeled placeholder slots show instead.
+         ============================================================ -->
+    <div class="ig-grid reveal" data-delay="2" id="igGrid" aria-label="Latest Instagram posts">
+      <div class="ig-slot" data-label="Latest IG post 1 — auto-fills once Behold feed URL is set"></div>
+      <div class="ig-slot" data-label="Latest IG post 2 — auto-fills once Behold feed URL is set"></div>
+      <div class="ig-slot" data-label="Latest IG post 3 — auto-fills once Behold feed URL is set"></div>
+      <div class="ig-slot" data-label="Latest IG post 4 — auto-fills once Behold feed URL is set"></div>
+      <div class="ig-slot" data-label="Latest IG post 5 — auto-fills once Behold feed URL is set"></div>
+      <div class="ig-slot" data-label="Latest IG post 6 — auto-fills once Behold feed URL is set"></div>
     </div>
-    <div class="cr">&copy; <span id="yr"></span> How It's Filmed. Film like a pro. Post like one too.</div>
+
+    <!-- Real numbers — honest proof, no invented quotes.
+         Want quotes here later? Swap in real member/comment quotes with permission. -->
+    <div class="proof-stats">
+      <div class="pstat reveal" data-delay="1">
+        <span class="pnum"><span data-count-to="175">0</span>K+</span>
+        <span class="plabel">filmmakers follow the breakdowns</span>
+      </div>
+      <div class="pstat reveal" data-delay="2">
+        <span class="pnum"><span data-count-to="87">0</span></span>
+        <span class="plabel">templates inside the Toolkit</span>
+      </div>
+      <div class="pstat reveal" data-delay="3">
+        <span class="pnum"><span data-count-to="16">0</span></span>
+        <span class="plabel">free tools built for working shooters</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMMUNITY ================= -->
+<section class="section-pad" id="community" aria-label="Join the community">
+  <div class="wrap">
+    <div class="community-banner reveal">
+
+      <!-- ▓▓ MEDIA SLOT 6 — COMMUNITY BANNER BACKGROUND ▓▓
+           Spec: 21:9 ultrawide, 2100×900 (image; or muted loop video).
+           Art direction: wide anamorphic-feel shot of a film crew at golden hour /
+           dusk, silhouettes with rigs and lights, red LED accents. Left half stays
+           dark for text overlay. -->
+      <div class="media-slot" data-label="Community banner — 21:9 · film crew silhouettes at dusk">
+        <!-- AI-generated crew-at-dusk loop (falls back to CDN if local file missing) -->
+        <video autoplay muted loop playsinline preload="metadata" src="media/HIF-Community-Crew-Loop.mp4" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3Fx8SorP7usDCd5HhhqhixClIMs/hf_20260703_141009_0ea75587-4cf6-4000-854b-554152f2ece4.mp4" aria-hidden="true"></video>
+      </div>
+      <div class="scrim" aria-hidden="true"></div>
+
+      <div class="content">
+        <p class="eyebrow">The Film Crew</p>
+        <h2>Filmmaking is a team sport. Get a crew.</h2>
+        <p class="lede">Join The Film Crew free — feedback on your work, breakdowns discussed shot by shot, and first access to everything HIF drops next.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://whop.com/howitsfilmed/the-film-crew/?a=whitesel" target="_blank" rel="noopener">Join free on Whop <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final section-pad" id="join" aria-label="Get started">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="justify-content:center">Ready when you are</p>
+    <h2 class="reveal" data-delay="1">Your next video is the one people remember.</h2>
+    <p class="lede reveal" data-delay="2">One toolkit. Lifetime access. Every breakdown, template and reference HIF has ever made.</p>
+    <a class="btn btn-primary reveal" data-delay="3" href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener">Get The Filmmaker's Toolkit — $49 <span class="arrow">→</span></a>
+    <p class="micro reveal" data-delay="4">Instant access on Whop · lifetime updates included</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site">
+  <div class="wrap footer-row">
+    <div>
+      <a class="nav-logo" href="#top"><span class="dot" aria-hidden="true"></span>HOW IT'S FILMED</a>
+      <p class="footer-meta" style="margin-top:.8rem">Founded by Brian Whitesel.<br>© <span id="year"></span> How It's Filmed. All rights reserved.</p>
+    </div>
+    <div class="socials" aria-label="Social links">
+      <a href="https://www.instagram.com/howitsfilmed" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.8.1-1.1.1-1.5.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.2-.2.6-.3 1.7-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c.1 1.1.2 1.5.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.2.1.6.2 1.7.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1.1-.1 1.5-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.6.7-1 .1-.2.2-.6.3-1.7.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c-.1-1.1-.2-1.5-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.2-.1-.6-.2-1.7-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2zm5.1-2.2a1.1 1.1 0 1 1 0 2.3 1.1 1.1 0 0 1 0-2.3z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@how.its.filmed" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h3c.1 1 .5 2 1.2 2.9.8 1 1.9 1.6 3.2 1.8v3.1c-1.6 0-3.1-.5-4.4-1.4v6.7c0 1.4-.3 2.7-1 3.8a6.9 6.9 0 0 1-6 3.6 7 7 0 0 1-3.9-1.2 7 7 0 0 1-3-5.7c0-2 .8-3.8 2.2-5.1a6.9 6.9 0 0 1 5.6-1.9v3.2a3.6 3.6 0 0 0-2.9.4 3.7 3.7 0 0 0-1.7 3.3 3.7 3.7 0 0 0 2 3.1c.5.3 1.1.4 1.7.4a3.7 3.7 0 0 0 3.7-3.6L16.6 2z" transform="scale(0.9) translate(0.5,0.5)"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@howitsfilmed" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 7.2a3 3 0 0 0-2.1-2.2C19.5 4.5 12 4.5 12 4.5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.2 31.6 31.6 0 0 0 0 12c0 1.6.2 3.2.5 4.8a3 3 0 0 0 2.1 2.2c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.2c.3-1.6.5-3.2.5-4.8s-.2-3.2-.5-4.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+      </a>
+      <a href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener" aria-label="Whop store">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h3.2l2.3 8.1L11 6h2l2.5 8.1L17.8 6H21l-3.9 12h-2.4l-2.7-8.6L9.3 18H6.9L3 6z"/></svg>
+      </a>
+    </div>
+    <p class="footer-meta">Made for filmmakers who look closer.<br><a href="https://whop.com/howitsfilmed?a=whitesel" target="_blank" rel="noopener">Everything lives on Whop →</a></p>
   </div>
 </footer>
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Respect reduced motion for autoplay video ---------- */
+  if(reduceMotion){
+    document.querySelectorAll("video[autoplay]").forEach(function(v){
+      v.removeAttribute("autoplay"); v.pause(); v.setAttribute("controls","");
+    });
+  }
+
+  /* ---------- Media CDN fallback (local file missing → load from CDN) ---------- */
+  document.querySelectorAll("[data-cdn]").forEach(function(el){
+    function swap(){
+      if(!el.dataset.cdn) return;
+      el.src = el.dataset.cdn;
+      el.removeAttribute("data-cdn");
+      if(el.tagName === "VIDEO"){ el.load(); el.play && el.play().catch(function(){}); }
+    }
+    el.addEventListener("error", swap, {once:true});
+    /* handle errors that fired before this script ran */
+    if(el.tagName === "VIDEO" && el.error) swap();
+    if(el.tagName === "IMG" && el.complete && el.naturalWidth === 0) swap();
+  });
+
+  /* ---------- Footer year ---------- */
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------- Scroll progress + nav state + hero parallax ---------- */
+  var bar = document.getElementById("progressBar");
+  var nav = document.getElementById("nav");
+  var heroMedia = document.getElementById("heroMedia");
+  var ticking = false;
+
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (y/max)*100 : 0) + "%";
+      nav.classList.toggle("scrolled", y > 40);
+      if(!reduceMotion && y < window.innerHeight * 1.2){
+        heroMedia.style.transform = "translateY(" + (y * 0.35) + "px) scale(1.05)";
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  /* ---------- Mobile menu ---------- */
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("mobileMenu");
+  function setMenu(open){
+    burger.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menu.classList.toggle("open", open);
+    menu.setAttribute("aria-hidden", !open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  burger.addEventListener("click", function(){
+    setMenu(burger.getAttribute("aria-expanded") !== "true");
+  });
+  menu.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){ setMenu(false); });
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") setMenu(false);
+  });
+
+  /* ---------- Scroll reveals ---------- */
+  var reveals = document.querySelectorAll(".reveal");
+  if(reduceMotion || !("IntersectionObserver" in window)){
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:"0px 0px -40px 0px"});
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- Auto-updating Instagram feed (Behold.so JSON) ----------
+     Paste your Behold JSON feed URL between the quotes below.
+     Get it at https://behold.so → connect Instagram → new feed → JSON. */
+  var BEHOLD_FEED_URL = "https://feeds.behold.so/OHR8WTyklAxoVxamjDQS";
+
+  if(BEHOLD_FEED_URL){
+    fetch(BEHOLD_FEED_URL)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var posts = Array.isArray(data) ? data : (data.posts || []);
+        if(!posts.length) return;
+        var grid = document.getElementById("igGrid");
+        var slots = grid.querySelectorAll(".ig-slot");
+        posts.slice(0, slots.length).forEach(function(post, i){
+          var slot = slots[i];
+          var media = (post.sizes && post.sizes.medium && post.sizes.medium.mediaUrl) ||
+                      post.thumbnailUrl || post.mediaUrl;
+          if(!media) return;
+          var cap = (post.prunedCaption || post.caption || "").slice(0, 160);
+          var type = post.mediaType === "VIDEO" ? "REEL" :
+                     post.mediaType === "CAROUSEL_ALBUM" ? "CAROUSEL" : "";
+          var a = document.createElement("a");
+          a.className = "ig-post";
+          a.href = post.permalink;
+          a.target = "_blank"; a.rel = "noopener";
+          a.setAttribute("aria-label", "Open Instagram post" + (cap ? ": " + cap : ""));
+          a.innerHTML =
+            '<img src="' + media + '" alt="" loading="lazy">' +
+            (type ? '<span class="ig-type">' + type + '</span>' : '') +
+            '<span class="ig-overlay"><span class="ig-caption"></span>' +
+            '<span class="ig-open">View on Instagram →</span></span>';
+          a.querySelector(".ig-caption").textContent = cap;
+          slot.innerHTML = "";
+          slot.appendChild(a);
+        });
+      })
+      .catch(function(){ /* leave placeholder slots on error */ });
+  }
+
+  /* ---------- Animated counters ---------- */
+  var counters = document.querySelectorAll("[data-count-to]");
+  function runCounter(el){
+    var target = parseInt(el.dataset.countTo, 10);
+    if(reduceMotion){ el.textContent = target; return; }
+    var start = null, dur = 1600;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3); /* easeOutCubic */
+      el.textContent = Math.round(eased * target);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if("IntersectionObserver" in window && !reduceMotion){
+    counters.forEach(function(el){
+      var cio = new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){ runCounter(el); cio.disconnect(); }
+      }, {threshold:0.4});
+      cio.observe(el);
+    });
+  } else {
+    counters.forEach(runCounter);
+  }
+})();
+</script>
 </body>
 </html>
