@@ -370,20 +370,7 @@ h2{font-size:clamp(2rem,5.4vw,3.4rem);font-weight:800}
   font-family:var(--font-display);
 }
 
-.proof-stats{display:grid;gap:1.4rem;margin-top:3.5rem;grid-template-columns:1fr}
-.pstat{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:1.9rem 1.7rem;text-align:center;
-  transition:transform .3s var(--ease),border-color .3s;
-}
-.pstat:hover{transform:translateY(-4px);border-color:rgba(255,51,51,.35)}
-.pnum{
-  display:block;font-family:var(--font-display);font-weight:800;
-  font-size:clamp(2.4rem,6vw,3.2rem);line-height:1;color:#fff;
-  font-variant-numeric:tabular-nums;
-}
-.pnum span{color:var(--red)}
-.plabel{display:block;margin-top:.6rem;font-size:.88rem;color:var(--muted)}
+/* (proof stats styles removed with the section) */
 
 /* ---------- COMMUNITY ---------- */
 .community-banner{
@@ -441,7 +428,6 @@ footer.site{
   .card.featured{transform:scale(1.03)}
   .card.featured:hover{transform:scale(1.03) translateY(-6px)}
   .ig-grid{grid-auto-flow:row;grid-auto-columns:unset;grid-template-columns:repeat(3,1fr);overflow:visible}
-  .proof-stats{grid-template-columns:repeat(3,1fr)}
   .footer-row{flex-direction:row;align-items:center}
 }
 
@@ -654,22 +640,8 @@ footer.site{
       <div class="ig-slot" data-label="Latest IG post 6 — auto-fills once Behold feed URL is set"></div>
     </div>
 
-    <!-- Real numbers — honest proof, no invented quotes.
-         Want quotes here later? Swap in real member/comment quotes with permission. -->
-    <div class="proof-stats">
-      <div class="pstat reveal" data-delay="1">
-        <span class="pnum"><span data-count-to="175">0</span>K+</span>
-        <span class="plabel">filmmakers follow the breakdowns</span>
-      </div>
-      <div class="pstat reveal" data-delay="2">
-        <span class="pnum"><span data-count-to="87">0</span></span>
-        <span class="plabel">templates inside the Toolkit</span>
-      </div>
-      <div class="pstat reveal" data-delay="3">
-        <span class="pnum"><span data-count-to="16">0</span></span>
-        <span class="plabel">free tools built for working shooters</span>
-      </div>
-    </div>
+    <!-- Proof stats removed for now — re-add here when you have numbers/quotes
+         you're happy with (real member quotes, verified counts, or IG comments). -->
   </div>
 </section>
 
@@ -744,12 +716,24 @@ footer.site{
   "use strict";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Respect reduced motion for autoplay video ---------- */
-  if(reduceMotion){
+  /* ---------- Autoplay kick (Safari / Low Power Mode / Reduce Motion / late loads) ---------- */
+  function kickVideos(){
     document.querySelectorAll("video[autoplay]").forEach(function(v){
-      v.removeAttribute("autoplay"); v.pause(); v.setAttribute("controls","");
+      v.muted = true; /* property, not just attribute — required by some browsers */
+      if(v.paused){
+        var p = v.play();
+        if(p && p.catch) p.catch(function(){});
+      }
     });
   }
+  kickVideos();
+  document.querySelectorAll("video[autoplay]").forEach(function(v){
+    v.addEventListener("loadeddata", function(){ if(v.paused) v.play().catch(function(){}); }, {once:true});
+  });
+  /* retry once on first interaction — covers strict autoplay policies */
+  ["touchstart","click","scroll"].forEach(function(evt){
+    window.addEventListener(evt, kickVideos, {once:true, passive:true});
+  });
 
   /* ---------- Media CDN fallback (local file missing → load from CDN) ---------- */
   document.querySelectorAll("[data-cdn]").forEach(function(el){
